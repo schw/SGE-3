@@ -16,21 +16,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Evento', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <?= Html::a('Novo Evento', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>    
 
     <?= GridView::widget([
+        'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'idevento',
             'sigla',
             'descricao',
-            'dataIni',
-            'dataFim',
-            // 'horaIni',
+            //'dataIni',
+            //'dataFim',
+            //'horaIni',
             // 'horaFim',
             // 'vagas',
             // 'cagaHoraria',
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'allow',
             // 'responsavel',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}',],
         ],
     ]); ?>
 

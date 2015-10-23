@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Evento */
 
-$this->title = $model->idevento;
+$this->title = $model->descricao;
 $this->params['breadcrumbs'][] = ['label' => 'Eventos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->idevento], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Deseja realmente remover este evento?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idevento',
             'sigla',
             'descricao',
             'dataIni',
@@ -36,11 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'horaIni',
             'horaFim',
             'vagas',
-            'cagaHoraria',
+            'cargaHoraria',
             'imagem',
             'detalhe',
             'allow',
             'responsavel',
+            'tipo_idtipo',
+            'local_idlocal',
         ],
     ]) ?>
 

@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'dataIni')->widget(yii\jui\DatePicker::className(),['value' => date('dd-MM-yyy'), 'dateFormat' => 'dd-MM-yyyy']) ?>
 
-    <?= $form->field($model, 'dataFim')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'dataFim')->widget(yii\jui\DatePicker::className(),['value' => date('dd-MM-yyy'), 'dateFormat' => 'dd-MM-yyyy']) ?>
 
     <?= $form->field($model, 'horaIni')->textInput() ?>
 
@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'cargaHoraria')->textInput() ?>
 
-    <?= $form->field($model, 'imagem')->textInput() ?>
+    <?= $form->field($model, 'imagem')->fileInput() ?>
 
     <?= $form->field($model, 'detalhe')->textArea(['maxlength' => true, 'cols' => 25]) ?>
 

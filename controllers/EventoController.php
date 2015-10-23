@@ -62,14 +62,16 @@ class EventoController extends Controller
     public function actionCreate()
     {
         $model = new Evento();
-        $model->imagem = "Teste";
-                
+        
         if ($model->load(Yii::$app->request->post())) {
-            $model->save();
-            //$model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'));
-
-            //if($model->imagem != null){
-                //return $this->redirect(['index']);
+            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'));
+            
+            //$model->imagem = "Teste";
+            if($model->imagem != null){
+                echo $model->imagem;
+                $model->save();
+                return $this->redirect(['index']);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,

@@ -50,8 +50,8 @@ class Evento extends \yii\db\ActiveRecord
             [['horaIni', 'horaFim'], 'safe'],
             [['sigla', 'descricao'], 'string', 'max' => 45],
             [['dataIni', 'dataFim'], 'string', 'max' => 10],
-            [['imagem'], 'string', 'max' => 10],
-            [['detalhe'], 'string', 'max' => 800]
+            [['imagem'], 'string'],
+            [['detalhe'], 'string', 'max' => 800],
         ];
     }
 
