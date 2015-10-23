@@ -26,7 +26,7 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'vagas')->textInput() ?>
 
-    <?= $form->field($model, 'cagaHoraria')->textInput() ?>
+    <?= $form->field($model, 'cargaHoraria')->textInput() ?>
 
     <?= $form->field($model, 'local_idlocal')->textInput() ?>
 
