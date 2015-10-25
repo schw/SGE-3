@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Evento */
@@ -24,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'horaFim')->textInput() ?>
 
-    <?= $form->field($model, 'vagas')->textInput() ?>
+    <?= $form->field($model, 'vagas')->textInput(['type' => 'number']) ?>
 
     <?= $form->field($model, 'cargaHoraria')->textInput() ?>
 
@@ -32,15 +33,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'detalhe')->textArea(['maxlength' => true, 'cols' => 25]) ?>
 
-    <?= $form->field($model, 'allow')->textInput(['type' => 'number']) ?>
-
-    <?= $form->field($model, 'responsavel')->textInput() ?>
-
-    <?= $form->field($model, 'local_idlocal')->dropDownList(
-            ['1' => 'Local1', '2' => 'Local2'],
-            ['prompt'=>'Selecione um Local', 'message' => 'Erro']
+    <?= $form->field($model, 'allow')->dropDownList(
+            ['1' => 'Ativo', '0' => 'Inativo']
         ); ?>
 
+    <?= $form->field($model, 'responsavel')->textInput(); ?>
+
+    <?= $form->field($model, 'local_idlocal')->dropDownList(
+            ['1' => 'Local 1', '2' => 'Local 2'],
+            ['prompt'=>'Selecione um Local']
+        );?>
     <?= $form->field($model, 'tipo_idtipo')->dropDownList(
             ['1' => 'Tipo 1', '2' => 'Tipo 2'],
             ['prompt'=>'Selecione um Tipo']

@@ -47,6 +47,7 @@ class Evento extends \yii\db\ActiveRecord
         return [
             [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'cargaHoraria', 'allow', 'responsavel', 'tipo_idtipo', 'local_idlocal'], 'required', 'message' => 'Este campo é Obrigatório'],
             [['vagas', 'cargaHoraria', 'allow', 'responsavel', 'tipo_idtipo', 'local_idlocal'], 'integer'],
+            [['dataIni', 'dataFim'], 'date'],
             [['horaIni', 'horaFim'], 'safe'],
             [['sigla', 'descricao'], 'string', 'max' => 45],
             [['dataIni', 'dataFim'], 'string', 'max' => 10],
@@ -72,7 +73,7 @@ class Evento extends \yii\db\ActiveRecord
             'cargaHoraria' => '*Carga Horaria',
             'imagem' => '*Imagem',
             'detalhe' => 'Detalhe',
-            'allow' => '*Allow',
+            'allow' => '*Status',
             'responsavel' => '*Responsavel',
             'tipo_idtipo' => '*Tipo',
             'local_idlocal' => '*Local',

@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'imagem',
             // 'detalhe',
             // 'allow',
-            // 'responsavel',
+            //'responsavel',
 
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}',],
         ],
