@@ -43,7 +43,7 @@ class ItemProgramacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['iditemProgramacao', 'titulo', 'descricao', 'data', 'hora', 'cargaHoraria', 'notificacao', 'local_idlocal', 'evento_idevento'], 'required'],
+            [['titulo', 'descricao', 'palestrante', 'data', 'hora', 'vagas', 'cargaHoraria', 'local_idlocal'], 'required', 'message'=>'Este campo é obrigatório'],
             [['iditemProgramacao', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento'], 'integer'],
             [['hora'], 'safe'],
             [['titulo', 'descricao', 'palestrante', 'notificacao'], 'string', 'max' => 45],
@@ -59,16 +59,16 @@ class ItemProgramacao extends \yii\db\ActiveRecord
     {
         return [
             'iditemProgramacao' => 'Iditem Programacao',
-            'titulo' => 'Titulo',
-            'descricao' => 'Descricao',
-            'palestrante' => 'Palestrante',
-            'data' => 'Data',
-            'hora' => 'Hora',
-            'vagas' => 'Vagas',
-            'cargaHoraria' => 'Carga Horaria',
+            'titulo' => '*Título',
+            'descricao' => '*Descrição',
+            'palestrante' => '*Palestrante',
+            'data' => '*Data',
+            'hora' => '*Hora',
+            'vagas' => '*Vagas',
+            'cargaHoraria' => '*Carga Horária',
             'detalhe' => 'Detalhe',
             'notificacao' => 'Notificacao',
-            'local_idlocal' => 'Local Idlocal',
+            'local_idlocal' => '*Localidade',
             'evento_idevento' => 'Evento Idevento',
         ];
     }
