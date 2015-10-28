@@ -25,6 +25,3 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
-
-#info do Banco
-/config/db.php

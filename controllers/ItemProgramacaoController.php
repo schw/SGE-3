@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\ItemProgramacao;
-use app\models\ItemProgramacaoSearch;
+use app\models\Itemprogramacao;
+use app\models\ItemprogramacaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ItemProgramacaoController implements the CRUD actions for ItemProgramacao model.
+ * ItemprogramacaoController implements the CRUD actions for Itemprogramacao model.
  */
-class ItemProgramacaoController extends Controller
+class ItemprogramacaoController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class ItemProgramacaoController extends Controller
     }
 
     /**
-     * Lists all ItemProgramacao models.
+     * Lists all Itemprogramacao models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ItemProgramacaoSearch();
+        $searchModel = new ItemprogramacaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class ItemProgramacaoController extends Controller
     }
 
     /**
-     * Displays a single ItemProgramacao model.
+     * Displays a single Itemprogramacao model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class ItemProgramacaoController extends Controller
     }
 
     /**
-     * Creates a new ItemProgramacao model.
+     * Creates a new Itemprogramacao model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ItemProgramacao();
+        $model = new Itemprogramacao();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->iditemProgramacao]);
@@ -72,7 +72,7 @@ class ItemProgramacaoController extends Controller
     }
 
     /**
-     * Updates an existing ItemProgramacao model.
+     * Updates an existing Itemprogramacao model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class ItemProgramacaoController extends Controller
     }
 
     /**
-     * Deletes an existing ItemProgramacao model.
+     * Deletes an existing Itemprogramacao model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class ItemProgramacaoController extends Controller
     }
 
     /**
-     * Finds the ItemProgramacao model based on its primary key value.
+     * Finds the Itemprogramacao model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ItemProgramacao the loaded model
+     * @return Itemprogramacao the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ItemProgramacao::findOne($id)) !== null) {
+        if (($model = Itemprogramacao::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper
+use yii\helpers\ArrayHelper;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Evento */
@@ -43,6 +44,7 @@ use yii\helpers\ArrayHelper
             ['1' => 'Local 1', '2' => 'Local 2'],
             ['prompt'=>'Selecione um Local']
         );?>
+        
     <?= $form->field($model, 'tipo_idtipo')->dropDownList(
             ['1' => 'Tipo 1', '2' => 'Tipo 2'],
             ['prompt'=>'Selecione um Tipo']

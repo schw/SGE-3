@@ -39,7 +39,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Item de Programação', 'url' => ['item-programacao/index']],
+            ['label' => 'Item de Programação', 'url' => ['itemprogramacao/index']],
             ['label' => 'Eventos', 'url' => ['evento/index']],
             //['label' => 'About', 'url' => ['/site/about']],
             //['label' => 'Contact', 'url' => ['/site/contact']],

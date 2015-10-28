@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "itemProgramacao".
+ * This is the model class for table "itemprogramacao".
  *
  * @property integer $iditemProgramacao
  * @property string $titulo
@@ -19,22 +19,24 @@ use Yii;
  * @property string $notificacao
  * @property integer $local_idlocal
  * @property string $evento_idevento
+ * @property integer $tipo_idtipo
  *
  * @property Evento $eventoIdevento
  * @property Local $localIdlocal
- * @property ItemProgramacaoHasPacote[] $itemProgramacaoHasPacotes
+ * @property Tipo $tipoIdtipo
+ * @property ItemprogramacaoHasPacote[] $itemprogramacaoHasPacotes
  * @property Pacote[] $pacoteIdpacotes
- * @property ItemProgramacaoHasVoluntario[] $itemProgramacaoHasVoluntarios
+ * @property ItemprogramacaoHasVoluntario[] $itemprogramacaoHasVoluntarios
  * @property Voluntario[] $voluntarioIdvoluntarios
  */
-class ItemProgramacao extends \yii\db\ActiveRecord
+class Itemprogramacao extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'itemProgramacao';
+        return 'itemprogramacao';
     }
 
     /**
@@ -43,10 +45,11 @@ class ItemProgramacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titulo', 'descricao', 'palestrante', 'data', 'hora', 'vagas', 'cargaHoraria', 'local_idlocal'], 'required', 'message'=>'Este campo é obrigatório'],
-            [['iditemProgramacao', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento'], 'integer'],
+            [['titulo', 'descricao', 'data', 'hora', 'vagas', 'cargaHoraria', 'notificacao', 'local_idlocal', 'evento_idevento'], 'required', 'message'=>'Este campo é obrigatório'],
             [['hora'], 'safe'],
-            [['titulo', 'descricao', 'palestrante', 'notificacao'], 'string', 'max' => 45],
+            [['vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
+            [['titulo', 'palestrante', 'notificacao'], 'string', 'max' => 45],
+            [['descricao'], 'string', 'max' => 80],
             [['data'], 'string', 'max' => 10],
             [['detalhe'], 'string', 'max' => 800]
         ];
@@ -67,9 +70,10 @@ class ItemProgramacao extends \yii\db\ActiveRecord
             'vagas' => '*Vagas',
             'cargaHoraria' => '*Carga Horária',
             'detalhe' => 'Detalhe',
-            'notificacao' => 'Notificacao',
-            'local_idlocal' => '*Localidade',
-            'evento_idevento' => 'Evento Idevento',
+            'notificacao' => 'Notificação',
+            'local_idlocal' => 'Localização',
+            'evento_idevento' => 'Evento',
+            'tipo_idtipo' => 'Tipo Idtipo',
         ];
     }
 
@@ -92,9 +96,17 @@ class ItemProgramacao extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getItemProgramacaoHasPacotes()
+    public function getTipoIdtipo()
     {
-        return $this->hasMany(ItemProgramacaoHasPacote::className(), ['itemProgramacao_iditemProgramacao' => 'iditemProgramacao']);
+        return $this->hasOne(Tipo::className(), ['idtipo' => 'tipo_idtipo']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemprogramacaoHasPacotes()
+    {
+        return $this->hasMany(ItemprogramacaoHasPacote::className(), ['itemProgramacao_iditemProgramacao' => 'iditemProgramacao']);
     }
 
     /**
@@ -102,15 +114,15 @@ class ItemProgramacao extends \yii\db\ActiveRecord
      */
     public function getPacoteIdpacotes()
     {
-        return $this->hasMany(Pacote::className(), ['idpacote' => 'pacote_idpacote'])->viaTable('itemProgramacao_has_pacote', ['itemProgramacao_iditemProgramacao' => 'iditemProgramacao']);
+        return $this->hasMany(Pacote::className(), ['idpacote' => 'pacote_idpacote'])->viaTable('itemprogramacao_has_pacote', ['itemProgramacao_iditemProgramacao' => 'iditemProgramacao']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getItemProgramacaoHasVoluntarios()
+    public function getItemprogramacaoHasVoluntarios()
     {
-        return $this->hasMany(ItemProgramacaoHasVoluntario::className(), ['itemProgramacao_iditemProgramacao' => 'iditemProgramacao']);
+        return $this->hasMany(ItemprogramacaoHasVoluntario::className(), ['itemProgramacao_iditemProgramacao' => 'iditemProgramacao']);
     }
 
     /**
@@ -118,6 +130,6 @@ class ItemProgramacao extends \yii\db\ActiveRecord
      */
     public function getVoluntarioIdvoluntarios()
     {
-        return $this->hasMany(Voluntario::className(), ['idvoluntario' => 'voluntario_idvoluntario'])->viaTable('itemProgramacao_has_voluntario', ['itemProgramacao_iditemProgramacao' => 'iditemProgramacao']);
+        return $this->hasMany(Voluntario::className(), ['idvoluntario' => 'voluntario_idvoluntario'])->viaTable('itemprogramacao_has_voluntario', ['itemProgramacao_iditemProgramacao' => 'iditemProgramacao']);
     }
 }

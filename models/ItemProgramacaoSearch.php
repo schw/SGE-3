@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\ItemProgramacao;
+use app\models\Itemprogramacao;
 
 /**
- * ItemProgramacaoSearch represents the model behind the search form about `app\models\ItemProgramacao`.
+ * ItemprogramacaoSearch represents the model behind the search form about `app\models\Itemprogramacao`.
  */
-class ItemProgramacaoSearch extends ItemProgramacao
+class ItemprogramacaoSearch extends Itemprogramacao
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class ItemProgramacaoSearch extends ItemProgramacao
     public function rules()
     {
         return [
-            [['iditemProgramacao', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento'], 'integer'],
+            [['iditemProgramacao', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
             [['titulo', 'descricao', 'palestrante', 'data', 'hora', 'detalhe', 'notificacao'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class ItemProgramacaoSearch extends ItemProgramacao
      */
     public function search($params)
     {
-        $query = ItemProgramacao::find();
+        $query = Itemprogramacao::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -62,6 +62,7 @@ class ItemProgramacaoSearch extends ItemProgramacao
             'cargaHoraria' => $this->cargaHoraria,
             'local_idlocal' => $this->local_idlocal,
             'evento_idevento' => $this->evento_idevento,
+            'tipo_idtipo' => $this->tipo_idtipo,
         ]);
 
         $query->andFilterWhere(['like', 'titulo', $this->titulo])
