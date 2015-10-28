@@ -13,10 +13,9 @@ use yii\jui\DatePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
-
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'descricao')->textArea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'palestrante')->textInput(['maxlength' => true]) ?>
 
@@ -24,11 +23,14 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'hora')->textInput() ?>
 
-    <?= $form->field($model, 'vagas')->textInput() ?>
+    <?= $form->field($model, 'vagas')->textInput(['type' => 'number']) ?>
 
     <?= $form->field($model, 'cargaHoraria')->textInput() ?>
 
     <?= $form->field($model, 'local_idlocal')->textInput() ?>
+
+    <?php /* Html::activeDropDownList($model, 'local_idlocal',
+      ArrayHelper::map(local::find()->all(), 'idlocal', 'descricao')) */?>
 
 
     <div class="form-group">
