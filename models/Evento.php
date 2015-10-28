@@ -45,7 +45,8 @@ class Evento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'cargaHoraria', 'allow', 'responsavel', 'tipo_idtipo', 'local_idlocal'], 'required', 'message' => 'Este campo é Obrigatório'],
+            [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'cargaHoraria', 'allow', 
+            'responsavel', 'tipo_idtipo', 'local_idlocal'], 'required', 'message' => 'Este campo é Obrigatório'],
             [['vagas', 'cargaHoraria', 'allow', 'responsavel', 'tipo_idtipo', 'local_idlocal'], 'integer'],
             [['dataIni', 'dataFim'], 'date'],
             [['horaIni', 'horaFim'], 'safe'],
@@ -113,7 +114,8 @@ class Evento extends \yii\db\ActiveRecord
      */
     public function getUsuarioIdusuarios()
     {
-        return $this->hasMany(Usuario::className(), ['idusuario' => 'usuario_idusuario'])->viaTable('inscreve', ['evento_idevento' => 'idevento']);
+        return $this->hasMany(Usuario::className(), ['idusuario' => 'usuario_idusuario'])->viaTable('inscreve', 
+            ['evento_idevento' => 'idevento']);
     }
 
     /**
