@@ -65,7 +65,7 @@ class EventoController extends Controller
     {
         $model = new Evento();
         $model->responsavel = 1;
-        $model->status = 1;
+        $model->allow = 1;
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
         
         if ($model->load(Yii::$app->request->post())) {
