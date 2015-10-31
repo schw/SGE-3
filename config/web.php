@@ -47,23 +47,23 @@ $config = [
  
         // format settings for displaying each date attribute (ICU format example)
         'displaySettings' => [
-            Module::FORMAT_DATE => 'dd-MM-yyyy',
+            Module::FORMAT_DATE => 'd-M-Y',
             Module::FORMAT_TIME => 'H:mm',
             Module::FORMAT_DATETIME => 'dd-MM-yyyy hh:mm:ss a', 
         ],
         
         // format settings for saving each date attribute (PHP format example)
         'saveSettings' => [
-            Module::FORMAT_DATE => 'php:U', // saves as unix timestamp
-            Module::FORMAT_TIME => 'php:H:i:s',
+            Module::FORMAT_DATE => 'php:Y-m-d', // saves as unix timestamp
+            Module::FORMAT_TIME => 'php:H:m',
             Module::FORMAT_DATETIME => 'php:Y-m-d H:i:s',
         ],
  
         // set your display timezone
-        'displayTimezone' => 'Asia/Kolkata',
+        'displayTimezone' => 'America/Caracas',
  
         // set your timezone for date saved to db
-        'saveTimezone' => 'UTC',
+        'saveTimezone' => 'America/Caracas',
         
         // automatically use kartik\widgets for each of the above formats
         'autoWidget' => true,

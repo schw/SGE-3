@@ -48,10 +48,9 @@ class Evento extends \yii\db\ActiveRecord
             [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'cargaHoraria', 'allow', 
             'responsavel', 'tipo_idtipo', 'local_idlocal'], 'required', 'message' => 'Este campo é Obrigatório'],
             [['vagas', 'cargaHoraria', 'allow', 'responsavel', 'tipo_idtipo', 'local_idlocal'], 'integer'],
-            [['dataIni', 'dataFim'], 'date', 'max' => 2010-12-31, 'min' => 1990-02-02],
+            [['dataIni', 'dataFim'], 'string'],
             [['horaIni', 'horaFim'], 'safe'],
             [['sigla', 'descricao'], 'string', 'max' => 45],
-            
             [['imagem'], 'string'],
             [['detalhe'], 'string', 'max' => 800],
         ];
@@ -85,8 +84,9 @@ class Evento extends \yii\db\ActiveRecord
     public function upload($imageFile)
     {
         if ($imageFile != null) {
-            $imageFile->saveAs('uploads/' . $imageFile->baseName . '.' . $imageFile->extension);
-            return $imageFile->basename;
+            $imageName = date('dmYhms');
+            $imageFile->saveAs('uploads/' . $imageName . '.' . $imageFile->extension);
+            return $imageName.".".$imageFile->extension;
         } else {
             return null;
         }
@@ -133,4 +133,15 @@ class Evento extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Pacote::className(), ['evento_idevento' => 'idevento']);
     }
+
+    public function getTipo()
+    {
+        return $this->hasOne(Tipo::className(), ['idtipo' => 'tipo_idtipo']);
+    }
+/*
+    public function getLocal()
+    {
+        return $this->hasOne(Usuario::className(), ['idusuario' => 'responsavel']);
+    }
+    */
 }

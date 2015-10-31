@@ -50,5 +50,10 @@ input{
 }
 
 #evento-tipo_idtipo, #evento-local_idlocal{
-	width: 30%
+	width: 30%;
+  display: inline;
+}
+
+.field-evento-tipo{
+  width: 150px;
 }

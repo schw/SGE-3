@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Evento */
 
-$this->title = $model->descricao;
+$this->title = "Editar: ".$model->descricao;
 $this->params['breadcrumbs'][] = ['label' => 'Eventos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,14 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->idevento], [
+        <?= Html::a('Alterar', ['update', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Remover', ['delete', 'id' => $model->idevento], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Deseja realmente remover este evento?',
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Adicionar Programação', ['itemprogramacao/index', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -36,11 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'horaFim',
             'vagas',
             'cargaHoraria',
-            'imagem',
             'detalhe',
-            'allow',
-            'responsavel',
-            'tipo_idtipo',
+            'tipo.titulo',
             'local_idlocal',
         ],
     ]) ?>
