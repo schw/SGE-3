@@ -41,7 +41,13 @@ class EventoSearch extends Evento
      */
     public function search($params)
     {
-        $query = Evento::find();
+        //Litando apenas Eventos de um determinado professor
+        if(isset($params['status']) && $params['status'] == 'passados')
+            $statusEvento = "dataFim < '".date('Y-m-d')."'";
+        else
+            $statusEvento = "dataFim >= '".date('Y-m-d')."'";
+
+        $query = Evento::find()->where(['responsavel' => Yii::$app->user->identity->username])->andwhere($statusEvento);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

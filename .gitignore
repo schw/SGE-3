@@ -25,3 +25,10 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
+
+Configuração Banco de Dados
+/config/db.php
+
+#Direcionamento
+index.php
+

@@ -48,10 +48,10 @@ class Evento extends \yii\db\ActiveRecord
             [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'cargaHoraria', 'allow', 
             'responsavel', 'tipo_idtipo', 'local_idlocal'], 'required', 'message' => 'Este campo é Obrigatório'],
             [['vagas', 'cargaHoraria', 'allow', 'responsavel', 'tipo_idtipo', 'local_idlocal'], 'integer'],
-            [['dataIni', 'dataFim'], 'date'],
+            [['dataIni', 'dataFim'], 'date', 'max' => 2010-12-31, 'min' => 1990-02-02],
             [['horaIni', 'horaFim'], 'safe'],
             [['sigla', 'descricao'], 'string', 'max' => 45],
-            [['dataIni', 'dataFim'], 'string', 'max' => 10],
+            
             [['imagem'], 'string'],
             [['detalhe'], 'string', 'max' => 800],
         ];

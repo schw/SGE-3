@@ -33,6 +33,7 @@ class EventoController extends Controller
      */
     public function actionIndex()
     {
+        Yii::$app->user->identity->username = '1';
         $searchModel = new EventoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

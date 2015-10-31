@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\jui\DatePicker;
+use kartik\datecontrol\Module;
+use kartik\datecontrol\DateControl;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Evento */
@@ -18,13 +20,37 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true, "size" => 40]) ?>
 
-    <?= $form->field($model, 'dataIni')->widget(yii\jui\DatePicker::className(),['value' => date('dd-MM-yyy'), 'dateFormat' => 'dd-MM-yyyy']) ?>
+    <?= $form->field($model, 'dataIni')->widget(DateControl::classname(), [
+    //'language' => $config->language,
+    'type' => DateControl::FORMAT_DATE,
+    //'autoWidget' => $config->autoWidget,
+    //'widgetClass' => $config->widgetClass,
+    'displayFormat' => 'php:d-F-Y' 
+    // display as 'php:d-F-Y' or 'php:d-F-Y H:i:s'
+    //'saveOptions' => $saveOptions,
+    //'options' => $options
+    ]) ?>
 
-    <?= $form->field($model, 'dataFim')->widget(yii\jui\DatePicker::className(),['value' => date('dd-MM-yyy'), 'dateFormat' => 'dd-MM-yyyy']) ?>
+    <?= $form->field($model, 'dataFim')->widget(DateControl::classname(), [
+    //'language' => $config->language,
+    'type' => DateControl::FORMAT_DATE,
+    //'autoWidget' => $config->autoWidget,
+    //'widgetClass' => $config->widgetClass,
+    'displayFormat' => 'php:d-F-Y' 
+    // display as 'php:d-F-Y' or 'php:d-F-Y H:i:s'
+    //'saveOptions' => $saveOptions,
+    //'options' => $options
+    ]) ?>
 
-    <?= $form->field($model, 'horaIni')->textInput() ?>
+    <?= $form->field($model, 'horaIni')->widget(DateControl::classname(), [
+    'language' => 'pt-BR',
+    'type'=>DateControl::FORMAT_TIME,
+    ]) ?>
 
-    <?= $form->field($model, 'horaFim')->textInput() ?>
+    <?= $form->field($model, 'horaFim')->widget(DateControl::classname(), [
+    'language' => 'pt-BR',
+    'type'=>DateControl::FORMAT_TIME,
+    ]) ?>
 
     <?= $form->field($model, 'vagas')->textInput(['type' => 'number']) ?>
 
