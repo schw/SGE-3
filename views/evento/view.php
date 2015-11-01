@@ -42,5 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'local_idlocal',
         ],
     ]) ?>
-    <?= Html::img('plugins/getQRCode.php?conteudo_QRCODE=$model->id', ['alt' => 'QRCode', 'id' => 'imgqrcode']) ?>
+    <h2>QRCode <?= $model->descricao ?></h2>
+    <?= Html::img('plugins/getQRCode.php?conteudo_QRCODE='.$model->idevento, ['alt' => 'QRCode', 'id' => 'imgqrcode']) ?>
 </div>

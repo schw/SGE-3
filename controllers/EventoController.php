@@ -51,8 +51,11 @@ class EventoController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
+        $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
