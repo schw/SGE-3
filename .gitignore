@@ -28,7 +28,3 @@ phpunit.phar
 
 Configuração Banco de Dados
 /config/db.php
-
-#Direcionamento
-index.php
-
