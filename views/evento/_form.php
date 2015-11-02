@@ -70,7 +70,7 @@ use kartik\datecontrol\DateControl;
             $arrayTipo,
             ['prompt'=>'Selecione um Tipo']
         ); ?>
-    <p><?= Html::a('Novo Tipo', ['itemprogramacao/index'], ['class' => 'btn btn-success']); ?><p>
+    <p><?= Html::a('Novo Tipo', ['tipo/index'], ['class' => 'btn btn-success']); ?><p>
 
 
     <?php /* Html::activeDropDownList($model, 'local_idlocal',
