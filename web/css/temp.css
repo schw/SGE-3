@@ -65,23 +65,28 @@ input{
 
 .evento-index{
   margin-left: 350px;
-  width: 1000px;
+  width: 900px;
 }
 
 .evento-view{
   margin-left: 350px;
-  width: 1000px;
+  width: 900px;
 }
 
 .evento-create{
   margin-left: 350px;
-  width: 1000px;  
+  width: 900px;  
 }
 
 .tipo-index{
   margin-left: 350px;
-  width: 1000px; 
+  width: 900px; 
 
+}
+
+.site-error{
+  margin-left: 350px;
+  width: 900px;
 }
 
 
