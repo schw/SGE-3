@@ -33,8 +33,8 @@ input{
   width: 40%;
 }
 
-.field-evento-dataini, .field-evento-datafim-disp, .field-evento-horaini-disp, .field-evento-horafim-disp{
-  width: 200px;
+#evento-dataini-disp-kvdate, #evento-datafim-disp-kvdate, .field-evento-horaini-disp, .field-evento-horafim-disp{
+  width: 300px;
 }
 
 #evento-imagem{

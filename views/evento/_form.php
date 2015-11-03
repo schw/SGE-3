@@ -23,6 +23,7 @@ use kartik\datecontrol\DateControl;
     <?= $form->field($model, 'dataIni')->widget(DateControl::classname(), [
     //'language' => $config->language,
     'type' => DateControl::FORMAT_DATE,
+    'language' => 'pt-BR',
     //'autoWidget' => $config->autoWidget,
     //'widgetClass' => $config->widgetClass,
     'displayFormat' => 'php:d-F-Y' 
@@ -32,7 +33,7 @@ use kartik\datecontrol\DateControl;
     ]) ?>
 
     <?= $form->field($model, 'dataFim')->widget(DateControl::classname(), [
-    //'language' => $config->language,
+    'language' => 'pt-BR',
     'type' => DateControl::FORMAT_DATE,
     //'autoWidget' => $config->autoWidget,
     //'widgetClass' => $config->widgetClass,

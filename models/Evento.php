@@ -65,16 +65,16 @@ class Evento extends \yii\db\ActiveRecord
             'idevento' => 'Idevento',
             'sigla' => '*Sigla',
             'descricao' => '*Descricao',
-            'dataIni' => '*Data Ini',
-            'dataFim' => '*Data Fim',
-            'horaIni' => '*Hora Ini',
-            'horaFim' => '*Hora Fim',
+            'dataIni' => '*Data Inicial',
+            'dataFim' => '*Data Final',
+            'horaIni' => '*Hora Inicial',
+            'horaFim' => '*Hora Final',
             'vagas' => 'Vagas',
-            'cargaHoraria' => '*Carga Horaria',
-            'imagem' => '*Imagem',
+            'cargaHoraria' => '*Carga Horária',
+            'imagem' => 'Imagem',
             'detalhe' => 'Detalhe',
             'allow' => '*Status',
-            'responsavel' => '*Responsavel',
+            'responsavel' => '*Responsável',
             'tipo_idtipo' => '*Tipo',
             'local_idlocal' => '*Local',
         ];
@@ -98,7 +98,7 @@ class Evento extends \yii\db\ActiveRecord
      */
     public function getResponsavel0()
     {
-        return $this->hasOne(Usuario::className(), ['idusuario' => 'responsavel']);
+        return $this->hasOne(User::className(), ['idusuario' => 'responsavel']);
     }
 
     /**
@@ -114,7 +114,7 @@ class Evento extends \yii\db\ActiveRecord
      */
     public function getUsuarioIdusuarios()
     {
-        return $this->hasMany(Usuario::className(), ['idusuario' => 'usuario_idusuario'])->viaTable('inscreve', 
+        return $this->hasMany(User::className(), ['idusuario' => 'usuario_idusuario'])->viaTable('inscreve', 
             ['evento_idevento' => 'idevento']);
     }
 
