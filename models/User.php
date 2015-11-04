@@ -2,37 +2,107 @@
 
 namespace app\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+use Yii;
+
+/**
+ * This is the model class for table "user".
+ *
+ * @property integer $idusuario
+ * @property string $nome
+ * @property string $senha
+ * @property string $cracha
+ * @property string $email
+ * @property string $instituicao
+ * @property integer $tipoUsuario
+ * @property integer $notificarViaEmail
+ * @property string $authKey
+ * @property string $accessToken
+ *
+ * @property Evento[] $eventos
+ * @property Inscreve[] $inscreves
+ * @property Evento[] $eventoIdeventos
+ */
+
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
 
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+    	return 'user';
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+    	return [
+    			[[ 'nome', 'senha', 'email'], 'required'],
+    			[['tipoUsuario', 'notificarViaEmail'], 'integer'],
+    			[['nome'], 'string', 'max' => 50],
+    			[['senha', 'cracha', 'email', 'instituicao'], 'string', 'max' => 45],
+    			[['authKey', 'accessToken'], 'string', 'max' => 255],
+    			[['email'], 'unique']
+    	];
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+    	return [
+    			'idusuario' => 'Idusuario',
+    			'nome' => 'Nome',
+    			'senha' => 'Senha',
+    			'cracha' => 'Cracha',
+    			'email' => 'Email',
+    			'instituicao' => 'Instituicao',
+    			'tipoUsuario' => 'Tipo Usuario',
+    			'notificarViaEmail' => 'Notificar Via Email',
+    			'authKey' => 'Auth Key',
+    			'accessToken' => 'Access Token',
+    	];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventos()
+    {
+    	return $this->hasMany(Evento::className(), ['responsavel' => 'idusuario']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getInscreves()
+    {
+    	return $this->hasMany(Inscreve::className(), ['usuario_idusuario' => 'idusuario']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEventoIdeventos()
+    {
+    	return $this->hasMany(Evento::className(), ['idevento' => 'evento_idevento'])->viaTable('inscreve', ['usuario_idusuario' => 'idusuario']);
+    }
+    
     /**
      * @inheritdoc
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+    	//echo '<script language="javascript">';
+    	//echo 'alert("message '. $id .' successfully sent")';
+    	//echo '</script>';
+        /*return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;*/
+    	return static::findOne(['email'=>$id]);
+    	//return static::findOne($id);
     }
 
     /**
@@ -40,13 +110,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+       return static::findOne(['accessToken'=>$token]);
     }
 
     /**
@@ -55,15 +119,27 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      * @param  string      $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    
+    public static function findByNome($nome)
     {
-        foreach (self::$users as $user) {
+    	/*foreach (self::$users as $user) {
+    	 if (strcasecmp($user['username'], $username) === 0) {
+    	 return new static($user);
+    	 }
+    	 }*/
+    	return static::findOne(['nome'=>$nome]);
+    
+    }
+    
+    public static function findByEmail($email)
+    {
+        /*foreach (self::$users as $user) {
             if (strcasecmp($user['username'], $username) === 0) {
                 return new static($user);
             }
-        }
+        }*/
+    	return static::findOne(['email'=>$email]);
 
-        return null;
     }
 
     /**
@@ -71,7 +147,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function getId()
     {
-        return $this->id;
+        return $this->email;
     }
 
     /**
@@ -98,6 +174,6 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return $this->senha === $password;
     }
 }

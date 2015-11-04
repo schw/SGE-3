@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\base\Model;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -60,7 +62,20 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            //return $this->goBack();
+            if($model->getUser()->tipoUsuario === 1){
+            	return $this->render('coordenador',['model'=> $model->getUser()]);
+           		//return $this->render('../layouts/posLogin');
+           		
+            }elseif($model->getUser()->tipoUsuario === 2){
+            	return $this->render('secretaria',['model'=> $model->getUser()]);
+            	//return $this->goHome();
+            	
+            }else{
+            	return $this->render('usuario',['model'=> $model->getUser()]);
+            	//return $this->goHome();
+           
+            }
         }
         return $this->render('login', [
             'model' => $model,
@@ -91,4 +106,96 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+    
+    public function actionUsuario(){
+    	echo '<script language="javascript">';
+    	if(Yii::$app->user->identity->tipoUsuario === 3){ 
+    		echo 'alert("mensagem vinda do usuario")';
+    		echo '</script>';
+    		return $this->render('usuario',['model'=> Yii::$app->user->identity]);
+    	}elseif(Yii::$app->user->identity->tipoUsuario === 2){
+    		echo 'alert("mensagem vinda do secretario")';
+    		echo '</script>';
+    		return $this->render('secretaria',['model'=> Yii::$app->user->identity]);
+    	}else{
+    		echo 'alert("mensagem vinda do coordenador")';
+    		echo '</script>';
+    		return $this->render('coordenador',['model'=> Yii::$app->user->identity]);
+    	//return $this->goBack();
+    
+    	}
+    }
+    
+    public function actionCoordenador(){
+    	echo '<script language="javascript">';
+    	echo 'alert("mensagem vinda do actionCoordenador")';
+    	echo '</script>';
+    	return $this->render('coordenador',['model'=> Yii::$app->user->identity]);
+    	//return $this->goBack();
+    }
+    
+    public function actionSecretaria(){
+    	echo '<script language="javascript">';
+    	echo 'alert("mensagem vinda do actionSecretaria")';
+    	echo '</script>';
+    	return $this->render('secretaria',['model'=> Yii::$app->user->identity]);
+    	//return $this->goBack();
+    }
+    
+    public function actionRecuperar(){
+    	if ( Yii::$app->request->post())
+    	{
+    		echo '<script language="javascript">';
+    		echo 'alert("reperar post")';
+    		echo '</script>';
+    		
+    		$email = Yii::$app->request->post('email');
+    		$usuario = User::find()->where(['email'=>$email])->one();
+    		if($usuario!=null) //se o usuario com email informado existe...
+    		{
+    			echo '<script language="javascript">';
+    			echo 'alert("mensagem vinda do recuperar")';
+    			echo '</script>';
+    			Yii::$app->mailer->compose()
+    			->setFrom('sge@domain.com')
+    			->setTo('wes.lima.23@gmail.com')
+    			->setSubject('Senha SGE')
+    			->setTextBody('aaaaaaaaa')
+    			->setHtmlBody('<b>HTML content</b>')
+    			->send();
+    			return $this->render('recuperar');
+    		}
+    	}else{
+    		echo '<script language="javascript">';
+    		echo 'alert("recuperar sem post")';
+    		echo '</script>';
+    		return $this->render('recuperar');
+    	}
+    }
+    
+    public function actionRecupera(){
+    	echo '<script language="javascript">';
+    	echo 'alert("mensagem vinda do formulario")';
+    	echo '</script>';
+    	if ( Yii::$app->request->post())
+    	{
+    		$email = Yii::$app->request->post('email');
+    		$usuario = User::find()->where(['email'=>$email])->one();
+    		if($usuario!=null) //se o usuario com email informado existe...
+    		{
+    			echo '<script language="javascript">';
+    			echo 'alert("mensagem vinda do recuperar")';
+    			echo '</script>';
+    			Yii::$app->mailer->compose()
+    			->setFrom('wes.lima.23@gmail.com')
+    			->setTo($email)
+    			->setSubject('Senha SGE')
+    			->setTextBody($usuario->senha)
+    			->setHtmlBody('<b>HTML content</b>')
+    			->send();
+    		}
+    	}
+    	
+    }
+    
 }

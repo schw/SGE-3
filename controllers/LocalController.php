@@ -3,20 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use yii\helpers\ArrayHelper;
-use app\models\Evento;
 use app\models\Local;
-use app\models\Tipo;
-use app\models\EventoSearch;
+use app\models\LocalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * EventoController implements the CRUD actions for Evento model.
+ * LocalController implements the CRUD actions for Local model.
  */
-class EventoController extends Controller
+class LocalController extends Controller
 {
     public function behaviors()
     {
@@ -31,94 +27,73 @@ class EventoController extends Controller
     }
 
     /**
-     * Lists all Evento models.
+     * Lists all Local models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new EventoSearch();
+        $searchModel = new LocalSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'item' => 'index',
         ]);
     }
 
     /**
-     * Displays a single Evento model.
-     * @param string $id
+     * Displays a single Local model.
+     * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-        $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
-        $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
         return $this->render('view', [
-            'model' => $model,
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Evento model.
+     * Creates a new Local model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Evento();
-        $model->responsavel = 1;
-        $model->allow = 1;
-        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
-        $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
-        
-        if ($model->load(Yii::$app->request->post())) {
-            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'));
-            
-            //if($model->imagem != null){
-                $model->save();
-                print_r($model->getErrors());
-                return $this->redirect(['index']);
-            //}
+        $model = new Local();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->idlocal]);
         } else {
-            print_r($model->getErrors());
             return $this->render('create', [
                 'model' => $model,
-                'arrayTipo' => $arrayTipo,
-                'arrayLocal' => $arrayLocal,
             ]);
         }
     }
 
     /**
-     * Updates an existing Evento model.
+     * Updates an existing Local model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
-        $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idevento]);
+            return $this->redirect(['view', 'id' => $model->idlocal]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'arrayTipo' => $arrayTipo,
-                'arrayLocal' => $arrayLocal,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Evento model.
+     * Deletes an existing Local model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
@@ -129,15 +104,15 @@ class EventoController extends Controller
     }
 
     /**
-     * Finds the Evento model based on its primary key value.
+     * Finds the Local model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Evento the loaded model
+     * @param integer $id
+     * @return Local the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Evento::findOne($id)) !== null) {
+        if (($model = Local::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

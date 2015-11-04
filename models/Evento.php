@@ -138,6 +138,7 @@ class Evento extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Tipo::className(), ['idtipo' => 'tipo_idtipo']);
     }
+
 /*
     public function getLocal()
     {

@@ -62,7 +62,7 @@ use kartik\datecontrol\DateControl;
     <?= $form->field($model, 'detalhe')->textArea(['maxlength' => true, 'cols' => 25]) ?>
 
     <?= $form->field($model, 'local_idlocal')->dropDownList(
-            ['1' => 'Local 1', '2' => 'Local 2'],
+            ['1' => 'local 1'],
             ['prompt'=>'Selecione um Local']
         );?>
     <p><?= Html::a('Novo Local', ['local/index'], ['class' => 'btn btn-success']); ?><p>

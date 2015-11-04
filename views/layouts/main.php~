@@ -40,11 +40,11 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'url' => ['site/recuperar']] : ['label' => ''],
-            Yii::$app->user->isGuest ? ['label' => 'sign up', 'url' => ['/user/create']] : ['label' => ''],
             ['label' => 'Item de Programação', 'url' => ['itemprogramacao/index']],
             ['label' => 'Eventos', 'url' => ['evento/index']],
-            Yii::$app->user->isGuest ? ['label' => 'Home', 'url' => ['index']] : ['label' => 'Home', 'url'=>['site/usuario']],
+            Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'url' => ['site/recuperar']] : ['label' => ''],
+  	    Yii::$app->user->isGuest ? ['label' => 'sign up', 'url' => ['/user/create']] : ['label' => ''],
+	    Yii::$app->user->isGuest ? ['label' => 'Home', 'url' => ['index']] : ['label' => 'Home', 'url'=>['site/usuario']],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
                 [
