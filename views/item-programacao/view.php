@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="itemprogramacao-view">
 
-    <h1><?= Html::encode($this->title) ?><input type="image" align="right" id ="icone" src="<?php ?>/SGEF/web/img/icon-voltar.png" onclick="location. href= 'http://localhost/SGEF/web/index.php?r=itemprogramacao%2Findex&id=<?php echo $model->evento_idevento; ?>'" ></h1>
+    <h1><?= Html::encode($this->title) ?><input type="image" align="right" id ="icone" src="<?php ?>img/icon-voltar.png" onclick="location. href= 'http://localhost/SGEF/web/index.php?r=item-programacao%2Findex&id=<?php echo $model->evento_idevento; ?>'" ></h1>  
     <br></br>
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->iditemProgramacao], ['class' => 'btn btn-primary']) ?>
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'detalhe',
             'notificacao',
             'local_idlocal',
-            'evento.sigla',
+            'evento.descricao',
             'tipo.titulo',
         ],
     ]) ?>

@@ -143,13 +143,22 @@ class SiteController extends Controller
     }
     
     public function actionRecuperar(){
-    	       if ( Yii::$app->request->post()){
+    	    if ( Yii::$app->request->post())
+        {
             $model;
             $email = Yii::$app->request->post('email');
             $usuario = User::find()->where(['email'=>$email])->one();
             //$usuario = User::findByEmail($email);
+            if($usuario===null){
+                echo '<script language="javascript">';
+                echo 'alert("Email invalido")';
+                echo '</script>';
+            }           
             if($usuario!=null && $usuario->tipoUsuario===3) //se o usuario com email informado existe...
             {
+                echo '<script language="javascript">';
+                echo 'alert("Email enviado")';
+                echo '</script>';
                 Yii::$app->mailer->compose()
                 ->setFrom(Yii::$app->params['adminEmail'])
                 ->setTo($email)
@@ -158,14 +167,11 @@ class SiteController extends Controller
                 ->send();
                 return $this->render('recuperar');
             }else{
-                Yii::$app->mailer->compose()
-                ->setFrom(Yii::$app->params['adminEmail'])
-                ->setTo($email)
-                ->setSubject("Senha para o Sistema gerenciador de eventos")
-                ->setTextBody("voce deve acessar o sge pelo portal do professor ou secretaria")
-                ->send();
+                echo '<script language="javascript">';
+                echo 'alert(você deve acessar o sge pelo portal do professor ou secretaria")';
+                echo '</script>';
                 return $this->render('recuperar');
-            }
+                }
         }else{
             return $this->render('recuperar');
         }

@@ -29,14 +29,14 @@ use Yii;
  * @property ItemprogramacaoHasVoluntario[] $itemprogramacaoHasVoluntarios
  * @property Voluntario[] $voluntarioIdvoluntarios
  */
-class Itemprogramacao extends \yii\db\ActiveRecord
+class ItemProgramacao extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'itemprogramacao';
+        return 'itemProgramacao';
     }
 
     /**
@@ -45,7 +45,7 @@ class Itemprogramacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titulo', 'descricao', 'data', 'hora', 'vagas', 'cargaHoraria', 'notificacao', 'local_idlocal', 'evento_idevento'], 'required', 'message'=>'Este campo é obrigatório'],
+            [['palestrante', 'titulo', 'descricao', 'data', 'hora', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento'], 'required', 'message'=>'Este campo é obrigatório'],
             [['hora'], 'safe'],
             [['vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
             [['titulo', 'palestrante', 'notificacao'], 'string', 'max' => 45],
@@ -73,7 +73,8 @@ class Itemprogramacao extends \yii\db\ActiveRecord
             'notificacao' => 'Notificação',
             'local_idlocal' => 'Localização',
             'evento_idevento' => 'Evento',
-            'tipo_idtipo' => 'Tipo Idtipo',
+            'tipo_idtipo' => '*Tipo',
+            'tipo.titulo' => 'Tipo'
         ];
     }
 
@@ -81,6 +82,11 @@ class Itemprogramacao extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getEventoIdevento()
+    {
+        return $this->hasOne(Evento::className(), ['idevento' => 'evento_idevento']);
+    }
+
+     public function getEvento()
     {
         return $this->hasOne(Evento::className(), ['idevento' => 'evento_idevento']);
     }
@@ -97,6 +103,11 @@ class Itemprogramacao extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getTipoIdtipo()
+    {
+        return $this->hasOne(Tipo::className(), ['idtipo' => 'tipo_idtipo']);
+    }
+
+    public function getTipo()
     {
         return $this->hasOne(Tipo::className(), ['idtipo' => 'tipo_idtipo']);
     }

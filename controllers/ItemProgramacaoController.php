@@ -3,16 +3,19 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Itemprogramacao;
-use app\models\ItemprogramacaoSearch;
+use yii\helpers\ArrayHelper;
+use app\models\ItemProgramacao;
+use app\models\Local;
+use app\models\Tipo;
+use app\models\ItemProgramacaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ItemprogramacaoController implements the CRUD actions for Itemprogramacao model.
+ * ItemProgramacaoController implements the CRUD actions for ItemProgramacao model.
  */
-class ItemprogramacaoController extends Controller
+class ItemProgramacaoController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +30,12 @@ class ItemprogramacaoController extends Controller
     }
 
     /**
-     * Lists all Itemprogramacao models.
+     * Lists all ItemProgramacao models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ItemprogramacaoSearch();
+        $searchModel = new ItemProgramacaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +45,7 @@ class ItemprogramacaoController extends Controller
     }
 
     /**
-     * Displays a single Itemprogramacao model.
+     * Displays a single ItemProgramacao model.
      * @param integer $id
      * @return mixed
      */
@@ -54,25 +57,30 @@ class ItemprogramacaoController extends Controller
     }
 
     /**
-     * Creates a new Itemprogramacao model.
+     * Creates a new ItemProgramacao model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Itemprogramacao();
-
+        $model = new ItemProgramacao();
+        $model->notificacao = 1;
+        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
+        $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
+        $model->evento_idevento = Yii::$app->request->get('id');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->iditemProgramacao]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'arrayTipo' => $arrayTipo,
+                'arrayLocal' => $arrayLocal,
             ]);
         }
     }
 
     /**
-     * Updates an existing Itemprogramacao model.
+     * Updates an existing ItemProgramacao model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -80,18 +88,22 @@ class ItemprogramacaoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
+        $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->iditemProgramacao]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'arrayTipo' => $arrayTipo,
+                'arrayLocal' => $arrayLocal,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Itemprogramacao model.
+     * Deletes an existing ItemProgramacao model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +116,15 @@ class ItemprogramacaoController extends Controller
     }
 
     /**
-     * Finds the Itemprogramacao model based on its primary key value.
+     * Finds the ItemProgramacao model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Itemprogramacao the loaded model
+     * @return ItemProgramacao the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Itemprogramacao::findOne($id)) !== null) {
+        if (($model = ItemProgramacao::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

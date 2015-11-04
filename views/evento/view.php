@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Programação', ['itemprogramacao/index', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Programação', ['item-programacao/index', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([

@@ -63,11 +63,6 @@ input{
     
 }
 
-.evento-index{
-  margin-left: 350px;
-  width: 900px;
-}
-
 .evento-view{
   margin-left: 350px;
   width: 900px;
@@ -116,3 +111,63 @@ input{
   margin-bottom: 10px;
 }
 
+.itemprogramacao-create{
+  margin-left: 350px;
+  width: 900px; 
+}
+
+.itemprogramacao-update{
+  margin-left: 350px;
+  width: 900px; 
+}
+
+.itemprogramacao-index{
+  margin-left: 350px;
+  width: 900px;
+}
+
+.itemprogramacao-view{
+  margin-left: 350px;
+  width: 900px;
+}
+
+#itemprogramacao-titulo{
+  width: 360px;
+}  
+
+#itemprogramacao-descricao{
+  width: 360px;
+}  
+
+#itemprogramacao-palestrante{
+  width: 360px;
+}  
+
+#itemprogramacao-data{
+  width: 230px;
+}
+
+#itemprogramacao-data-disp{
+  width: 230px;
+}
+
+.bootstrap-timepicker{
+   width: 200px;
+}
+
+#itemprogramacao-vagas{
+  width: 115px;
+}
+
+#itemprogramacao-cargahoraria{
+  width: 115px;
+}
+
+#itemprogramacao-detalhe, #itemprogramacao-notificacao, #itemprogramacao-local_idlocal, #itemprogramacao-evento_idevento, #itemprogramacao-tipo_idtipo{
+  width: 360px;
+}
+
+#icone{
+  height: 64px;
+  width: 64px;
+}

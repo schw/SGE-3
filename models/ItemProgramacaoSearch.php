@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Itemprogramacao;
+use app\models\ItemProgramacao;
 
 /**
- * ItemprogramacaoSearch represents the model behind the search form about `app\models\Itemprogramacao`.
+ * ItemProgramacaoSearch represents the model behind the search form about `app\models\ItemProgramacao`.
  */
-class ItemprogramacaoSearch extends Itemprogramacao
+class ItemProgramacaoSearch extends ItemProgramacao
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class ItemprogramacaoSearch extends Itemprogramacao
      */
     public function search($params)
     {
-        $query = Itemprogramacao::find();
+        $query = ItemProgramacao::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
