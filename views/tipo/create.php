@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tipo */
 
-$this->title = 'Create Tipo';
+$this->title = 'Novo Tipo';
 $this->params['breadcrumbs'][] = ['label' => 'Tipos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

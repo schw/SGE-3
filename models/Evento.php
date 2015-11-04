@@ -76,7 +76,9 @@ class Evento extends \yii\db\ActiveRecord
             'allow' => '*Status',
             'responsavel' => '*Responsável',
             'tipo_idtipo' => '*Tipo',
+            'tipo.titulo' => 'Tipo',
             'local_idlocal' => '*Local',
+            'local.descricao' => 'Local'
         ];
     }
 
@@ -90,6 +92,10 @@ class Evento extends \yii\db\ActiveRecord
         } else {
             return null;
         }
+    }
+
+    public function beforeDelete(){
+        $linhas_afetadas = ItemProgramacao::deleteAll(['evento_idevento' => $this->idevento]);
     }
 
 
@@ -139,10 +145,10 @@ class Evento extends \yii\db\ActiveRecord
         return $this->hasOne(Tipo::className(), ['idtipo' => 'tipo_idtipo']);
     }
 
-/*
+
     public function getLocal()
     {
-        return $this->hasOne(Usuario::className(), ['idusuario' => 'responsavel']);
+        return $this->hasOne(Local::className(), ['idlocal' => 'local_idlocal']);
     }
-    */
+    
 }

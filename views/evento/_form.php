@@ -62,16 +62,16 @@ use kartik\datecontrol\DateControl;
     <?= $form->field($model, 'detalhe')->textArea(['maxlength' => true, 'cols' => 25]) ?>
 
     <?= $form->field($model, 'local_idlocal')->dropDownList(
-            ['1' => 'local 1'],
+            $arrayLocal,
             ['prompt'=>'Selecione um Local']
         );?>
-    <p><?= Html::a('Novo Local', ['local/index'], ['class' => 'btn btn-success']); ?><p>
+    <p><?= Html::a('Mais Locais', ['local/index'], ['class' => 'btn btn-primary']); ?><p>
     
     <?= $form->field($model, 'tipo_idtipo')->dropDownList(
             $arrayTipo,
             ['prompt'=>'Selecione um Tipo']
         ); ?>
-    <p><?= Html::a('Novo Tipo', ['tipo/index'], ['class' => 'btn btn-success']); ?><p>
+    <p><?= Html::a('Mais Tipos', ['tipo/index'], ['class' => 'btn btn-primary']); ?><p>
 
 
     <?php /* Html::activeDropDownList($model, 'local_idlocal',

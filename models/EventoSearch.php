@@ -46,6 +46,7 @@ class EventoSearch extends Evento
         //$query = Evento::find()->where(['responsavel' => Yii::$app->user->identity->username])->andwhere($statusEvento);
         $query = Evento::find()->where(['responsavel' => 1])->orderBy(['dataFim' => SORT_DESC]);
         $query->joinWith(['tipo']); //Realizando join para tabela tipo
+        $query->joinWith(['local']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,6 +65,11 @@ class EventoSearch extends Evento
         'desc' => ['titulo' => SORT_DESC],
         ];
 
+        $dataProvider->sort->attributes['local'] = [
+        'asc' => ['descricao' => SORT_ASC],
+        'desc' => ['descricao' => SORT_DESC],
+        ];
+
         $query->andFilterWhere([
             'idevento' => $this->idevento,
             'horaIni' => $this->horaIni,
@@ -80,7 +86,8 @@ class EventoSearch extends Evento
             ->andFilterWhere(['like', 'dataFim', $this->dataFim])
             ->andFilterWhere(['like', 'imagem', $this->imagem])
             ->andFilterWhere(['like', 'detalhe', $this->detalhe])
-            ->andFilterWhere(['like', 'tipo.titulo', $this->tipo]);
+            ->andFilterWhere(['like', 'tipo.titulo', $this->tipo])
+            ->andFilterWhere(['like', 'local.descricao', $this->descricao]);
 
 
         return $dataProvider;

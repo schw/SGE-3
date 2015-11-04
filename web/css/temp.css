@@ -84,6 +84,15 @@ input{
 
 }
 
+.tipo-create{
+  margin-left: 350px;
+  width: 900px; 
+}
+
+.field-tipo-titulo{
+  width: 300px;
+}
+
 .site-error{
   margin-left: 350px;
   width: 900px;

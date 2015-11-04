@@ -24,14 +24,16 @@ use yii\widgets\ActiveForm;
 
     <?php //echo $form->field($model, 'tipoUsuario')->textInput() ?>
 
-    <?= $form->field($model, 'notificarViaEmail')->textInput() ?>
+    <?= $form->field($model, 'notificarViaEmail')->dropDownList(
+            ['0' => 'Não', '1' => 'Sim']
+        );?>
 
     <?php //echo $form->field($model, 'authKey')->textInput(['maxlength' => true]) ?>
 
     <?php //echo $form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Criar Usuário' : 'Alterar Usuário', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

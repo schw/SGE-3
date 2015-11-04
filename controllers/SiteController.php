@@ -143,34 +143,32 @@ class SiteController extends Controller
     }
     
     public function actionRecuperar(){
-    	if ( Yii::$app->request->post())
-    	{
-    		echo '<script language="javascript">';
-    		echo 'alert("reperar post")';
-    		echo '</script>';
-    		
-    		$email = Yii::$app->request->post('email');
-    		$usuario = User::find()->where(['email'=>$email])->one();
-    		if($usuario!=null) //se o usuario com email informado existe...
-    		{
-    			echo '<script language="javascript">';
-    			echo 'alert("mensagem vinda do recuperar")';
-    			echo '</script>';
-    			Yii::$app->mailer->compose()
-    			->setFrom('sge@domain.com')
-    			->setTo('wes.lima.23@gmail.com')
-    			->setSubject('Senha SGE')
-    			->setTextBody('aaaaaaaaa')
-    			->setHtmlBody('<b>HTML content</b>')
-    			->send();
-    			return $this->render('recuperar');
-    		}
-    	}else{
-    		echo '<script language="javascript">';
-    		echo 'alert("recuperar sem post")';
-    		echo '</script>';
-    		return $this->render('recuperar');
-    	}
+    	       if ( Yii::$app->request->post()){
+            $model;
+            $email = Yii::$app->request->post('email');
+            $usuario = User::find()->where(['email'=>$email])->one();
+            //$usuario = User::findByEmail($email);
+            if($usuario!=null && $usuario->tipoUsuario===3) //se o usuario com email informado existe...
+            {
+                Yii::$app->mailer->compose()
+                ->setFrom(Yii::$app->params['adminEmail'])
+                ->setTo($email)
+                ->setSubject("Senha para o Sistema gerenciador de eventos")
+                ->setTextBody("Sua senha é ".$usuario->senha)
+                ->send();
+                return $this->render('recuperar');
+            }else{
+                Yii::$app->mailer->compose()
+                ->setFrom(Yii::$app->params['adminEmail'])
+                ->setTo($email)
+                ->setSubject("Senha para o Sistema gerenciador de eventos")
+                ->setTextBody("voce deve acessar o sge pelo portal do professor ou secretaria")
+                ->send();
+                return $this->render('recuperar');
+            }
+        }else{
+            return $this->render('recuperar');
+        }
     }
     
     public function actionRecupera(){

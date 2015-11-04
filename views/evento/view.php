@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Adicionar Programação', ['itemprogramacao/index', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Programação', ['itemprogramacao/index', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'cargaHoraria',
             'detalhe',
             'tipo.titulo',
-            'local_idlocal',
+            'local.descricao',
         ],
     ]) ?>
     <h2>QRCode <?= $model->descricao ?></h2>
