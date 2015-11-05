@@ -25,8 +25,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status') ?>
 
-    <?php // echo $form->field($model, 'perfil_idperfil') ?>
-
     <?php // echo $form->field($model, 'evento_idevento') ?>
 
     <div class="form-group">

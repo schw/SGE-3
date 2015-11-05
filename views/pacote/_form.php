@@ -20,8 +20,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'perfil_idperfil')->textInput() ?>
-
     <?= $form->field($model, 'evento_idevento')->textInput() ?>
 
     <div class="form-group">

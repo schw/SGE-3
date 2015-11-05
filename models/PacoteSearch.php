@@ -18,7 +18,7 @@ class PacoteSearch extends Pacote
     public function rules()
     {
         return [
-            [['idpacote', 'perfil_idperfil', 'evento_idevento'], 'integer'],
+            [['idpacote', 'evento_idevento'], 'integer'],
             [['titulo', 'descricao', 'status'], 'safe'],
             [['valor'], 'number'],
         ];
@@ -59,7 +59,6 @@ class PacoteSearch extends Pacote
         $query->andFilterWhere([
             'idpacote' => $this->idpacote,
             'valor' => $this->valor,
-            'perfil_idperfil' => $this->perfil_idperfil,
             'evento_idevento' => $this->evento_idevento,
         ]);
 
