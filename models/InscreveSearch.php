@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Tipo;
+use app\models\Inscreve;
 
 /**
- * TipoSearch represents the model behind the search form about `app\models\Tipo`.
+ * InscreveSearch represents the model behind the search form about `app\models\Inscreve`.
  */
-class TipoSearch extends Tipo
+class InscreveSearch extends Inscreve
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class TipoSearch extends Tipo
     public function rules()
     {
         return [
-            [['idtipo'], 'integer'],
-            [['titulo'], 'safe'],
+            [['usuario_idusuario', 'evento_idevento', 'pacote_idpacote'], 'integer'],
+            [['credenciado'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class TipoSearch extends Tipo
      */
     public function search($params)
     {
-        $query = Tipo::find();
+        $query = Inscreve::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,10 +56,12 @@ class TipoSearch extends Tipo
         }
 
         $query->andFilterWhere([
-            'idtipo' => $this->idtipo,
+            'usuario_idusuario' => $this->usuario_idusuario,
+            'evento_idevento' => $this->evento_idevento,
+            'pacote_idpacote' => $this->pacote_idpacote,
         ]);
 
-        $query->andFilterWhere(['like', 'titulo', $this->titulo]);
+        $query->andFilterWhere(['like', 'credenciado', $this->credenciado]);
 
         return $dataProvider;
     }
