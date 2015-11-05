@@ -111,6 +111,11 @@ class ItemProgramacao extends \yii\db\ActiveRecord
         return $this->hasOne(Tipo::className(), ['idtipo' => 'tipo_idtipo']);
     }
 
+    public function getLocal()
+    {
+        return $this->hasOne(Local::className(), ['idlocal' => 'local_idlocal']);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

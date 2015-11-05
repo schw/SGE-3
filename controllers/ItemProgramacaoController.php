@@ -64,7 +64,7 @@ class ItemProgramacaoController extends Controller
     public function actionCreate()
     {
         $model = new ItemProgramacao();
-        $model->notificacao = 1;
+        $model->notificacao = '1';
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
         $model->evento_idevento = Yii::$app->request->get('id');
@@ -72,7 +72,7 @@ class ItemProgramacaoController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->iditemProgramacao]);
             }else{
-                
+                print_r($model->getErrors());
             }
         } else {
             return $this->render('create', [
