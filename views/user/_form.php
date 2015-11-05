@@ -14,7 +14,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'senha')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'senha')->passwordInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'senha_repeat')->passwordInput(['maxlength' => true]) ?>
 
     <?php //echo  $form->field($model, 'cracha')->textInput(['maxlength' => true]) ?>
 

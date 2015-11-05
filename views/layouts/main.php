@@ -27,7 +27,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-     <?= Html::a(Html::img('@web/img/banner1.png', ['id'=>'banner']), ['site/index']) ?>
+     <?= Html::a(Html::img('@web/img/Imagem1.png', ['id'=>'banner']), ['site/index']) ?>
 
     <?php
     NavBar::begin([
@@ -57,6 +57,41 @@ AppAsset::register($this);
     ?>
 
     <div class="container" style="width: 100%;">
+        <div class="container" style="width: 100%;">
+        <div id="boasvindas">
+            <p>
+                Olá $user, bem vindo(a)!<br>
+                seu perfil atual é $perfil.<br>
+                para sair do sistema faça <i>logout</i>
+            </p>
+        </div>
+        <div id="lateralMenu">
+        <?php
+        $heading = 'Opções';
+         echo SideNav::widget([
+            'type' => SideNav::TYPE_DEFAULT,
+            'encodeLabels' => false,
+            //'heading' => $heading,
+            'items' => [
+                // Important: you need to specify url as 'controller/action',
+                // not just as 'controller' even if default action is used.
+                ['label' => 'Home', 'icon' => 'home', 'url' => ['site/index']],
+                ['label' => 'Eventos', 'icon' => 'info-sign', 'url' => ['evento/index']],
+                Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'icon' => 'info-sign',  'url' => ['site/recuperar']] : ['label' => 'Profile', 'icon' => 'user', 'url' => Url::to(['/site/profile', 'type'=>SideNav::TYPE_DEFAULT])],
+                Yii::$app->user->isGuest ? ['label' => 'Cadastre-se', 'icon' => 'info-sign', 'url' => ['/user/create']] : "",
+               /* ['label' => 'Books', 'icon' => 'book', 'items' => [
+                    ['label' => '<span class="pull-right badge">10</span> New Arrivals', 'url' => Url::to(['/site/new-arrivals', 'type'=>SideNav::TYPE_DEFAULT])],
+                    ['label' => '<span class="pull-right badge">5</span> Most Popular', 'url' => Url::to(['/site/most-popular', 'type'=>SideNav::TYPE_DEFAULT])],
+                    ['label' => 'Read Online', 'icon' => 'cloud', 'items' => [
+                        ['label' => 'Online 1', 'url' => Url::to(['/site/online-1', 'type'=>SideNav::TYPE_DEFAULT])],
+                        ['label' => 'Online 2', 'url' => Url::to(['/site/online-2', 'type'=>SideNav::TYPE_DEFAULT])]
+                    ]],
+                ]],*/
+                //['label' => 'Profile', 'icon' => 'user', 'url' => Url::to(['/site/profile', 'type'=>SideNav::TYPE_DEFAULT])],
+                ],
+            ]);        
+        ?>
+           </div>
         <?= $content ?>
     </div>
 </div>

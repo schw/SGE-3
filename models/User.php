@@ -25,7 +25,7 @@ use Yii;
 
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-
+    var $senha_repeat;
     /**
      * @inheritdoc
      */
@@ -40,7 +40,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
     	return [
-    			[[ 'nome', 'senha', 'email'], 'required'],
+    			[[ 'nome', 'senha', 'email', 'senha_repeat'], 'required'],
+                [['senha_repeat'], 'compare', 'compareAttribute' => 'senha', 'message' => 'Senhas são distintas'],
     			[['tipoUsuario', 'notificarViaEmail'], 'integer'],
     			[['nome'], 'string', 'max' => 50],
     			[['senha', 'cracha', 'email', 'instituicao'], 'string', 'max' => 45],
@@ -65,6 +66,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     			'notificarViaEmail' => 'Notificar Via Email',
     			'authKey' => 'Auth Key',
     			'accessToken' => 'Access Token',
+                'senha_repeat' => 'Confirmar Senha',
     	];
     }
     

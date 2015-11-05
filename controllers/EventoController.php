@@ -83,7 +83,6 @@ class EventoController extends Controller
                 return $this->redirect(['index']);
             //}
         } else {
-            print_r($model->getErrors());
             return $this->render('create', [
                 'model' => $model,
                 'arrayTipo' => $arrayTipo,
