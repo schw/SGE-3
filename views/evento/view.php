@@ -11,7 +11,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Eventos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="evento-view">
-
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

@@ -57,7 +57,6 @@ AppAsset::register($this);
     ?>
 
     <div class="container" style="width: 100%;">
-        <div class="container" style="width: 100%;">
         <div id="boasvindas">
             <p>
                 Olá $user, bem vindo(a)!<br>
