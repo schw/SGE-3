@@ -68,8 +68,12 @@ class ItemProgramacaoController extends Controller
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
         $model->evento_idevento = Yii::$app->request->get('id');
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->iditemProgramacao]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->iditemProgramacao]);
+            }else{
+                
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
