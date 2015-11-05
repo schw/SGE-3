@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Tipo */
+/* @var $model app\models\Inscreve */
 
-$this->title = 'Novo Tipo';
-$this->params['breadcrumbs'][] = ['label' => 'Tipos', 'url' => ['index']];
+$this->title = 'Create Inscreve';
+$this->params['breadcrumbs'][] = ['label' => 'Inscreves', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tipo-create">
+<div class="inscreve-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

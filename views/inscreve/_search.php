@@ -4,24 +4,24 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\LocalSearch */
+/* @var $model app\models\InscreveSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="local-search">
+<div class="inscreve-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'idlocal') ?>
+    <?= $form->field($model, 'usuario_idusuario') ?>
 
-    <?= $form->field($model, 'descricao') ?>
+    <?= $form->field($model, 'evento_idevento') ?>
 
-    <?= $form->field($model, 'latitude') ?>
+    <?= $form->field($model, 'credenciado') ?>
 
-    <?= $form->field($model, 'longitude') ?>
+    <?= $form->field($model, 'pacote_idpacote') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

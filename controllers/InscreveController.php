@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Local;
-use app\models\LocalSearch;
+use app\models\Inscreve;
+use app\models\InscreveSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * LocalController implements the CRUD actions for Local model.
+ * InscreveController implements the CRUD actions for Inscreve model.
  */
-class LocalController extends Controller
+class InscreveController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class LocalController extends Controller
     }
 
     /**
-     * Lists all Local models.
+     * Lists all Inscreve models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new LocalSearch();
+        $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,28 +42,29 @@ class LocalController extends Controller
     }
 
     /**
-     * Displays a single Local model.
-     * @param integer $id
+     * Displays a single Inscreve model.
+     * @param integer $usuario_idusuario
+     * @param integer $evento_idevento
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($usuario_idusuario, $evento_idevento)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($usuario_idusuario, $evento_idevento),
         ]);
     }
 
     /**
-     * Creates a new Local model.
+     * Creates a new Inscreve model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Local();
+        $model = new Inscreve();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idlocal]);
+            return $this->redirect(['view', 'usuario_idusuario' => $model->usuario_idusuario, 'evento_idevento' => $model->evento_idevento]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -72,17 +73,18 @@ class LocalController extends Controller
     }
 
     /**
-     * Updates an existing Local model.
+     * Updates an existing Inscreve model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $usuario_idusuario
+     * @param integer $evento_idevento
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($usuario_idusuario, $evento_idevento)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($usuario_idusuario, $evento_idevento);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idlocal]);
+            return $this->redirect(['view', 'usuario_idusuario' => $model->usuario_idusuario, 'evento_idevento' => $model->evento_idevento]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -91,28 +93,30 @@ class LocalController extends Controller
     }
 
     /**
-     * Deletes an existing Local model.
+     * Deletes an existing Inscreve model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param integer $usuario_idusuario
+     * @param integer $evento_idevento
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDelete($usuario_idusuario, $evento_idevento)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($usuario_idusuario, $evento_idevento)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Local model based on its primary key value.
+     * Finds the Inscreve model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Local the loaded model
+     * @param integer $usuario_idusuario
+     * @param integer $evento_idevento
+     * @return Inscreve the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($usuario_idusuario, $evento_idevento)
     {
-        if (($model = Local::findOne($id)) !== null) {
+        if (($model = Inscreve::findOne(['usuario_idusuario' => $usuario_idusuario, 'evento_idevento' => $evento_idevento])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
