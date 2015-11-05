@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\InscreveSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Inscreves';
+$this->title = 'Evento - Inscrições';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inscreve-index">
