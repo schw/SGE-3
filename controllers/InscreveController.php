@@ -5,6 +5,10 @@ namespace app\controllers;
 use Yii;
 use app\models\Inscreve;
 use app\models\InscreveSearch;
+// adicionado estes dois:
+use app\models\EventoSearch;
+use app\models\Evento;
+// fim
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -32,6 +36,7 @@ class InscreveController extends Controller
      */
     public function actionIndex()
     {
+        /* isso era antes:
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -39,6 +44,18 @@ class InscreveController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+         fim do era antes ---- */
+
+
+        $searchModel = new EventoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+
     }
 
     /**
@@ -47,11 +64,20 @@ class InscreveController extends Controller
      * @param integer $evento_idevento
      * @return mixed
      */
-    public function actionView($usuario_idusuario, $evento_idevento)
+    // se der erro, tire isto: -> public function actionView($usuario_idusuario, $evento_idevento)
+    public function actionView($id)
     {
+        //return $this->render('view', [
+        //    'model' => $this->findModel($usuario_idusuario, $evento_idevento),
+        //]);
+
+        $model = $this->findModel($id);
+        $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
+        $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
         return $this->render('view', [
-            'model' => $this->findModel($usuario_idusuario, $evento_idevento),
+            'model' => $model,
         ]);
+
     }
 
     /**
@@ -114,9 +140,9 @@ class InscreveController extends Controller
      * @return Inscreve the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($usuario_idusuario, $evento_idevento)
+    protected function findModel($id)
     {
-        if (($model = Inscreve::findOne(['usuario_idusuario' => $usuario_idusuario, 'evento_idevento' => $evento_idevento])) !== null) {
+        if (($model = Evento::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
