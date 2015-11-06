@@ -73,7 +73,9 @@ class ItemProgramacao extends \yii\db\ActiveRecord
             'notificacao' => 'Notificação',
             'local_idlocal' => 'Localização',
             'evento_idevento' => 'Evento',
-            'tipo.titulo' => 'Tipo'
+            'tipo.titulo' => 'Tipo',
+            'local.descricao' => 'Local',
+            'evento.descricao' => 'Evento'
         ];
     }
 

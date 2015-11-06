@@ -43,7 +43,7 @@ class Local extends \yii\db\ActiveRecord
     {
         return [
             'idlocal' => 'Idlocal',
-            'descricao' => 'Descricao',
+            'descricao' => 'Descrição',
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
         ];
