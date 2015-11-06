@@ -32,12 +32,15 @@ class PacoteController extends Controller
      */
     public function actionIndex()
     {
+        $idEvento = Yii::$app->request->queryParams['id'];
+
         $searchModel = new PacoteSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->searchEvento(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'id' => $idEvento,
         ]);
     }
 
@@ -61,12 +64,18 @@ class PacoteController extends Controller
     public function actionCreate()
     {
         $model = new Pacote();
+        $model->evento_idevento = Yii::$app->request->queryParams['id'];/*Validar id do evento*/
+        $model->status = '1';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idpacote]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->idpacote]);
+            }else{
+                print_r($model->getErrors());
+            }
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'model' => $model,                
             ]);
         }
     }

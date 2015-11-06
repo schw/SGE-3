@@ -43,8 +43,9 @@ class EventoSearch extends Evento
     public function search($params)
     {
         //Litando apenas Eventos de um determinado professor
-        //$query = Evento::find()->where(['responsavel' => Yii::$app->user->identity->username])->andwhere($statusEvento);
-        $query = Evento::find()->where(['responsavel' => 1])->orderBy(['dataFim' => SORT_DESC]);
+        $query = Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario]);
+        //$query = Evento::find()->where(['responsavel' => 1])->orderBy(['dataFim' => SORT_DESC]);
+        
         $query->joinWith(['tipo']); //Realizando join para tabela tipo
         $query->joinWith(['local']);
 

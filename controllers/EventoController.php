@@ -10,6 +10,8 @@ use app\models\Tipo;
 use app\models\EventoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
+use yii\web\HttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
@@ -36,6 +38,7 @@ class EventoController extends Controller
      */
     public function actionIndex()
     {
+        $this->autorizaUsuario();
         $searchModel = new EventoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -55,6 +58,7 @@ class EventoController extends Controller
         $model = $this->findModel($id);
         $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
         $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
+        $model->cargaHoraria = $model->cargaHoraria." hs";
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -67,6 +71,8 @@ class EventoController extends Controller
      */
     public function actionCreate()
     {
+        $this->autorizaUsuario();
+
         $model = new Evento();
         $model->responsavel = 1;
         $model->allow = 1;
@@ -98,6 +104,8 @@ class EventoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->autorizaUsuario();
+
         $model = $this->findModel($id);
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
@@ -121,6 +129,8 @@ class EventoController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->autorizaUsuario();
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -138,7 +148,13 @@ class EventoController extends Controller
         if (($model = Evento::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('Evento Solicitado não Encontrado.');
+        }
+    }
+
+    protected function autorizaUsuario(){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->idusuario == 3){
+            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
         }
     }
 }

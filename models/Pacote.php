@@ -12,7 +12,6 @@ use Yii;
  * @property string $descricao
  * @property double $valor
  * @property string $status
- * @property integer $perfil_idperfil
  * @property integer $evento_idevento
  *
  * @property Inscreve[] $inscreves
@@ -36,9 +35,8 @@ class Pacote extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titulo', 'descricao', 'valor', 'perfil_idperfil', 'evento_idevento'], 'required'],
-            [['valor'], 'number'],
-            [['perfil_idperfil', 'evento_idevento'], 'integer'],
+            [['titulo', 'descricao', 'valor'], 'required'],
+            [['valor'], 'string'],
             [['titulo', 'descricao'], 'string', 'max' => 45],
             [['status'], 'string', 'max' => 1]
         ];
@@ -55,7 +53,6 @@ class Pacote extends \yii\db\ActiveRecord
             'descricao' => 'Descricao',
             'valor' => 'Valor',
             'status' => 'Status',
-            'perfil_idperfil' => 'Perfil Idperfil',
             'evento_idevento' => 'Evento Idevento',
         ];
     }

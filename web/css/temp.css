@@ -29,7 +29,11 @@ input{
   width: 10%;
 }
 
-#evento-descricao{
+#pacote-valor{
+  width: 20%;
+}
+
+#evento-descricao, #pacote-titulo, #pacote-descricao {
   width: 40%;
 }
 
@@ -69,6 +73,22 @@ input{
 }
 
 .evento-create{
+  margin-left: 350px;
+  width: 900px;  
+}
+
+.evento-index{
+  margin-left: 350px;
+  width: 900px;  
+}
+
+.pacote-create{
+  margin-left: 350px;
+  width: 900px;  
+}
+
+
+.pacote-index{
   margin-left: 350px;
   width: 900px;  
 }

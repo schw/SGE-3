@@ -55,7 +55,7 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'vagas')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'cargaHoraria')->textInput() ?>
+    <?= $form->field($model, 'cargaHoraria')->textInput()?>
 
     <?= $form->field($model, 'imagem')->fileInput() ?>
 
@@ -72,10 +72,6 @@ use kartik\datecontrol\DateControl;
             ['prompt'=>'Selecione um Tipo']
         ); ?>
     <p><?= Html::a('Mais Tipos', ['tipo/index'], ['class' => 'btn btn-primary']); ?><p>
-
-
-    <?php /* Html::activeDropDownList($model, 'local_idlocal',
-      ArrayHelper::map(local::find()->all(), 'idlocal', 'descricao')) */?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar Evento' : 'Alterar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

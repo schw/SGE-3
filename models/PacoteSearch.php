@@ -68,4 +68,34 @@ class PacoteSearch extends Pacote
 
         return $dataProvider;
     }
+
+    /*Pacotes de Um evento especifico*/
+    public function searchEvento($params)
+    {
+        $query = Pacote::find()->where(['evento_idevento' => $params['id']]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'idpacote' => $this->idpacote,
+            'valor' => $this->valor,
+            'evento_idevento' => $this->evento_idevento,
+        ]);
+
+        $query->andFilterWhere(['like', 'titulo', $this->titulo])
+            ->andFilterWhere(['like', 'descricao', $this->descricao])
+            ->andFilterWhere(['like', 'status', $this->status]);
+
+        return $dataProvider;
+    }
 }
