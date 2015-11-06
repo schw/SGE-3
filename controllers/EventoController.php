@@ -55,6 +55,9 @@ class EventoController extends Controller
      */
     public function actionView($id)
     {
+        $this->autorizaUsuario();
+        $this->validaEvento($id);       
+
         $model = $this->findModel($id);
         $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
         $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
@@ -156,5 +159,10 @@ class EventoController extends Controller
         if(Yii::$app->user->isGuest || Yii::$app->user->identity->idusuario == 3){
             throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
         }
+    }
+
+    protected function validaEvento($id){
+        if(Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario])->andWhere(['idevento' => $id])->count() == 0)
+            throw new NotFoundHttpException('Evento Solicitado não Encontrado.');
     }
 }

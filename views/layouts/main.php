@@ -75,9 +75,8 @@ AppAsset::register($this);
                 // Important: you need to specify url as 'controller/action',
                 // not just as 'controller' even if default action is used.
                 ['label' => 'Home', 'icon' => 'home', 'url' => ['site/index']],
-                ['label' => 'Eventos', 'icon' => 'info-sign', 'url' => ['evento/index']],
-                Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'icon' => 'info-sign',  'url' => ['site/recuperar']] : ['label' => 'Perfil', 'icon' => 'user', 'url' => ['user/view', 'id' => Yii::$app->user->identity->idusuario]],
-                Yii::$app->user->isGuest ? ['label' => 'Cadastre-se', 'icon' => 'info-sign', 'url' => ['/user/create']] : "",
+                Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'icon' => 'info-sign',  'url' => ['site/recuperar']] : ['label' => 'Eventos', 'icon' => 'info-sign', 'url' => ['evento/index']],
+                Yii::$app->user->isGuest ? ['label' => 'Cadastre-se', 'icon' => 'info-sign', 'url' => ['/user/create']] : ['label' => 'Perfil', 'icon' => 'user', 'url' => ['user/view', 'id' => Yii::$app->user->identity->idusuario]],
                 Yii::$app->user->isGuest ? ['label' => 'Login', 'icon' => 'user', 'url' => ['site/login']] : "",
                /* ['label' => 'Books', 'icon' => 'book', 'items' => [
                     ['label' => '<span class="pull-right badge">10</span> New Arrivals', 'url' => Url::to(['/site/new-arrivals', 'type'=>SideNav::TYPE_DEFAULT])],

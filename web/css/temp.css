@@ -99,6 +99,11 @@ input{
 
 }
 
+.user-view{
+  margin-left: 350px;
+  width: 900px; 
+}
+
 .tipo-create{
   margin-left: 350px;
   width: 900px; 
@@ -112,7 +117,6 @@ input{
   margin-left: 350px;
   width: 900px;
 }
-
 
 
 .site-index{

@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
     <?php //echo $form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Criar Usuário' : 'Alterar Usuário', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Criar Usuário' : 'Alterar Perfil', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

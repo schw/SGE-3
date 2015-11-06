@@ -7,6 +7,7 @@ use app\models\Pacote;
 use app\models\PacoteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 
 /**
@@ -30,17 +31,16 @@ class PacoteController extends Controller
      * Lists all Pacote models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        $idEvento = Yii::$app->request->queryParams['id'];
-
+        $this->autorizaUsuario();
         $searchModel = new PacoteSearch();
         $dataProvider = $searchModel->searchEvento(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'id' => $idEvento,
+            'id' => $id,
         ]);
     }
 
@@ -51,6 +51,7 @@ class PacoteController extends Controller
      */
     public function actionView($id)
     {
+        $this->autorizaUsuario();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -63,6 +64,7 @@ class PacoteController extends Controller
      */
     public function actionCreate()
     {
+        $this->autorizaUsuario();
         $model = new Pacote();
         $model->evento_idevento = Yii::$app->request->queryParams['id'];/*Validar id do evento*/
         $model->status = '1';
@@ -88,6 +90,7 @@ class PacoteController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->autorizaUsuario();
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -107,6 +110,7 @@ class PacoteController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->autorizaUsuario();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -127,4 +131,11 @@ class PacoteController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    protected function autorizaUsuario(){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->idusuario == 3){
+            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
+        }
+    }
 }
+

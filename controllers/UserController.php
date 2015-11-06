@@ -48,6 +48,7 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+        $this->autorizaUsuario($id);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -61,7 +62,6 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idusuario]);
         } else {
@@ -79,6 +79,7 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->autorizaUsuario($id);
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -98,6 +99,7 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->autorizaUsuario($id);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -116,6 +118,17 @@ class UserController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function autorizaUsuario($id){
+        
+        if(Yii::$app->user->isGuest){
+            throw new ForbiddenHttpException('Acesso Negado!! Realize Login.');
+        }
+
+        if(Yii::$app->user->identity->idusuario != $id){
+            throw new NotFoundHttpException("Erro: Id Inválido");
         }
     }
 }
