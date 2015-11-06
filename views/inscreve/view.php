@@ -16,14 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
 
-        <?php $userId = Yii::$app->user->identity->idusuario;
 
-
-
-        ?>
-
-        <?= Html::a('inscrever', ['create', 'usuario_idusuario' => $userId, 'evento_idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'usuario_idusuario' => $userId, 'evento_idevento' => $model->idevento], [
+        <?= Html::a('inscrever', ['create', 'usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
