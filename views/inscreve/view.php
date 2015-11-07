@@ -17,12 +17,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
 
 
-        <?= Html::a('inscrever', ['create', 'usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento], [
+        <?= Html::a('inscrever', ['inscrever', 'usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('cancelar inscrição', ['cancelar', 'usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
+                'confirm' => 'Você tem certeza que quer cancelar a inscrição neste evento?',
+                'method' => 'POST',
             ],
         ]) ?>
 
