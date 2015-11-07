@@ -32,7 +32,7 @@ class Inscreve extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['usuario_idusuario', 'evento_idevento', 'pacote_idpacote'], 'required'],
+            [['usuario_idusuario', 'evento_idevento', ], 'required'],
             [['usuario_idusuario', 'evento_idevento', 'pacote_idpacote'], 'integer'],
             [['credenciado'], 'string', 'max' => 1]
         ];

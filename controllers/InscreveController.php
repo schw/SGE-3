@@ -80,23 +80,73 @@ class InscreveController extends Controller
 
     }
 
-    /**
-     * Creates a new Inscreve model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
+        public function actionInscrever()
     {
-        $model = new Inscreve();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'usuario_idusuario' => $model->usuario_idusuario, 'evento_idevento' => $model->evento_idevento]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        $searchModel = new EventoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+
+        $id_usuario = $_GET["usuario_idusuario"];
+        $id_evento = $_GET["evento_idevento"];
+        $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',1,NULL)";
+        
+        try{
+            Yii::$app->db->createCommand($sql)->execute();
         }
+        catch(\Exception $e){
+
+            Yii::$app->session->setFlash('Falha', 'Você já está Inscrito neste evento');
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+
+        }
+
+        Yii::$app->session->setFlash('Sucesso', 'Inscrição Efetuada com sucesso');
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+
     }
+
+
+    public function actionCancelar()
+    {
+
+        $searchModel = new EventoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+
+        $id_usuario = $_GET["usuario_idusuario"];
+        $id_evento = $_GET["evento_idevento"];
+
+
+        $sql = "DELETE FROM inscreve WHERE usuario_idusuario = '$id_usuario' AND evento_idevento = '$id_evento'";
+        
+
+        $resultado = Yii::$app->db->createCommand($sql)->execute();
+
+        if ($resultado == 1){
+            Yii::$app->session->setFlash('Sucesso', 'Inscrição Cancelada com sucesso');
+        }
+        else{
+            Yii::$app->session->setFlash('Falha', 'Erro: Você não está inscrito nesse evento');   
+        }
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+
+
+
 
     /**
      * Updates an existing Inscreve model.
