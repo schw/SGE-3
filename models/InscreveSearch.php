@@ -71,7 +71,7 @@ public function searchMinhasInscricoes($params)
         //$query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario]);
         $query = Inscreve::find();
 
-        $query->joinWith(['evento']);
+        //$query->joinWith(['evento']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
