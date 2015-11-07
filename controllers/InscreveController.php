@@ -48,7 +48,7 @@ class InscreveController extends Controller
 
 
         $searchModel = new EventoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->searchInscricao(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

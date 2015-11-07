@@ -46,6 +46,61 @@ class EventoSearch extends Evento
         $query = Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario]);
         //$query = Evento::find()->where(['responsavel' => 1])->orderBy(['dataFim' => SORT_DESC]);
         
+
+        $query->joinWith(['tipo']); //Realizando join para tabela tipo
+        $query->joinWith(['local']);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $dataProvider->sort->attributes['tipo'] = [
+        'asc' => ['titulo' => SORT_ASC],
+        'desc' => ['titulo' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['local'] = [
+        'asc' => ['descricao' => SORT_ASC],
+        'desc' => ['descricao' => SORT_DESC],
+        ];
+
+        $query->andFilterWhere([
+            'idevento' => $this->idevento,
+            'horaIni' => $this->horaIni,
+            'horaFim' => $this->horaFim,
+            'vagas' => $this->vagas,
+            'cargaHoraria' => $this->cargaHoraria,
+            'allow' => $this->allow,
+            'responsavel' => $this->responsavel,
+        ]);
+
+        $query->andFilterWhere(['like', 'sigla', $this->sigla])
+            ->andFilterWhere(['like', 'descricao', $this->descricao])
+            ->andFilterWhere(['like', 'dataIni', $this->dataIni])
+            ->andFilterWhere(['like', 'dataFim', $this->dataFim])
+            ->andFilterWhere(['like', 'imagem', $this->imagem])
+            ->andFilterWhere(['like', 'detalhe', $this->detalhe])
+            ->andFilterWhere(['like', 'tipo.titulo', $this->tipo])
+            ->andFilterWhere(['like', 'local.descricao', $this->descricao]);
+
+
+        return $dataProvider;
+    }
+
+    public function searchInscricao($params)
+    {
+        //Litando apenas Eventos de um determinado professor
+        //$query = Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario]);
+        $query = Evento::find();
+        
         $query->joinWith(['tipo']); //Realizando join para tabela tipo
         $query->joinWith(['local']);
 
