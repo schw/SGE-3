@@ -46,12 +46,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
-
-            'usuario_idusuario',
-            'evento_idevento',
-            'credenciado',
+            ['attribute' => 'idtipo', 'value' => 'tipo.titulo'],
+            ['attribute' => 'evento_idevento', 'value' => 'evento.sigla'],//Substitução do idtipo pelo titulo do tipo
+            //'usuario_idusuario',
+            //'evento_idevento',
+            //'credenciado',
             'pacote_idpacote',
-
             //['class' => 'yii\grid\SerialColumn'],
             //'sigla',
             //'descricao',
@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'detalhe',
             // 'allow',
             //'responsavel',
-            //['attribute' => 'tipo', 'value' => 'tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
+                
 
             //['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}'],
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {link}'],
