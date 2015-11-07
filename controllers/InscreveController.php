@@ -64,13 +64,10 @@ class InscreveController extends Controller
      * @param integer $evento_idevento
      * @return mixed
      */
-    // se der erro, tire isto: -> public function actionView($usuario_idusuario, $evento_idevento)
+    
     public function actionView($id)
     {
-        //return $this->render('view', [
-        //    'model' => $this->findModel($usuario_idusuario, $evento_idevento),
-        //]);
-
+    
         $model = $this->findModel($id);
         $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
         $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
@@ -87,8 +84,10 @@ class InscreveController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
-        $id_usuario = $_GET["usuario_idusuario"];
-        $id_evento = $_GET["evento_idevento"];
+        $id_usuario = Yii::$app->request->post('usuario_idusuario');
+        $id_evento = Yii::$app->request->post('evento_idevento'); 
+
+
         $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',1,NULL)";
         
         try{
@@ -123,8 +122,8 @@ class InscreveController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
-        $id_usuario = $_GET["usuario_idusuario"];
-        $id_evento = $_GET["evento_idevento"];
+        $id_usuario = Yii::$app->request->post('usuario_idusuario');
+        $id_evento = Yii::$app->request->post('evento_idevento'); 
 
 
         $sql = "DELETE FROM inscreve WHERE usuario_idusuario = '$id_usuario' AND evento_idevento = '$id_evento'";
@@ -139,6 +138,20 @@ class InscreveController extends Controller
             Yii::$app->session->setFlash('Falha', 'Erro: Você não está inscrito nesse evento');   
         }
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
+
+
+        public function actionInscricoes()
+    {
+
+        $searchModel = new EventoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('inscricoes', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

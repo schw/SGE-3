@@ -17,15 +17,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
 
 
-        <?= Html::a('inscrever', ['inscrever', 'usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('cancelar inscrição', ['cancelar', 'usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Você tem certeza que quer cancelar a inscrição neste evento?',
+        <?php //echo Html::a('inscrever', ['inscrever', 'usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
+
+        <?= Html::a('inscrever', ['inscrever'], [
+                'class' => 'btn btn-primary',
+                'data'=>[
                 'method' => 'POST',
-            ],
+                'params'=>['usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento],
+            ]
         ]) ?>
 
+
+        <?= Html::a('cancelar inscrição', ['cancelar'], [
+                'class' => 'btn btn-danger',
+                'data'=>[
+                'method' => 'POST',
+                'params'=>['usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento],
+            ]
+        ]) ?>
 
 
     <?= DetailView::widget([
