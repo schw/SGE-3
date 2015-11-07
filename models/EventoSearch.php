@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Evento;
+use app\models\Inscreve;
 use app\models\Tipo;
 
 /**
@@ -97,8 +98,7 @@ class EventoSearch extends Evento
 
     public function searchInscricao($params)
     {
-        //Litando apenas Eventos de um determinado professor
-        //$query = Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario]);
+
         $query = Evento::find();
         
         $query->joinWith(['tipo']); //Realizando join para tabela tipo
@@ -148,4 +148,6 @@ class EventoSearch extends Evento
 
         return $dataProvider;
     }
+
+    
 }

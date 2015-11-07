@@ -16,26 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
-
-<!-- menssagem de sucesso -->
-            <?php if (Yii::$app->session->hasFlash('Sucesso')): ?>
-        <div class="alert alert-success">
-            <?php echo Yii::$app->session->getFlash('Sucesso') ?>
-        </div>
-        <?php endif; ?>
-<!-- fim da mensagem de sucesso -->
-
-<!-- menssagem de falha -->
-            <?php if (Yii::$app->session->hasFlash('Falha')): ?>
-        <div class="alert alert-danger">
-            <?php echo Yii::$app->session->getFlash('Falha') ?>
-        </div>
-        <?php endif; ?>
-<!-- fim da mensagem de falha -->
-
-
     <p>
-        <?php echo Html::a('Minhas inscrições', ['inscricoes'], ['class' => 'btn btn-success']) ?>
+        <?php //echo Html::a('Minhas inscrições', ['inscricoes'], ['class' => 'btn btn-success']) ?>
     </p>
 
 <?php /* alterado:
@@ -64,9 +46,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
+
+            'usuario_idusuario',
+            'evento_idevento',
+            'credenciado',
+            'pacote_idpacote',
+
             //['class' => 'yii\grid\SerialColumn'],
-            'sigla',
-            'descricao',
+            //'sigla',
+            //'descricao',
             //'dataIni',
             //'dataFim',
             //'horaIni',
@@ -77,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'detalhe',
             // 'allow',
             //'responsavel',
-            ['attribute' => 'tipo', 'value' => 'tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
+            //['attribute' => 'tipo', 'value' => 'tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
 
             //['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}'],
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {link}'],
