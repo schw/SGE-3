@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Pacotes', ['index', 'idevento' => $model->evento_idevento], ['class' => 'btn btn-primary',]) ?>
     </p>
 
     <?= DetailView::widget([

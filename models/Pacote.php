@@ -21,6 +21,7 @@ use Yii;
  */
 class Pacote extends \yii\db\ActiveRecord
 {
+    var $itens = "";
     /**
      * @inheritdoc
      */
@@ -35,7 +36,7 @@ class Pacote extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titulo', 'descricao', 'valor'], 'required'],
+            [['titulo', 'descricao', 'valor', 'itens'], 'required'],
             [['valor'], 'string'],
             [['titulo', 'descricao'], 'string', 'max' => 45],
             [['status'], 'string', 'max' => 1]
@@ -54,7 +55,27 @@ class Pacote extends \yii\db\ActiveRecord
             'valor' => 'Valor',
             'status' => 'Status',
             'evento_idevento' => 'Evento Idevento',
+            'itens' => 'Itens Programação'
         ];
+    }
+
+    public function afterSave(){
+        $itemProgramacaoHasPacote = new ItemProgramacaoHasPacote();
+        try {
+            foreach ($this->itens as $key => $value) {
+                $itemProgramacao = $this->itens[$key];
+                $pacote = $this->idpacote;
+                $sql = "INSERT INTO itemProgramacao_has_pacote (itemProgramacao_iditemProgramacao, pacote_idpacote) VALUES ($itemProgramacao, $pacote);";
+                Yii::$app->db->createCommand($sql)->execute();
+            }
+        } catch (ErrorException $e) {
+            Yii::warning("Division by zero.");
+        }
+    }
+
+    public function beforeUpdate()
+    {
+        //$this->itens = ItemProgramacaoHasPacote::find()->where(['pacote_idpacote' => $this->idpacote]);
     }
 
     /**

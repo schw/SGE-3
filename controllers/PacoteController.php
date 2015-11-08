@@ -3,7 +3,10 @@
 namespace app\controllers;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use app\models\Pacote;
+use app\models\ItemProgramacao;
+use app\models\ItemProgramacaoHasPacote;
 use app\models\PacoteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -62,14 +65,15 @@ class PacoteController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($idevento)
     {
         $this->autorizaUsuario();
         $model = new Pacote();
-        $model->evento_idevento = Yii::$app->request->queryParams['id'];/*Validar id do evento*/
+        $model->evento_idevento = $idevento;
         $model->status = '1';
+        $itensProgramacao = ArrayHelper::map(ItemProgramacao::find()->all(), 'iditemProgramacao', 'descricao');
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {    
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->idpacote]);
             }else{
@@ -77,7 +81,8 @@ class PacoteController extends Controller
             }
         } else {
             return $this->render('create', [
-                'model' => $model,                
+                'model' => $model, 
+                'itensProgramacao' => $itensProgramacao,               
             ]);
         }
     }
@@ -92,12 +97,13 @@ class PacoteController extends Controller
     {
         $this->autorizaUsuario();
         $model = $this->findModel($id);
-
+        $itensProgramacao = ArrayHelper::map(ItemProgramacao::find()->all(), 'iditemProgramacao', 'descricao');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idpacote]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'itensProgramacao' => $itensProgramacao,
             ]);
         }
     }

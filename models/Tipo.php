@@ -60,4 +60,5 @@ class Tipo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ItemProgramacao::className(), ['tipo_idtipo' => 'idtipo']);
     }
+
 }

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pacote */
@@ -17,6 +18,20 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'valor')->textInput() ?>
+
+    <?= $form->field($model, 'itens')->widget(Select2::classname(), [
+    	'data' => $itensProgramacao,
+    	'value' => 'itens',
+    	'language' => 'pt-BR',
+    	'options' => ['placeholder' => 'Selecione os Itens de Programação ...', 'multiple' => true,],
+    	'pluginOptions' => [
+        	'allowClear' => true
+    	],
+	]);
+
+	?>
+
+	<?= "Teste ".$model->itens ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar Pacote' : 'Atualizar Pacote', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
