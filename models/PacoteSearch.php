@@ -72,7 +72,7 @@ class PacoteSearch extends Pacote
     /*Pacotes de Um evento especifico*/
     public function searchEvento($params)
     {
-        $query = Pacote::find()->where(['evento_idevento' => $params['id']]);
+        $query = Pacote::find()->where(['evento_idevento' => $params['idevento']]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

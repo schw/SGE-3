@@ -61,7 +61,6 @@ class EventoController extends Controller
         $model = $this->findModel($id);
         $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
         $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
-        print_r($model->inscreve[0]['credenciado']);
         $model->cargaHoraria = $model->cargaHoraria." hs";
         return $this->render('view', [
             'model' => $model,
@@ -157,7 +156,7 @@ class EventoController extends Controller
     }
 
     protected function autorizaUsuario(){
-        if(Yii::$app->user->isGuest || Yii::$app->user->identity->idusuario == 3){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
             throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
         }
     }

@@ -4,9 +4,11 @@ namespace app\controllers;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use app\models\Pacote;
 use app\models\ItemProgramacao;
 use app\models\ItemProgramacaoHasPacote;
+use app\models\ItemProgramacaoHasPacoteSearch;
 use app\models\PacoteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -34,7 +36,7 @@ class PacoteController extends Controller
      * Lists all Pacote models.
      * @return mixed
      */
-    public function actionIndex($id)
+    public function actionIndex($idevento)
     {
         $this->autorizaUsuario();
         $searchModel = new PacoteSearch();
@@ -43,7 +45,7 @@ class PacoteController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'id' => $id,
+            'idevento' => $idevento,
         ]);
     }
 
@@ -75,9 +77,14 @@ class PacoteController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {    
             if($model->save()){
-                return $this->redirect(['view', 'id' => $model->idpacote]);
+                $this->mensagens('success', 'Pacote Cadastrado', 'Pacote cadastrado com sucesso');
+                return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
+                //return $this->redirect(['view', 'id' => $model->idpacote]);
             }else{
-                print_r($model->getErrors());
+                return $this->render('create', [
+                    'model' => $model, 
+                    'itensProgramacao' => $itensProgramacao,               
+                ]);
             }
         } else {
             return $this->render('create', [
@@ -117,9 +124,16 @@ class PacoteController extends Controller
     public function actionDelete($id)
     {
         $this->autorizaUsuario();
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $idevento = $model->evento_idevento;
+        $pacoteDescricao = $model->descricao;
+        if($model->delete()){
+             $this->mensagens('success', 'Pacote Removido', "O pacote \"$pacoteDescricao\" foi removido com Sucesso");
+        }else{
+            $this->mensagens('danger', 'Pacote não removido', "Erro ao remover o pacote \"$pacoteDescricao\"");
+        }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'idevento' => $idevento]);
     }
 
     /**
@@ -142,6 +156,20 @@ class PacoteController extends Controller
         if(Yii::$app->user->isGuest || Yii::$app->user->identity->idusuario == 3){
             throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
         }
+    }
+
+
+    /*Tipo: sucess, danger, warning*/
+    protected function mensagens($tipo, $titulo, $mensagem){
+        Yii::$app->session->setFlash($tipo, [
+            'type' => $tipo,
+            'duration' => 12000,
+            'icon' => 'home',
+            'message' => $mensagem,
+            'title' => $titulo,
+            'positonY' => 'bottom',
+            'positonX' => 'right'
+        ]);
     }
 }
 

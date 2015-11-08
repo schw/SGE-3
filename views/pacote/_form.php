@@ -31,8 +31,6 @@ use kartik\select2\Select2;
 
 	?>
 
-	<?= "Teste ".$model->itens ?>
-
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar Pacote' : 'Atualizar Pacote', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
