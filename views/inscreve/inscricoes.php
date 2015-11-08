@@ -39,18 +39,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
 */?>
 
-
-<?php var_dump($dataProvider) ?>
-
 <?= GridView::widget([
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
-            'descricao',
-            'sigla',
-            'inscreve.credenciado',
-            ['attribute' => 'idtipo', 'value' => 'tipo.titulo'],
+            'evento.descricao',
+            'evento.sigla',
+            ['attribute' => 'credenciado', 'value' => 
+            function ($data) {
+                if ($data->credenciado){
+                    return 'Sim';
+                }else{
+                    return 'Não';
+                }
+            },],
+            'evento.tipo.titulo',
             //['attribute' => 'idevento', 'value' => 'evento.sigla'],//Substitução do idtipo pelo titulo do tipo
             //'usuario_idusuario',
             //'evento_idevento',

@@ -53,6 +53,7 @@ class Evento extends \yii\db\ActiveRecord
             [['sigla', 'descricao'], 'string', 'max' => 45],
             [['imagem'], 'string'],
             [['detalhe'], 'string', 'max' => 800],
+            [['credenciado'], 'integer'],
         ];
     }
 
@@ -78,7 +79,8 @@ class Evento extends \yii\db\ActiveRecord
             'tipo_idtipo' => '*Tipo',
             'tipo.titulo' => 'Tipo',
             'local_idlocal' => '*Local',
-            'local.descricao' => 'Local'
+            'local.descricao' => 'Local',
+            'credenciado' => 'Credenciado'
         ];
     }
 
