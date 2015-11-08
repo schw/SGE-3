@@ -32,9 +32,9 @@ class Inscreve extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['usuario_idusuario', 'evento_idevento', ], 'required'],
+            //[['usuario_idusuario', 'evento_idevento', ], 'required'],
             [['usuario_idusuario', 'evento_idevento', 'pacote_idpacote'], 'integer'],
-            [['credenciado'], 'string', 'max' => 2]
+            
         ];
     }
 
@@ -74,15 +74,14 @@ class Inscreve extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['idusuario' => 'usuario_idusuario']);
     }
 
-    //criado por mim:
-    public function getEvento()
-    {
-    return $this->hasOne(Evento::className(), ['idevento' => 'evento_idevento']);
-    }
-
         public function getTipo()
     {
         return $this->hasOne(Tipo::className(), ['idtipo' => 'tipo_idtipo']);
+    }
+
+    public function getEvento()
+    {
+        return $this->hasOne(Evento::className(), ['idEvento' => 'evento_idevento']);
     }
 
 }

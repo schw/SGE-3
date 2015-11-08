@@ -149,7 +149,7 @@ class InscreveController extends Controller
     {
 
         $searchModel = new InscreveSearch();
-        $dataProvider = $searchModel->searchMinhasInscricoes(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->searchInscricoes(Yii::$app->request->queryParams);
 
         return $this->render('inscricoes', [
             'searchModel' => $searchModel,

@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Inscreve;
+use app\models\Evento;
+use app\models\Tipo;
 
 /**
  * InscreveSearch represents the model behind the search form about `app\models\Inscreve`.
@@ -65,14 +67,16 @@ class InscreveSearch extends Inscreve
         return $dataProvider;
     }
 
-public function searchMinhasInscricoes($params)
+public function searchInscricoes($params)
     {
         //Listando apenas Eventos de um determinado professor
         //$query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario]);
         $query = Evento::find();
 
-        $query->joinWith(['tipo']);
         $query->joinWith(['inscreve']);
+        $query->joinWith(['tipo']);
+
+    var_dump($query);
 
 
         $dataProvider = new ActiveDataProvider([
