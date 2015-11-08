@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
             'evento.descricao',
             'evento.sigla',
             ['attribute' => 'credenciado', 'value' => 
@@ -59,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'usuario_idusuario',
             //'evento_idevento',
             //'idevento',
-            //['class' => 'yii\grid\SerialColumn'],
+            
             //'dataIni',
             //'dataFim',
             //'horaIni',
