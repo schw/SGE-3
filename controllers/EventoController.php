@@ -63,9 +63,9 @@ class EventoController extends Controller
         $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
         print_r($model->inscreve[0]['credenciado']);
         $model->cargaHoraria = $model->cargaHoraria." hs";
-        /*return $this->render('view', [
+        return $this->render('view', [
             'model' => $model,
-        ]);*/
+        ]);
     }
 
     /**

@@ -53,7 +53,6 @@ class Evento extends \yii\db\ActiveRecord
             [['sigla', 'descricao'], 'string', 'max' => 45],
             [['imagem'], 'string'],
             [['detalhe'], 'string', 'max' => 800],
-            [['credenciado'], 'integer'],
         ];
     }
 
