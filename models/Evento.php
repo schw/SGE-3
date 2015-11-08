@@ -110,7 +110,7 @@ class Evento extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getInscreves()
+    public function getInscreve()
     {
         return $this->hasMany(Inscreve::className(), ['evento_idevento' => 'idevento']);
     }

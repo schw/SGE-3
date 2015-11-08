@@ -40,21 +40,22 @@ $this->params['breadcrumbs'][] = $this->title;
 */?>
 
 
+<?php var_dump($dataProvider) ?>
 
 <?= GridView::widget([
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
+            'descricao',
+            'sigla',
+            'inscreve.credenciado',
             ['attribute' => 'idtipo', 'value' => 'tipo.titulo'],
-            ['attribute' => 'evento_idevento', 'value' => 'evento.sigla'],//Substitução do idtipo pelo titulo do tipo
+            //['attribute' => 'idevento', 'value' => 'evento.sigla'],//Substitução do idtipo pelo titulo do tipo
             //'usuario_idusuario',
             //'evento_idevento',
-            //'credenciado',
-            'pacote_idpacote',
+            //'idevento',
             //['class' => 'yii\grid\SerialColumn'],
-            //'sigla',
-            //'descricao',
             //'dataIni',
             //'dataFim',
             //'horaIni',
@@ -62,7 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'vagas',
             // 'cagaHoraria',
             // 'imagem',
-            // 'detalhe',
             // 'allow',
             //'responsavel',
                 

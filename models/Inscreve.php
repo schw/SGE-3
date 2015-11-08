@@ -34,7 +34,7 @@ class Inscreve extends \yii\db\ActiveRecord
         return [
             [['usuario_idusuario', 'evento_idevento', ], 'required'],
             [['usuario_idusuario', 'evento_idevento', 'pacote_idpacote'], 'integer'],
-            [['credenciado'], 'string', 'max' => 1]
+            [['credenciado'], 'string', 'max' => 2]
         ];
     }
 
@@ -46,8 +46,6 @@ class Inscreve extends \yii\db\ActiveRecord
         return [
             'usuario_idusuario' => 'Usuario Idusuario',
             'evento_idevento' => 'Nome do Evento',
-            'idtipo' => 'Tipo',
-            'credenciado' => 'Credenciado',
             'pacote_idpacote' => 'Pacote Idpacote',
         ];
     }

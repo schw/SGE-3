@@ -19,7 +19,7 @@ class InscreveSearch extends Inscreve
     {
         return [
             [['usuario_idusuario', 'evento_idevento', 'pacote_idpacote'], 'integer'],
-            [['credenciado'], 'safe'],
+            [['credenciado'], 'integer'],
         ];
     }
 
@@ -69,10 +69,11 @@ public function searchMinhasInscricoes($params)
     {
         //Listando apenas Eventos de um determinado professor
         //$query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario]);
-        $query = Inscreve::find();
+        $query = Evento::find();
 
-        $query->joinWith(['evento']);
         $query->joinWith(['tipo']);
+        $query->joinWith(['inscreve']);
+
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
