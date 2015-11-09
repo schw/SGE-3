@@ -5,9 +5,11 @@ namespace app\controllers;
 use Yii;
 use app\models\Inscreve;
 use app\models\InscreveSearch;
-// adicionado estes dois:
+// adicionado estes quatro:
 use app\models\EventoSearch;
 use app\models\Evento;
+use app\models\ItemProgramacao;
+use app\models\ItemProgramacaoSearch;
 // fim
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -88,7 +90,7 @@ class InscreveController extends Controller
         $id_evento = Yii::$app->request->post('evento_idevento'); 
 
 
-        $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',1,NULL)";
+        $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',,NULL)";
         
         try{
             Yii::$app->db->createCommand($sql)->execute();
@@ -159,6 +161,19 @@ class InscreveController extends Controller
     }
 
 
+
+        public function actionProgramacao()
+    {
+
+        $searchModel = new ItemProgramacaoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('programacao', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+    }
 
 
     /**

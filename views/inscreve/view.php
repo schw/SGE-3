@@ -19,6 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php //echo Html::a('inscrever', ['inscrever', 'usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
 
+        <?= Html::a('Programação', ['programacao', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
+
+
         <?= Html::a('inscrever', ['inscrever'], [
                 'class' => 'btn btn-primary',
                 'data'=>[

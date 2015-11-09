@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ItemprogramacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Gerenciar Programação';
+$this->title = 'Programação';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="itemprogramacao-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Adicionar Programação', ['create', 'id' => Yii::$app->request->get('id')], ['class' => 'btn btn-success']) ?>
+        
     </p>
 
     <?= GridView::widget([
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'local_idlocal',
             //'evento_idevento',
             ['attribute' => 'tipo', 'value' => 'tipo.titulo'],  //Substitução do idtipo pelo titulo do tipo
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}'],
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '80'], 'template' => '{view} {link}'],
         ],
     ]); ?>
 
