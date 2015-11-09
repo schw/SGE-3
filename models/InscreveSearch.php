@@ -71,7 +71,7 @@ public function searchInscricoes($params)
     {
         //Listando apenas Eventos de um determinado professor
         //$query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario]);
-        $query = Inscreve::find();        
+        $query =    Inscreve::find();        
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

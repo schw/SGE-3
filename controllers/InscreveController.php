@@ -36,19 +36,9 @@ class InscreveController extends Controller
      * Lists all Inscreve models.
      * @return mixed
      */
-    public function actionIndex()
+   
+    /*public function actionIndex()
     {
-        /* isso era antes:
-        $searchModel = new InscreveSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-         fim do era antes ---- */
-
-
         $searchModel = new EventoSearch();
         $dataProvider = $searchModel->searchInscricao(Yii::$app->request->queryParams);
 
@@ -59,6 +49,7 @@ class InscreveController extends Controller
 
 
     }
+    */
 
     /**
      * Displays a single Inscreve model.
@@ -147,13 +138,13 @@ class InscreveController extends Controller
     }
 
 
-        public function actionInscricoes()
+        public function actionIndex()
     {
 
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->searchInscricoes(Yii::$app->request->queryParams);
 
-        return $this->render('inscricoes', [
+        return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

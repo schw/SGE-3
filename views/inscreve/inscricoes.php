@@ -7,17 +7,33 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\InscreveSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Minhas Inscrições ';
+$this->title = 'Evento - Inscrições ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="inscricoes-index">
+<div class="inscreve-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+<!-- menssagem de sucesso -->
+            <?php if (Yii::$app->session->hasFlash('Sucesso')): ?>
+        <div class="alert alert-success">
+            <?php echo Yii::$app->session->getFlash('Sucesso') ?>
+        </div>
+        <?php endif; ?>
+<!-- fim da mensagem de sucesso -->
+
+<!-- menssagem de falha -->
+            <?php if (Yii::$app->session->hasFlash('Falha')): ?>
+        <div class="alert alert-danger">
+            <?php echo Yii::$app->session->getFlash('Falha') ?>
+        </div>
+        <?php endif; ?>
+<!-- fim da mensagem de falha -->
+
 
     <p>
-        <?php //echo Html::a('Minhas inscrições', ['inscricoes'], ['class' => 'btn btn-success']) ?>
+        <?php echo Html::a('Minhas inscrições', ['inscricoes'], ['class' => 'btn btn-success']) ?>
     </p>
 
 <?php /* alterado:
@@ -39,28 +55,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 */?>
 
+
+
 <?= GridView::widget([
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'evento.descricao',
-            'evento.sigla',
-            ['attribute' => 'credenciado', 'value' => 
-            function ($data) {
-                if ($data->credenciado){
-                    return 'Sim';
-                }else{
-                    return 'Não';
-                }
-            },],
-            'evento.tipo.titulo',
-            //['attribute' => 'idevento', 'value' => 'evento.sigla'],//Substitução do idtipo pelo titulo do tipo
-            //'usuario_idusuario',
-            //'evento_idevento',
-            //'idevento',
-            
+            //['class' => 'yii\grid\SerialColumn'],
+            'sigla',
+            'descricao',
             //'dataIni',
             //'dataFim',
             //'horaIni',
@@ -68,9 +72,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'vagas',
             // 'cagaHoraria',
             // 'imagem',
+            // 'detalhe',
             // 'allow',
             //'responsavel',
-                
+            ['attribute' => 'tipo', 'value' => 'tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
 
             //['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}'],
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {link}'],
