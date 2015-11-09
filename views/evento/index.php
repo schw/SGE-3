@@ -15,9 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3){ ?>
     <p>
         <?= Html::a('Novo Evento', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>    
+    </p>
+    <?php } ?>
 
     <?= GridView::widget([
         'showOnEmpty' => 'true',
@@ -39,7 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
             //'responsavel',
             ['attribute' => 'tipo', 'value' => 'tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
 
+            Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3 ? ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view}'] : 
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}'],
+            
         ],
     ]); ?>
 

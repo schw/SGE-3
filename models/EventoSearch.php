@@ -92,13 +92,10 @@ class EventoSearch extends Evento
         return $dataProvider;
     }
 
-    public function searchInscricao($params)
+    public function searchEventos($params)
     {
 
         $query = Evento::find();
-        
-        $query->joinWith(['tipo']); //Realizando join para tabela tipo
-        $query->joinWith(['local']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

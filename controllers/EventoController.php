@@ -38,9 +38,9 @@ class EventoController extends Controller
      */
     public function actionIndex()
     {
-        $this->autorizaUsuario();
+        //$this->autorizaUsuario();
         $searchModel = new EventoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->searchEventos(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -55,8 +55,7 @@ class EventoController extends Controller
      */
     public function actionView($id)
     {
-        $this->autorizaUsuario();
-        $this->validaEvento($id);       
+        //$this->autorizaUsuario();
 
         $model = $this->findModel($id);
         $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
