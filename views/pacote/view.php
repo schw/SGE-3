@@ -38,4 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <h1><?= Html::encode('Itens de Programação') ?></h1>
+
 </div>

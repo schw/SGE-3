@@ -60,7 +60,6 @@ class Pacote extends \yii\db\ActiveRecord
     }
 
     public function afterSave(){
-        $itemProgramacaoHasPacote = new ItemProgramacaoHasPacote();
         try {
             foreach ($this->itens as $key => $value) {
                 $itemProgramacao = $this->itens[$key];
@@ -69,8 +68,19 @@ class Pacote extends \yii\db\ActiveRecord
                 Yii::$app->db->createCommand($sql)->execute();
             }
         } catch (ErrorException $e) {
-            Yii::warning("Division by zero.");
+            Yii::warning("Erro ao Inserir Itens de Programacao!!!");
         }
+    }
+
+    public function beforeDelete(){
+        try{
+            $sql = "DELETE FROM itemProgramacao_has_pacote WHERE pacote_idpacote = '$this->idpacote'";
+            Yii::$app->db->createCommand($sql)->execute();
+        } catch (ErrorException $e){
+            Yii::$app->session->setFlash('Falha', 'Erro ao remover Itens de Programacao');
+            return false;
+        }
+        return true;
     }
 
     public function beforeUpdate()
