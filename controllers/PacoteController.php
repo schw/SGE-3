@@ -9,6 +9,7 @@ use app\models\Pacote;
 use app\models\ItemProgramacao;
 use app\models\ItemProgramacaoHasPacote;
 use app\models\ItemProgramacaoHasPacoteSearch;
+use app\models\ItemProgramacaoSearch;
 use app\models\PacoteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -70,11 +71,14 @@ class PacoteController extends Controller
     public function actionCreate($idevento)
     {
         $this->autorizaUsuario();
+        
+        $itemProgramacaoSearch = new ItemProgramacaoSearch();
+        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['id' => $idevento])->getModels(), 'iditemProgramacao', 'descricao');
+
         $model = new Pacote();
         $model->evento_idevento = $idevento;
         $model->status = '1';
-        $itensProgramacao = ArrayHelper::map(ItemProgramacao::find()->all(), 'iditemProgramacao', 'descricao');
-
+        
         if ($model->load(Yii::$app->request->post())) {    
             if($model->save()){
                 $this->mensagens('success', 'Pacote Cadastrado', 'Pacote cadastrado com sucesso');
@@ -102,9 +106,12 @@ class PacoteController extends Controller
      */
     public function actionUpdate($id)
     {
+        $itemProgramacaoSearch = new ItemProgramacaoSearch();
+        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['id' => $idevento])->getModels(), 'iditemProgramacao', 'descricao');
+
         $this->autorizaUsuario();
         $model = $this->findModel($id);
-        $itensProgramacao = ArrayHelper::map(ItemProgramacao::find()->all(), 'iditemProgramacao', 'descricao');
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idpacote]);
         } else {
