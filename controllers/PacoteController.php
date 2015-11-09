@@ -106,11 +106,12 @@ class PacoteController extends Controller
      */
     public function actionUpdate($id)
     {
-        $itemProgramacaoSearch = new ItemProgramacaoSearch();
-        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['id' => $idevento])->getModels(), 'iditemProgramacao', 'descricao');
-
         $this->autorizaUsuario();
         $model = $this->findModel($id);
+
+        $itemProgramacaoSearch = new ItemProgramacaoSearch();
+        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['id' => $model->evento_idevento])->getModels(), 'iditemProgramacao', 'descricao');
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idpacote]);
@@ -170,7 +171,7 @@ class PacoteController extends Controller
     protected function mensagens($tipo, $titulo, $mensagem){
         Yii::$app->session->setFlash($tipo, [
             'type' => $tipo,
-            'duration' => 12000,
+            'duration' => 1000,
             'icon' => 'home',
             'message' => $mensagem,
             'title' => $titulo,
