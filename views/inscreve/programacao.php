@@ -23,13 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
             //'iditemProgramacao',
             'titulo',
-            'descricao',
+            //'descricao',
             'palestrante',
             'data',
-            // 'hora',
+             'hora',
             // 'vagas',
             // 'cargaHoraria',
             // 'detalhe',
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'local_idlocal',
             //'evento_idevento',
             ['attribute' => 'tipo', 'value' => 'tipo.titulo'],  //Substitução do idtipo pelo titulo do tipo
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '80'], 'template' => '{view} {link}'],
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '30'], 'template' => '{view}{link}'],
         ],
     ]); ?>
 
