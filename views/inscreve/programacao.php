@@ -37,7 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'local_idlocal',
             //'evento_idevento',
             ['attribute' => 'tipo', 'value' => 'tipo.titulo'],  //Substitução do idtipo pelo titulo do tipo
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '30'], 'template' => '{view}{link}'],
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '30'], 
+            'template' => '{view}{link}'],
         ],
     ]); ?>
 
