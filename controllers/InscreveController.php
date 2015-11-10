@@ -32,25 +32,7 @@ class InscreveController extends Controller
         ];
     }
 
-    /**
-     * Lists all Inscreve models.
-     * @return mixed
-     */
    
-    /*public function actionIndex()
-    {
-        $searchModel = new EventoSearch();
-        $dataProvider = $searchModel->searchInscricao(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-
-
-    }
-    */
-
     /**
      * Displays a single Inscreve model.
      * @param integer $usuario_idusuario
@@ -73,15 +55,15 @@ class InscreveController extends Controller
         public function actionInscrever()
     {
 
-        $searchModel = new EventoSearch();
-        $dataProvider = $searchModel->searchInscricao(Yii::$app->request->queryParams);
+        $searchModel = new InscreveSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
         $id_usuario = Yii::$app->request->post('usuario_idusuario');
         $id_evento = Yii::$app->request->post('evento_idevento'); 
 
 
-        $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',,NULL)";
+        $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,NULL)";
         
         try{
             Yii::$app->db->createCommand($sql)->execute();
@@ -89,21 +71,13 @@ class InscreveController extends Controller
         catch(\Exception $e){
 
             Yii::$app->session->setFlash('Falha', 'Você já está Inscrito neste evento');
+       return Yii::$app->getResponse()->redirect(array('/inscreve/', 'mensagem' =>'erro'));
 
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
 
         }
 
         Yii::$app->session->setFlash('Sucesso', 'Inscrição Efetuada com sucesso');
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-
+       return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'sucesso'));
 
     }
 
@@ -111,8 +85,8 @@ class InscreveController extends Controller
     public function actionCancelar()
     {
 
-        $searchModel = new EventoSearch();
-        $dataProvider = $searchModel->searchInscricao(Yii::$app->request->queryParams);
+        $searchModel = new InscreveSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
         $id_usuario = Yii::$app->request->post('usuario_idusuario');
@@ -126,14 +100,17 @@ class InscreveController extends Controller
 
         if ($resultado == 1){
             Yii::$app->session->setFlash('Sucesso', 'Inscrição Cancelada com sucesso');
+
+            return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'sucesso'));
+
         }
         else{
             Yii::$app->session->setFlash('Falha', 'Erro: Você não está inscrito nesse evento');   
+
+            return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'erro'));
         }
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+       
+
 
     }
 
