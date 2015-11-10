@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Model;
 
 /**
  * This is the model class for table "user".
@@ -44,8 +45,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 [['senha_repeat'], 'compare', 'compareAttribute' => 'senha', 'message' => 'Senhas são distintas'],
     			[['tipoUsuario', 'notificarViaEmail'], 'integer'],
     			[['nome'], 'string', 'max' => 50],
-    			[['senha', 'cracha', 'email', 'instituicao'], 'string', 'max' => 45],
+    			[['senha', 'cracha', 'instituicao'], 'string', 'max' => 45],
     			[['authKey', 'accessToken'], 'string', 'max' => 255],
+                [['email'], 'email', 'message' => 'Endereço de email inválido'],
     			[['email'], 'unique']
     	];
     }
@@ -177,5 +179,20 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         return $this->senha === $password;
+    }
+
+    public function getDescricaoTipoUsuario()
+    {
+        switch(Yii::$app->user->identity->tipoUsuario){
+            case '1':
+                return 'Secretário';
+                break;
+            case '2':
+                return 'Professor';
+                break;
+            case '3':
+                return 'Participante';
+                break;
+        }
     }
 }

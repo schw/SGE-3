@@ -40,10 +40,9 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'url' => ['site/recuperar']] : ['label' => ''],
-            Yii::$app->user->isGuest ? ['label' => 'Cadastre-se', 'url' => ['/user/create']] : ['label' => ''],
-            ['label' => 'Eventos', 'url' => ['evento/index']],
-            Yii::$app->user->isGuest ? ['label' => 'Home', 'url' => ['index']] : ['label' => 'Home', 'url'=>['site/usuario']],
+            ['label' => 'Home', 'url' => ['site/index']],
+            Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'url' => ['site/recuperar']] : ['label' => 'Eventos', 'url' => ['evento/index']],
+            Yii::$app->user->isGuest ? ['label' => 'Cadastre-se', 'url' => ['/user/create']] : ['label' => 'Minhas Inscrições', 'icon' => 'pencil', 'url' => ['inscreve/index']],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
                 [
@@ -58,11 +57,12 @@ AppAsset::register($this);
 
     <div class="container" style="width: 100%;">
         <div id="boasvindas">
+         <?php if(!Yii::$app->user->isGuest){ ?>
             <p>
-                Olá $user, bem vindo(a)!<br>
-                seu perfil atual é $perfil.<br>
-                para sair do sistema faça <i>logout</i>
+                Olá <?= Yii::$app->user->identity->nome ?>, <br>
+                Perfil: <?= Yii::$app->user->identity->getDescricaoTipoUsuario() ?>
             </p>
+            <?php } ?>
         </div>
         <div id="lateralMenu">
         <?php
@@ -75,9 +75,9 @@ AppAsset::register($this);
                 // Important: you need to specify url as 'controller/action',
                 // not just as 'controller' even if default action is used.
                 ['label' => 'Home', 'icon' => 'home', 'url' => ['site/index']],
-                Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'icon' => 'info-sign',  'url' => ['site/recuperar']] : ['label' => 'Eventos', 'icon' => 'info-sign', 'url' => ['evento/index']],
+                Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'icon' => 'info-sign',  'url' => ['site/recuperar']] : ['label' => 'Eventos', 'icon' => 'tags', 'url' => ['evento/index']],
                 Yii::$app->user->isGuest ? ['label' => 'Cadastre-se', 'icon' => 'info-sign', 'url' => ['/user/create']] : ['label' => 'Perfil', 'icon' => 'user', 'url' => ['user/view', 'id' => Yii::$app->user->identity->idusuario]],
-                Yii::$app->user->isGuest ? ['label' => 'Login', 'icon' => 'user', 'url' => ['site/login']] : false,
+                Yii::$app->user->isGuest ? ['label' => 'Login', 'icon' => 'user', 'url' => ['site/login']] : ['label' => 'Minhas Inscrições', 'icon' => 'flag', 'url' => ['inscreve/index']],
                /* ['label' => 'Books', 'icon' => 'book', 'items' => [
                     ['label' => '<span class="pull-right badge">10</span> New Arrivals', 'url' => Url::to(['/site/new-arrivals', 'type'=>SideNav::TYPE_DEFAULT])],
                     ['label' => '<span class="pull-right badge">5</span> Most Popular', 'url' => Url::to(['/site/most-popular', 'type'=>SideNav::TYPE_DEFAULT])],
