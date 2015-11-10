@@ -16,28 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
+
+
     <p>
         <?php //echo Html::a('Minhas inscrições', ['inscricoes'], ['class' => 'btn btn-success']) ?>
     </p>
-
-<?php /* alterado:
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'usuario_idusuario',
-            'evento_idevento',
-            'credenciado',
-            'pacote_idpacote',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-*/?>
 
 <?= GridView::widget([
         'showOnEmpty' => 'true',
@@ -56,28 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             },],
             'evento.tipo.titulo',
-            //['attribute' => 'idevento', 'value' => 'evento.sigla'],//Substitução do idtipo pelo titulo do tipo
-            //'usuario_idusuario',
-            //'evento_idevento',
-            //'idevento',
-            
-            //'dataIni',
-            //'dataFim',
-            //'horaIni',
-            // 'horaFim',
-            // 'vagas',
-            // 'cagaHoraria',
-            // 'imagem',
-            // 'allow',
-            //'responsavel',
-                
-
-            //['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}'],
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 
-            'template' => '{link}','buttons' => [
-
-                'link' => function ($url,$model,$key) {
-                                return Html::a('Action', 'index.php?r=inscreve&id=');
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 
+            'template' => '{view}{link}','buttons' => [
+                'view' => function ($url,$model,$key) {
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'index.php?r=evento/view&id='.$model->evento_idevento);
                 },
         ],
 ],
