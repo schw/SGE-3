@@ -32,8 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'POST',
                 'params'=>['usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento],
             ]
-        ]);
+            ]);
+        echo Html::a('cancelar inscrição', ['inscreve/cancelar'], [
+                'class' => 'btn btn-danger',
+                'data'=>[
+                'method' => 'POST',
+                'params'=>['usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento],
+            ]
+            ]);
         }
+
         ?>
 
         <?= Html::a('Pacotes', ['pacote/index', 'idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
