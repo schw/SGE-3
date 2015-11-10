@@ -30,14 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'btn btn-primary',
                 'data'=>[
                 'method' => 'POST',
-                'params'=>['usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento],
+                'params'=>['evento_idevento' => $model->idevento],
             ]
             ]);
         echo Html::a('cancelar inscrição', ['inscreve/cancelar'], [
                 'class' => 'btn btn-danger',
                 'data'=>[
                 'method' => 'POST',
-                'params'=>['usuario_idusuario' => $model->responsavel, 'evento_idevento' => $model->idevento],
+                'params'=>['evento_idevento' => $model->idevento],
             ]
             ]);
         }

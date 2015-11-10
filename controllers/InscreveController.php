@@ -59,14 +59,14 @@ class InscreveController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
-        $id_usuario = Yii::$app->request->post('usuario_idusuario');
+        $id_usuario = Yii::$app->user->identity->idusuario;
         $id_evento = Yii::$app->request->post('evento_idevento'); 
 
 
         $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,NULL)";
         
         try{
-            Yii::$app->db->createCommand($sql)->execute();
+            echo Yii::$app->db->createCommand($sql)->execute();
         }
         catch(\Exception $e){
 
@@ -89,7 +89,7 @@ class InscreveController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
-        $id_usuario = Yii::$app->request->post('usuario_idusuario');
+        $id_usuario = Yii::$app->user->identity->idusuario;
         $id_evento = Yii::$app->request->post('evento_idevento'); 
 
 
