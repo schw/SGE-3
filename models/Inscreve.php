@@ -48,6 +48,7 @@ class Inscreve extends \yii\db\ActiveRecord
             'evento_idevento' => 'Nome do Evento',
             'pacote_idpacote' => 'Pacote Idpacote',
             'credenciado' => 'Credenciado',
+            'usuario.nome' => 'Nome',
         ];
     }
 
@@ -86,9 +87,10 @@ class Inscreve extends \yii\db\ActiveRecord
     }
 
 
-public function inscrever($params)
+public function inscrever($id_evento)
     {
 
+        $id_usuario = Yii::$app->user->identity->idusuario;
 
         $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,NULL)";
         

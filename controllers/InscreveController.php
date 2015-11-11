@@ -70,21 +70,12 @@ class InscreveController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
-        $id_usuario = Yii::$app->user->identity->idusuario;
         $id_evento = Yii::$app->request->post('evento_idevento'); 
 
         $model = $this->findModel($id_evento);
-
-        $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,NULL)";
+        $inscreve = new Inscreve();
         
-        try{
-            Yii::$app->db->createCommand($sql)->execute();
-        }
-        catch(\Exception $e){
-
-            //Yii::$app->session->setFlash('message', 'Você já está Inscrito neste evento');
-
-
+        if($inscreve->inscrever($id_evento) == FALSE ){
             Yii::$app->getSession()->setFlash('danger', [
                  'type' => 'danger',
                  'message' => 'Inscrição no evento '.$model->sigla.' não foi efetuada, pois você já está inscrito nesse evento',
@@ -93,15 +84,9 @@ class InscreveController extends Controller
                  'positonX' => 'right'
              ]);
 
-
-
-       return Yii::$app->getResponse()->redirect(array('/inscreve/', 'mensagem' =>'erro'));
-
-
+        return Yii::$app->getResponse()->redirect(array('/inscreve/', 'mensagem' =>'erro'));
         }
-
-        //Yii::$app->session->setFlash('message', 'Inscrição Efetuada com sucesso');
-
+        else{
 
             Yii::$app->getSession()->setFlash('success', [
                  'type' => 'success',
@@ -110,8 +95,8 @@ class InscreveController extends Controller
                  'positonY' => 'bottom',
                  'positonX' => 'right'
              ]);
-
-       return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'sucesso'));
+            return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'sucesso'));
+        }       
 
     }
 
