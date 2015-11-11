@@ -58,8 +58,10 @@ class PacoteController extends Controller
     public function actionView($id)
     {
         $this->autorizaUsuario();
+        $model = $this->findModel($id);
+        $model->valor = $model->valor/100;
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -79,7 +81,8 @@ class PacoteController extends Controller
         $model->evento_idevento = $idevento;
         $model->status = '1';
         
-        if ($model->load(Yii::$app->request->post())) {    
+        if ($model->load(Yii::$app->request->post())) {
+            $model->valor = str_replace(['R$', ','], '', $model->valor);
             if($model->save()){
                 $this->mensagens('success', 'Pacote Cadastrado', 'Pacote cadastrado com sucesso');
                 return $this->redirect(['index', 'idevento' => $model->evento_idevento]);

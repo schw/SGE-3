@@ -40,6 +40,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'params'=>['evento_idevento' => $model->idevento],
             ]
             ]);
+
+        echo Html::a('Listar Credenciados', ['gedenciado/index'], [
+                'class' => 'btn btn-success',
+                'data'=>[
+                'method' => 'POST',
+                'params'=>['evento_idevento' => $model->idevento],
+            ]
+            ]);
         }
 
         ?>
