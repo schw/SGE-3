@@ -60,12 +60,12 @@ class InscritosController extends Controller
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->searchInscritos(Yii::$app->request->queryParams);
 
-        $query = InscreveSearch::find();
+        //$query = InscreveSearch::find();
 
-        $pagination = new Pagination([
-            'defaultPageSize' => 5,
-            'totalCount' => $query->count(),
-        ]);
+        //$pagination = new Pagination([
+        //    'defaultPageSize' => 5,
+        //    'totalCount' => $query->count(),
+        //]);
 
         //$credenciado = $query->select('usuario_idusuario, credenciado')
         //    ->from('inscreve')
@@ -90,7 +90,7 @@ class InscritosController extends Controller
             //'credenciado' => $credenciado,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'pagination' => $pagination,
+            //'pagination' => $pagination,
         ]);
     }
 

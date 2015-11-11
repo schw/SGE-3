@@ -24,7 +24,7 @@ use yii\grid\GridView;
                 }
             },],
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 
-            'template' => '{view}{link}','buttons' => [
+            'template' => '{view}{delete}{link}','buttons' => [
                 'view' => function ($url,$model,$key) {
                           return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['user/view'],[
                             'data'=>[
@@ -36,6 +36,3 @@ use yii\grid\GridView;
 ],
      ],
  ]); ?>
-
-
-<?= LinkPager::widget(['pagination' => $pagination]) ?>
