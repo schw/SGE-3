@@ -80,4 +80,24 @@ class Inscreve extends \yii\db\ActiveRecord
         return $this->hasOne(Evento::className(), ['idEvento' => 'evento_idevento']);
     }
 
+    public function getUsuario()
+    {
+        return $this->hasOne(User::className(), ['idusuario' => 'usuario_idusuario']);
+    }
+
+
+public function inscrever($params)
+    {
+
+
+        $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,NULL)";
+        
+            $resultado = Yii::$app->db->createCommand($sql)->execute();
+
+        return $resultado;
+    }
+
+
+
+
 }

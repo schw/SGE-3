@@ -89,41 +89,11 @@ public function searchInscricoes($params)
             // $query->where('0=1');
             return $dataProvider;
         }
-/*
-        $dataProvider->sort->attributes['tipo'] = [
-        'asc' => ['titulo' => SORT_ASC],
-        'desc' => ['titulo' => SORT_DESC],
-        ];
 
-        $dataProvider->sort->attributes['local'] = [
-        'asc' => ['descricao' => SORT_ASC],
-        'desc' => ['descricao' => SORT_DESC],
-        ];
-
-        $query->andFilterWhere([
-            'idevento' => $this->idevento,
-            'horaIni' => $this->horaIni,
-            'horaFim' => $this->horaFim,
-            'vagas' => $this->vagas,
-            'cargaHoraria' => $this->cargaHoraria,
-            'allow' => $this->allow,
-            'responsavel' => $this->responsavel,
-        ]);
-
-        $query->andFilterWhere(['like', 'sigla', $this->sigla])
-            ->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'dataIni', $this->dataIni])
-            ->andFilterWhere(['like', 'dataFim', $this->dataFim])
-            ->andFilterWhere(['like', 'imagem', $this->imagem])
-            ->andFilterWhere(['like', 'detalhe', $this->detalhe])
-            ->andFilterWhere(['like', 'tipo.titulo', $this->tipo])
-            ->andFilterWhere(['like', 'local.descricao', $this->descricao]);
-
-*/
         return $dataProvider;
     }
 
-//não mexer, pois é do campelo
+//não mexer, pois é referente ao Gerenciar Credenciamento
 public function searchInscritos($params)
     {
 
@@ -146,41 +116,10 @@ public function searchInscritos($params)
             // $query->where('0=1');
             return $dataProvider;
         }
-/*
-        $dataProvider->sort->attributes['tipo'] = [
-        'asc' => ['titulo' => SORT_ASC],
-        'desc' => ['titulo' => SORT_DESC],
-        ];
-
-        $dataProvider->sort->attributes['local'] = [
-        'asc' => ['descricao' => SORT_ASC],
-        'desc' => ['descricao' => SORT_DESC],
-        ];
-
-        $query->andFilterWhere([
-            'idevento' => $this->idevento,
-            'horaIni' => $this->horaIni,
-            'horaFim' => $this->horaFim,
-            'vagas' => $this->vagas,
-            'cargaHoraria' => $this->cargaHoraria,
-            'allow' => $this->allow,
-            'responsavel' => $this->responsavel,
-        ]);
-
-        $query->andFilterWhere(['like', 'sigla', $this->sigla])
-            ->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'dataIni', $this->dataIni])
-            ->andFilterWhere(['like', 'dataFim', $this->dataFim])
-            ->andFilterWhere(['like', 'imagem', $this->imagem])
-            ->andFilterWhere(['like', 'detalhe', $this->detalhe])
-            ->andFilterWhere(['like', 'tipo.titulo', $this->tipo])
-            ->andFilterWhere(['like', 'local.descricao', $this->descricao]);
-
-*/
-        return $dataProvider;
+       return $dataProvider;
     }
 
-
+//POSSIBILITA que a view do Evento, apresente apenas 1 dos botões: Inscrever-se ou Cancelar
 public function VerificaInscrito($params)
     {
 
@@ -196,4 +135,6 @@ public function VerificaInscrito($params)
                 return $cont;
         }    
     }
+
+
 }

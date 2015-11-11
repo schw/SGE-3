@@ -78,7 +78,7 @@ class InscreveController extends Controller
         $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,NULL)";
         
         try{
-            echo Yii::$app->db->createCommand($sql)->execute();
+            Yii::$app->db->createCommand($sql)->execute();
         }
         catch(\Exception $e){
 
