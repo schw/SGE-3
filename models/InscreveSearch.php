@@ -129,7 +129,7 @@ public function searchInscritos($params)
 
         
         if (!Yii::$app->user->isGuest) {
-            $query = Inscreve::find()->where(['evento_idevento' => $params['id']]);
+            $query = Inscreve::find()->where(['evento_idevento' => $params['evento_idevento']]);
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
@@ -187,7 +187,7 @@ public function VerificaInscrito($params)
         $user = Yii::$app->user->identity->idusuario;
 
         if (!Yii::$app->user->isGuest) {
-            $query = "SELECT COUNT(*) FROM inscreve WHERE evento_idevento = '$params[evento_idevento]' 
+            $query = "SELECT COUNT(*) FROM inscreve WHERE evento_idevento = '$params[id]' 
                     AND usuario_idusuario = '$user'";
 
                     $cont = Yii::$app->db->createCommand($sql)
