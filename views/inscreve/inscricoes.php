@@ -13,24 +13,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="inscreve-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    
+    <?php
+        
 
-<!-- menssagem de sucesso -->
-            <?php if (Yii::$app->session->hasFlash('Sucesso')): ?>
-        <div class="alert alert-success">
-            <?php echo Yii::$app->session->getFlash('Sucesso') ?>
-        </div>
-        <?php endif; ?>
-<!-- fim da mensagem de sucesso -->
-
-<!-- menssagem de falha -->
-            <?php if (Yii::$app->session->hasFlash('Falha')): ?>
-        <div class="alert alert-danger">
-            <?php echo Yii::$app->session->getFlash('Falha') ?>
-        </div>
-        <?php endif; ?>
-<!-- fim da mensagem de falha -->
-
+    ?>
 
     <p>
         <?php echo Html::a('Minhas inscrições', ['inscricoes'], ['class' => 'btn btn-success']) ?>
