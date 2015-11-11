@@ -129,7 +129,7 @@ public function searchInscritos($params)
 
         
         if (!Yii::$app->user->isGuest) {
-            $query = Inscreve::find()->where(['evento_idevento' => $params['evento_idevento']]);
+            $query = Inscreve::find()->where(['evento_idevento' => $params['id']]);
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
