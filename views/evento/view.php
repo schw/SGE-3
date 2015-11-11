@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'local.descricao',
         ],
     ]) ?>
-    <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3){ ?>
     <h2>QRCode <?= $model->descricao ?></h2>
     <?= Html::img('plugins/getQRCode.php?conteudo_QRCODE='.$model->idevento, ['alt' => 'QRCode', 'id' => 'imgqrcode']) ?>
     <?php } ?>
