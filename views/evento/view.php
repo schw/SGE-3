@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
         <?php } ?>
-        
+
         <?php 
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){
-            
-
+        
+        if(!$inscrito){
             echo Html::a('Inscreva-se', ['inscreve/inscrever'], [
                 'class' => 'btn btn-primary',
                 'data'=>[
@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'params'=>['evento_idevento' => $model->idevento],
             ]
             ]);
+        }else{
             
             echo Html::a('cancelar inscrição', ['inscreve/cancelar'], [
                 'class' => 'btn btn-danger',
@@ -43,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'params'=>['evento_idevento' => $model->idevento],
             ]
             ]);
+        }
 
         echo Html::a('Listar Credenciados', ['gedenciado/index'], [
                 'class' => 'btn btn-success',

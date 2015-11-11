@@ -65,7 +65,7 @@ class EventoController extends Controller
 
         return $this->render('view', [
             'model' => $model,
-            'inscrito', $verificaInscrito,
+            'inscrito' => $verificaInscrito,
         ]);
     }
 
