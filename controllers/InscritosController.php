@@ -94,6 +94,33 @@ class InscritosController extends Controller
         ]);
     }
 
+    public function actionCredenciar()
+    {
+
+        $searchModel = new InscreveSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+
+        $id_usuario = Yii::$app->user->identity->idusuario;
+        $id_evento = Yii::$app->request->post('evento_idevento');
+
+
+        $sql = "UPDATE inscreve SET credenciado = '1' WHERE usuario_idusuario = '$id_usuario' AND evento_idevento = '$id_evento'";
+        
+        try{
+            echo Yii::$app->db->createCommand($sql)->execute();
+        }
+        catch(\Exception $e){
+
+            Yii::$app->session->setFlash('Falha', 'Você já está credenciado neste evento');
+            return Yii::$app->getResponse()->redirect(array('/inscreve/', 'mensagem' =>'erro'));
+        }
+
+            Yii::$app->session->setFlash('Sucesso', 'Credenciamento realizado com sucesso');
+            return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'sucesso'));
+    }
+
+
 
     public function actionProgramacao()
     {

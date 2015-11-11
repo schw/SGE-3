@@ -26,7 +26,11 @@ use yii\grid\GridView;
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 
             'template' => '{view}{link}','buttons' => [
                 'view' => function ($url,$model,$key) {
-                          return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'index.php?r=evento/view&id='.$model->evento_idevento);
+                          return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['user/view'],[
+                            'data'=>[
+                            'method' => 'POST',
+                            'params'=>['id' => $model->usuario->idusuario],
+                            ]]);
                 },
         ],
 ],

@@ -46,9 +46,10 @@ class UserController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView()
     {
-        $this->autorizaUsuario($id);
+        //$this->autorizaUsuario($id);
+        $id = Yii::$app->request->post('id');
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
