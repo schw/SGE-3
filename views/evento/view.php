@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Listar inscritos', ['inscritos/index', 'evento_idevento' => $model->idevento], ['class' => 'btn btn-success'] ); ?>
         <?php } ?>
 
         <?php 
@@ -46,13 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ]);
         }
 
-        echo Html::a('Listar Credenciados', ['gedenciado/index'], [
-                'class' => 'btn btn-success',
-                'data'=>[
-                'method' => 'POST',
-                'params'=>['evento_idevento' => $model->idevento],
-            ]
-            ]);
         }
 
         ?>
