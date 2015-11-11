@@ -8,6 +8,7 @@ use app\models\Evento;
 use app\models\Local;
 use app\models\Tipo;
 use app\models\EventoSearch;
+use app\models\InscreveSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
@@ -56,13 +57,15 @@ class EventoController extends Controller
     public function actionView($id)
     {
         //$this->autorizaUsuario();
-
+        $verificaInscrito = (new InscreveSearch())->verificaInscrito(Yii::$app->request->queryParams);
         $model = $this->findModel($id);
         $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
         $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
         $model->cargaHoraria = $model->cargaHoraria." hs";
+
         return $this->render('view', [
             'model' => $model,
+            'inscrito', $verificaInscrito,
         ]);
     }
 

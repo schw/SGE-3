@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="evento-view">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p> <?php if(Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2){ ?>
+    <p> <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2){ ?>
         <?= Html::a('Alterar', ['update', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Remover', ['delete', 'id' => $model->idevento], [
             'class' => 'btn btn-danger',
@@ -25,7 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php } ?>
         
         <?php 
-        if(Yii::$app->user->identity->tipoUsuario == 3){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){
+            
+
             echo Html::a('Inscreva-se', ['inscreve/inscrever'], [
                 'class' => 'btn btn-primary',
                 'data'=>[
@@ -33,7 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'params'=>['evento_idevento' => $model->idevento],
             ]
             ]);
-        echo Html::a('cancelar inscrição', ['inscreve/cancelar'], [
+            
+            echo Html::a('cancelar inscrição', ['inscreve/cancelar'], [
                 'class' => 'btn btn-danger',
                 'data'=>[
                 'method' => 'POST',
