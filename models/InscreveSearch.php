@@ -123,4 +123,20 @@ public function searchInscricoes($params)
         return $dataProvider;
     }
 
+
+public function VerificaInscrito($params)
+    {
+
+        $user = Yii::$app->user->identity->idusuario;
+
+        if (!Yii::$app->user->isGuest) {
+            $query = "SELECT COUNT(*) FROM inscreve WHERE evento_idevento = '$params[evento_idevento]' 
+                    AND usuario_idusuario = '$user'";
+
+                    $cont = Yii::$app->db->createCommand($sql)
+                 ->queryScalar();
+
+                return $cont;
+        }    
+    }
 }

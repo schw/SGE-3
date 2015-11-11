@@ -52,23 +52,13 @@ class InscreveController extends Controller
 
     }
 
-    public function actionButton()
+    public function actionVerificaInscrito()
     {
 
-        $id_usuario = Yii::$app->user->identity->idusuario;
-        $id_evento = Yii::$app->request->get('evento_idevento'); 
+        $searchModel = new InscreveSearch();
+        $dataProvider = $searchModel->VerificaInscrito(Yii::$app->request->queryParams);
 
-
-        $sql = "SELECT COUNT(*) FROM inscreve WHERE evento_idevento = '$id_evento' 
-                AND usuario_idusuario = '$id_usuario'";
-
-        $count = Yii::$app->db->createCommand($sql)
-             ->queryScalar();
-        
-    
-        return Yii::$app->getResponse()->redirect(array('/evento/', 'mensagem' => $count));
-        //se count for 1, então o usuario já está cadastrado no evento !!!!
-        //caso contrário, não está cadastrado!!
+        return $dataProvider;
 
     }
 
