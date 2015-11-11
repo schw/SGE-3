@@ -187,7 +187,7 @@ public function VerificaInscrito($params)
         $user = Yii::$app->user->identity->idusuario;
 
         if (!Yii::$app->user->isGuest) {
-            $query = "SELECT COUNT(*) FROM inscreve WHERE evento_idevento = '$params[id]' 
+            $sql = "SELECT COUNT(*) FROM inscreve WHERE evento_idevento = '$params[id]' 
                     AND usuario_idusuario = '$user'";
 
                     $cont = Yii::$app->db->createCommand($sql)
