@@ -52,6 +52,17 @@ class InscreveController extends Controller
 
     }
 
+    public function actionButton()
+    {
+
+
+        
+    
+        return Yii::$app->getResponse()->redirect(array('/evento/', 'mensagem' => "teste"));
+
+    }
+
+
         public function actionInscrever()
     {
 
@@ -62,6 +73,7 @@ class InscreveController extends Controller
         $id_usuario = Yii::$app->user->identity->idusuario;
         $id_evento = Yii::$app->request->post('evento_idevento'); 
 
+        $model = $this->findModel($id_evento);
 
         $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,NULL)";
         
@@ -70,13 +82,35 @@ class InscreveController extends Controller
         }
         catch(\Exception $e){
 
-            Yii::$app->session->setFlash('Falha', 'Você já está Inscrito neste evento');
+            //Yii::$app->session->setFlash('message', 'Você já está Inscrito neste evento');
+
+
+            Yii::$app->getSession()->setFlash('danger', [
+                 'type' => 'danger',
+                 'message' => 'Inscrição no evento '.$model->sigla.' não foi efetuada, pois você já está inscrito nesse evento',
+                 'title' => 'Inscrição',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+
+
+
        return Yii::$app->getResponse()->redirect(array('/inscreve/', 'mensagem' =>'erro'));
 
 
         }
 
-        Yii::$app->session->setFlash('Sucesso', 'Inscrição Efetuada com sucesso');
+        //Yii::$app->session->setFlash('message', 'Inscrição Efetuada com sucesso');
+
+
+            Yii::$app->getSession()->setFlash('success', [
+                 'type' => 'success',
+                 'message' => 'Inscrição no evento '.$model->sigla.' Efetuada com Sucesso',
+                 'title' => 'Inscrição',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+
        return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'sucesso'));
 
     }
@@ -92,6 +126,8 @@ class InscreveController extends Controller
         $id_usuario = Yii::$app->user->identity->idusuario;
         $id_evento = Yii::$app->request->post('evento_idevento'); 
 
+        $model = $this->findModel($id_evento);
+
 
         $sql = "DELETE FROM inscreve WHERE usuario_idusuario = '$id_usuario' AND evento_idevento = '$id_evento'";
         
@@ -99,13 +135,31 @@ class InscreveController extends Controller
         $resultado = Yii::$app->db->createCommand($sql)->execute();
 
         if ($resultado == 1){
-            Yii::$app->session->setFlash('Sucesso', 'Inscrição Cancelada com sucesso');
+            //Yii::$app->session->setFlash('message', 'Inscrição Cancelada com sucesso');
+
+                Yii::$app->getSession()->setFlash('success', [
+                 'type' => 'success',
+                 'message' => 'Inscrição no evento '.$model->sigla.' foi cancelada com sucesso',
+                 'title' => 'Inscrição',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+            ]);
+
 
             return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'sucesso'));
 
         }
         else{
-            Yii::$app->session->setFlash('Falha', 'Erro: Você não está inscrito nesse evento');   
+
+            Yii::$app->getSession()->setFlash('danger', [
+                 'type' => 'danger',
+                 'message' => 'Você não está inscrito no evento '.$model->sigla.'.',
+                 'title' => 'Inscrição',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+
+            //Yii::$app->session->setFlash('message', 'Erro: Você não está inscrito nesse evento');   
 
             return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'erro'));
         }
@@ -194,4 +248,5 @@ class InscreveController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

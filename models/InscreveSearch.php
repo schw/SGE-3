@@ -69,11 +69,10 @@ class InscreveSearch extends Inscreve
 
 public function searchInscricoes($params)
     {
-        //Listando apenas Eventos de um determinado professor
-        //$query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario]);
+
         
         if (!Yii::$app->user->isGuest) {
-            $query =    Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario]);
+            $query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario]);
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado

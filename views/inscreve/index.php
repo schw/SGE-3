@@ -20,21 +20,26 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
 
-<!-- menssagem de sucesso -->
-            <?php if (Yii::$app->session->hasFlash('Sucesso')): ?>
-        <div class="alert alert-success">
-            <?php echo Yii::$app->session->getFlash('Sucesso') ?>
-        </div>
-        <?php endif; ?>
-<!-- fim da mensagem de sucesso -->
-
-<!-- menssagem de falha -->
-            <?php if (Yii::$app->session->hasFlash('Falha')): ?>
-        <div class="alert alert-danger">
-            <?php echo Yii::$app->session->getFlash('Falha') ?>
-        </div>
-        <?php endif; ?>
-<!-- fim da mensagem de falha -->
+    <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
+            <?php
+            echo \kartik\widgets\Growl::widget([
+                'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
+                'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'Title Not Set!',
+                'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
+                'body' => (!empty($message['message'])) ? Html::encode($message['message']) : 'Message Not Set!',
+                'showSeparator' => true,
+                'delay' => 1, //This delay is how long before the message shows
+                'pluginOptions' => [
+                    'delay' => (!empty($message['duration'])) ? $message['duration'] : 5000, //This delay is how long the message shows for
+                    'showProgressbar' => true,
+                    'placement' => [
+                        'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'top',
+                        'align' => (!empty($message['positonX'])) ? $message['positonX'] : 'right',
+                    ]
+                ]
+            ]);
+            ?>
+        <?php endforeach; ?>
 
 
 <?= GridView::widget([
