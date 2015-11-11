@@ -123,6 +123,63 @@ public function searchInscricoes($params)
         return $dataProvider;
     }
 
+//não mexer, pois é do campelo
+public function searchInscritos($params)
+    {
+
+        
+        if (!Yii::$app->user->isGuest) {
+            $query = Inscreve::find()->where(['evento_idevento' => $params['evento_idevento']]);
+        }
+        else {
+            return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+/*
+        $dataProvider->sort->attributes['tipo'] = [
+        'asc' => ['titulo' => SORT_ASC],
+        'desc' => ['titulo' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['local'] = [
+        'asc' => ['descricao' => SORT_ASC],
+        'desc' => ['descricao' => SORT_DESC],
+        ];
+
+        $query->andFilterWhere([
+            'idevento' => $this->idevento,
+            'horaIni' => $this->horaIni,
+            'horaFim' => $this->horaFim,
+            'vagas' => $this->vagas,
+            'cargaHoraria' => $this->cargaHoraria,
+            'allow' => $this->allow,
+            'responsavel' => $this->responsavel,
+        ]);
+
+        $query->andFilterWhere(['like', 'sigla', $this->sigla])
+            ->andFilterWhere(['like', 'descricao', $this->descricao])
+            ->andFilterWhere(['like', 'dataIni', $this->dataIni])
+            ->andFilterWhere(['like', 'dataFim', $this->dataFim])
+            ->andFilterWhere(['like', 'imagem', $this->imagem])
+            ->andFilterWhere(['like', 'detalhe', $this->detalhe])
+            ->andFilterWhere(['like', 'tipo.titulo', $this->tipo])
+            ->andFilterWhere(['like', 'local.descricao', $this->descricao]);
+
+*/
+        return $dataProvider;
+    }
+
 
 public function VerificaInscrito($params)
     {
