@@ -28,28 +28,24 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php 
         if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){
         
-        if(!$inscrito){
-            echo Html::a('Inscreva-se', ['inscreve/inscrever'], [
-                'class' => 'btn btn-primary',
-                'data'=>[
-                'method' => 'POST',
-                'params'=>['evento_idevento' => $model->idevento],
-            ]
-            ]);
-        }else{
-            
-            echo Html::a('cancelar inscrição', ['inscreve/cancelar'], [
-                'class' => 'btn btn-danger',
-                'data'=>[
-                'method' => 'POST',
-                'params'=>['evento_idevento' => $model->idevento],
-            ]
-            ]);
-        }
-
-        }
-
-        ?>
+            if(!$inscrito){
+                echo Html::a('Inscreva-se', ['inscreve/inscrever'], [
+                    'class' => 'btn btn-primary',
+                    'data'=>[
+                    'method' => 'POST',
+                    'params'=>['evento_idevento' => $model->idevento],
+                ]
+                ]);
+            }else{
+                echo Html::a('Cancelar Inscrição', ['inscreve/cancelar'], [
+                    'class' => 'btn btn-danger',
+                    'data'=>[
+                    'method' => 'POST',
+                    'params'=>['evento_idevento' => $model->idevento],
+                ]
+                ]);
+            }
+        }?>
 
         <?= Html::a('Pacotes', ['pacote/index', 'idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Programação', ['item-programacao/index', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>

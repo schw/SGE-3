@@ -18,7 +18,7 @@ use kartik\select2\Select2;
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'valor')->widget(\yii\widgets\MaskedInput::className(), [
-    'mask' => 'R$ 99,99',
+    'mask' => 'R$ 999,99',
     ]) ?>
 
     <?= $form->field($model, 'itens')->widget(Select2::classname(), [

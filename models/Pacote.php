@@ -68,7 +68,7 @@ class Pacote extends \yii\db\ActiveRecord
                 Yii::$app->db->createCommand($sql)->execute();
             }
         } catch (ErrorException $e) {
-            Yii::warning("Erro ao Inserir Itens de Programacao!!!");
+            return false;
         }
     }
 
