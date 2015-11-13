@@ -12,36 +12,7 @@ use kartik\widgets\SideNav;
 $status == 'passado' ? $this->title = 'Eventos Passados' : $this->title = 'Eventos Ativos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="evento-index">
-    <div class="navbar-default sidebar">
-        <?php
-            $heading = 'Opções';
-            echo SideNav::widget([
-            'type' => SideNav::TYPE_DEFAULT,
-            'encodeLabels' => false,
-            //'heading' => $heading,
-            'items' => [
-                // Important: you need to specify url as 'controller/action',
-                // not just as 'controller' even if default action is used.
-                ['label' => 'Home', 'icon' => 'home', 'url' => ['site/index']],
-                Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'icon' => 'info-sign',  'url' => ['site/recuperar']] : ['label' => 'Eventos', 'icon' => 'tags', 'url' => ['evento/index']],
-                Yii::$app->user->isGuest ? ['label' => 'Cadastre-se', 'icon' => 'info-sign', 'url' => ['/user/create']] : ['label' => 'Perfil', 'icon' => 'user', 'url' => ['user/view', 'id' => Yii::$app->user->identity->idusuario]],
-                Yii::$app->user->isGuest ? ['label' => 'Login', 'icon' => 'user', 'url' => ['site/login']] : ['label' => 'Minhas Inscrições', 'icon' => 'flag', 'url' => ['inscreve/index']],
-               /* ['label' => 'Books', 'icon' => 'book', 'items' => [
-                    ['label' => '<span class="pull-right badge">10</span> New Arrivals', 'url' => Url::to(['/site/new-arrivals', 'type'=>SideNav::TYPE_DEFAULT])],
-                    ['label' => '<span class="pull-right badge">5</span> Most Popular', 'url' => Url::to(['/site/most-popular', 'type'=>SideNav::TYPE_DEFAULT])],
-                    ['label' => 'Read Online', 'icon' => 'cloud', 'items' => [
-                        ['label' => 'Online 1', 'url' => Url::to(['/site/online-1', 'type'=>SideNav::TYPE_DEFAULT])],
-                        ['label' => 'Online 2', 'url' => Url::to(['/site/online-2', 'type'=>SideNav::TYPE_DEFAULT])]
-                    ]],
-                ]],*/
-                //['label' => 'Profile', 'icon' => 'user', 'url' => Url::to(['/site/profile', 'type'=>SideNav::TYPE_DEFAULT])],
-                ],
-            ]);        
-        ?>
-    </div>
-
-    <div id="page-wrapper">
+<div class="evento-index">    
         <h1><?= Html::encode($this->title) ?></h1>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
