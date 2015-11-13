@@ -62,21 +62,9 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            //return $this->goBack();
-            if($model->getUser()->tipoUsuario === 1){
-            	return $this->render('coordenador',['model'=> $model->getUser()]);
-           		//return $this->render('../layouts/posLogin');
-           		
-            }elseif($model->getUser()->tipoUsuario === 2){
-            	return $this->render('secretaria',['model'=> $model->getUser()]);
-            	//return $this->goHome();
-            	
-            }else{
-            	return $this->render('usuario',['model'=> $model->getUser()]);
-            	//return $this->goHome();
-           
-            }
+            return $this->goHome();
         }
+        
         return $this->render('login', [
             'model' => $model,
         ]);

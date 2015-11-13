@@ -34,18 +34,75 @@ class EventoSearch extends Evento
         return Model::scenarios();
     }
 
-    /**
-     * Creates data provider instance with search query applied
+
+     /**
+     * Busca Todos os Eventos criando uma instância data provider
      *
      * @param array $params
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        //Litando apenas Eventos de um determinado professor
+    public function searchEventos($params){
+        if (isset($params['status']) && $params['status'] == 'passado') {
+            $query = Evento::find()->where("dataFim < '". date('Y-m-d')."'");
+        }else{
+            $query = Evento::find()->where("dataIni > '". date('Y-m-d')."'");
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $dataProvider->sort->attributes['tipo'] = [
+        'asc' => ['titulo' => SORT_ASC],
+        'desc' => ['titulo' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['local'] = [
+        'asc' => ['descricao' => SORT_ASC],
+        'desc' => ['descricao' => SORT_DESC],
+        ];
+
+        $query->andFilterWhere([
+            'idevento' => $this->idevento,
+            'horaIni' => $this->horaIni,
+            'horaFim' => $this->horaFim,
+            'vagas' => $this->vagas,
+            'cargaHoraria' => $this->cargaHoraria,
+            'allow' => $this->allow,
+            'responsavel' => $this->responsavel,
+        ]);
+
+        $query->andFilterWhere(['like', 'sigla', $this->sigla])
+            ->andFilterWhere(['like', 'descricao', $this->descricao])
+            ->andFilterWhere(['like', 'dataIni', $this->dataIni])
+            ->andFilterWhere(['like', 'dataFim', $this->dataFim])
+            ->andFilterWhere(['like', 'imagem', $this->imagem])
+            ->andFilterWhere(['like', 'detalhe', $this->detalhe])
+            ->andFilterWhere(['like', 'tipo.titulo', $this->tipo])
+            ->andFilterWhere(['like', 'local.descricao', $this->descricao]);
+
+
+        return $dataProvider;
+    }
+
+    /**
+     * Busca Todos os Eventos do usuário autenticado criando uma instância data provider.
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function searchEventosResponsavel($params){
         $query = Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario]);
-        //$query = Evento::find()->where(['responsavel' => 1])->orderBy(['dataFim' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -91,56 +148,4 @@ class EventoSearch extends Evento
 
         return $dataProvider;
     }
-
-    public function searchEventos($params)
-    {
-
-        $query = Evento::find();
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
-        $this->load($params);
-
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
-
-        $dataProvider->sort->attributes['tipo'] = [
-        'asc' => ['titulo' => SORT_ASC],
-        'desc' => ['titulo' => SORT_DESC],
-        ];
-
-        $dataProvider->sort->attributes['local'] = [
-        'asc' => ['descricao' => SORT_ASC],
-        'desc' => ['descricao' => SORT_DESC],
-        ];
-
-        $query->andFilterWhere([
-            'idevento' => $this->idevento,
-            'horaIni' => $this->horaIni,
-            'horaFim' => $this->horaFim,
-            'vagas' => $this->vagas,
-            'cargaHoraria' => $this->cargaHoraria,
-            'allow' => $this->allow,
-            'responsavel' => $this->responsavel,
-        ]);
-
-        $query->andFilterWhere(['like', 'sigla', $this->sigla])
-            ->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'dataIni', $this->dataIni])
-            ->andFilterWhere(['like', 'dataFim', $this->dataFim])
-            ->andFilterWhere(['like', 'imagem', $this->imagem])
-            ->andFilterWhere(['like', 'detalhe', $this->detalhe])
-            ->andFilterWhere(['like', 'tipo.titulo', $this->tipo])
-            ->andFilterWhere(['like', 'local.descricao', $this->descricao]);
-
-
-        return $dataProvider;
-    }
-
-    
 }
