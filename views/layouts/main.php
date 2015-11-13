@@ -75,7 +75,9 @@ AppAsset::register($this);
                 // Important: you need to specify url as 'controller/action',
                 // not just as 'controller' even if default action is used.
                 ['label' => 'Home', 'icon' => 'home', 'url' => ['site/index']],
-                Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'icon' => 'info-sign',  'url' => ['site/recuperar']] : ['label' => 'Eventos', 'icon' => 'tags', 'url' => ['evento/index']],
+                Yii::$app->user->isGuest ? ['label' => 'Recuperar Senha', 'icon' => 'info-sign',  'url' => ['site/recuperar']] : ['label' => 'Eventos', 'icon' => 'tags', 'items' => [
+                    ['label' => '<span class="pull-right badge">10</span> Eventos Ativos', 'url' => ['evento/index']],
+                    ['label' => '<span class="pull-right badge">5</span> Eventos Passados', 'url' => ['evento/index', 'status' => 'passado']],],],
                 Yii::$app->user->isGuest ? ['label' => 'Cadastre-se', 'icon' => 'info-sign', 'url' => ['/user/create']] : ['label' => 'Perfil', 'icon' => 'user', 'url' => ['user/view', 'id' => Yii::$app->user->identity->idusuario]],
                 Yii::$app->user->isGuest ? ['label' => 'Login', 'icon' => 'user', 'url' => ['site/login']] : ['label' => 'Minhas Inscrições', 'icon' => 'flag', 'url' => ['inscreve/index']],
                /* ['label' => 'Books', 'icon' => 'book', 'items' => [

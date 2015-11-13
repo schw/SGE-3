@@ -42,8 +42,8 @@ class EventoSearch extends Evento
      *
      * @return ActiveDataProvider
      */
-    public function searchEventos($params){
-        if (isset($params['status']) && $params['status'] == 'passado') {
+    public function searchEventos($status){
+        if ($status && $status == 'passado') {
             $query = Evento::find()->where("dataFim < '". date('Y-m-d')."'");
         }else{
             $query = Evento::find()->where("dataIni > '". date('Y-m-d')."'");
@@ -53,7 +53,7 @@ class EventoSearch extends Evento
             'query' => $query,
         ]);
 
-        $this->load($params);
+        //$this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
