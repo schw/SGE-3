@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="evento-view">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p> <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2){ ?>
+    <p> <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
         <?= Html::a('Alterar', ['update', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Remover', ['delete', 'id' => $model->idevento], [
             'class' => 'btn btn-danger',
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Listar inscritos', ['inscritos/index', 'evento_idevento' => $model->idevento], ['class' => 'btn btn-success'] ); ?>
+        <?= Html::a('Listar Inscritos', ['inscritos/index', 'evento_idevento' => $model->idevento], ['class' => 'btn btn-success'] ); ?>
         <?php } ?>
 
         <?php 
