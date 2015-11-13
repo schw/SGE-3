@@ -8,8 +8,7 @@ use kartik\widgets\SideNav;
 /* @var $searchModel app\models\EventoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-
-$status == 'passado' ? $this->title = 'Eventos Passados' : $this->title = 'Eventos Ativos';
+$this->title = 'Eventos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="evento-index">

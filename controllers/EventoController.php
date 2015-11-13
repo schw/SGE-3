@@ -34,16 +34,37 @@ class EventoController extends Controller
     }
 
     /**
-     * Lists all Evento models.
+     * Lista Todos os eventos cadastrados.
      * @return mixed
      */
     public function actionIndex()
     {
-        //$this->autorizaUsuario();
+        $status = Yii::$app->request->queryParams['status'];
+
+        if(!$status || Yii::$app->user->isGuest)
+            $status = 'ativo';
+
         $searchModel = new EventoSearch();
-        $dataProvider = $searchModel->searchEventos(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->searchEventos($status);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'status' => $status, 
+        ]);
+    }
+
+    /**
+     * Lista Eventos gerenciáveis para o usuário autenticado.
+     * @return mixed
+     */
+    public function actionGerenciareventos()
+    {
+        $this->autorizaUsuario();
+        $searchModel = new EventoSearch();
+        $dataProvider = $searchModel->searchEventosResponsavel(Yii::$app->request->queryParams);
+
+        return $this->render('gerenciarEventos', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

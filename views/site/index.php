@@ -1,12 +1,9 @@
 <?php
 
-/* @var $this yii\web\View */
 
-$this->title = 'SGE';
+if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3)
+    Yii::$app->getResponse()->redirect(array('evento/gerenciareventos'));
+else
+	Yii::$app->getResponse()->redirect(array('evento/', 'status' => 'ativo'));
+
 ?>
-
-<div class="site-index">
-    <div class="jumbotron">
-        <h2>Sistema de Gestão de Eventos</h2>
-    </div>    
-</div>
