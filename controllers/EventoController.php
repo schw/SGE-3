@@ -39,7 +39,7 @@ class EventoController extends Controller
      */
     public function actionIndex()
     {
-        $status = Yii::$app->request->queryParams['status'];
+        $status = filter_input(INPUT_GET, 'status');
 
         if(!$status || Yii::$app->user->isGuest)
             $status = 'ativo';
@@ -78,7 +78,9 @@ class EventoController extends Controller
     public function actionView($id)
     {
         //$this->autorizaUsuario();
+        Yii::$app->user->isGuest ? $verificaInscrito = 0 : 
         $verificaInscrito = (new InscreveSearch())->verificaInscrito(Yii::$app->request->queryParams);
+        
         $model = $this->findModel($id);
         $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
         $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
