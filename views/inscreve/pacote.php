@@ -30,21 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'evento.descricao',
-            'evento.sigla',
-            ['attribute' => 'credenciado', 'value' => 
-            function ($data) {
-                if ($data->credenciado){
-                    return 'Sim';
-                }else{
-                    return 'Não';
-                }
-            },],
-            'evento.tipo.titulo',
+            'titulo',
+            'descricao',
+            'valor',
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 
-            'template' => '{view}{link}','buttons' => [
-                'view' => function ($url,$model,$key) {
-                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'index.php?r=evento/view&id='.$model->evento_idevento);
+            'template' => '{plus}{link}','buttons' => [
+                'plus' => function ($url,$model,$key) {
+                                return Html::a('<span class="glyphicon glyphicon-plus"></span>', 'index.php?r=inscreve/add&id_pacote='.$model->idpacote.'&id_evento='.$model->evento_idevento);
                 },
         ],
 ],

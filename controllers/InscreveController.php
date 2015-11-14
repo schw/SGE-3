@@ -120,6 +120,46 @@ class InscreveController extends Controller
     }
 
 
+        public function actionAdd()
+    {
+
+        $searchModel = new InscreveSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+
+        $id_evento = Yii::$app->request->get('id_evento'); 
+        $id_pacote = Yii::$app->request->get('id_pacote'); 
+
+        $model = $this->findModel($id_evento);
+        $inscreve = new Inscreve();
+
+        if($inscreve->inscreverComPacote($id_evento) == FALSE ){
+            Yii::$app->getSession()->setFlash('danger', [
+                 'type' => 'danger',
+                 'message' => 'Inscrição no evento '.$model->sigla.' não foi efetuada, pois você já está inscrito nesse evento',
+                 'title' => 'Inscrição',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+
+        return Yii::$app->getResponse()->redirect(array('/inscreve/', 'mensagem' =>'erro'));
+        }
+        else{
+
+            Yii::$app->getSession()->setFlash('success', [
+                 'type' => 'success',
+                 'message' => 'Inscrição no evento '.$model->sigla.' Efetuada com Sucesso',
+                 'title' => 'Inscrição',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+            return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'sucesso'));
+        }       
+
+    }
+
+
+
     public function actionCancelar()
     {
 

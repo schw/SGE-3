@@ -89,7 +89,6 @@ class Inscreve extends \yii\db\ActiveRecord
 
 public function inscrever($id_evento)
     {
-
         $id_usuario = Yii::$app->user->identity->idusuario;
 
         $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,NULL)";
@@ -99,6 +98,17 @@ public function inscrever($id_evento)
         return $resultado;
     }
 
+public function inscreverComPacote($id_evento)
+    {
+        $idpacote = $_GET['id_pacote'];
+        $id_usuario = Yii::$app->user->identity->idusuario;
+
+        $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,'$idpacote')";
+        
+            $resultado = Yii::$app->db->createCommand($sql)->execute();
+
+        return $resultado;
+    }
 
 
 
