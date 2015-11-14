@@ -10,6 +10,7 @@ use app\models\EventoSearch;
 use app\models\Evento;
 use app\models\ItemProgramacao;
 use app\models\ItemProgramacaoSearch;
+use app\models\Pacote;
 // fim
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -74,6 +75,18 @@ class InscreveController extends Controller
 
         $model = $this->findModel($id_evento);
         $inscreve = new Inscreve();
+
+        $pacote  = new Pacote(); //possivelmente está errado 
+
+        $quantidade_de_pacotes = $pacote->possuiPacote();
+
+        if ($quantidade_de_pacotes != 0){
+            //vai ser redirecionado a outra view !!! a ser criada ainda !!!
+
+            return Yii::$app->getResponse()->redirect(array('/pacote/', 'mensagem' =>'pacote'));
+
+        }
+
         
         if($inscreve->inscrever($id_evento) == FALSE ){
             Yii::$app->getSession()->setFlash('danger', [

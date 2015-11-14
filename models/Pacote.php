@@ -119,4 +119,15 @@ class Pacote extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Evento::className(), ['idevento' => 'evento_idevento']);
     }
+
+// funcão que retorna a quantidade de pacotes que um terminado evento possui
+// funcao necessária para a estória gerenciar inscrições
+    public function possuiPacote(){
+
+        $id_evento = Yii::$app->request->post('evento_idevento'); 
+
+        return $results = Pacote::find()->where(['evento_idevento' => $id_evento])->count();
+
+    }
+
 }
