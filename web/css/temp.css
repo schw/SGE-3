@@ -67,21 +67,6 @@ input{
     
 }
 
-.evento-view{
-  margin-left: 350px;
-  width: 900px;
-}
-
-.evento-create{
-  margin-left: 350px;
-  width: 900px;  
-}
-
-.evento-index{
-  margin-left: 350px;
-  width: 900px;  
-}
-
 .pacote-create{
   margin-left: 350px;
   width: 900px;  
@@ -116,11 +101,6 @@ input{
 
 .field-tipo-titulo{
   width: 300px;
-}
-
-.site-error{
-  margin-left: 350px;
-  width: 900px;
 }
 
 
@@ -209,4 +189,9 @@ input{
 .inscreve-view{
   margin-left: 350px;
   width: 900px; 
+}
+
+#homeICOMP{
+  width: 80%;
+  height: 500px;
 }
