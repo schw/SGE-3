@@ -45,6 +45,7 @@ AppAsset::register($this);
             ['label' => 'Recuperar Senha', 'url' => ['site/recuperar'], 'visible' => Yii::$app->user->isGuest],
             ['label' => 'Eventos', 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3),'items' => [
                 ['label' => 'Eventos Ativos', 'url' => ['evento/gerenciareventos']],
+                '<li class="divider"></li>',
                 ['label' => 'Eventos Passados', 'url' => ['evento/gerenciareventos', 'status' => 'passado']],],], 
             ['label' => 'Eventos', 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3), 'items' => [
                 ['label' => 'Eventos Ativos', 'url' => ['evento/index']],
