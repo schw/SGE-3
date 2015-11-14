@@ -11,7 +11,97 @@ $this->params['breadcrumbs'][] = ['label' => 'Eventos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="evento-view">
-    <h1><?= Html::encode($this->title) ?></h1>
+
+    <div id="geral" style="width: 100%; text-align: center;">
+        <div id="titulo" style= "float: left">
+            <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
+        </div>
+
+    <div style="width: 80px; float: right; padding: 10px;">
+            <?php echo Html::a(Html::img('@web/img/pacotes.png'), ['pacote/index','idevento' => $model->idevento], ['width' => '10']) ?>
+            <?php echo Html::a('Pacote', 'index.php?r=pacote/index&idevento='.$model->idevento); ?>
+        </div>
+        <div style="width: 100px; float: right; padding: 10px;">
+            <?php echo Html::a(Html::img('@web/img/programacao.png'), ['item-programacao/index','id' => $model->idevento], ['width' => '10']) ?>
+            <?php echo Html::a('Programação', 'index.php?r=item-programacao/index&id='.$model->idevento); ?>
+        </div>
+    </div>
+
+
+
+        <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
+            <div style="width: 80px; float: right; padding: 10px;">
+                <?= Html::a(Html::img('@web/img/delete.png'), ['delete', 'id' => $model->idevento], [
+                    'data' => [
+                        'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+                        <?= Html::a('Remover', ['delete', 'id' => $model->idevento], [
+                            'data' => [
+                                'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
+                                'method' => 'post',
+                            ],
+                        ]) ?>
+            </div>
+            <div style="width: 80px; float: right; padding: 10px;">
+                <?= Html::a(Html::img('@web/img/editar.png'), ['update', 'id' => $model->idevento]) ?>
+                <?php echo Html::a('Alterar Evento', 'index.php?r=evento/update&id='.$model->idevento); ?>
+            </div>
+            <div style="width: 80px; float: right; padding: 10px;">
+                <?php echo Html::a(Html::img('@web/img/listar_inscritos.png'), ['inscritos/index','evento_idevento' => $model->idevento], ['width' => '10']) ?>
+                <?php echo Html::a('Listar Inscritos', 'index.php?r=inscritos/index&evento_idevento='.$model->idevento); ?>
+            </div>
+        <?php 
+        }?>
+
+        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){
+        
+    if(!$inscrito){ ?>
+
+                <div style="width: 80px; float: right; padding: 10px;">
+                    <?php echo Html::a(Html::img('@web/img/ok.png'), ['inscreve/inscrever'],  [
+                    'data'=>[
+                    'method' => 'POST',
+                    'params'=>['evento_idevento' => $model->idevento],
+                ]
+                ]); ?>
+                    <?php echo Html::a('Realizar Inscrição', ['inscreve/inscrever'], [
+                    'data'=>[
+                    'method' => 'POST',
+                    'params'=>['evento_idevento' => $model->idevento],
+                ]
+                ]);?>
+                </div>
+
+
+                <?php } else{ ?>
+
+                        <div style="width: 80px; float: right; padding: 10px;">
+                            <?= Html::a(Html::img('@web/img/block.png'), ['inscreve/cancelar'], [
+                                'data' => [
+                                'confirm' => 'Deseja cancelar inscrição no evento "'.$model->descricao.'" ?',
+                                    'method' => 'POST',
+                                    'params'=>['evento_idevento' => $model->idevento],
+                                ],
+                            ]) ?>
+                            <?php echo Html::a('Cancelar Inscrição', ['inscreve/cancelar'], [
+                                'data'=>[
+                                'confirm' => 'Deseja cancelar inscrição no evento "'.$model->descricao.'" ?',
+                                'method' => 'POST',
+                                'params'=>['evento_idevento' => $model->idevento],
+                            ]
+                            ]); ?>
+                        </div>
+
+
+                <?php }
+    } ?>
+
+
+
+
+<!--
 
     <p> <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
         <?= Html::a('Alterar', ['update', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
@@ -49,9 +139,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= Html::a('Pacotes', ['pacote/index', 'idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Programação', ['item-programacao/index', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
-        
-
     </p>
+
+    -->
+
 
     <?= DetailView::widget([
         'model' => $model,

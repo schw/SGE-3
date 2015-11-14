@@ -1,12 +1,9 @@
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\InscreveSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = 'Minhas Inscrições ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -21,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div style="width: 80px; float: right; padding: 10px;">
             <?php echo Html::a(Html::img('@web/img/minhasincricoes.png'), ['/evento'], ['width' => '10']) ?>
-            <?php echo Html::a('Meus Eventos', 'index.php?r=evento'); ?>
+            <?php echo Html::a('Listar Eventos', 'index.php?r=evento'); ?>
         </div>
     </div>
 
