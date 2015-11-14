@@ -61,12 +61,17 @@ class EventoController extends Controller
     public function actionGerenciareventos()
     {
         $this->autorizaUsuario();
+        $status = filter_input(INPUT_GET, 'status');
+
+        if(!$status || Yii::$app->user->isGuest)
+            $status = 'ativo';
         $searchModel = new EventoSearch();
-        $dataProvider = $searchModel->searchEventosResponsavel(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->searchEventosResponsavel($status);
 
         return $this->render('gerenciarEventos', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'status' => $status,
         ]);
     }
 

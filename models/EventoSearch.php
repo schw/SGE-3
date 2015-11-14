@@ -101,14 +101,18 @@ class EventoSearch extends Evento
      *
      * @return ActiveDataProvider
      */
-    public function searchEventosResponsavel($params){
-        $query = Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario]);
+    public function searchEventosResponsavel($status){
+        if ($status && $status == 'passado') {
+            $query = Evento::find()->where("dataFim < '". date('Y-m-d')."'")->andWhere(['responsavel' => Yii::$app->user->identity->idusuario]);
+        }else{
+            $query = Evento::find()->where("dataIni > '". date('Y-m-d')."'")->andWhere(['responsavel' => Yii::$app->user->identity->idusuario]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $this->load($params);
+        //$this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
