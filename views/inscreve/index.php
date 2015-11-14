@@ -55,6 +55,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'evento.descricao',
             'evento.sigla',
+            'evento.tipo.titulo',
+            'pacote.titulo',
             ['attribute' => 'credenciado', 'value' => 
             function ($data) {
                 if ($data->credenciado){
@@ -63,7 +65,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return 'Não';
                 }
             },],
-            'evento.tipo.titulo',
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 
             'template' => '{view}{link}','buttons' => [
                 'view' => function ($url,$model,$key) {

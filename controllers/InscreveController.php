@@ -120,7 +120,7 @@ class InscreveController extends Controller
     }
 
 
-        public function actionAdd()
+        public function actionAddpacote()
     {
 
         $searchModel = new InscreveSearch();
@@ -133,7 +133,7 @@ class InscreveController extends Controller
         $model = $this->findModel($id_evento);
         $inscreve = new Inscreve();
 
-        if($inscreve->inscreverComPacote($id_evento) == FALSE ){
+        if($inscreve->inscreverComPacote($id_evento,$id_pacote) == FALSE ){
             Yii::$app->getSession()->setFlash('danger', [
                  'type' => 'danger',
                  'message' => 'Inscrição no evento '.$model->sigla.' não foi efetuada, pois você já está inscrito nesse evento',

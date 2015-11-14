@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 
             'template' => '{plus}{link}','buttons' => [
                 'plus' => function ($url,$model,$key) {
-                                return Html::a('<span class="glyphicon glyphicon-plus"></span>', 'index.php?r=inscreve/add&id_pacote='.$model->idpacote.'&id_evento='.$model->evento_idevento);
+                                return Html::a('<span class="glyphicon glyphicon-plus"></span>', 'index.php?r=inscreve/addpacote&id_pacote='.$model->idpacote.'&id_evento='.$model->evento_idevento);
                 },
         ],
 ],

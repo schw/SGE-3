@@ -49,6 +49,8 @@ class Inscreve extends \yii\db\ActiveRecord
             'pacote_idpacote' => 'Pacote Idpacote',
             'credenciado' => 'Credenciado',
             'usuario.nome' => 'Nome',
+            'pacote.titulo' => 'Pacote',
+            'evento.tipo.titulo' => 'Tipo',
         ];
     }
 
@@ -64,6 +66,11 @@ class Inscreve extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getPacoteIdpacote()
+    {
+        return $this->hasOne(Pacote::className(), ['idpacote' => 'pacote_idpacote']);
+    }
+
+        public function getPacote()
     {
         return $this->hasOne(Pacote::className(), ['idpacote' => 'pacote_idpacote']);
     }
@@ -98,12 +105,11 @@ public function inscrever($id_evento)
         return $resultado;
     }
 
-public function inscreverComPacote($id_evento)
+public function inscreverComPacote($id_evento,$id_pacote)
     {
-        $idpacote = $_GET['id_pacote'];
         $id_usuario = Yii::$app->user->identity->idusuario;
 
-        $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,'$idpacote')";
+        $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,'$id_pacote')";
         
             $resultado = Yii::$app->db->createCommand($sql)->execute();
 
