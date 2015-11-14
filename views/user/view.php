@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'instituicao',
             'tipoUsuario',
-            'notificarViaEmail:email',
+            'notificarViaEmail',
             'authKey',
             'accessToken',
         ],

@@ -80,7 +80,7 @@ AppAsset::register($this);
 <footer class="footer">
     <div class="container">
 
-        <p align="center">&copy; ICOMP - Instituto de Computação </br> Desenvolvido no Contexto da Disciplina ICC410 - <?= date('Y'.'/'.'02')?></p>
+        <p align="center">&copy; ICOMP - Instituto de Computação </br> Desenvolvido no Contexto da Disciplina ICC410 - 2015/02</p>
 
     </div>
 </footer>
