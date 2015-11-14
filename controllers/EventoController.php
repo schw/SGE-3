@@ -15,6 +15,7 @@ use yii\web\ForbiddenHttpException;
 use yii\web\HttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\base\Exception;
 
 /**
  * EventoController implements the CRUD actions for Evento model.
@@ -50,7 +51,7 @@ class EventoController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'status' => $status, 
+            'status' => $status,
         ]);
     }
 
@@ -63,16 +64,23 @@ class EventoController extends Controller
         $this->autorizaUsuario();
         $status = filter_input(INPUT_GET, 'status');
 
-        if(!$status || Yii::$app->user->isGuest)
+        if(!$status)
             $status = 'ativo';
         $searchModel = new EventoSearch();
         $dataProvider = $searchModel->searchEventosResponsavel($status);
 
-        return $this->render('gerenciarEventos', [
+        if($status == 'passado')
+            return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'status' => $status,
+            'status' => 'passado',
         ]);
+        else    
+            return $this->render('gerenciarEventos', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'status' => $status,
+            ]);
     }
 
     /**
@@ -115,11 +123,14 @@ class EventoController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'));
             
-            //if($model->imagem != null){
-                $model->save();
-                print_r($model->getErrors());
-                return $this->redirect(['index']);
-            //}
+            if(!$model->save(true))
+                return $this->render('create', [
+                    'model' => $model,
+                    'arrayTipo' => $arrayTipo,
+                    'arrayLocal' => $arrayLocal,
+                ]);
+            else
+                return $this->redirect(['evento/gerenciareventos']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -164,9 +175,14 @@ class EventoController extends Controller
     {
         $this->autorizaUsuario();
 
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        
+        if($model->delete())
+            $this->mensagens('success', 'Pacote Removido', 'Pacote removido com Sucesso');
+        else
+            $this->mensagens('danger', 'Pacote Não Removido', 'Pacote pode ser Removido');
 
-        return $this->redirect(['index']);
+        return $this->redirect(['gerenciareventos']);
     }
 
     /**
@@ -194,5 +210,18 @@ class EventoController extends Controller
     protected function validaEvento($id){
         if(Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario])->andWhere(['idevento' => $id])->count() == 0)
             throw new NotFoundHttpException('Evento Solicitado não Encontrado.');
+    }
+
+    /*Tipo: sucess, danger, warning*/
+    protected function mensagens($tipo, $titulo, $mensagem){
+        Yii::$app->session->setFlash($tipo, [
+            'type' => $tipo,
+            'duration' => 1200,
+            'icon' => 'home',
+            'message' => $mensagem,
+            'title' => $titulo,
+            'positonY' => 'bottom',
+            'positonX' => 'right'
+        ]);
     }
 }

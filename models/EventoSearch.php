@@ -46,7 +46,7 @@ class EventoSearch extends Evento
         if ($status && $status == 'passado') {
             $query = Evento::find()->where("dataFim < '". date('Y-m-d')."'");
         }else{
-            $query = Evento::find()->where("dataIni > '". date('Y-m-d')."'");
+            $query = Evento::find()->where("dataFim > '". date('Y-m-d')."'");
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -102,10 +102,10 @@ class EventoSearch extends Evento
      * @return ActiveDataProvider
      */
     public function searchEventosResponsavel($status){
-        if ($status && $status == 'passado') {
+        if ($status == 'passado') {
             $query = Evento::find()->where("dataFim < '". date('Y-m-d')."'")->andWhere(['responsavel' => Yii::$app->user->identity->idusuario]);
         }else{
-            $query = Evento::find()->where("dataIni > '". date('Y-m-d')."'")->andWhere(['responsavel' => Yii::$app->user->identity->idusuario]);
+            $query = Evento::find()->where("dataFim >= '". date('Y-m-d')."'")->andWhere(['responsavel' => Yii::$app->user->identity->idusuario]);
         }
 
         $dataProvider = new ActiveDataProvider([

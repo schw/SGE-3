@@ -11,7 +11,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Eventos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="evento-view">
+    <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 
+   <div id="page-wrapper">
     <div id="geral" style="width: 100%; text-align: center;">
         <div id="titulo" style= "float: left">
             <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
@@ -19,17 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div style="width: 80px; float: right; padding: 10px;">
             <?php echo Html::a(Html::img('@web/img/pacotes.png'), ['pacote/index','idevento' => $model->idevento], ['width' => '10']) ?>
-            <?php echo Html::a('Pacote', 'index.php?r=pacote/index&idevento='.$model->idevento); ?>
+            <?php echo Html::a('Pacote', ['pacote/index', 'idevento' => $model->idevento]); ?>
         </div>
         <div style="width: 100px; float: right; padding: 10px;">
-            <?php echo Html::a(Html::img('@web/img/programacao.png'), ['item-programacao/index','id' => $model->idevento], ['width' => '10']) ?>
-            <?php echo Html::a('Programação', 'index.php?r=item-programacao/index&id='.$model->idevento); ?>
+            <?php echo Html::a(Html::img('@web/img/programacao.png'), ['item-programacao/index','idevento' => $model->idevento], ['width' => '10']) ?>
+            <?php echo Html::a('Programação', ['item-programacao/index', 'idevento' => $model->idevento]); ?>
         </div>
-    </div>
 
 
-
-        <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
+        <?php if(!Yii::$app->user->isGuest && !$model->isActive() && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
             <div style="width: 80px; float: right; padding: 10px;">
                 <?= Html::a(Html::img('@web/img/delete.png'), ['delete', 'id' => $model->idevento], [
                     'data' => [
@@ -97,6 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php }
     } ?>
+    </div>
 
 <!--
     <p> <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
@@ -159,3 +160,5 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::img('plugins/getQRCode.php?conteudo_QRCODE='.$model->idevento, ['alt' => 'QRCode', 'id' => 'imgqrcode']) ?>
     <?php } ?>
 </div>
+</div>
+

@@ -41,7 +41,7 @@ class ItemProgramacaoSearch extends ItemProgramacao
      */
     public function search($params)
     {
-        $query = ItemProgramacao::find()->where(['evento_idevento' => $params['id']]);
+        $query = ItemProgramacao::find()->where(['evento_idevento' => $params['idevento']]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

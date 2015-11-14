@@ -37,9 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
         <?php endforeach; ?>
 
-    <p>
-        <?= Html::a('Criar Pacote', ['create', 'idevento' => $idevento], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
+        <p>
+            <?= Html::a('Criar Pacote', ['create', 'idevento' => $idevento], ['class' => 'btn btn-success']) ?>
+        </p>
+    <?php } ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

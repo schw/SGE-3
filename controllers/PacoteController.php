@@ -75,7 +75,7 @@ class PacoteController extends Controller
         $this->autorizaUsuario();
         
         $itemProgramacaoSearch = new ItemProgramacaoSearch();
-        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['id' => $idevento])->getModels(), 'iditemProgramacao', 'descricao');
+        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['idevento' => $idevento])->getModels(), 'iditemProgramacao', 'descricao');
 
         $model = new Pacote();
         $model->evento_idevento = $idevento;
