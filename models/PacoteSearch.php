@@ -98,4 +98,25 @@ class PacoteSearch extends Pacote
 
         return $dataProvider;
     }
+
+
+    public function searchEventoPacote($idevento)
+    {
+        $query = Pacote::find()->where(['evento_idevento' => $idevento]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($idevento);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        return $dataProvider;
+    }
+
 }

@@ -5,12 +5,12 @@ use yii\bootstrap;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\InscreveSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = 'Minhas Inscrições ';
+$this->title = 'Pacotes Disponíveis - ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
-<div class="inscreve-index">
+<div class="inscreve-pacote">
 
     <div id="geral" style="width: 100%; text-align: center;">
         <div id="titulo" style= "float: left">
@@ -22,29 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo Html::a('Listar Eventos', 'index.php?r=evento'); ?>
         </div>
     </div>
-
-
-    <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
-            <?php
-            echo \kartik\widgets\Growl::widget([
-                'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
-                'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'Title Not Set!',
-                'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
-                'body' => (!empty($message['message'])) ? Html::encode($message['message']) : 'Message Not Set!',
-                'showSeparator' => true,
-                'delay' => 1, //This delay is how long before the message shows
-                'pluginOptions' => [
-                    'delay' => (!empty($message['duration'])) ? $message['duration'] : 5000, //This delay is how long the message shows for
-                    'showProgressbar' => true,
-                    'placement' => [
-                        'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'top',
-                        'align' => (!empty($message['positonX'])) ? $message['positonX'] : 'right',
-                    ]
-                ]
-            ]);
-            ?>
-        <?php endforeach; ?>
-
 
 <?= GridView::widget([
         'showOnEmpty' => 'true',

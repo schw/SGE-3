@@ -98,11 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php }
     } ?>
 
-
-
-
 <!--
-
     <p> <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
         <?= Html::a('Alterar', ['update', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Remover', ['delete', 'id' => $model->idevento], [
@@ -140,9 +136,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Pacotes', ['pacote/index', 'idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Programação', ['item-programacao/index', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
     </p>
-
     -->
-
 
     <?= DetailView::widget([
         'model' => $model,
