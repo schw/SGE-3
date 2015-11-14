@@ -10,14 +10,20 @@ use yii\grid\GridView;
 $this->title = 'Minhas Inscrições ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
 <div class="inscreve-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div id="geral" style="width: 100%; text-align: center;">
+        <div id="titulo" style= "float: left">
+            <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
+        </div>
 
-    <p>
-        <?php echo Html::a('Lista de Eventos', ['/evento'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <div style="width: 80px; float: right; padding: 10px;">
+            <?php echo Html::a(Html::img('@web/img/minhasincricoes.png'), ['/evento'], ['width' => '10']) ?>
+            <?php echo Html::a('Meus Eventos', 'index.php?r=evento'); ?>
+        </div>
+    </div>
 
 
     <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
@@ -45,6 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= GridView::widget([
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
+        'summary' => '',
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],

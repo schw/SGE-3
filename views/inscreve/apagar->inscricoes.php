@@ -14,12 +14,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     
-    <?php
-        
 
-    ?>
 
     <p>
         <?php echo Html::a('Minhas inscrições', ['inscricoes'], ['class' => 'btn btn-success']) ?>
