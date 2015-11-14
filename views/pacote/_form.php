@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use kartik\money\MaskMoney;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pacote */
@@ -17,9 +18,15 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'valor')->widget(\yii\widgets\MaskedInput::className(), [
-    'mask' => 'R$ 999,99',
-    ]) ?>
+    <?= $form->field($model, 'valor')->widget(MaskMoney::classname(), [
+    'pluginOptions' => [
+        'prefix' => 'R$ ',
+        'thousands' => '.',
+        'decimal' => ',',
+        'allowNegative' => false
+    ]
+    ]) 
+    ?>
 
     <?= $form->field($model, 'itens')->widget(Select2::classname(), [
     	'data' => $itensProgramacao,

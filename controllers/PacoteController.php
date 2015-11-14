@@ -82,11 +82,9 @@ class PacoteController extends Controller
         $model->status = '1';
         
         if ($model->load(Yii::$app->request->post())) {
-            $model->valor = str_replace(['R$', ','], '', $model->valor);
             if($model->save()){
                 $this->mensagens('success', 'Pacote Cadastrado', 'Pacote cadastrado com sucesso');
                 return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
-                //return $this->redirect(['view', 'id' => $model->idpacote]);
             }else{
                 return $this->render('create', [
                     'model' => $model, 
