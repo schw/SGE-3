@@ -146,6 +146,9 @@ class InscreveController extends Controller
         }
         else{
 
+        $reduzir = new Inscreve();
+        $reduzir->reduzirVagas($id_pacote);
+
             Yii::$app->getSession()->setFlash('success', [
                  'type' => 'success',
                  'message' => 'Inscrição no evento '.$model->sigla.' Efetuada com Sucesso',
