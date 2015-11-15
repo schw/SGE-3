@@ -38,15 +38,15 @@ class CoordenadorHasEventoSearch extends CoordenadorHasEvento
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($idevento)
     {
-        $query = CoordenadorHasEvento::find();
+        $query = CoordenadorHasEvento::find()->where(['evento_idevento' => $idevento]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        $this->load($params);
+        //$this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -58,6 +58,31 @@ class CoordenadorHasEventoSearch extends CoordenadorHasEvento
             'usuario_idusuario' => $this->usuario_idusuario,
             'evento_idevento' => $this->evento_idevento,
         ]);
+
+        return $dataProvider;
+    }
+
+    public function searchCoordenadores(){
+        $query = User::find()->where('tipoUsuario = 1')->orWhere('tipoUsuario = 2')->andWhere("idusuario != '".Yii::$app->user->identity->tipoUsuario."'");
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        //$this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'usuario_idusuario' => $this->usuario_idusuario,
+            'evento_idevento' => $this->evento_idevento,
+        ]);
+
+        return $dataProvider;
 
         return $dataProvider;
     }

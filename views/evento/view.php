@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'method' => 'post',
                     ],
                 ]) ?>
-                        <?= Html::a('Remover', ['delete', 'id' => $model->idevento], [
+                        <?= Html::a('Remover Evento', ['delete', 'id' => $model->idevento], [
                             'data' => [
                                 'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
                                 'method' => 'post',
@@ -51,6 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <div style="width: 80px; float: right; padding: 10px;">
                 <?php echo Html::a(Html::img('@web/img/listar_inscritos.png'), ['inscritos/index','evento_idevento' => $model->idevento], ['width' => '10']) ?>
                 <?php echo Html::a('Listar Inscritos', 'index.php?r=inscritos/index&evento_idevento='.$model->idevento); ?>
+            </div>
+            <div style="width: 100px; float: right; padding: 10px;">
+                <?php echo Html::a(Html::img('@web/img/add.png'), ['coordenador-has-evento/index','idevento' => $model->idevento], ['width' => '10']) ?>
+                <?php echo Html::a('Coordenadores', ['coordenador-has-evento/index', 'idevento' => $model->idevento]); ?>
             </div>
         <?php 
         }?>
