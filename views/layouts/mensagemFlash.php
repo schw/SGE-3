@@ -1,3 +1,6 @@
+<?php 
+use kartik\widgets\Growl;
+use yii\helpers\Html; ?>
 <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
             <?php
             echo Growl::widget([
