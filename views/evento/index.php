@@ -9,7 +9,6 @@ use kartik\widgets\Growl;
 /* @var $searchModel app\models\EventoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-
 isset($status) && $status == 'passado' ? $this->title = 'Eventos Passados' : $this->title = 'Eventos Ativos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -48,9 +47,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view}'],
             ],
         ]); ?>
-
+        
+        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3 && $this->title == 'Eventos Passados'){?>
         <h2><?= Html::encode("Compartilhado") ?></h2>
-        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
          <?= GridView::widget([
             'showOnEmpty' => 'true',
@@ -80,5 +79,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
         ]); ?>
+        <?php } ?>
     </div>
 </div>

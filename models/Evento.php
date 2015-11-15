@@ -122,9 +122,10 @@ class Evento extends \yii\db\ActiveRecord
         }
     }
 
-    /*Verifica se o evento está ativo*/
+    /*Verifica se o evento pode ser editado*/
     public function canAccess(){
-        return $this->dataFim > date('Y-m-d') && Yii::$app->user->identity->idusuario == $this->responsavel ? true : false;
+        return $this->dataFim > date('Y-m-d') && (Yii::$app->user->identity->idusuario == $this->responsavel || 
+            CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $this->idevento]))? true : false;
     }
 
     public function beforeDelete(){
