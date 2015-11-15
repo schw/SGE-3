@@ -123,8 +123,8 @@ class Evento extends \yii\db\ActiveRecord
     }
 
     /*Verifica se o evento está ativo*/
-    public function isActive(){
-        return $this->dataIni > date('Y-m-d') ? true : false;
+    public function canWrite(){
+        return $this->dataFim > date('Y-m-d') && Yii::$app->user->identity->idusuario == $this->responsavel ? true : false;
     }
 
     public function beforeDelete(){

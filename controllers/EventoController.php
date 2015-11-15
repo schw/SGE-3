@@ -15,7 +15,6 @@ use yii\web\ForbiddenHttpException;
 use yii\web\HttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use yii\base\Exception;
 
 /**
  * EventoController implements the CRUD actions for Evento model.
@@ -35,28 +34,22 @@ class EventoController extends Controller
     }
 
     /**
-     * Lista Todos os eventos cadastrados.
+     * Lista Todos os eventos cadastrados. Apenas visualização
      * @return mixed
      */
     public function actionIndex()
     {
-        $status = filter_input(INPUT_GET, 'status');
-
-        if(!$status || Yii::$app->user->isGuest)
-            $status = 'ativo';
-
         $searchModel = new EventoSearch();
-        $dataProvider = $searchModel->searchEventos($status);
+        $dataProvider = $searchModel->searchEventos(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'status' => $status,
         ]);
     }
 
     /**
-     * Lista Eventos gerenciáveis para o usuário autenticado.
+     * Lista Eventos para CRUD para o usuário autenticado.
      * @return mixed
      */
     public function actionGerenciareventos()
@@ -149,6 +142,7 @@ class EventoController extends Controller
     public function actionUpdate($id)
     {
         $this->autorizaUsuario();
+        $this->validaEvento($id);
 
         $model = $this->findModel($id);
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
@@ -197,7 +191,7 @@ class EventoController extends Controller
         if (($model = Evento::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('Evento Solicitado não Encontrado.');
+            throw new NotFoundHttpException('Página Solicitada não Encontrada.');
         }
     }
 

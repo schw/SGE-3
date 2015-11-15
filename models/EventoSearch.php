@@ -43,11 +43,7 @@ class EventoSearch extends Evento
      * @return ActiveDataProvider
      */
     public function searchEventos($status){
-        if ($status && $status == 'passado') {
-            $query = Evento::find()->where("dataFim < '". date('Y-m-d')."'");
-        }else{
-            $query = Evento::find()->where("dataFim > '". date('Y-m-d')."'");
-        }
+        $query = Evento::find()->where("dataFim > '". date('Y-m-d')."'");
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -5,13 +5,18 @@ use yii\widgets\ActiveForm;
 
 <?php $form = ActiveForm::begin(); ?>
 
-    <h2>Informe o email cadastrado:</h2>
-    <div class="form-group">
-        <?= Html::input('text','email') ?>
-    </div>
+    <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary']) ?>
+   <div id="page-wrapper">
+	    <h2>Informe o email cadastrado:</h2>
+	    <div class="form-group">
+	        <?= Html::input('text','email', null, ['id' => 'recuperar-email']) ?>
+	    </div>
+	    
+
+	    <div class="form-group">
+	        <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary']) ?>
+	    </div>
     </div>
 
 <?php ActiveForm::end(); ?>

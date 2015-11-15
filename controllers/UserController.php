@@ -7,6 +7,7 @@ use app\models\User;
 use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 
 /**
@@ -48,10 +49,11 @@ class UserController extends Controller
      */
     public function actionView()
     {
-        //$this->autorizaUsuario($id);
         $id = Yii::$app->request->post('id');
-        if(!$id)
+        if(!$id){
+            $this->autorizaUsuario($id);
             $id = Yii::$app->user->identity->idusuario;
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -130,8 +132,8 @@ class UserController extends Controller
             throw new ForbiddenHttpException('Acesso Negado!! Realize Login.');
         }
 
-        if(Yii::$app->user->identity->idusuario != $id){
+        /*if(Yii::$app->user->identity->idusuario != $id){
             throw new NotFoundHttpException("Erro: Id Inválido");
-        }
+        }*/
     }
 }
