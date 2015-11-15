@@ -9,6 +9,7 @@ use app\models\Local;
 use app\models\Tipo;
 use app\models\EventoSearch;
 use app\models\InscreveSearch;
+use app\models\CoordenadorHasEvento;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
@@ -61,17 +62,20 @@ class EventoController extends Controller
             $status = 'ativo';
         $searchModel = new EventoSearch();
         $dataProvider = $searchModel->searchEventosResponsavel($status);
+        $dataProvider2 = $searchModel->searchEventosCoodenadores($status);
 
         if($status == 'passado')
             return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'status' => 'passado',
-        ]);
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'dataProvider2' => $dataProvider2,
+                'status' => 'passado',
+            ]);
         else    
             return $this->render('gerenciarEventos', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
+                'dataProvider2' => $dataProvider2,
                 'status' => $status,
             ]);
     }
@@ -108,7 +112,7 @@ class EventoController extends Controller
         $this->autorizaUsuario();
 
         $model = new Evento();
-        $model->responsavel = 1;
+        $model->responsavel = Yii::$app->user->identity->idusuario;
         $model->allow = 1;
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
@@ -202,8 +206,9 @@ class EventoController extends Controller
     }
 
     protected function validaEvento($id){
-        if(Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario])->andWhere(['idevento' => $id])->count() == 0)
-            throw new NotFoundHttpException('Evento Solicitado não Encontrado.');
+        if(Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario])->andWhere(['idevento' => $id])->count() == 0 &&
+            CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $id])->count() == 0)
+                throw new NotFoundHttpException('Evento Solicitado não Encontrado.');
     }
 
     /*Tipo: sucess, danger, warning*/
