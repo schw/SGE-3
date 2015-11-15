@@ -71,10 +71,10 @@ class InscreveController extends Controller
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-
         $id_evento = Yii::$app->request->post('evento_idevento'); 
 
         $model = $this->findModel($id_evento);
+
         $inscreve = new Inscreve();
 
         $pacote  = new Pacote(); 
@@ -185,8 +185,24 @@ class InscreveController extends Controller
         $resultado = Yii::$app->db->createCommand($sql)->execute();
 
         if ($resultado == 1){
-            //Yii::$app->session->setFlash('message', 'Inscrição Cancelada com sucesso');
+            
 
+        $pacote  = new Pacote(); 
+
+        $quantidade_de_pacotes = $pacote->possuiPacote();
+
+        if ($quantidade_de_pacotes != 0){
+
+            $aumentar = new Inscreve();
+            $aumentar->aumentarVagas($id_pacote,$id_evento,2);
+
+        }
+        else{
+
+            $aumentar = new Inscreve();
+            $aumentar->aumentarVagas(NULL,$id_evento,1);            
+
+        }
                 Yii::$app->getSession()->setFlash('success', [
                  'type' => 'success',
                  'message' => 'Inscrição no evento '.$model->sigla.' foi cancelada com sucesso',

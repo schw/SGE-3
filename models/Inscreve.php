@@ -128,8 +128,8 @@ public function reduzir_vagas_evento($id_evento){
         return $resultado;
 }
 
-
 //funcao abaixo usada para reduzir as vagas da tabela item de programacao
+//opcao 1 -> quando nao existe pacote, opcao 2 -> há pacotes
 public function reduzirVagas($id_pacote , $id_evento,$opcao)
     {
 
@@ -153,6 +153,47 @@ public function reduzirVagas($id_pacote , $id_evento,$opcao)
 
             //linha abaixo para reduzir vagas da tabela EVENTO !
             $resultado = $resultado + $result->reduzir_vagas_evento($id_evento);
+        }
+        
+        return $resultado;
+    }
+
+
+public function aumentar_vagas_evento($id_evento){
+
+    $sql = "update evento set
+        vagas = vagas +1 
+        where idevento = $id_evento";
+
+        $resultado = Yii::$app->db->createCommand($sql)->execute();
+
+        return $resultado;
+}
+
+
+public function aumentarVagas($id_pacote , $id_evento,$opcao)
+    {
+
+        if($opcao == 1) {
+        //reduzir vaga da tabela itens-programacao e TAMBÉM da tabela evento
+        $sql = "update itemProgramacao as i, evento as e 
+            set i.vagas = i.vagas +1 , e.vagas = e.vagas +1 
+            where i.evento_idevento = $id_evento AND e.idevento = $id_evento";
+            $resultado = Yii::$app->db->createCommand($sql)->execute();
+        }
+
+        else{
+            //reduzir vagas da tabela item-programacao (relacionados a um pacote)
+        $sql = "update itemProgramacao set vagas = vagas +1 where iditemProgramacao in (
+                select itemProgramacao_iditemProgramacao from itemProgramacao_has_pacote 
+                as item join pacote as p on item.pacote_idpacote = p.idpacote 
+                where idpacote =".$id_pacote.")";
+
+            $resultado = Yii::$app->db->createCommand($sql)->execute();
+            $result = new Inscreve;
+
+            //linha abaixo para reduzir vagas da tabela EVENTO !
+            $resultado = $resultado + $result->aumentar_vagas_evento($id_evento);
         }
         
         return $resultado;
