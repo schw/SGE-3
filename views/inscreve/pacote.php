@@ -10,6 +10,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
+<script language=”JavaScript”> javascript:window.history.forward(1); </script>
+
+
 <div class="inscreve-pacote">
 
     <div id="geral" style="width: 100%; text-align: center;">
@@ -36,7 +39,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 
             'template' => '{plus}{link}','buttons' => [
                 'plus' => function ($url,$model,$key) {
-                                return Html::a('<span class="glyphicon glyphicon-plus"></span>', 'index.php?r=inscreve/addpacote&id_pacote='.$model->idpacote.'&id_evento='.$model->evento_idevento);
+                                return  Html::a('<span class="glyphicon glyphicon-plus"></span>', ['inscreve/addpacote'], [
+                                                'data'=>[
+                                                'method' => 'POST',
+                                                'params'=>['id_pacote' => $model->idpacote, 'id_evento' => $model->evento_idevento],]
+                                        ]);
                 },
         ],
 ],
