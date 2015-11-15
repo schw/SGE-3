@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
 
-        <?php if(!Yii::$app->user->isGuest && $model->canWrite() && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
+        <?php if(!Yii::$app->user->isGuest && $model->canAccess() && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
             <div style="width: 80px; float: right; padding: 10px;">
                 <?= Html::a(Html::img('@web/img/delete.png'), ['delete', 'id' => $model->idevento], [
                     'data' => [
