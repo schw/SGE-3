@@ -67,7 +67,7 @@ class ItemProgramacaoController extends Controller
         $model->notificacao = '1';
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
-        $model->evento_idevento = Yii::$app->request->get('id');
+        $model->evento_idevento = Yii::$app->request->get('idevento');
         if ($model->load(Yii::$app->request->post())) {
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->iditemProgramacao]);

@@ -2,16 +2,15 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use kartik\widgets\Growl;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\PacoteSearch */
+/* @var $searchModel app\models\CoordenadorHasEventoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pacotes';
+$this->title = 'Coordenadores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pacote-index">
+<div class="coordenador-has-evento-index">
 
     <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
     <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
@@ -21,14 +20,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
+
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
-        <p>
-            <?= Html::a('Criar Pacote', ['create', 'idevento' => $idevento], ['class' => 'btn btn-success']) ?>
-        </p>
-    <?php } ?>
+    <p>
+        <?= Html::a('Adicionar Coordenador', ['create', 'idevento' => $idevento], ['class' => 'btn btn-success']) ?>
+    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -36,15 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
-            //'idpacote',
-            'titulo',
-            'descricao',
-            'valor',
-            //'status',
-            // 'evento_idevento',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+            'usuario.nome',
+            'usuario.descricaotipousuario',
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '80'], 'template' => '{delete}{link}'],],
+        
+        ]);
+    ?>
 
 </div>

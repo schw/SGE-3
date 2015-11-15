@@ -25,15 +25,15 @@ input{
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-#evento-sigla, #evento-vagas, #evento-cargahoraria, #evento-responsavel, #evento-allow{
+#evento-sigla, #evento-vagas, #evento-cargahoraria, #evento-responsavel, #evento-allow, #user-notificarviaemail{
   width: 10%;
 }
 
-#pacote-valor{
+#pacote-valor, #user-nome, #user-senha, #user-senha_repeat, #user-email, #user-instituicao{
   width: 20%;
 }
 
-#evento-descricao, #pacote-titulo, #pacote-descricao {
+#evento-descricao, #pacote-titulo, #pacote-descricao{
   width: 40%;
 }
 
@@ -53,7 +53,7 @@ input{
   width: 50%;
 }
 
-#evento-tipo_idtipo, #evento-local_idlocal{
+#evento-tipo_idtipo, #evento-local_idlocal, #recuperar-email{
 	width: 30%;
 }
 
@@ -72,21 +72,10 @@ input{
   width: 900px;  
 }
 
-
-.pacote-index{
-  margin-left: 350px;
-  width: 900px;  
-}
-
 .tipo-index{
   margin-left: 350px;
   width: 900px; 
 
-}
-
-.user-view{
-  margin-left: 350px;
-  width: 900px; 
 }
 
 .tipo-create{
@@ -96,23 +85,6 @@ input{
 
 .field-tipo-titulo{
   width: 300px;
-}
-
-
-.site-index{
-  margin-left: 350px;
-  width: 1000px;
-}
-
-.site-login{
-  margin-left: 350px;
-  width: 1000px;
-}
-
-#boasvindas{
-  vertical-align: text-top;
-  width: 300px;
-  margin-bottom: 10px;
 }
 
 .itemprogramacao-create{
@@ -176,11 +148,6 @@ input{
   width: 64px;
 }
 
-.inscreve-index{
-  margin-left: 350px;
-  width: 900px; 
-}
-
 .inscreve-view{
   margin-left: 350px;
   width: 900px; 
@@ -189,4 +156,22 @@ input{
 #homeICOMP{
   width: 80%;
   height: 500px;
+}
+
+@media(max-width:768px) {
+    #evento-sigla, #evento-vagas, #evento-cargahoraria, #evento-responsavel, #evento-allow, #user-notificarviaemail{
+      width: 100%;
+    }
+
+    #pacote-valor, #user-nome, #user-senha, #user-senha_repeat, #user-email, #user-instituicao{
+      width: 100%;
+    }
+
+    #evento-descricao, #pacote-titulo, #pacote-descricao{
+      width: 100%;
+    }
+
+    #evento-dataini-disp-kvdate, #evento-datafim-disp-kvdate, .field-evento-horaini-disp, .field-evento-horafim-disp{
+      width: 100%;
+    }
 }

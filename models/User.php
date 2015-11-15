@@ -45,7 +45,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 [['senha_repeat'], 'compare', 'compareAttribute' => 'senha', 'message' => 'Senhas são distintas'],
     			[['tipoUsuario', 'notificarViaEmail'], 'integer'],
     			[['nome'], 'string', 'max' => 50],
-    			[['senha', 'cracha', 'instituicao'], 'string', 'max' => 45],
+    			[['senha', 'cracha'], 'string', 'min' => 6],
+                [['instituicao'], 'string',  'max' => 20],
     			[['authKey', 'accessToken'], 'string', 'max' => 255],
                 [['email'], 'email', 'message' => 'Endereço de email inválido'],
     			[['email'], 'unique']
@@ -185,10 +186,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         switch(Yii::$app->user->identity->tipoUsuario){
             case '1':
-                return 'Secretário';
+                return 'Coordenador';
                 break;
             case '2':
-                return 'Professor';
+                return 'Secretário';
                 break;
             case '3':
                 return 'Participante';

@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\bootstrap;
+use kartik\widgets\Growl;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\InscreveSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -11,6 +13,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 <div class="inscreve-index">
+
+    <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
+    <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
+    
+    <!-- Importação do arquivo responsável por exibir o menu lateral-->
+    <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
+
+   <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
+   <div id="page-wrapper">
 
     <div id="geral" style="width: 100%; text-align: center;">
         <div id="titulo" style= "float: left">
@@ -23,30 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-
-    <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
-            <?php
-            echo \kartik\widgets\Growl::widget([
-                'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
-                'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'Title Not Set!',
-                'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
-                'body' => (!empty($message['message'])) ? Html::encode($message['message']) : 'Message Not Set!',
-                'showSeparator' => true,
-                'delay' => 1, //This delay is how long before the message shows
-                'pluginOptions' => [
-                    'delay' => (!empty($message['duration'])) ? $message['duration'] : 5000, //This delay is how long the message shows for
-                    'showProgressbar' => true,
-                    'placement' => [
-                        'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'top',
-                        'align' => (!empty($message['positonX'])) ? $message['positonX'] : 'right',
-                    ]
-                ]
-            ]);
-            ?>
-        <?php endforeach; ?>
-
-
-<?= GridView::widget([
+    <?= GridView::widget([
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
         'summary' => '',

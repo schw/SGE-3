@@ -9,6 +9,7 @@ use app\models\Local;
 use app\models\Tipo;
 use app\models\EventoSearch;
 use app\models\InscreveSearch;
+use app\models\CoordenadorHasEvento;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
@@ -34,28 +35,22 @@ class EventoController extends Controller
     }
 
     /**
-     * Lista Todos os eventos cadastrados.
+     * Lista Todos os eventos cadastrados. Apenas visualização
      * @return mixed
      */
     public function actionIndex()
     {
-        $status = filter_input(INPUT_GET, 'status');
-
-        if(!$status || Yii::$app->user->isGuest)
-            $status = 'ativo';
-
         $searchModel = new EventoSearch();
-        $dataProvider = $searchModel->searchEventos($status);
+        $dataProvider = $searchModel->searchEventos(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'status' => $status, 
         ]);
     }
 
     /**
-     * Lista Eventos gerenciáveis para o usuário autenticado.
+     * Lista Eventos para CRUD para o usuário autenticado.
      * @return mixed
      */
     public function actionGerenciareventos()
@@ -63,16 +58,26 @@ class EventoController extends Controller
         $this->autorizaUsuario();
         $status = filter_input(INPUT_GET, 'status');
 
-        if(!$status || Yii::$app->user->isGuest)
+        if(!$status)
             $status = 'ativo';
         $searchModel = new EventoSearch();
         $dataProvider = $searchModel->searchEventosResponsavel($status);
+        $dataProvider2 = $searchModel->searchEventosCoodenadores($status);
 
-        return $this->render('gerenciarEventos', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'status' => $status,
-        ]);
+        if($status == 'passado')
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'dataProvider2' => $dataProvider2,
+                'status' => 'passado',
+            ]);
+        else    
+            return $this->render('gerenciarEventos', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'dataProvider2' => $dataProvider2,
+                'status' => $status,
+            ]);
     }
 
     /**
@@ -107,7 +112,7 @@ class EventoController extends Controller
         $this->autorizaUsuario();
 
         $model = new Evento();
-        $model->responsavel = 1;
+        $model->responsavel = Yii::$app->user->identity->idusuario;
         $model->allow = 1;
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
@@ -115,11 +120,14 @@ class EventoController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'));
             
-            //if($model->imagem != null){
-                $model->save();
-                print_r($model->getErrors());
-                return $this->redirect(['index']);
-            //}
+            if(!$model->save(true))
+                return $this->render('create', [
+                    'model' => $model,
+                    'arrayTipo' => $arrayTipo,
+                    'arrayLocal' => $arrayLocal,
+                ]);
+            else
+                return $this->redirect(['evento/gerenciareventos']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -138,6 +146,7 @@ class EventoController extends Controller
     public function actionUpdate($id)
     {
         $this->autorizaUsuario();
+        $this->validaEvento($id);
 
         $model = $this->findModel($id);
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
@@ -164,9 +173,14 @@ class EventoController extends Controller
     {
         $this->autorizaUsuario();
 
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        
+        if($model->delete())
+            $this->mensagens('success', 'Pacote Removido', 'Pacote removido com Sucesso');
+        else
+            $this->mensagens('danger', 'Pacote Não Removido', 'Pacote pode ser Removido');
 
-        return $this->redirect(['index']);
+        return $this->redirect(['gerenciareventos']);
     }
 
     /**
@@ -181,7 +195,7 @@ class EventoController extends Controller
         if (($model = Evento::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('Evento Solicitado não Encontrado.');
+            throw new NotFoundHttpException('Página Solicitada não Encontrada.');
         }
     }
 
@@ -192,7 +206,21 @@ class EventoController extends Controller
     }
 
     protected function validaEvento($id){
-        if(Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario])->andWhere(['idevento' => $id])->count() == 0)
-            throw new NotFoundHttpException('Evento Solicitado não Encontrado.');
+        if(Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario])->andWhere(['idevento' => $id])->count() == 0 &&
+            CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $id])->count() == 0)
+                throw new NotFoundHttpException('Evento Solicitado não Encontrado.');
+    }
+
+    /*Tipo: sucess, danger, warning*/
+    protected function mensagens($tipo, $titulo, $mensagem){
+        Yii::$app->session->setFlash($tipo, [
+            'type' => $tipo,
+            'duration' => 1200,
+            'icon' => 'home',
+            'message' => $mensagem,
+            'title' => $titulo,
+            'positonY' => 'bottom',
+            'positonX' => 'right'
+        ]);
     }
 }

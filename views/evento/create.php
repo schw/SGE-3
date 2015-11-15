@@ -12,6 +12,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="evento-create">
+	
+	<?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
+
+   <div id="page-wrapper">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <p align="right">Campos marcados com * são Obrigatórios</p><div></div>
@@ -21,5 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'arrayTipo' => $arrayTipo,
         'arrayLocal' => $arrayLocal,
     ]) ?>
+</div>
 
 </div>

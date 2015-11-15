@@ -48,10 +48,9 @@ AppAsset::register($this);
                 '<li class="divider"></li>',
                 ['label' => 'Eventos Passados', 'url' => ['evento/gerenciareventos', 'status' => 'passado']],],], 
             ['label' => 'Eventos', 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3), 'items' => [
-                ['label' => 'Eventos Ativos', 'url' => ['evento/index']],
-                ['label' => 'Eventos Passados', 'url' => ['evento/index', 'status' => 'passado']],],],
+                ['label' => 'Eventos Ativos', 'url' => ['evento/index']],],],
             ['label' => 'Cadastre-se', 'url' => ['/user/create'], 'visible' => Yii::$app->user->isGuest],
-            ['label' => 'Minhas Inscrições', 'url' => ['inscreve/index'], 'visible' => (!Yii::$app->user->isGuest &&  !Yii::$app->user->identity->tipoUsuario == 3)],
+            ['label' => 'Minhas Inscrições', 'url' => ['inscreve/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3)],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
                 [
@@ -69,7 +68,9 @@ AppAsset::register($this);
          <?php if(!Yii::$app->user->isGuest){ ?>
             <p>
                 Olá <?= Yii::$app->user->identity->nome ?>, <br>
-                Perfil: <?= Yii::$app->user->identity->getDescricaoTipoUsuario() ?>
+                Perfil: <?= Yii::$app->user->identity->getDescricaoTipoUsuario() ?><br>
+                Data: <?= date('d-m-Y') ?><br>
+                Hora: <?= date('H:i:s') ?>
             </p>
             <?php } ?>
         </div>

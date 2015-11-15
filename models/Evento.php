@@ -48,8 +48,11 @@ class Evento extends \yii\db\ActiveRecord
             [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'cargaHoraria', 'allow', 
             'responsavel', 'tipo_idtipo', 'local_idlocal'], 'required', 'message' => 'Este campo é Obrigatório'],
             [['vagas', 'cargaHoraria', 'allow', 'responsavel', 'tipo_idtipo', 'local_idlocal'], 'integer'],
-            [['dataIni', 'dataFim'], 'string'],
+            [['dataIni', 'dataFim'], 'string',],
+            [['dataIni'], 'validateDateIni'],
+            [['dataFim'], 'validateDateFim'],
             [['horaIni', 'horaFim'], 'safe'],
+            [['horaFim'], 'validadeHoraFim'],
             [['sigla', 'descricao'], 'string', 'max' => 45],
             [['imagem'], 'string'],
             [['detalhe'], 'string', 'max' => 800],
@@ -83,6 +86,30 @@ class Evento extends \yii\db\ActiveRecord
         ];
     }
 
+    public function validateDateIni($attribute, $params){
+        if (!$this->hasErrors()) {
+            if ($this->dataIni < date('Y-m-d')) {
+                $this->addError($attribute, 'Informe uma data igual ou posterior a '.date('d-m-Y'));
+            }
+        }
+    }
+
+    public function validateDateFim($attribute, $params){
+        if (!$this->hasErrors()) {
+            if ($this->dataFim < $this->dataIni) {
+                $this->addError($attribute, 'Informe uma data igual ou posterior a '.date("d-m-Y", strtotime($this->dataIni)));
+            }
+        }
+    }
+
+    public function validadeHoraFim($attribute, $params){
+        if (!$this->hasErrors()) {
+            if ($this->horaFim <= $this->horaIni) {
+                $this->addError($attribute, 'Informe um horário acima do horário inicial');
+            }
+        }
+    }
+
 
     public function upload($imageFile)
     {
@@ -95,10 +122,18 @@ class Evento extends \yii\db\ActiveRecord
         }
     }
 
-    public function beforeDelete(){
-        $linhas_afetadas = ItemProgramacao::deleteAll(['evento_idevento' => $this->idevento]);
+    /*Verifica se o evento pode ser editado*/
+    public function canAccess(){
+        return $this->dataFim > date('Y-m-d') && (Yii::$app->user->identity->idusuario == $this->responsavel || 
+            CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $this->idevento]))? true : false;
     }
 
+    public function beforeDelete(){
+        if((new PacoteSearch())->searchEventoPacote($this->idevento)->count > 0)
+            if(!Pacote::deleteAll(['evento_idevento' => $this->idevento]) && !ItemProgramacao::deleteAll(['evento_idevento' => $this->idevento]))
+                return false;
+        return true;
+    }
 
     /**
      * @return \yii\db\ActiveQuery
