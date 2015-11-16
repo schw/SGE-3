@@ -97,11 +97,7 @@ class InscritosController extends Controller
     public function actionCredenciar()
     {
 
-        $searchModel = new InscreveSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-
-        $id_usuario = Yii::$app->user->identity->idusuario;
+        $id_usuario = Yii::$app->request->post('idusuario');
         $id_evento = Yii::$app->request->post('evento_idevento');
 
 
@@ -112,12 +108,60 @@ class InscritosController extends Controller
         }
         catch(\Exception $e){
 
-            Yii::$app->session->setFlash('Falha', 'Você já está credenciado neste evento');
-            return Yii::$app->getResponse()->redirect(array('/inscreve/', 'mensagem' =>'erro'));
+            Yii::$app->getSession()->setFlash('danger', [
+                 'type' => 'danger',
+                 'message' => 'O participante já está credenciado neste evento',
+                 'title' => 'Credenciamento',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+
+            return Yii::$app->getResponse()->redirect(array('/inscritos/index','evento_idevento' => $id_evento, 'mensagem' =>'erro'));
         }
 
-            Yii::$app->session->setFlash('Sucesso', 'Credenciamento realizado com sucesso');
-            return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'sucesso'));
+            Yii::$app->getSession()->setFlash('success', [
+                 'type' => 'success',
+                 'message' => 'Credenciamento realizado com sucesso',
+                 'title' => 'Credenciamento',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+            return Yii::$app->getResponse()->redirect(array('/inscritos/index','evento_idevento' => $id_evento, 'mensagem' =>'sucesso'));
+    }
+
+    public function actionDescredenciar()
+    {
+
+        $id_usuario = Yii::$app->request->post('idusuario');
+        $id_evento = Yii::$app->request->post('evento_idevento');
+
+
+        $sql = "UPDATE inscreve SET credenciado = '0' WHERE usuario_idusuario = '$id_usuario' AND evento_idevento = '$id_evento'";
+        
+        try{
+            echo Yii::$app->db->createCommand($sql)->execute();
+        }
+        catch(\Exception $e){
+
+             Yii::$app->getSession()->setFlash('danger', [
+                 'type' => 'danger',
+                 'message' => 'O participante já está credenciado neste evento',
+                 'title' => 'Descredenciamento',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+
+            return Yii::$app->getResponse()->redirect(array('/inscritos/index','evento_idevento' => $id_evento, 'mensagem' =>'erro'));
+        }
+
+            Yii::$app->getSession()->setFlash('success', [
+                 'type' => 'success',
+                 'message' => 'Descredenciamento realizado com sucesso',
+                 'title' => 'Descredenciamento',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+            return Yii::$app->getResponse()->redirect(array('/inscritos/index','evento_idevento' => $id_evento, 'mensagem' =>'sucesso'));
     }
 
 

@@ -7,6 +7,9 @@ use yii\grid\GridView;
 
 <h1>Lista de Inscritos</h1>
 
+    <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
+    <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
+
 
 <?= GridView::widget([
         'showOnEmpty' => 'true',
@@ -24,7 +27,21 @@ use yii\grid\GridView;
                 }
             },],
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 
-            'template' => '{view}{delete}{link}','buttons' => [
+            'template' => '{view}{credenciar}{descredenciar}{link}','buttons' => [
+                'credenciar' => function ($url,$model,$key) {
+                          return Html::a('<span class="glyphicon glyphicon-ok-circle"></span>', ['inscritos/credenciar'],[
+                            'data'=>[
+                            'method' => 'POST',
+                            'params'=>['idusuario' => $model->usuario->idusuario,'evento_idevento' => $model->evento->idevento],
+                            ]]);
+                },
+                'descredenciar' => function ($url,$model,$key) {
+                          return Html::a('<span class="glyphicon glyphicon-remove"></span>', ['inscritos/descredenciar'],[
+                            'data'=>[
+                            'method' => 'POST',
+                            'params'=>['idusuario' => $model->usuario->idusuario,'evento_idevento' => $model->evento->idevento],
+                            ]]);
+                },
                 'view' => function ($url,$model,$key) {
                           return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['user/view'],[
                             'data'=>[
