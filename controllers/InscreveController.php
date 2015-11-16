@@ -175,12 +175,29 @@ class InscreveController extends Controller
 
         $id_usuario = Yii::$app->user->identity->idusuario;
         $id_evento = Yii::$app->request->post('evento_idevento'); 
+        $id_pacote = Yii::$app->request->post('pacote_idpacote'); 
 
+        // preciso obter o id pacote desse usuário nesse evento !!!!!!!!!!!
+
+
+
+
+
+
+        var_dump($id_pacote);
+        exit();
+
+
+
+
+
+
+
+
+        // preciso obter o id pacote desse usuário nesse evento !!!!!!!!!!!
 
         $model = $this->findModel($id_evento);
 
-        var_dump($dataProvider->getModels());
-        exit();
 
         $sql = "DELETE FROM inscreve WHERE usuario_idusuario = '$id_usuario' AND evento_idevento = '$id_evento'";
         
@@ -317,5 +334,4 @@ class InscreveController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
 }
