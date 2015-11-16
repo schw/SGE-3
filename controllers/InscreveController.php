@@ -175,6 +175,7 @@ class InscreveController extends Controller
 
         $id_usuario = Yii::$app->user->identity->idusuario;
         $id_evento = Yii::$app->request->post('evento_idevento'); 
+        $id_pacote = Yii::$app->request->post('id_pacote'); 
 
         $model = $this->findModel($id_evento);
 
@@ -194,13 +195,13 @@ class InscreveController extends Controller
         if ($quantidade_de_pacotes != 0){
 
             $aumentar = new Inscreve();
-            $aumentar->aumentarVagas($id_pacote,$id_evento,2);
+            $aumentar->aumentarVagas($id_pacote,$id_evento,1);
 
         }
         else{
 
             $aumentar = new Inscreve();
-            $aumentar->aumentarVagas(NULL,$id_evento,1);            
+            $aumentar->aumentarVagas(NULL,$id_evento,2);            
 
         }
                 Yii::$app->getSession()->setFlash('success', [
