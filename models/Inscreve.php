@@ -189,6 +189,7 @@ public function aumentarVagas($id_pacote , $id_evento,$opcao)
                 as item join pacote as p on item.pacote_idpacote = p.idpacote 
                 where idpacote =".$id_pacote.")";
 
+
             $resultado = Yii::$app->db->createCommand($sql)->execute();
             $result = new Inscreve;
 
