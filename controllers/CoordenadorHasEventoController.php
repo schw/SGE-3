@@ -8,6 +8,7 @@ use app\models\CoordenadorHasEventoSearch;
 use app\models\EventoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\db\IntegrityException;
@@ -34,9 +35,9 @@ class CoordenadorHasEventoController extends Controller
      * Lists all CoordenadorHasEvento models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($idevento)
     {
-        $idevento = Yii::$app->request->queryParams['idevento'];
+        $this->autorizaUsuario();
         $searchModel = new CoordenadorHasEventoSearch();
         $dataProvider = $searchModel->search($idevento);
 
@@ -65,6 +66,8 @@ class CoordenadorHasEventoController extends Controller
      * @return mixed
      */
     public function actionCreate(){
+        $this->autorizaUsuario();
+
         $model = new CoordenadorHasEvento();
         $searchModel = new CoordenadorHasEventoSearch();
         
@@ -82,7 +85,6 @@ class CoordenadorHasEventoController extends Controller
                 $this->mensagens('warning', 'Coordenador já Adicionado', 'O Coordenador '.$model->usuario->nome.' já adicionado ao evento');
             }catch(Exception $e){
                 $this->mensagens('danger', 'Coordenador Não Adicionado', 'O Coordenador '.$model->usuario->nome.' não foi adicionado');
-                
             }finally{
                 return $this->redirect(['index', 'idevento' => $model->evento_idevento]); 
             }
@@ -122,6 +124,7 @@ class CoordenadorHasEventoController extends Controller
      */
     public function actionDelete($usuario_idusuario, $evento_idevento)
     {
+        $this->autorizaUsuario();
         $model = $this->findModel($usuario_idusuario, $evento_idevento);
         $coordenador = $model->usuario->nome;
         if($model->delete()){
@@ -145,11 +148,17 @@ class CoordenadorHasEventoController extends Controller
         if (($model = CoordenadorHasEvento::findOne(['usuario_idusuario' => $usuario_idusuario, 'evento_idevento' => $evento_idevento])) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('Página não Encontrada.');
         }
     }
 
-     /*Tipo: sucess, danger, warning*/
+    protected function autorizaUsuario(){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
+            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
+        }
+    }
+
+    /*Tipo: sucess, danger, warning*/
     protected function mensagens($tipo, $titulo, $mensagem){
         Yii::$app->session->setFlash($tipo, [
             'type' => $tipo,

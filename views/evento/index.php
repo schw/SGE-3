@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]); ?>
         
         <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3 && $this->title == 'Eventos Passados'){?>
-        <h2><?= Html::encode("Compartilhado") ?></h2>
+        <h2><?= Html::encode("Eventos Compartilhados") ?></h2>
 
          <?= GridView::widget([
             'showOnEmpty' => 'true',

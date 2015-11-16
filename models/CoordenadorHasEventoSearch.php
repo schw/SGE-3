@@ -62,6 +62,7 @@ class CoordenadorHasEventoSearch extends CoordenadorHasEvento
         return $dataProvider;
     }
 
+    /*lista todos os coordenadores exceto o usuario autenticado*/
     public function searchCoordenadores(){
         $query = User::find()->where('tipoUsuario = 1')->orWhere('tipoUsuario = 2')->andWhere("idusuario != '".Yii::$app->user->identity->tipoUsuario."'");
 
@@ -81,8 +82,6 @@ class CoordenadorHasEventoSearch extends CoordenadorHasEvento
             'usuario_idusuario' => $this->usuario_idusuario,
             'evento_idevento' => $this->evento_idevento,
         ]);
-
-        return $dataProvider;
 
         return $dataProvider;
     }
