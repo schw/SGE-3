@@ -93,6 +93,27 @@ class Inscreve extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['idusuario' => 'usuario_idusuario']);
     }
 
+    public function getDescricaoCredenciado()
+    {
+                if ($this->credenciado){
+                    return 'Sim';
+                }else{
+                    return 'Não';
+                }
+            
+    }
+
+    public function getpacoteTitulo (){
+                if($this->pacote == NULL){
+                    return "--";
+                }
+                else{
+
+                    return $this->pacote->titulo;
+                }
+
+    }
+
 
 public function inscrever($id_evento)
     {

@@ -44,15 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'evento.descricao',
             'evento.sigla',
             'evento.tipo.titulo',
-            'pacote.titulo',
-            ['attribute' => 'credenciado', 'value' => 
-            function ($data) {
-                if ($data->credenciado){
-                    return 'Sim';
-                }else{
-                    return 'Não';
-                }
-            },],
+            ['attribute' => 'pacote.titulo', 'value' => 'pacotetitulo',],
+            ['attribute' => 'credenciado', 'value' => 'descricaocredenciado',],
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 
             'template' => '{view}{link}','buttons' => [
                 'view' => function ($url,$model,$key) {
