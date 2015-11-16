@@ -104,7 +104,7 @@ class Evento extends \yii\db\ActiveRecord
 
     public function validadeHoraFim($attribute, $params){
         if (!$this->hasErrors()) {
-            if ($this->horaFim <= $this->horaIni) {
+            if ($this->horaFim <= $this->horaIni && $this->dataIni == $this->horaFim) {
                 $this->addError($attribute, 'Informe um horário acima do horário inicial');
             }
         }
