@@ -4,12 +4,12 @@ use yii\widgets\LinkPager;
 use yii\grid\GridView;
 
 ?>
-
-<h1>Lista de Inscritos</h1>
-
     <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
     <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
 
+<div class="inscritos-index">
+
+    <h1>Lista de Inscritos</h1>
 
 <?= GridView::widget([
         'showOnEmpty' => 'true',
@@ -26,7 +26,7 @@ use yii\grid\GridView;
                     return 'Não';
                 }
             },],
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '80'], 
             'template' => '{view}{credenciar}{descredenciar}{link}','buttons' => [
                 'credenciar' => function ($url,$model,$key) {
                           return Html::a('<span class="glyphicon glyphicon-ok-circle"></span>', ['inscritos/credenciar'],[
@@ -53,3 +53,5 @@ use yii\grid\GridView;
 ],
      ],
  ]); ?>
+
+ </div>
