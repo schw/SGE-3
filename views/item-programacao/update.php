@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="itemprogramacao-update">
 
-    <h1><?= Html::encode($this->title) ?><input type="image" align="right" id ="icone" src="<?php ?>img/icon-voltar.png" onclick="location. href= 'http://localhost/SGE3/web/index.php?r=item-programacao%2Findex&id=<?php echo $model->evento_idevento; ?>'" ></h1>  
+    <h1><?= Html::encode($this->title) ?><input type="image" align="right" id ="icone" src="<?php ?>img/icon-voltar.png" onclick="location. href= 'http://localhost/SGE3/web/index.php?r=item-programacao%2Findex&idevento=<?php echo $model->evento_idevento; ?>'" ></h1>  
     <br></br>
 
     <?= $this->render('_form', [

@@ -12,8 +12,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="itemprogramacao-view">
 
-    <h1><?= Html::encode($this->title) ?><input type="image" align="right" id ="icone" src="<?php ?>img/icon-voltar.png" onclick="location. href= 'http://localhost/SGE3/web/index.php?r=item-programacao%2Findex&id=<?php echo $model->evento_idevento; ?>'" ></h1>  
-    <br></br>
+    <h1><?= Html::encode($this->title) ?><input type="image" align="right" id ="icone" src="<?php ?>img/icon-voltar.png" onclick="location. href= 'http://localhost/SGE3/web/index.php?r=item-programacao%2Findex&idevento=<?php echo $model->evento_idevento; ?>'" ></h1>  
+    </br>
+
+    <?php if(Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2){ ?>
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->iditemProgramacao], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Excluir', ['delete', 'id' => $model->iditemProgramacao], [
@@ -24,6 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <?php 
+    }?>
+
 
     <?= DetailView::widget([
         'model' => $model,

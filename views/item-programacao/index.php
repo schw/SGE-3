@@ -11,7 +11,8 @@ $this->title = 'Gerenciar Programação';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="itemprogramacao-index">
-    
+
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3){?>
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -40,5 +41,36 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}'],
         ],
     ]); ?>
+    <?php } ?>
+
+    <?php 
+    $this->title = 'Programação';
+    $this->params['breadcrumbs'][] = $this->title;
+    
+    if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){?>
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            //['class' => 'yii\grid\SerialColumn'],
+            //'iditemProgramacao',
+            'titulo',
+            'descricao',
+            'palestrante',
+            'data',
+            // 'hora',
+            // 'vagas',
+            // 'cargaHoraria',
+            // 'detalhe',
+            // 'notificacao',
+            // 'local_idlocal',
+            //'evento_idevento',
+            ['attribute' => 'tipo', 'value' => 'tipo.titulo'],  //Substitução do idtipo pelo titulo do tipo
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '80'], 'template' => '{view}{link}'],
+        ],
+    ]); ?>
+    <?php } ?>
 
 </div>
