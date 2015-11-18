@@ -7,13 +7,9 @@ use kartik\widgets\Growl;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\InscreveSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = 'Pacotes Disponíveis - ';
+$this->title = 'Escolha um pacote';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-
-<script language=”JavaScript”> javascript:window.history.forward(1); </script>
-
 
 <div class="inscreve-pacote">
 

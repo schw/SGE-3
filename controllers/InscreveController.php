@@ -94,7 +94,7 @@ class InscreveController extends Controller
         
         }
         
-        if($inscreve->inscrever($id_evento) == FALSE ){
+        if($inscreve->inscrever($id_evento) == 0 ){
             Yii::$app->getSession()->setFlash('danger', [
                  'type' => 'danger',
                  'message' => 'Inscrição no evento '.$model->sigla.' não foi efetuada, pois você já está inscrito nesse evento',
@@ -136,7 +136,7 @@ class InscreveController extends Controller
         $model = $this->findModel($id_evento);
         $inscreve = new Inscreve();
 
-        if($inscreve->inscreverComPacote($id_evento,$id_pacote) == FALSE ){
+        if($inscreve->inscreverComPacote($id_evento,$id_pacote) == 0 ){
             Yii::$app->getSession()->setFlash('danger', [
                  'type' => 'danger',
                  'message' => 'Inscrição no evento '.$model->sigla.' não foi efetuada, pois você já está inscrito nesse evento',
