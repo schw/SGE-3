@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\CoordenadorHasEvento */
 
-$this->title = 'Create Coordenador Has Evento';
+$this->title = 'Adicionar Coordenador ao Evento';
 $this->params['breadcrumbs'][] = ['label' => 'Coordenador Has Eventos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -37,8 +37,8 @@ class CoordenadorHasEvento extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'usuario_idusuario' => 'Usuario Idusuario',
-            'evento_idevento' => 'Evento Idevento',
+            'usuario_idusuario' => 'Usuário',
+            'evento_idevento' => 'Evento',
         ];
     }
 

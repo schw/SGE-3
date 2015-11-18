@@ -175,3 +175,11 @@ input{
       width: 100%;
     }
 }
+
+#coordenadorhasevento-usuario_idusuario{
+  width: 40%;
+}
+
+#coordenadorhasevento-evento_idevento{
+  width: 40%;
+}

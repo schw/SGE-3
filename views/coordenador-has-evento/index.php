@@ -35,8 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //['class' => 'yii\grid\SerialColumn'],
 
             'usuario.nome',
-            'usuario.descricaotipousuario',
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '80'], 'template' => '{delete}{link}'],],
+            ['attribute' => 'Descricao', 'value' => 'usuario.descricaotipousuario'],
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '40'], 'template' => '{delete}{link}'],],
         
         ]);
     ?>
