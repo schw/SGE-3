@@ -34,7 +34,9 @@ class Voluntario extends \yii\db\ActiveRecord
         return [
             [['nome', 'email', 'cracha'], 'required'],
             [['nome'], 'string', 'max' => 50],
-            [['email', 'cracha', 'instituicao'], 'string', 'max' => 45]
+            [['cracha', 'instituicao'], 'string', 'max' => 45],
+            [['email'], 'email'],
+            [['email'],  'unique', 'message' => 'Endereço de email já cadastrado. Tente usar outro.']
         ];
     }
 

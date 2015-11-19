@@ -32,16 +32,14 @@ $model->notificarViaEmail = $model->notificarViaEmail ? "Sim" : "Não";
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                'idusuario',
+                //'idusuario',
                 'nome',
-                'senha',
+                //'senha',
                 'cracha',
                 'email:email',
                 'instituicao',
-                'descricaotipousuario',
+                ['attribute' => 'Perfil', 'value' =>'descricaotipousuario'],
                 'notificarViaEmail',
-                'authKey',
-                'accessToken',
             ],
         ]) ?>
     </div>

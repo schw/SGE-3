@@ -8,6 +8,7 @@ use app\models\VoluntarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
 
 /**
  * VoluntarioController implements the CRUD actions for Voluntario model.
@@ -32,6 +33,7 @@ class VoluntarioController extends Controller
      */
     public function actionIndex()
     {
+        $this->autorizaUsuario();
         $searchModel = new VoluntarioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -48,6 +50,7 @@ class VoluntarioController extends Controller
      */
     public function actionView($id)
     {
+        $this->autorizaUsuario();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -60,10 +63,12 @@ class VoluntarioController extends Controller
      */
     public function actionCreate()
     {
+        $this->autorizaUsuario();
         $model = new Voluntario();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idvoluntario]);
+            $this->mensagens('success', 'Voluntário Cadastrado', 'Voluntário cadastrado com sucesso');
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -79,9 +84,11 @@ class VoluntarioController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->autorizaUsuario();
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->mensagens('success', 'Voluntário Alterado', 'Informações salvas com sucesso');
             return $this->redirect(['view', 'id' => $model->idvoluntario]);
         } else {
             return $this->render('update', [
@@ -98,7 +105,13 @@ class VoluntarioController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->autorizaUsuario();
+        $model = $this->findModel($id);
+        if($model->delete()){
+            $this->mensagens('success', 'Voluntário Removido', 'Voluntário removido com sucesso');
+        }else{
+            $this->mensagens('danger', 'Voluntário não Removido', 'Ocorreu um erro ao remover voluntário');
+        }
 
         return $this->redirect(['index']);
     }
@@ -117,5 +130,24 @@ class VoluntarioController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    protected function autorizaUsuario(){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
+            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
+        }
+    }
+
+    /*Tipo: sucess, danger, warning*/
+    protected function mensagens($tipo, $titulo, $mensagem){
+        Yii::$app->session->setFlash($tipo, [
+            'type' => $tipo,
+            'duration' => 1200,
+            'icon' => 'home',
+            'message' => $mensagem,
+            'title' => $titulo,
+            'positonY' => 'bottom',
+            'positonX' => 'right'
+        ]);
     }
 }

@@ -18,21 +18,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'senha_repeat')->passwordInput(['maxlength' => true]) ?>
 
-    <?php //echo  $form->field($model, 'cracha')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'cracha')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'instituicao')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'instituicao')->textInput(['maxlength' => true, 'visible' => false]) ?>
 
     <?php //echo $form->field($model, 'tipoUsuario')->textInput() ?>
 
     <?= $form->field($model, 'notificarViaEmail')->dropDownList(
             ['0' => 'Não', '1' => 'Sim']
-        );?>
-
-    <?php //echo $form->field($model, 'authKey')->textInput(['maxlength' => true]) ?>
-
-    <?php //echo $form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?>
+    );?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar Usuário' : 'Alterar Perfil', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

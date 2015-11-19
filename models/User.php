@@ -49,7 +49,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 [['instituicao'], 'string',  'max' => 20],
     			[['authKey', 'accessToken'], 'string', 'max' => 255],
                 [['email'], 'email', 'message' => 'Endereço de email inválido'],
-    			[['email'], 'unique']
+    			[['email'],  'unique', 'message' => 'Endereço de email já cadastrado. Tente usar outro.']
     	];
     }
     

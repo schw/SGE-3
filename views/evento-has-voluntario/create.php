@@ -2,16 +2,16 @@
 
 use yii\helpers\Html;
 
+
 /* @var $this yii\web\View */
-/* @var $model app\models\Voluntario */
+/* @var $model app\models\EventoHasVoluntario */
 
-$this->title = 'Voluntário: ' . ' ' . $model->nome;
-$this->params['breadcrumbs'][] = ['label' => 'Voluntarios', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idvoluntario, 'url' => ['view', 'id' => $model->idvoluntario]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Adicionar Voluntário';
+$this->params['breadcrumbs'][] = ['label' => 'Evento Has Voluntarios', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="voluntario-update">
-
+<div class="evento-has-voluntario-create">
+	
 	<!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
     <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
     
@@ -25,6 +25,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
 	    <?= $this->render('_form', [
 	        'model' => $model,
+	        'arrayVoluntarios' => $arrayVoluntarios,
+	        'arrayEventosAtivos' => $arrayEventosAtivos,
 	    ]) ?>
     </div>
 

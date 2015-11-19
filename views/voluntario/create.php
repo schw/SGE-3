@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Voluntario */
 
-$this->title = 'Criar Voluntario';
+$this->title = 'Novo Voluntário';
 $this->params['breadcrumbs'][] = ['label' => 'Voluntarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

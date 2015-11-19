@@ -82,7 +82,8 @@ class Evento extends \yii\db\ActiveRecord
             'tipo.titulo' => 'Tipo',
             'local_idlocal' => '*Local',
             'local.descricao' => 'Local',
-            'credenciado' => 'Credenciado'
+            'credenciado' => 'Credenciado',
+            'responsavel0.nome' => 'Coordenador'
         ];
     }
 

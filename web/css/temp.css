@@ -29,7 +29,7 @@ input{
   width: 10%;
 }
 
-#pacote-valor, #user-nome, #user-senha, #user-senha_repeat, #user-email, #user-instituicao{
+#pacote-valor, #user-nome, #user-senha, #user-senha_repeat, #user-email, #user-instituicao, #user-cracha{
   width: 20%;
 }
 
