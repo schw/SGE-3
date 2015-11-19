@@ -54,7 +54,11 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div style="width: 100px; float: right; padding: 10px;">
                 <?php echo Html::a(Html::img('@web/img/add.png'), ['coordenador-has-evento/index','idevento' => $model->idevento], ['width' => '10']) ?>
-                <?php echo Html::a('Coordenadores', ['coordenador-has-evento/index', 'idevento' => $model->idevento]); ?>
+                <?php echo Html::a('Adicionar Coordenadores', ['coordenador-has-evento/index', 'idevento' => $model->idevento]); ?>
+            </div>
+            <div style="width: 100px; float: right; padding: 10px;">
+                <?php echo Html::a(Html::img('@web/img/add.png'), ['evento-has-voluntario/index','idevento' => $model->idevento], ['width' => '10']) ?>
+                <?php echo Html::a('Adicionar Voluntários', ['evento-has-voluntario/index', 'idevento' => $model->idevento]); ?>
             </div>
         <?php 
         }?>
