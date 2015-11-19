@@ -165,9 +165,15 @@ class InscreveController extends Controller
     }
 
 
-
     public function actionCancelar()
     {
+
+//somente teste isto:
+        $teste = new Inscreve();
+        //$teste->possuiItemProgramacao();
+        $teste->possuiVagas();
+//fim do teste
+
 
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

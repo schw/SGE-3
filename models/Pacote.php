@@ -104,6 +104,11 @@ class Pacote extends \yii\db\ActiveRecord
         return $this->hasMany(ItemProgramacaoHasPacote::className(), ['pacote_idpacote' => 'idpacote']);
     }
 
+    public function getItemProgramacaoHasPacote()
+    {
+        return $this->hasMany(ItemProgramacaoHasPacote::className(), ['pacote_idpacote' => 'idpacote']);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -138,7 +143,7 @@ class Pacote extends \yii\db\ActiveRecord
 
         public function getPacote($id_usuario,$id_evento){
 
-        //$id_evento = Yii::$app->request->post('evento_idevento'); 
+        $id_evento = Yii::$app->request->post('evento_idevento'); 
 
         return $results = Pacote::find()->where(['evento_idevento' => $id_evento , 'usuario_idusuario' => $id_usuario]);
 

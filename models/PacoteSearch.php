@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Pacote;
+use app\models\ItemProgramacao;
 
 /**
  * PacoteSearch represents the model behind the search form about `app\models\Pacote`.
@@ -103,6 +104,12 @@ class PacoteSearch extends Pacote
     public function searchEventoPacote($idevento)
     {
         $query = Pacote::find()->where(['evento_idevento' => $idevento]);
+
+//       $subquery = ItemProgramacaoHasPacote::find()->select('pacote.idpacote')->where(['pacote.evento_idevento' => $idevento])->andWhere('itemProgramacao.vagas <= 0');
+//       $subquery->joinWith('itemProgramacao');
+//       $query = Pacote::find()->where(['pacote.evento_idevento' => $idevento])->andWhere(['not in', 'idpacote', $subquery]);
+
+
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
