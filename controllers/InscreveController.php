@@ -132,8 +132,8 @@ class InscreveController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
-        $id_evento = Yii::$app->request->post('id_evento'); 
-        $id_pacote = Yii::$app->request->post('id_pacote'); 
+        $id_evento = Yii::$app->request->queryParams['id_evento']; 
+        $id_pacote = Yii::$app->request->queryParams['id_pacote']; 
 
         $model = $this->findModel($id_evento);
         $inscreve = new Inscreve();

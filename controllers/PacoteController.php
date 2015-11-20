@@ -39,7 +39,7 @@ class PacoteController extends Controller
      */
     public function actionIndex($idevento)
     {
-        $this->autorizaUsuario();
+        //$this->autorizaUsuario();
         $searchModel = new PacoteSearch();
         $dataProvider = $searchModel->searchEvento(Yii::$app->request->queryParams);
 
@@ -57,11 +57,15 @@ class PacoteController extends Controller
      */
     public function actionView($id)
     {
-        $this->autorizaUsuario();
+        //$this->autorizaUsuario();
+        $searchModel = new PacoteSearch();
+        $dataProvider = $searchModel->searchItemProgramacaoPacote($id);
+
         $model = $this->findModel($id);
         $model->valor = $model->valor/100;
         return $this->render('view', [
             'model' => $model,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
