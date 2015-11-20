@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'status',
             // 'evento_idevento',
 
+            Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3 ? ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view}'] : 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
