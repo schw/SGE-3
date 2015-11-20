@@ -259,13 +259,28 @@ public function aumentarVagas($id_pacote , $id_evento,$opcao)
         return $results;
     }
 
-    public function possuiVagas(){
+    public function possuiVagasEvento(){
 
         //$qtd_item_programacao = $this->possuiItemProgramacao();
         $id_evento = Yii::$app->request->post('evento_idevento'); 
         
         return $results = Evento::findOne(['idevento' => $id_evento])->vagas;
     }
+
+
+    public function possuiVagasPacote($idpacote){
+
+       $id_evento = Yii::$app->request->post('evento_idevento'); 
+       $id_pacote = $idpacote;
+
+       $query = ItemProgramacaoHasPacote::find()->Where('itemProgramacao.vagas <= 0')
+       ->andWhere(['pacote_idpacote' => $id_pacote])->joinWith('itemProgramacao')->count();
+       
+       // se resultado for ZERO, então HÁ VAGAS !!!!!
+       return $query;
+
+    }
+
 
 
 }

@@ -138,7 +138,24 @@ class InscreveController extends Controller
         $model = $this->findModel($id_evento);
         $inscreve = new Inscreve();
 
-        if($inscreve->inscreverComPacote($id_evento,$id_pacote) == 0 ){
+        //primeiro verifica se possui vagas o pacote !!!! é necessário em razão da concorrencia das requisicoes
+        //caso não tenha vagas é redirecionado ao index
+        if($inscreve->possuiVagasPacote($id_pacote) != 0){
+
+
+                Yii::$app->getSession()->setFlash('danger', [
+                     'type' => 'danger',
+                     'message' => 'Inscrição no evento '.$model->sigla.' não foi efetuada, pois as vagas referente a esse pacote estão esgotadas',
+                     'title' => 'Inscrição',
+                     'positonY' => 'bottom',
+                     'positonX' => 'right'
+                 ]);
+
+                return Yii::$app->getResponse()->redirect(array('/inscreve/', 'mensagem' =>'erro'));
+            }
+            //se retornar zero, é pq não foi possivel se inscrever, tendo em vista que o usuario já se encontra inscrito nesse evento
+        else if($inscreve->inscreverComPacote($id_evento,$id_pacote) == 0){
+
             Yii::$app->getSession()->setFlash('danger', [
                  'type' => 'danger',
                  'message' => 'Inscrição no evento '.$model->sigla.' não foi efetuada, pois você já está inscrito nesse evento',
@@ -147,12 +164,14 @@ class InscreveController extends Controller
                  'positonX' => 'right'
              ]);
 
-        return Yii::$app->getResponse()->redirect(array('/inscreve/', 'mensagem' =>'erro'));
+            return Yii::$app->getResponse()->redirect(array('/inscreve/', 'mensagem' =>'erro'));
+            
         }
         else{
-
+            //caso ótimo: quando há vagas!
         $reduzir = new Inscreve();
-        $reduzir->reduzirVagas($id_pacote,$id_evento,2);
+        $reduzir->reduzirVagas($id_pacote,$id_evento,2); // redução das vagas no banco de dados !
+                                                        //o valor 2 é pq há pacotes! 2 significa pacotes ; 1  significa sem pacotes
 
             Yii::$app->getSession()->setFlash('success', [
                  'type' => 'success',
@@ -169,13 +188,6 @@ class InscreveController extends Controller
 
     public function actionCancelar()
     {
-
-//somente teste isto:
-        $teste = new Inscreve();
-        //$teste->possuiItemProgramacao();
-        $teste->possuiVagas();
-//fim do teste
-
 
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
