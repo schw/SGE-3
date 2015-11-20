@@ -140,6 +140,12 @@ public function inscrever($id_evento)
 
 public function inscreverComPacote($id_evento,$id_pacote)
     {
+
+        //verificar se há vagas para o referido pacote !!
+
+
+
+
         $id_usuario = Yii::$app->user->identity->idusuario;
 
         $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,'$id_pacote')";

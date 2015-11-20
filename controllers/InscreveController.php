@@ -85,11 +85,13 @@ class InscreveController extends Controller
 
 
             $searchModel = new PacoteSearch();
-            $dataProvider = $searchModel->searchEventoPacote($id_evento);
+            $dataProvider = $searchModel->searchEventoPacoteDisponivel($id_evento);
+            $dataProvider2 = $searchModel->searchEventoPacoteIndisponivel($id_evento);
 
                return $this->render('pacote', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
+                'dataProvider2' => $dataProvider2,
             ]);
         
         }

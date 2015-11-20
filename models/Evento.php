@@ -130,7 +130,7 @@ class Evento extends \yii\db\ActiveRecord
     }
 
     public function beforeDelete(){
-        if((new PacoteSearch())->searchEventoPacote($this->idevento)->count > 0)
+        if((new PacoteSearch())->searchEventoPacoteDisponivel($this->idevento)->count > 0)
             if(!Pacote::deleteAll(['evento_idevento' => $this->idevento]) && !ItemProgramacao::deleteAll(['evento_idevento' => $this->idevento]))
                 return false;
         return true;

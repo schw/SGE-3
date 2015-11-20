@@ -101,14 +101,37 @@ class PacoteSearch extends Pacote
     }
 
 
-    public function searchEventoPacote($idevento)
+    public function searchEventoPacoteDisponivel($idevento)
     {
-        $query = Pacote::find()->where(['evento_idevento' => $idevento]);
+        //$query = Pacote::find()->where(['evento_idevento' => $idevento]);
 
-//       $subquery = ItemProgramacaoHasPacote::find()->select('pacote.idpacote')->where(['pacote.evento_idevento' => $idevento])->andWhere('itemProgramacao.vagas <= 0');
-//       $subquery->joinWith('itemProgramacao');
-//       $query = Pacote::find()->where(['pacote.evento_idevento' => $idevento])->andWhere(['not in', 'idpacote', $subquery]);
+       $subquery = ItemProgramacaoHasPacote::find()->select('pacote_idpacote')->Where('itemProgramacao.vagas <= 0');
+       $subquery->joinWith('itemProgramacao');
+       $query = Pacote::find()->where(['pacote.evento_idevento' => $idevento])->andWhere(['not in', 'idpacote', $subquery]);
 
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($idevento);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        return $dataProvider;
+    }
+
+    public function searchEventoPacoteIndisponivel($idevento)
+    {
+        //$query = Pacote::find()->where(['evento_idevento' => $idevento]);
+
+       $subquery = ItemProgramacaoHasPacote::find()->select('pacote_idpacote')->Where('itemProgramacao.vagas <= 0');
+       $subquery->joinWith('itemProgramacao');
+       $query = Pacote::find()->where(['pacote.evento_idevento' => $idevento])->andWhere(['in', 'idpacote', $subquery]);
 
 
         $dataProvider = new ActiveDataProvider([
