@@ -385,8 +385,9 @@ class InscreveController extends Controller
    
     // setup kartik\mpdf\Pdf component
 
-
-        $model = $this->findModel(15);
+        $id_evento = Yii::$app->request->post('evento_idevento'); 
+        $model = $this->findModel($id_evento);
+        
 
             $pdf = new mPDF('utf-8', 'A4-L');
 

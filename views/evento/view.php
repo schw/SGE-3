@@ -85,6 +85,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php } else{ ?>
 
+                    <!-- Certificado -->
+                    <div style="width: 80px; float: right; padding: 10px;">
+                        <?php echo Html::a(Html::img('@web/img/certificado.png'), ['inscreve/pdf'], ['target' => 'blank',
+                        'data'=>[
+                        'method' => 'POST',
+                        'params'=>['evento_idevento' => $model->idevento],
+                    ]
+                    ]); ?>
+                        <?php echo Html::a('Imprimir Certificado', ['inscreve/pdf'], ['target' => 'blank',
+                        'data'=>[
+                        'method' => 'POST',
+                        'params'=>['evento_idevento' => $model->idevento],
+                    ]
+                    ]);?>
+                    </div>
+                    <!-- fim do certificado -->
+
                         <div style="width: 80px; float: right; padding: 10px;">
                             <?= Html::a(Html::img('@web/img/block.png'), ['inscreve/cancelar'], [
                                 'data' => [
