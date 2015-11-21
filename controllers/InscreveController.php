@@ -137,8 +137,11 @@ class InscreveController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
-        $id_evento = Yii::$app->request->queryParams['id_evento']; 
-        $id_pacote = Yii::$app->request->queryParams['id_pacote']; 
+        //$id_evento = Yii::$app->request->queryParams['id_evento']; 
+        //$id_pacote = Yii::$app->request->queryParams['id_pacote']; 
+
+         $id_evento = Yii::$app->request->post('id_evento'); 
+-        $id_pacote = Yii::$app->request->post('id_pacote');
 
         $model = $this->findModel($id_evento);
         $inscreve = new Inscreve();
@@ -341,6 +344,41 @@ class InscreveController extends Controller
     }
 
 
+    public function converterMes($current){
+        $mes_numero = (date('m',strtotime($current)));
+
+        $mes = array ("Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho",
+        "Agosto","Setembro","Outubro","Novembro","Dezembro");
+
+
+        return $mes[$mes_numero-1];
+    }
+
+//função necessária p/ gerar certificados, pois delimita o período inicial e final do evento
+   public function tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim){
+        if($mes_inicio == $mes_fim && $ano_inicio == $ano_fim){
+
+            $tag = '<b> '. $dia_inicio .' a '.$dia_fim .'de '.$mes_fim.'
+                de '.$ano_fim.'</b>';
+        }
+        else if($mes_inicio != $mes_fim && $ano_inicio == $ano_fim){
+            $tag = '<b> '. $dia_inicio .' de '.$mes_inicio.'
+                a '.$dia_fim .' de '.$mes_fim.'
+                de '.$ano_fim.'</b>';
+        }
+
+        else{
+
+            $tag = '<b> '. $dia_inicio .' de '.$mes_inicio.'
+                de '.$ano_inicio.' a '.$dia_fim .' de '.$mes_fim.'
+                de '.$ano_fim.'</b>';
+
+        }
+
+            return $tag;
+    }
+
+
     public function actionPdf() {
  
     // get your HTML raw content without any layouts or scripts
@@ -348,25 +386,25 @@ class InscreveController extends Controller
     // setup kartik\mpdf\Pdf component
 
 
-
+        $model = $this->findModel(15);
 
             $pdf = new mPDF('utf-8', 'A4-L');
 
-
-            $pdf->WriteHTML('');
-
+            $pdf->WriteHTML('<img src ="../web/img/PROMOBILE887.png"
+                            style = "width: 100%; height: 15%;"/>');
 //inicio
-
+/*
             $pdf->SetFont("Helvetica",'B', 14);
             $pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
             $pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
             $pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
             //$pdf->MultiCell(0,5,("-----------------"),0, 'C');
             $pdf->SetDrawColor(0,0,0);
-            $pdf->Line(10,42,290,42);
+            $pdf->Line(5,42,290,42);
             $pdf->Image('../web/img/logo-brasil.jpg', 10, 7, 32.32);
             $pdf->Image('../web/img/ufam.jpg', 260, 7, 25.25);
-
+*/
+            //$pdf->Image('../web/img/logo-brasil.jpg', 10, 7, 50);
 
  
 //fim
@@ -374,78 +412,57 @@ class InscreveController extends Controller
             $pdf->SetFont('Arial','B',22);
             $pdf->MultiCell(0,4,("Certificado"),0, 'C');
 
+        $nome= Yii::$app->user->identity->nome;//nao apagar
 
-            
-            //aqui
-$nome= 'Thiago';
-$Descricao= 'Programar como se nao houvesse amanha';
-$Sigla= 'PROG';
-$cargaHoraria= '20.000';
-$data_texto= '20 de novembro de 2015';
-$retornaAtualMes = "fevereiro";
+        $dia_inicio = (date('d',strtotime($model->dataIni)));
+        $dia_inicio = ($dia_inicio == 1 ? '1º' : $dia_inicio); //convertendo o 1 em 1º
+        $mes_inicio = $this->converterMes($model->dataIni);
+        $ano_inicio = (date('Y',strtotime($model->dataIni)));
+
+        $dia_fim = (date('d',strtotime($model->dataFim)));
+        $dia_fim = ($dia_fim == 1 ? '1º' : $dia_fim); //convertendo o 1 em 1º
+        $mes_fim = $this->converterMes($model->dataFim);
+        $ano_fim = (date('Y',strtotime($model->dataFim)));
 
         $pdf->SetFont('Arial','',18);
 
-        $pdf->Ln(25);
+        $pdf->Ln(20);
 
+        $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
-
-
-        $pdf->WriteHTML('       Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. 
-                $Descricao.'" ('.$Sigla.')</b>, com carga horaria de <b>'.$cargaHoraria.
-                ' horas</b>, realizado no dia<b> '. $data_texto .'</b>, na cidade de Manaus - AM.');
-
-
-        //$pdf->MultiCell(0,10,utf8_decode($tag),0, 'J');
+        $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
+            Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
+            ('.$model->sigla.')</b>, com carga horária de <b>'.$model->cargaHoraria.
+                ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
+                de Manaus - AM.</p>');
     
-        $pdf->Ln(22);
+        $pdf->Ln(15);
         
         $current = date('Y/m/d');
+
         $currentTime = strtotime($current);
+
+        $mes = $this->converterMes($current);
         
-        $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $retornaAtualMes. ' de '. date('Y', $currentTime).'.      '),0,1, 'R');
-
-
-
+        
+        $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $mes. ' de '. date('Y', $currentTime).'.'),0,1, 'C');
 
             $pdf->SetFont('Helvetica','I',8);
-            $pdf->Line(10,185,280,185);
+            $pdf->Line(5,185,290,185);
             $pdf->SetXY(10, 180);
             $pdf->MultiCell(0,5,"",0, 'C');
             $pdf->MultiCell(0,4,("Av. Rodrigo Otávio, 6.200 - Campus Universitário Senador Arthur Virgílio Filho - CEP 69077-000 - Manaus, AM, Brasil"),0, 'C');
-            $pdf->MultiCell(0,4,(" Tel. (092) 3305-1193/2808/2809         E-mail: secretaria@icomp.ufam.edu.br          www.icomp.ufam.edu.br"),0, 'C');
+            $pdf->MultiCell(0,4,(" Tel. (092) 3305-1193/2808/2809         E-mail: secretaria@icomp.ufam.edu.br          http://www.icomp.ufam.edu.br"),0, 'C');
             //$pdf->Image('components/com_portalsecretaria/images/icon_telefone.jpg', '40', '290');
             //$pdf->Image('components/com_portalsecretaria/images/icon_email.jpg', '73', '290');
             //$pdf->Image('components/com_portalsecretaria/images/icon_casa.jpg', '134', '290');
 
-
-
-
-
-
-
-
             // fim do aqui
 
-
-
-
-
-            $pdf->Output();
+            $pdf->Output('');
 
             exit;
 
-
-
-
-
-
-
-
-
     }
-
-
-
 
 }

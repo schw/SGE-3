@@ -34,8 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) ?>
         <?php } ?>
             
-        <?= Html::a('Escolher Pacote', ['inscreve/addpacote', 'id_pacote' => $model->idpacote, 'id_evento' => $model->evento_idevento],
-            ['class' => 'btn btn-primary']);
+        <?= Html::a('Escolher Pacote', ['inscreve/addpacote'], [
+                                                'class' => 'btn btn-primary',
+                                                'data'=>[
+                                                'method' => 'POST',
+                                                'params'=>['id_pacote' => $model->idpacote, 'id_evento' => $model->evento_idevento],]
+                                        ]);
         ?>
             <?= Html::a('Listar Pacotes', ['index', 'idevento' => $model->evento_idevento], ['class' => 'btn btn-primary',]) ?>
         </p>
