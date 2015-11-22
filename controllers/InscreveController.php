@@ -200,20 +200,35 @@ class InscreveController extends Controller
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-
         $id_usuario = Yii::$app->user->identity->idusuario;
         $id_evento = Yii::$app->request->post('evento_idevento'); 
         $id_pacote = Inscreve::findOne(['usuario_idusuario' => $id_usuario,'evento_idevento' => $id_evento])->pacote_idpacote;
 
         $model = $this->findModel($id_evento);
+//inicio 
 
+        $data_final_evento = Evento::findOne(['idevento' => $id_evento])->dataFim;
+        $data_atual = date('Y/m/d');
 
-        $sql = "DELETE FROM inscreve WHERE usuario_idusuario = '$id_usuario' AND evento_idevento = '$id_evento'";
-        
-        $resultado = Yii::$app->db->createCommand($sql)->execute();
+        if(strtotime($data_atual) > strtotime($data_final_evento)) {
+            
+            Yii::$app->getSession()->setFlash('danger', [
+                 'type' => 'danger',
+                 'message' => 'O Evento '.$model->sigla.' já foi encerrado, não sendo possível cancelar a inscrição.',
+                 'title' => 'Inscrição',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+
+            //Yii::$app->session->setFlash('message', 'Erro: Você não está inscrito nesse evento');   
+
+            return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'erro'));
+        }
+
+        $cancela = new Inscreve();
+        $resultado = $cancela->cancelar($id_evento);
 
         if ($resultado == 1){
-            
 
         $pacote  = new Pacote(); 
 
@@ -390,30 +405,31 @@ class InscreveController extends Controller
         
 
             $pdf = new mPDF('utf-8', 'A4-L');
+            $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
 
-            $pdf->WriteHTML('<img src ="../web/img/PROMOBILE887.png"
+            if($model->imagem != NULL){
+
+                $x=$pdf->WriteHTML('<img src ="../web/uploads/'.$model->imagem.'"
                             style = "width: 100%; height: 15%;"/>');
-//inicio
-/*
-            $pdf->SetFont("Helvetica",'B', 14);
-            $pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
-            $pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
-            $pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
-            //$pdf->MultiCell(0,5,("-----------------"),0, 'C');
-            $pdf->SetDrawColor(0,0,0);
-            $pdf->Line(5,42,290,42);
-            $pdf->Image('../web/img/logo-brasil.jpg', 10, 7, 32.32);
-            $pdf->Image('../web/img/ufam.jpg', 260, 7, 25.25);
-*/
-            //$pdf->Image('../web/img/logo-brasil.jpg', 10, 7, 50);
+            }   
+            else{   
 
+                $pdf->SetFont("Helvetica",'B', 14);
+                $pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
+                $pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
+                $pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
+                //$pdf->MultiCell(0,5,("-----------------"),0, 'C');
+                $pdf->SetDrawColor(0,0,0);
+                $pdf->Line(5,42,290,42);
+                $pdf->Image('../web/img/logo-brasil.jpg', 10, 7, 32.32);
+                $pdf->Image('../web/img/ufam.jpg', 260, 7, 25.25);
+            }
  
-//fim
             $pdf->Ln(20);
             $pdf->SetFont('Arial','B',22);
             $pdf->MultiCell(0,4,("Certificado"),0, 'C');
 
-        $nome= Yii::$app->user->identity->nome;//nao apagar
+        $nome= Yii::$app->user->identity->nome;
 
         $dia_inicio = (date('d',strtotime($model->dataIni)));
         $dia_inicio = ($dia_inicio == 1 ? '1º' : $dia_inicio); //convertendo o 1 em 1º

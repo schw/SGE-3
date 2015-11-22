@@ -11,7 +11,7 @@ use yii\helpers\Html; ?>
                 'showSeparator' => true,
                 'delay' => 1, //This delay is how long before the message shows
                 'pluginOptions' => [
-                    'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
+                    'delay' => (!empty($message['duration'])) ? $message['duration'] : 8000, //This delay is how long the message shows for
                     'showProgressbar' => true,
                     'placement' => [
                         'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'top',

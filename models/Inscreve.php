@@ -114,6 +114,29 @@ class Inscreve extends \yii\db\ActiveRecord
 
     }
 
+public function cancelar($id_evento)
+    {
+        $id_usuario = Yii::$app->user->identity->idusuario;
+
+        $sql = "DELETE FROM inscreve WHERE usuario_idusuario = '$id_usuario' AND evento_idevento = '$id_evento'";
+        
+        try{
+            
+            $resultado = Yii::$app->db->createCommand($sql)->execute();
+
+        }catch(IntegrityException $e){
+
+            return 0;
+
+        }catch(Exception $e){
+
+                return 0;
+
+        }
+
+        return $resultado;
+    }
+
 
 public function inscrever($id_evento)
     {
