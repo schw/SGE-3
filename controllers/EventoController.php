@@ -8,6 +8,7 @@ use app\models\Evento;
 use app\models\Local;
 use app\models\Tipo;
 use app\models\EventoSearch;
+use app\models\Inscreve;
 use app\models\InscreveSearch;
 use app\models\CoordenadorHasEvento;
 use yii\web\Controller;
@@ -89,8 +90,13 @@ class EventoController extends Controller
     {
         //$this->autorizaUsuario();
         Yii::$app->user->isGuest ? $verificaInscrito = 0 : 
-        $verificaInscrito = (new InscreveSearch())->verificaInscrito(Yii::$app->request->queryParams);
         
+        $verificaInscrito = (new Inscreve())->verificaInscrito
+                (Yii::$app->request->queryParams);
+        
+        $verificaEncerramento = (new Inscreve())->verificaEncerramento
+                (Yii::$app->request->queryParams);
+
         $model = $this->findModel($id);
         $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
         $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
@@ -99,6 +105,7 @@ class EventoController extends Controller
         return $this->render('view', [
             'model' => $model,
             'inscrito' => $verificaInscrito,
+            'encerrado' => $verificaEncerramento,
         ]);
     }
 

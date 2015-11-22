@@ -62,7 +62,7 @@ class InscreveController extends Controller
     public function actionVerificaInscrito()
     {
 
-        $searchModel = new InscreveSearch();
+        $searchModel = new Inscreve();
         $dataProvider = $searchModel->VerificaInscrito(Yii::$app->request->queryParams);
 
         return $dataProvider;

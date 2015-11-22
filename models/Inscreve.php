@@ -305,5 +305,38 @@ public function aumentarVagas($id_pacote , $id_evento,$opcao)
     }
 
 
+//POSSIBILITA que a view do Evento, apresente apenas 1 dos botões: Inscrever-se ou Cancelar
+public function VerificaInscrito($params)
+    {
 
+        $user = Yii::$app->user->identity->idusuario;
+
+        if (!Yii::$app->user->isGuest) {
+            $sql = "SELECT COUNT(*) FROM inscreve WHERE evento_idevento = '$params[id]' 
+                    AND usuario_idusuario = '$user'";
+
+                    $cont = Yii::$app->db->createCommand($sql)
+                 ->queryScalar();
+
+                return $cont;
+        }    
+    }
+
+//POSSIBILITA que a view do Evento não apresente o botão de cancelar inscricao, qndo o evento
+    // já estiver encerrado
+public function VerificaEncerramento($params)
+    {
+
+        $data_atual = strtotime(date('Y/m/d'));
+
+        $data_fim = strtotime(Evento::findOne(['idevento' => $params['id']])->dataFim);
+
+        if($data_atual >= $data_fim){
+
+            return 1;
+        }
+
+        return 0;
+
+    }
 }

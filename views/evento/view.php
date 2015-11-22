@@ -63,29 +63,49 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php 
         }?>
 
-        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){
-        
-    if(!$inscrito){ ?>
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){
+ 
+        if(!$encerrado){     
+            if(!$inscrito){ ?>
 
-                <div style="width: 80px; float: right; padding: 10px;">
-                    <?php echo Html::a(Html::img('@web/img/ok.png'), ['inscreve/inscrever'],  [
-                    'data'=>[
-                    'method' => 'POST',
-                    'params'=>['evento_idevento' => $model->idevento],
-                ]
-                ]); ?>
-                    <?php echo Html::a('Realizar Inscrição', ['inscreve/inscrever'], [
-                    'data'=>[
-                    'method' => 'POST',
-                    'params'=>['evento_idevento' => $model->idevento],
-                ]
-                ]);?>
-                </div>
-
+                        <div style="width: 80px; float: right; padding: 10px;">
+                            <?php echo Html::a(Html::img('@web/img/ok.png'), ['inscreve/inscrever'],  [
+                            'data'=>[
+                            'method' => 'POST',
+                            'params'=>['evento_idevento' => $model->idevento],
+                        ]
+                        ]); ?>
+                            <?php echo Html::a('Realizar Inscrição', ['inscreve/inscrever'], [
+                            'data'=>[
+                            'method' => 'POST',
+                            'params'=>['evento_idevento' => $model->idevento],
+                        ]
+                        ]);?>
+                        </div>
 
                 <?php } else{ ?>
 
-                    <!-- Certificado -->
+                            <div style="width: 80px; float: right; padding: 10px;">
+                                <?= Html::a(Html::img('@web/img/block.png'), ['inscreve/cancelar'], [
+                                    'data' => [
+                                    'confirm' => 'Deseja cancelar inscrição no evento "'.$model->descricao.'" ?',
+                                        'method' => 'POST',
+                                        'params'=>['evento_idevento' => $model->idevento],
+                                    ],
+                                ]) ?>
+                                <?php echo Html::a('Cancelar Inscrição', ['inscreve/cancelar'], [
+                                    'data'=>[
+                                    'confirm' => 'Deseja cancelar inscrição no evento "'.$model->descricao.'" ?',
+                                    'method' => 'POST',
+                                    'params'=>['evento_idevento' => $model->idevento],
+                                ]
+                                ]); ?>
+                            </div>
+
+                <?php }
+        }
+        else{ ?>
+                                <!-- Certificado -->
                     <div style="width: 80px; float: right; padding: 10px;">
                         <?php echo Html::a(Html::img('@web/img/certificado.png'), ['inscreve/pdf'], ['target' => 'blank',
                         'data'=>[
@@ -101,26 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]);?>
                     </div>
                     <!-- fim do certificado -->
-
-                        <div style="width: 80px; float: right; padding: 10px;">
-                            <?= Html::a(Html::img('@web/img/block.png'), ['inscreve/cancelar'], [
-                                'data' => [
-                                'confirm' => 'Deseja cancelar inscrição no evento "'.$model->descricao.'" ?',
-                                    'method' => 'POST',
-                                    'params'=>['evento_idevento' => $model->idevento],
-                                ],
-                            ]) ?>
-                            <?php echo Html::a('Cancelar Inscrição', ['inscreve/cancelar'], [
-                                'data'=>[
-                                'confirm' => 'Deseja cancelar inscrição no evento "'.$model->descricao.'" ?',
-                                'method' => 'POST',
-                                'params'=>['evento_idevento' => $model->idevento],
-                            ]
-                            ]); ?>
-                        </div>
-
-
-                <?php }
+        <?php }
     } ?>
     </div>
 

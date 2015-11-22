@@ -119,24 +119,4 @@ public function searchInscritos($params)
        return $dataProvider;
     }
 
-//POSSIBILITA que a view do Evento, apresente apenas 1 dos botões: Inscrever-se ou Cancelar
-public function VerificaInscrito($params)
-    {
-
-        $user = Yii::$app->user->identity->idusuario;
-
-        if (!Yii::$app->user->isGuest) {
-            $sql = "SELECT COUNT(*) FROM inscreve WHERE evento_idevento = '$params[id]' 
-                    AND usuario_idusuario = '$user'";
-
-                    $cont = Yii::$app->db->createCommand($sql)
-                 ->queryScalar();
-
-                return $cont;
-        }    
-    }
-
-
-
-
 }
