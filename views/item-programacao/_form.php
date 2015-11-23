@@ -18,7 +18,7 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'descricao')->textArea(['maxlength' => '700', 'cols' => 25]) ?>
+    <?= $form->field($model, 'descricao')->textArea(['maxlength' => '300', 'cols' => 25]) ?>
 
     <?= $form->field($model, 'palestrante')->textInput(['maxlength' => true]) ?>
 

@@ -49,7 +49,7 @@ class ItemProgramacao extends \yii\db\ActiveRecord
             [['hora'], 'safe'],
             [['vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
             [['titulo', 'palestrante', 'notificacao'], 'string', 'max' => 150],
-            [['descricao'], 'string', 'max' => 700],
+            [['descricao'], 'string', 'max' => 300],
             [['data'], 'string', 'max' => 10],
             [['detalhe'], 'string', 'max' => 800]
         ];
