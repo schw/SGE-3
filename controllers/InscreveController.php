@@ -371,9 +371,10 @@ class InscreveController extends Controller
 
 //função necessária p/ gerar certificados, pois delimita o período inicial e final do evento
    public function tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim){
+        
         if($mes_inicio == $mes_fim && $ano_inicio == $ano_fim){
 
-            $tag = '<b> '. $dia_inicio .' a '.$dia_fim .'de '.$mes_fim.'
+            $tag = '<b> '. $dia_inicio .' a '.$dia_fim .' de '.$mes_fim.'
                 de '.$ano_fim.'</b>';
         }
         else if($mes_inicio != $mes_fim && $ano_inicio == $ano_fim){
@@ -409,8 +410,19 @@ class InscreveController extends Controller
 
             if($model->imagem != NULL){
 
-                $x=$pdf->WriteHTML('<img src ="../web/uploads/'.$model->imagem.'"
-                            style = "width: 100%; height: 15%;"/>');
+                $x=$pdf->WriteHTML("
+
+                <style>
+                    body {
+                        
+                        body{font-family:Arial;background-image: url(../web/uploads/".$model->imagem.") no-repeat;
+                        background-image-resolution:300dpi;background-image-resize:6;}
+                    }
+                </style>
+
+
+
+                    ");
             }   
             else{   
 
@@ -425,9 +437,12 @@ class InscreveController extends Controller
                 $pdf->Image('../web/img/ufam.jpg', 260, 7, 25.25);
             }
  
-            $pdf->Ln(20);
+            $pdf->Ln(45);
             $pdf->SetFont('Arial','B',22);
-            $pdf->MultiCell(0,4,("Certificado"),0, 'C');
+
+            if($model->imagem == NULL){
+                $pdf->MultiCell(0,4,("Certificado"),0, 'C');
+            }
 
         $nome= Yii::$app->user->identity->nome;
 
@@ -462,8 +477,9 @@ class InscreveController extends Controller
         $mes = $this->converterMes($current);
         
         
-        $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $mes. ' de '. date('Y', $currentTime).'.'),0,1, 'C');
-
+        $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $mes. ' de '. 
+            date('Y', $currentTime).'.             '),0,1, 'C');
+        if($model->imagem == NULL){
             $pdf->SetFont('Helvetica','I',8);
             $pdf->Line(5,185,290,185);
             $pdf->SetXY(10, 180);
@@ -475,7 +491,7 @@ class InscreveController extends Controller
             //$pdf->Image('components/com_portalsecretaria/images/icon_casa.jpg', '134', '290');
 
             // fim do aqui
-
+        }
             $pdf->Output('');
 
             exit;
