@@ -48,8 +48,8 @@ class ItemProgramacao extends \yii\db\ActiveRecord
             [['palestrante', 'titulo', 'descricao', 'data', 'hora', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento'], 'required', 'message'=>'Este campo é obrigatório'],
             [['hora'], 'safe'],
             [['vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
-            [['titulo', 'palestrante', 'notificacao'], 'string', 'max' => 45],
-            [['descricao'], 'string', 'max' => 80],
+            [['titulo', 'palestrante', 'notificacao'], 'string', 'max' => 150],
+            [['descricao'], 'string', 'max' => 700],
             [['data'], 'string', 'max' => 10],
             [['detalhe'], 'string', 'max' => 800]
         ];
