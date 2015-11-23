@@ -115,7 +115,7 @@ class PacoteController extends Controller
         $model = $this->findModel($id);
 
         $itemProgramacaoSearch = new ItemProgramacaoSearch();
-        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['id' => $model->evento_idevento])->getModels(), 'iditemProgramacao', 'descricao');
+        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['idevento' => $model->evento_idevento])->getModels(), 'iditemProgramacao', 'descricao');
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
