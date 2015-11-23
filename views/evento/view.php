@@ -66,7 +66,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){
  
         if(!$encerrado){     
-            if((!$inscrito) && ($existeVagas != 0)){ ?>
+            if(!$inscrito){ 
+                if($existeVagas != 0){ ?>
 
                         <div style="width: 80px; float: right; padding: 10px;">
                             <?php echo Html::a(Html::img('@web/img/ok.png'), ['inscreve/inscrever'],  [
@@ -83,7 +84,27 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);?>
                         </div>
 
-                <?php 
+                    <?php 
+                }
+                else{ ?>
+                        <div style="width: 80px; float: right; padding: 10px;">
+                            <?php echo Html::a(Html::img('@web/img/notok.png'), ['inscreve/'],  [
+                            'data'=>[
+                            'method' => 'POST',
+                            'params'=>['evento_idevento' => $model->idevento],
+                        ]
+                        ]); ?>
+                            <?php echo Html::a('Vagas Esgotadas', ['inscreve/'], [
+                            'data'=>[
+                            'method' => 'POST',
+                            'params'=>['evento_idevento' => $model->idevento],
+                        ]
+                        ]);?>
+                        </div>
+
+
+
+                <?php } 
             }else{ ?>
 
                             <div style="width: 80px; float: right; padding: 10px;">

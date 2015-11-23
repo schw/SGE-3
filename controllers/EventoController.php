@@ -10,6 +10,7 @@ use app\models\Tipo;
 use app\models\EventoSearch;
 use app\models\Inscreve;
 use app\models\InscreveSearch;
+use app\models\PacoteSearch;
 use app\models\CoordenadorHasEvento;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -106,35 +107,9 @@ class EventoController extends Controller
         }
         else{
 
-
-
-
-
-
-
-
-
-
-//aqui há erros !!!!!!!1
-
-            $verificaVagas = (new Inscreve())->possuiVagasPacote
-                (Yii::$app->request->queryParams);
-
-            if($verificaVagas == 0){
-                $verificaVagas = 1;
-            }
-
-//aqui há erros !!!!!!!1
-
-
-
-
-
-
-
-
-
-
+            $searchModel = new PacoteSearch();
+            $verificaVagas = $searchModel->searchEventoPacoteDisponivel($id);
+            $verificaVagas = $verificaVagas->getCount();
 
         }
 
