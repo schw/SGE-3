@@ -82,7 +82,7 @@ class InscreveController extends Controller
 
         $inscreve = new Inscreve();
 
-        $pacote  = new Pacote(); 
+        $pacote  = new Inscreve(); 
 
         $quantidade_de_pacotes = $pacote->possuiPacote();
 
@@ -230,7 +230,7 @@ class InscreveController extends Controller
 
         if ($resultado == 1){
 
-        $pacote  = new Pacote(); 
+        $pacote  = new Inscreve(); 
 
         $quantidade_de_pacotes = $pacote->possuiPacote();
 

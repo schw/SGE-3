@@ -282,18 +282,39 @@ public function aumentarVagas($id_pacote , $id_evento,$opcao)
         return $results;
     }
 
+// funcão que retorna a quantidade de pacotes que um terminado evento possui
+// funcao necessária para a estória gerenciar inscrições
+    public function possuiPacote(){
+        
+        $id_evento = Yii::$app->request->post('evento_idevento'); 
+
+        if($id_evento == NULL){
+            $id_evento = Yii::$app->request->get('id'); 
+        }
+
+        $results = Pacote::find()->where(['evento_idevento' => $id_evento])->count();
+
+        return $results;
+
+    }
+
+
     public function possuiVagasEvento(){
 
-        //$qtd_item_programacao = $this->possuiItemProgramacao();
+
         $id_evento = Yii::$app->request->post('evento_idevento'); 
+
+        if($id_evento == NULL){
+            $id_evento = Yii::$app->request->get('id'); 
+        }
+        $results = Evento::findOne(['idevento' => $id_evento])->vagas;
         
-        return $results = Evento::findOne(['idevento' => $id_evento])->vagas;
+        return $results;
     }
 
 
     public function possuiVagasPacote($idpacote){
 
-       $id_evento = Yii::$app->request->post('evento_idevento'); 
        $id_pacote = $idpacote;
 
        $query = ItemProgramacaoHasPacote::find()->Where('itemProgramacao.vagas <= 0')

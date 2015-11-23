@@ -97,6 +97,47 @@ class EventoController extends Controller
         $verificaEncerramento = (new Inscreve())->verificaEncerramento
                 (Yii::$app->request->queryParams);
 
+        $pacote = (new Inscreve())->possuiPacote
+                (Yii::$app->request->queryParams);
+
+        if ($pacote == 0) {
+            $verificaVagas = (new Inscreve())->possuiVagasEvento
+                (Yii::$app->request->queryParams);
+        }
+        else{
+
+
+
+
+
+
+
+
+
+
+//aqui há erros !!!!!!!1
+
+            $verificaVagas = (new Inscreve())->possuiVagasPacote
+                (Yii::$app->request->queryParams);
+
+            if($verificaVagas == 0){
+                $verificaVagas = 1;
+            }
+
+//aqui há erros !!!!!!!1
+
+
+
+
+
+
+
+
+
+
+
+        }
+
         $model = $this->findModel($id);
         $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
         $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
@@ -106,6 +147,7 @@ class EventoController extends Controller
             'model' => $model,
             'inscrito' => $verificaInscrito,
             'encerrado' => $verificaEncerramento,
+            'existeVagas' => $verificaVagas,
         ]);
     }
 

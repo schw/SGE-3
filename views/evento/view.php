@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){
  
         if(!$encerrado){     
-            if(!$inscrito){ ?>
+            if((!$inscrito) && ($existeVagas != 0)){ ?>
 
                         <div style="width: 80px; float: right; padding: 10px;">
                             <?php echo Html::a(Html::img('@web/img/ok.png'), ['inscreve/inscrever'],  [
@@ -83,7 +83,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);?>
                         </div>
 
-                <?php } else{ ?>
+                <?php 
+            }else{ ?>
 
                             <div style="width: 80px; float: right; padding: 10px;">
                                 <?= Html::a(Html::img('@web/img/block.png'), ['inscreve/cancelar'], [
@@ -102,7 +103,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]); ?>
                             </div>
 
-                <?php }
+                    <?php 
+                }
         }
         else{ ?>
                                 <!-- Certificado -->
