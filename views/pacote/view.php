@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pacote */
 
-$this->title = $model->descricao;
+$this->title = $model->titulo;
 $this->params['breadcrumbs'][] = ['label' => 'Pacotes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
