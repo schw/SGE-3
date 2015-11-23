@@ -18,7 +18,7 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'descricao')->textArea(['maxlength' => '700', 'cols' => 25]) ?>
+    <?= $form->field($model, 'descricao')->textArea(['maxlength' => '300', 'cols' => 25]) ?>
 
     <?= $form->field($model, 'palestrante')->textInput(['maxlength' => true]) ?>
 
@@ -48,11 +48,11 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'detalhe')->textInput(['maxlength' => true]) ?>
 
-
     <?= $form->field($model, 'local_idlocal')->dropDownList(
             $arrayLocal,
             ['prompt'=>'Selecione um Local']
-    ); ?>
+        );?>
+    <p><?= Html::a('Mais Locais', ['local/index'], ['class' => 'btn btn-primary']); ?><p>
 
     <?php /* Html::activeDropDownList($model, 'local_idlocal',
       ArrayHelper::map(local::find()->all(), 'idlocal', 'descricao')) */?>
