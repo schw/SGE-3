@@ -26,8 +26,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'latitude')->textInput(['maxlength' => true]) ?>

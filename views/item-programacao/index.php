@@ -12,6 +12,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="itemprogramacao-index">
 
+    <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
+    <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
+    
+    <!-- Importação do arquivo responsável por exibir o menu lateral-->
+    <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
+
+   <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
+   <div id="page-wrapper">
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3){?>
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

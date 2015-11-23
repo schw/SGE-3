@@ -48,11 +48,11 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'detalhe')->textInput(['maxlength' => true]) ?>
 
-
     <?= $form->field($model, 'local_idlocal')->dropDownList(
             $arrayLocal,
             ['prompt'=>'Selecione um Local']
-    ); ?>
+        );?>
+    <p><?= Html::a('Mais Locais', ['local/index'], ['class' => 'btn btn-primary']); ?><p>
 
     <?php /* Html::activeDropDownList($model, 'local_idlocal',
       ArrayHelper::map(local::find()->all(), 'idlocal', 'descricao')) */?>

@@ -7,16 +7,24 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\LocalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Locals';
+$this->title = 'Locais';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="local-index">
 
+    <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
+    <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
+    
+    <!-- Importação do arquivo responsável por exibir o menu lateral-->
+    <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
+
+   <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
+   <div id="page-wrapper">
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Local', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar Local', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idlocal',
+            //'idlocal',
             'descricao',
             'latitude',
             'longitude',
