@@ -51,8 +51,11 @@ class ItemProgramacaoController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $model->data = date("d-m-Y", strtotime($model->data));
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
