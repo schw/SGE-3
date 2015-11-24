@@ -73,7 +73,7 @@ class EventoHasVoluntarioController extends Controller
         $searchModel = new EventoHasVoluntarioSearch();
 
         $arrayVoluntarios = ArrayHelper::map($searchModel->searchVoluntarios()->getModels(), 'idvoluntario', 'nome');
-        $arrayEventosAtivos =  ArrayHelper::map((new EventoSearch())->searchEventosResponsavel('ativo')->getModels(), 'idevento', 'descricao');
+        //$arrayEventosAtivos =  ArrayHelper::map((new EventoSearch())->searchEventosResponsavel('ativo')->getModels(), 'idevento', 'descricao');
         $idevento = filter_input(INPUT_GET, 'idevento');
         $model->evento_idevento = $idevento;
 
@@ -92,7 +92,6 @@ class EventoHasVoluntarioController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'arrayVoluntarios' => $arrayVoluntarios,
-                'arrayEventosAtivos' => $arrayEventosAtivos,
             ]);
         }
     }

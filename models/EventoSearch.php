@@ -161,12 +161,6 @@ class EventoSearch extends Evento
 
         $query->joinWith('evento');
 
-        /*if ($status == 'passado') {
-            $query = Evento::find()->where("dataFim < '". date('Y-m-d')."'")->andWhere(['responsavel' => Yii::$app->user->identity->idusuario]);
-        }else{
-            $query = Evento::find()->where("dataFim >= '". date('Y-m-d')."'")->andWhere(['responsavel' => Yii::$app->user->identity->idusuario]);
-        }*/
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

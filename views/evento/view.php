@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
 
-        <?php if(!Yii::$app->user->isGuest && $model->canAccess() && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
+        <?php if(!Yii::$app->user->isGuest && $model->canAccess()){ ?>
             <div style="width: 80px; float: right; padding: 10px;">
                 <?= Html::a(Html::img('@web/img/delete.png'), ['delete', 'id' => $model->idevento], [
                     'data' => [
@@ -52,10 +52,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php echo Html::a(Html::img('@web/img/listar_inscritos.png'), ['inscritos/index','evento_idevento' => $model->idevento], ['width' => '10']) ?>
                 <?php echo Html::a('Listar Inscritos', 'index.php?r=inscritos/index&evento_idevento='.$model->idevento); ?>
             </div>
-            <div style="width: 100px; float: right; padding: 10px;">
-                <?php echo Html::a(Html::img('@web/img/add.png'), ['coordenador-has-evento/index','idevento' => $model->idevento], ['width' => '10']) ?>
-                <?php echo Html::a('Adicionar Coordenadores', ['coordenador-has-evento/index', 'idevento' => $model->idevento]); ?>
-            </div>
+            
+            <?php if(!Yii::$app->user->isGuest && $model->canAccessResponsible()){ ?>
+                <div style="width: 100px; float: right; padding: 10px;">
+                    <?php echo Html::a(Html::img('@web/img/add.png'), ['coordenador-has-evento/index','idevento' => $model->idevento], ['width' => '10']) ?>
+                    <?php echo Html::a('Adicionar Coordenadores', ['coordenador-has-evento/index', 'idevento' => $model->idevento]); ?>
+                </div>
+                <?php } ?>
             <div style="width: 100px; float: right; padding: 10px;">
                 <?php echo Html::a(Html::img('@web/img/add.png'), ['evento-has-voluntario/index','idevento' => $model->idevento], ['width' => '10']) ?>
                 <?php echo Html::a('Adicionar Voluntários', ['evento-has-voluntario/index', 'idevento' => $model->idevento]); ?>

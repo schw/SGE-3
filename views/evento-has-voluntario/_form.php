@@ -17,11 +17,6 @@ use yii\widgets\ActiveForm;
             ['prompt'=>'Selecione um Voluntário']
         );?>
 
-    <?= $form->field($model, 'evento_idevento')->dropDownList(
-            $arrayEventosAtivos,
-            ['prompt'=>'Selecione um Evento']
-    );?>
-
     <div class="form-group">
         <?= Html::submitButton('Adicionar Voluntário ao evento', ['class' => 'btn btn-success']) ?>
     </div>

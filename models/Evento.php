@@ -189,7 +189,11 @@ class Evento extends \yii\db\ActiveRecord
     /*Verifica se o evento pode ser editado pelo usuario autenticado*/
     public function canAccess(){
         return date("Y-m-d", strtotime($this->dataFim)) > date('Y-m-d') && (Yii::$app->user->identity->idusuario == $this->responsavel || 
-            CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $this->idevento]))? true : false;
+            CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $this->idevento])->count()) ? true : false;
+    }
+
+    public function canAccessResponsible(){
+        return date("Y-m-d", strtotime($this->dataFim)) > date('Y-m-d') && Yii::$app->user->identity->idusuario == $this->responsavel ? true : false;
     }
 
 
