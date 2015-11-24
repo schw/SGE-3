@@ -79,7 +79,7 @@ class PacoteController extends Controller
         $this->autorizaUsuario();
         
         $itemProgramacaoSearch = new ItemProgramacaoSearch();
-        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['idevento' => $idevento])->getModels(), 'iditemProgramacao', 'descricao');
+        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['idevento' => $idevento])->getModels(), 'iditemProgramacao', 'titulo');
 
         $model = new Pacote();
         $model->evento_idevento = $idevento;
@@ -113,13 +113,20 @@ class PacoteController extends Controller
     {
         $this->autorizaUsuario();
         $model = $this->findModel($id);
-
+        
+        /*Inicio da obtenção de um array com os ids e descricões de todos os itens de Programação*/
         $itemProgramacaoSearch = new ItemProgramacaoSearch();
-        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['idevento' => $model->evento_idevento])->getModels(), 'iditemProgramacao', 'descricao');
+        $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['idevento' => $model->evento_idevento])->getModels(), 'iditemProgramacao', 'titulo');
+        /*Fim da obtenção*/
 
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idpacote]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                $this->mensagens('success', 'Pacote Aterado', "Pacote \"$model->titulo\"foi Alterado com Sucesso");
+                
+            }else{
+                $this->mensagens('danger', 'Pacote Não Aterado', "Erro ao Alterar Pacote \"$model->titulo\"");
+            }
+            return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -159,6 +166,7 @@ class PacoteController extends Controller
     protected function findModel($id)
     {
         if (($model = Pacote::findOne($id)) !== null) {
+            $model->setItemProgramacaoPacote();
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

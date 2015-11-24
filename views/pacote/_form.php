@@ -30,16 +30,13 @@ use kartik\money\MaskMoney;
 
     <?= $form->field($model, 'itens')->widget(Select2::classname(), [
     	'data' => $itensProgramacao,
-    	'value' => 'itens',
+    	'value' => $model->itens,
     	'language' => 'pt-BR',
     	'options' => ['placeholder' => 'Selecione os Itens de Programação ...', 'multiple' => true,],
-    	'pluginOptions' => [
-        	'allowClear' => true
-    	],
 	]);
 
 	?>
-
+    
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar Pacote' : 'Atualizar Pacote', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

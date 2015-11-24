@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\IntegrityException;
+use yii\base\Exception;
 
 /**
  * This is the model class for table "pacote".
@@ -21,7 +23,7 @@ use Yii;
  */
 class Pacote extends \yii\db\ActiveRecord
 {
-    var $itens = "";
+    var $itens = [];
     /**
      * @inheritdoc
      */
@@ -55,19 +57,21 @@ class Pacote extends \yii\db\ActiveRecord
             'valor' => 'Valor',
             'status' => 'Status',
             'evento_idevento' => 'Evento Idevento',
-            'itens' => 'Itens Programação'
+            'itens' => 'Itens Programação',
+            'valormoeda' => 'Valor'
         ];
     }
 
     public function afterSave(){
         try {
+            $this->beforeDelete();
             foreach ($this->itens as $key => $value) {
                 $itemProgramacao = $this->itens[$key];
                 $pacote = $this->idpacote;
                 $sql = "INSERT INTO itemProgramacao_has_pacote (itemProgramacao_iditemProgramacao, pacote_idpacote) VALUES ($itemProgramacao, $pacote);";
                 Yii::$app->db->createCommand($sql)->execute();
             }
-        } catch (ErrorException $e) {
+        } catch (IntegrityException $e) {
             return false;
         }
     }
@@ -136,7 +140,27 @@ class Pacote extends \yii\db\ActiveRecord
         $id_evento = Yii::$app->request->post('evento_idevento'); 
 
         return $results = Pacote::find()->where(['evento_idevento' => $id_evento , 'usuario_idusuario' => $id_usuario]);
+    }
 
+    /*
+    * Função responsável pela máscara do valor para moeda.
+    * Apenas Exibição
+    */
+    public function getValorMoeda(){
+        return "R$ ".str_replace(".", ",", $this->valor);
+    }
+
+
+    /*Função para da obtenção de um array com os ids dos itens de Programação que estão relacionados a um determinado pacote*/
+    
+    public function setItemProgramacaoPacote(){
+        
+        $ItemProgramacaoHasPacoteSearch = new ItemProgramacaoHasPacoteSearch();
+        $itens = $ItemProgramacaoHasPacoteSearch->search(['idpacote' => $this->idpacote])->getModels();
+        
+        foreach ($itens as $key => $value) {
+            array_push($this->itens, $value['itemProgramacao_iditemProgramacao']);
+        }
     }
 
 }

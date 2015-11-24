@@ -40,7 +40,7 @@ class ItemProgramacaoHasPacoteSearch extends ItemProgramacaoHasPacote
      */
     public function search($params)
     {
-        $query = ItemProgramacaoHasPacote::find()->where(['id']);
+        $query = ItemProgramacaoHasPacote::find()->where(['pacote_idpacote' => $params['idpacote']]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -50,12 +50,15 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'horaFim')->widget(DateControl::classname(), [
     'language' => 'pt-BR',
+    'value' => $model->horaFim, 
     'type'=>DateControl::FORMAT_TIME,
     ]) ?>
 
+    <?= $model->horaFim ?>
+
     <?= $form->field($model, 'vagas')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'cargaHoraria')->textInput()?>
+    <?= $form->field($model, 'cargaHoraria')->textInput(['type' => 'number'])?>
 
     <?= $form->field($model, 'imagem')->fileInput() ?>
 

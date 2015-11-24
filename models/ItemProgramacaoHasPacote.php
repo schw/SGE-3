@@ -53,11 +53,6 @@ class ItemProgramacaoHasPacote extends \yii\db\ActiveRecord
         return $this->hasOne(ItemProgramacao::className(), ['iditemProgramacao' => 'itemProgramacao_iditemProgramacao']);
     }
 
-    public function getItemProgramacao (){
-        return $this->hasOne(ItemProgramacao::className(), ['iditemProgramacao' => 'itemProgramacao_iditemProgramacao']);
-
-    }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -65,4 +60,11 @@ class ItemProgramacaoHasPacote extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Pacote::className(), ['idpacote' => 'pacote_idpacote']);
     }
+
+
+    public function getItemProgramacao (){
+        return $this->hasOne(ItemProgramacao::className(), ['iditemProgramacao' => 'itemProgramacao_iditemProgramacao']);
+
+    }
+
 }

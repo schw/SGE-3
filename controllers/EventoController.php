@@ -114,10 +114,6 @@ class EventoController extends Controller
         }
 
         $model = $this->findModel($id);
-        $model->dataIni = date("d-m-Y", strtotime($model->dataIni));
-        $model->dataFim = date("d-m-Y", strtotime($model->dataFim));
-        $model->cargaHoraria = $model->cargaHoraria." hs";
-
         return $this->render('view', [
             'model' => $model,
             'inscrito' => $verificaInscrito,

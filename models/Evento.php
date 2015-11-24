@@ -47,7 +47,8 @@ class Evento extends \yii\db\ActiveRecord
         return [
             [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'cargaHoraria', 'allow', 
             'responsavel', 'tipo_idtipo', 'local_idlocal'], 'required', 'message' => 'Este campo é Obrigatório'],
-            [['vagas', 'cargaHoraria', 'allow', 'responsavel', 'tipo_idtipo', 'local_idlocal'], 'integer'],
+            [['vagas', 'allow', 'responsavel', 'tipo_idtipo', 'local_idlocal'], 'integer'],
+            [['cargaHoraria'], 'integer', 'min' => 0],
             [['dataIni', 'dataFim'], 'string',],
             [['dataIni'], 'validateDateIni'],
             [['dataFim'], 'validateDateFim'],
@@ -87,6 +88,7 @@ class Evento extends \yii\db\ActiveRecord
         ];
     }
 
+    /*Funções para validação de atributos*/
     public function validateDateIni($attribute, $params){
         if (!$this->hasErrors()) {
             if ($this->dataIni < date('Y-m-d')) {
@@ -105,36 +107,19 @@ class Evento extends \yii\db\ActiveRecord
 
     public function validadeHoraFim($attribute, $params){
         if (!$this->hasErrors()) {
-            if ($this->horaFim <= $this->horaIni && $this->dataIni == $this->horaFim) {
+            if ($this->horaFim <= $this->horaIni && $this->dataIni == $this->dataFim) {
                 $this->addError($attribute, 'Informe um horário acima do horário inicial');
             }
         }
     }
 
-
-    public function upload($imageFile)
-    {
-        if ($imageFile != null) {
-            $imageName = date('dmYhms');
-            $imageFile->saveAs('uploads/' . $imageName . '.' . $imageFile->extension);
-            return $imageName.".".$imageFile->extension;
-        } else {
-            return null;
-        }
-    }
-
-    /*Verifica se o evento pode ser editado*/
-    public function canAccess(){
-        return date("Y-m-d", strtotime($this->dataFim)) > date('Y-m-d') && (Yii::$app->user->identity->idusuario == $this->responsavel || 
-            CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $this->idevento]))? true : false;
-    }
-
     public function beforeDelete(){
-        if((new PacoteSearch())->searchEventoPacoteDisponivel($this->idevento)->count > 0)
-            if(!Pacote::deleteAll(['evento_idevento' => $this->idevento]) && !ItemProgramacao::deleteAll(['evento_idevento' => $this->idevento]))
-                return false;
-        return true;
+    if((new PacoteSearch())->searchEventoPacoteDisponivel($this->idevento)->count > 0)
+        if(!Pacote::deleteAll(['evento_idevento' => $this->idevento]) && !ItemProgramacao::deleteAll(['evento_idevento' => $this->idevento]))
+            return false;
+    return true;
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -186,6 +171,39 @@ class Evento extends \yii\db\ActiveRecord
     public function getLocal()
     {
         return $this->hasOne(Local::className(), ['idlocal' => 'local_idlocal']);
+    }
+
+
+    /*Função para geração de nome e Salvamento da imagem na pasta "Web/uploads/" retorna no o nome  ser inserido no banco */
+    public function upload($imageFile)
+    {
+        if ($imageFile != null) {
+            $imageName = date('dmYhms');
+            $imageFile->saveAs('uploads/' . $imageName . '.' . $imageFile->extension);
+            return $imageName.".".$imageFile->extension;
+        } else {
+            return null;
+        }
+    }
+
+    /*Verifica se o evento pode ser editado pelo usuario autenticado*/
+    public function canAccess(){
+        return date("Y-m-d", strtotime($this->dataFim)) > date('Y-m-d') && (Yii::$app->user->identity->idusuario == $this->responsavel || 
+            CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $this->idevento]))? true : false;
+    }
+
+
+    /*Funções para visualização dos Atributos de maneira correta*/
+    public function getMascaraDataIni(){
+        return date("d-m-Y", strtotime($this->dataIni));
+    }
+
+    public function getMascaraDataFim(){
+        return date("d-m-Y", strtotime($this->dataFim));
+    }
+
+    public function getMascaraCargaHoraria(){
+        return $this->cargaHoraria." hs";
     }
     
 }

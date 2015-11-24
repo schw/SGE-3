@@ -33,43 +33,33 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]) ?>
         <?php } ?>
-            
-        <?= Html::a('Escolher Pacote', ['inscreve/addpacote'], [
-                                                'class' => 'btn btn-primary',
-                                                'data'=>[
-                                                'method' => 'POST',
-                                                'params'=>['id_pacote' => $model->idpacote, 'id_evento' => $model->evento_idevento],]
-                                        ]);
+        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){ ?>
+        <?= Html::a('Escolher Pacote', ['inscreve/addpacote'], ['class' => 'btn btn-primary', 'data'=>[
+                'method' => 'POST',
+                'params'=>['id_pacote' => $model->idpacote, 'id_evento' => $model->evento_idevento],]
+        ]);
         ?>
-            <?= Html::a('Listar Pacotes', ['index', 'idevento' => $model->evento_idevento], ['class' => 'btn btn-primary',]) ?>
+        <?php } ?>
         </p>
 
         <?= DetailView::widget([
             'model' => $model,
             'attributes' => [
-                //'idpacote',
                 'titulo',
                 'descricao',
-                'valor',
-                'status',
-                'evento_idevento',
+                'valormoeda',
             ],
         ]) ?>
 
-        <h1><?= Html::encode('Itens de Programação') ?></h1>
+        <h1><?= Html::encode('Programação') ?></h1>
             <?= GridView::widget([
             'dataProvider' => $dataProvider,
             //'filterModel' => $searchModel,
             'columns' => [
-                //['class' => 'yii\grid\SerialColumn'],
-
-                //'idpacote',
                 'itemProgramacao.titulo',
                 'itemProgramacao.descricao',
                 'itemProgramacao.data',
-                //'status',
-                // 'evento_idevento',
-
+                ['attribute' => 'Local', 'value' => 'itemProgramacao.local.descricao'],
                 //['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>
