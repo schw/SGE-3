@@ -77,7 +77,8 @@ class ItemProgramacao extends \yii\db\ActiveRecord
             'evento_idevento' => 'Evento',
             'tipo.titulo' => 'Tipo',
             'local.descricao' => 'Local',
-            'evento.descricao' => 'Evento'
+            'evento.descricao' => 'Evento',
+            'tipo_idtipo' => 'Tipo'
         ];
     }
 
@@ -87,7 +88,7 @@ class ItemProgramacao extends \yii\db\ActiveRecord
 
     public function validateDate($attribute, $params){
         if (!$this->hasErrors()) {
-            if ($this->dataIni < date('Y-m-d')) {
+            if ($this->data < date('Y-m-d')) {
                 $this->addError($attribute, 'Informe uma data igual ou posterior a '.date('d-m-Y'));
             }
         }

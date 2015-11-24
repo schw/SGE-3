@@ -65,6 +65,7 @@ use kartik\datecontrol\DateControl;
             $arrayTipo,
             ['prompt'=>'Selecione um Tipo']
     ); ?>
+    <p><?= Html::a('Mais Tipos', ['tipo/index'], ['class' => 'btn btn-primary']); ?><p>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Finalizar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
