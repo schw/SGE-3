@@ -67,22 +67,6 @@ input{
     
 }
 
-.pacote-create{
-  margin-left: 350px;
-  width: 900px;  
-}
-
-.tipo-index{
-  margin-left: 350px;
-  width: 900px; 
-
-}
-
-.tipo-create{
-  margin-left: 350px;
-  width: 900px; 
-}
-
 .field-tipo-titulo{
   width: 300px;
 }
@@ -126,11 +110,6 @@ input{
 #icone{
   height: 64px;
   width: 64px;
-}
-
-.inscreve-view{
-  margin-left: 350px;
-  width: 900px; 
 }
 
 #homeICOMP{
