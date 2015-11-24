@@ -30,14 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
             //'iditemProgramacao',
             'titulo',
             'descricao',
             'palestrante',
-            'data',
+            ['attribute' => 'data', 'format' => ['date', 'php:d-m-Y']],   
             // 'hora',
             // 'vagas',
             // 'cargaHoraria',
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
             //'iditemProgramacao',

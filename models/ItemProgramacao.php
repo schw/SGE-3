@@ -48,6 +48,8 @@ class ItemProgramacao extends \yii\db\ActiveRecord
             [['palestrante', 'titulo', 'descricao', 'data', 'hora', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento'], 'required', 'message'=>'Este campo é obrigatório'],
             [['hora'], 'safe'],
             [['vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
+            [['data'], 'string'],
+            [['data'], 'validateDate'],
             [['titulo', 'palestrante', 'notificacao'], 'string', 'max' => 150],
             [['descricao'], 'string', 'max' => 300],
             [['data'], 'string', 'max' => 10],
@@ -82,6 +84,15 @@ class ItemProgramacao extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+
+    public function validateDate($attribute, $params){
+        if (!$this->hasErrors()) {
+            if ($this->dataIni < date('Y-m-d')) {
+                $this->addError($attribute, 'Informe uma data igual ou posterior a '.date('d-m-Y'));
+            }
+        }
+    }
+
     public function getEventoIdevento()
     {
         return $this->hasOne(Evento::className(), ['idevento' => 'evento_idevento']);

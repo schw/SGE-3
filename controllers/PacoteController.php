@@ -62,7 +62,7 @@ class PacoteController extends Controller
         $dataProvider = $searchModel->searchItemProgramacaoPacote($id);
 
         $model = $this->findModel($id);
-        $model->valor = $model->valor/100;
+        $model->valor = $model->valor;
         return $this->render('view', [
             'model' => $model,
             'dataProvider' => $dataProvider,
