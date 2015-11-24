@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'titulo',
             'descricao',
             'palestrante',
-            'data',
+            ['attribute' => 'data', 'format' => ['date', 'php:d-m-Y']],
             // 'hora',
             // 'vagas',
             // 'cargaHoraria',
