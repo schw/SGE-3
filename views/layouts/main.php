@@ -47,8 +47,7 @@ AppAsset::register($this);
                 ['label' => 'Eventos Ativos', 'url' => ['evento/gerenciareventos']],
                 '<li class="divider"></li>',
                 ['label' => 'Eventos Passados', 'url' => ['evento/gerenciareventos', 'status' => 'passado']],],], 
-            ['label' => 'Eventos', 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3), 'items' => [
-                ['label' => 'Eventos Ativos', 'url' => ['evento/index']],],],
+            ['label' => 'Eventos Ativos', 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3), 'url' => ['evento/index']],
             ['label' => 'Cadastre-se', 'url' => ['/user/create'], 'visible' => Yii::$app->user->isGuest],
             ['label' => 'Voluntários', 'url' => ['voluntario/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
             ['label' => 'Minhas Inscrições', 'url' => ['inscreve/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3)],

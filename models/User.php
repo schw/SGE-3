@@ -70,6 +70,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     			'authKey' => 'Auth Key',
     			'accessToken' => 'Access Token',
                 'senha_repeat' => 'Confirmar Senha',
+                'descricaotipousuario' => 'Perfil',
     	];
     }
     
