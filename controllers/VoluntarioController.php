@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\ForbiddenHttpException;
+use yii\db\IntegrityException;
+use yii\base\Exception;
 
 /**
  * VoluntarioController implements the CRUD actions for Voluntario model.
@@ -107,10 +109,11 @@ class VoluntarioController extends Controller
     {
         $this->autorizaUsuario();
         $model = $this->findModel($id);
-        if($model->delete()){
+        try{
+            $model->delete();
             $this->mensagens('success', 'Voluntário Removido', 'Voluntário removido com sucesso');
-        }else{
-            $this->mensagens('danger', 'Voluntário não Removido', 'Ocorreu um erro ao remover voluntário');
+        }catch(IntegrityException $e){
+            $this->mensagens('danger', 'Voluntário não Removido', 'Voluntário Alocado em um Evento');
         }
 
         return $this->redirect(['index']);
