@@ -35,7 +35,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <div id="googleMap" style="width:500px;height:380px;"></div>
     
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'criar' : 'atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

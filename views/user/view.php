@@ -16,8 +16,8 @@ $model->notificarViaEmail = $model->notificarViaEmail ? "Sim" : "Não";
  <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 
    <div id="page-wrapper">
-        <h1><?= Html::encode($this->title) ?></h1>
-
+    <h1><?= Html::encode($this->title) ?></h1>
+        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 1){?>
         <p>
             <?= Html::a('Alterar Perfil', ['update', 'id' => $model->idusuario], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('Excluir Conta', ['delete', 'id' => $model->idusuario], [
@@ -28,6 +28,8 @@ $model->notificarViaEmail = $model->notificarViaEmail ? "Sim" : "Não";
                 ],
             ]) ?>
         </p>
+
+        <?php } ?>
 
         <?= DetailView::widget([
             'model' => $model,
