@@ -142,6 +142,11 @@ public function inscrever($id_evento)
     {
         $id_usuario = Yii::$app->user->identity->idusuario;
 
+         if ($this->possuiVagasEvento() <= 0){
+            return -1;
+
+        }
+
         $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,NULL)";
 
         try{
@@ -170,6 +175,7 @@ public function inscreverComPacote($id_evento,$id_pacote)
 
 
         $id_usuario = Yii::$app->user->identity->idusuario;
+
 
         $sql = "INSERT INTO inscreve VALUES ('$id_usuario','$id_evento',0,'$id_pacote')";
         
@@ -209,12 +215,27 @@ public function reduzirVagas($id_pacote , $id_evento,$opcao)
 
         if($opcao == 1) {
         //reduzir vaga da tabela itens-programacao e TAMBÉM da tabela evento
-        $sql = "update itemProgramacao as i, evento as e 
-            set i.vagas = i.vagas -1 , e.vagas = e.vagas -1 
-            where i.evento_idevento = $id_evento AND e.idevento = $id_evento";
-            $resultado = Yii::$app->db->createCommand($sql)->execute();
-        }
 
+
+            $qtd_itemProgramacao =  $this->possuiItemProgramacao();
+
+            if($qtd_itemProgramacao > 0){
+
+            $sql = "update itemProgramacao set vagas = vagas -1
+                where evento_idevento = $id_evento";
+                $resultado = Yii::$app->db->createCommand($sql)->execute(); 
+                $result = new Inscreve;
+                //linha abaixo para reduzir vagas da tabela EVENTO !
+                $resultado = $resultado + $result->reduzir_vagas_evento($id_evento,$resultado);
+            }
+
+            else{
+
+                $sql = "update evento set vagas = vagas -1 where idevento = $id_evento";
+                $resultado = Yii::$app->db->createCommand($sql)->execute(); 
+            }
+                
+        }
         else{
             //reduzir vagas da tabela item-programacao (relacionados a um pacote)
         $sql = "update itemProgramacao set vagas = vagas -1 where iditemProgramacao in (
@@ -223,8 +244,9 @@ public function reduzirVagas($id_pacote , $id_evento,$opcao)
                 where idpacote =".$id_pacote.")";
 
             $resultado = Yii::$app->db->createCommand($sql)->execute();
-            $result = new Inscreve;
+        
 
+            $result = new Inscreve;
             //linha abaixo para reduzir vagas da tabela EVENTO !
             $resultado = $resultado + $result->reduzir_vagas_evento($id_evento,$resultado);
         }
@@ -250,10 +272,25 @@ public function aumentarVagas($id_pacote , $id_evento,$opcao)
 
         if($opcao == 1) {
         //aumentar vaga da tabela itens-programacao e TAMBÉM da tabela evento
-        $sql = "update itemProgramacao as i, evento as e 
-            set i.vagas = i.vagas +1 , e.vagas = e.vagas +1 
-            where i.evento_idevento = $id_evento AND e.idevento = $id_evento";
-            $resultado = Yii::$app->db->createCommand($sql)->execute();
+
+            $qtd_itemProgramacao =  $this->possuiItemProgramacao();
+
+            if($qtd_itemProgramacao > 0){
+
+            $sql = "update itemProgramacao set vagas = vagas +1
+                where evento_idevento = $id_evento";
+                $resultado = Yii::$app->db->createCommand($sql)->execute(); 
+                $result = new Inscreve;
+                //linha abaixo para reduzir vagas da tabela EVENTO !
+                $resultado = $resultado + $result->aumentar_vagas_evento($id_evento,$resultado);
+            }
+
+            else{
+
+                $sql = "update evento set vagas = vagas +1 where idevento = $id_evento";
+                $resultado = Yii::$app->db->createCommand($sql)->execute(); 
+            }
+                
         }
 
         else{
@@ -264,10 +301,18 @@ public function aumentarVagas($id_pacote , $id_evento,$opcao)
                 where idpacote =".$id_pacote.")";
 
 
-            $resultado = Yii::$app->db->createCommand($sql)->execute();
-            $result = new Inscreve;
+            try{
+                    
+                    $resultado = Yii::$app->db->createCommand($sql)->execute();
 
-            //linha abaixo para reduzir vagas da tabela EVENTO !
+                }catch(\Exception $e){
+
+                    $resultado = 0;
+
+                }
+        
+            $result = new Inscreve;
+            //linha abaixo para aumentar vagas da tabela EVENTO !
             $resultado = $resultado + $result->aumentar_vagas_evento($id_evento,$resultado);
         }
         
@@ -308,7 +353,7 @@ public function aumentarVagas($id_pacote , $id_evento,$opcao)
             $id_evento = Yii::$app->request->get('id'); 
         }
         $results = Evento::findOne(['idevento' => $id_evento])->vagas;
-        
+        //retorna quantidade de vagas
         return $results;
     }
 

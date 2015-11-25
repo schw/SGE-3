@@ -100,11 +100,22 @@ class InscreveController extends Controller
             ]);
         
         }
-        
-        if($inscreve->inscrever($id_evento) == 0 ){
+        $insercao = $inscreve->inscrever($id_evento);
+        if($insercao == 0 ){
             Yii::$app->getSession()->setFlash('danger', [
                  'type' => 'danger',
                  'message' => 'Inscrição no evento '.$model->sigla.' não foi efetuada, pois você já está inscrito nesse evento',
+                 'title' => 'Inscrição',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+
+        return Yii::$app->getResponse()->redirect(array('/inscreve/', 'mensagem' =>'erro'));
+        }
+        else if($insercao == -1){
+            Yii::$app->getSession()->setFlash('danger', [
+                 'type' => 'danger',
+                 'message' => 'Inscrição no evento '.$model->sigla.' não foi efetuada, pois as vagas estão esgotadas.',
                  'title' => 'Inscrição',
                  'positonY' => 'bottom',
                  'positonX' => 'right'
@@ -179,7 +190,8 @@ class InscreveController extends Controller
             //caso ótimo: quando há vagas!
         $reduzir = new Inscreve();
         $reduzir->reduzirVagas($id_pacote,$id_evento,2); // redução das vagas no banco de dados !
-                                                        //o valor 2 é pq há pacotes! 2 significa pacotes ; 1  significa sem pacotes
+                                                        //o valor 2 é pq há pacotes! 
+                                                        //2 significa pacotes ; 1  significa sem pacotes
 
             Yii::$app->getSession()->setFlash('success', [
                  'type' => 'success',
@@ -205,7 +217,7 @@ class InscreveController extends Controller
         $id_pacote = Inscreve::findOne(['usuario_idusuario' => $id_usuario,'evento_idevento' => $id_evento])->pacote_idpacote;
 
         $model = $this->findModel($id_evento);
-//inicio 
+
 
         $data_final_evento = Evento::findOne(['idevento' => $id_evento])->dataFim;
         $data_atual = date('Y/m/d');
