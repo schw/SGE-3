@@ -127,8 +127,7 @@ class EventoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate(){
         $this->autorizaUsuario();
 
         $model = new Evento();
@@ -172,8 +171,17 @@ class EventoController extends Controller
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idevento]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'));
+            
+            if(!$model->save(true))
+                return $this->render('update', [
+                    'model' => $model,
+                    'arrayTipo' => $arrayTipo,
+                    'arrayLocal' => $arrayLocal,
+                ]);
+            else
+                return $this->redirect(['evento/gerenciareventos']);
         } else {
             return $this->render('update', [
                 'model' => $model,
