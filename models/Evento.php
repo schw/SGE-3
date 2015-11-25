@@ -68,7 +68,7 @@ class Evento extends \yii\db\ActiveRecord
         return [
             'idevento' => 'Idevento',
             'sigla' => '*Sigla',
-            'descricao' => '*Descricao',
+            'descricao' => '*Descrição',
             'dataIni' => '*Data Inicial',
             'dataFim' => '*Data Final',
             'horaIni' => '*Hora Inicial',
@@ -84,7 +84,10 @@ class Evento extends \yii\db\ActiveRecord
             'local_idlocal' => '*Local',
             'local.descricao' => 'Local',
             'credenciado' => 'Credenciado',
-            'responsavel0.nome' => 'Coordenador'
+            'responsavel0.nome' => 'Coordenador',
+            'dataini' => '*Data Inicial',
+            'datafim' => '*Data Final',
+            'CargaHoraria' => '*Carga Horária'
         ];
     }
 
@@ -198,15 +201,15 @@ class Evento extends \yii\db\ActiveRecord
 
 
     /*Funções para visualização dos Atributos de maneira correta*/
-    public function getMascaraDataIni(){
+    public function getDataIni(){
         return date("d-m-Y", strtotime($this->dataIni));
     }
 
-    public function getMascaraDataFim(){
+    public function getDataFim(){
         return date("d-m-Y", strtotime($this->dataFim));
     }
 
-    public function getMascaraCargaHoraria(){
+    public function getCargaHoraria(){
         return $this->cargaHoraria." hs";
     }
     
