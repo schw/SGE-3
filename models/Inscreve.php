@@ -299,15 +299,17 @@ public function aumentarVagas($id_pacote , $id_evento,$opcao)
                 select itemProgramacao_iditemProgramacao from itemProgramacao_has_pacote 
                 as item join pacote as p on item.pacote_idpacote = p.idpacote 
                 where idpacote =".$id_pacote.")";
-
+        
 
             try{
                     
                     $resultado = Yii::$app->db->createCommand($sql)->execute();
 
                 }catch(\Exception $e){
-
-                    $resultado = 0;
+                
+                $sql = "update itemProgramacao set vagas = vagas +1
+                where evento_idevento = $id_evento";
+                $resultado = Yii::$app->db->createCommand($sql)->execute(); 
 
                 }
         
