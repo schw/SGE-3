@@ -33,8 +33,9 @@ class ItemProgramacaoController extends Controller
      * Lists all ItemProgramacao models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($idevento)
     {
+
         $searchModel = new ItemProgramacaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -117,9 +118,11 @@ class ItemProgramacaoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $idevento = $model->evento_idevento;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'idevento' => $idevento]);
     }
 
     /**
