@@ -50,6 +50,7 @@ class Inscreve extends \yii\db\ActiveRecord
             'credenciado' => 'Credenciado',
             'usuario.nome' => 'Nome',
             'pacote.titulo' => 'Pacote',
+            'itemProgramacao.palestrante' => 'palestrante', 
             'evento.tipo.titulo' => 'Tipo',
         ];
     }
@@ -73,6 +74,11 @@ class Inscreve extends \yii\db\ActiveRecord
         public function getPacote()
     {
         return $this->hasOne(Pacote::className(), ['idpacote' => 'pacote_idpacote']);
+    }
+
+        public function getItemProgramacao()
+    {
+        return $this->hasOne(ItemProgramacao::className(), ['evento_idevento' => 'evento_idevento']);
     }
 
     /**

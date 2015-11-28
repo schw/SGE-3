@@ -23,10 +23,11 @@ class CertificadosController extends \yii\web\Controller
     {
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->searchCredenciados(Yii::$app->request->queryParams);
-
+        $dataProvider2 = $searchModel->searchPalestrantes(Yii::$app->request->queryParams);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'dataProvider2' => $dataProvider2,
 
         ]);
     }

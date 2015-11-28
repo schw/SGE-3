@@ -9,6 +9,7 @@ use app\models\Inscreve;
 use app\models\Evento;
 use app\models\Tipo;
 use app\models\User;
+use app\models\ItemProgramacao;
 /**
  * InscreveSearch represents the model behind the search form about `app\models\Inscreve`.
  */
@@ -128,6 +129,32 @@ public function searchInscritos($params)
         
         if (!Yii::$app->user->isGuest) {
             $query = Inscreve::find()->where(['evento_idevento' => $id_evento])->andWhere(['credenciado' => 1]);
+        }
+        else {
+            return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        //$this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+       return $dataProvider;
+    }
+
+    public function searchPalestrantes()
+    {
+            
+        $id_evento = Yii::$app->request->post('evento_idevento');
+        
+        if (!Yii::$app->user->isGuest) {
+            $query = ItemProgramacao::find()->where(['evento_idevento' => $id_evento]);
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado

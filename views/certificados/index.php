@@ -19,7 +19,7 @@ use yii\grid\GridView;
     <h1>Gerar Certificados</h1>
 
     <p>
-    	</br> <h3> Lista de credenciadados:</h3>
+    	</br><h4> Lista de credenciadados:</h4>
 	</p>
 
 
@@ -31,6 +31,7 @@ use yii\grid\GridView;
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
             ['attribute' => 'Participante', 'value' => 'usuario.nome'],
+            //'itemProgramacao.palestrante',
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
             'template' => '{imprimir} {link}','buttons' => [
                 'imprimir' => function ($url,$model,$key) {
@@ -41,6 +42,37 @@ use yii\grid\GridView;
                         'data'=>[
                         'method' => 'POST',
                         'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->usuario->nome],
+                            ]]);
+                },
+        ],
+],
+     ],
+ ]); ?>
+
+    <p>
+        <h4> Lista de Palestrantes:</h4>
+    </p>
+
+
+<?= GridView::widget([
+        'showOnEmpty' => 'true',
+        'dataProvider' => $dataProvider2,
+        'summary' => '',
+        //'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
+            //['attribute' => 'Participante', 'value' => 'usuario.nome'],
+            'palestrante',
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
+            'template' => '{imprimir} {link}','buttons' => [
+                'imprimir' => function ($url,$model,$key) {
+
+                        $id_evento = Yii::$app->request->post('evento_idevento');
+
+                        return Html::a('<span class="glyphicon glyphicon-print"></span>', ['inscreve/pdf'], ['target' => 'blank',
+                        'data'=>[
+                        'method' => 'POST',
+                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->palestrante],
                             ]]);
                 },
         ],
