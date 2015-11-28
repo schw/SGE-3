@@ -119,4 +119,30 @@ public function searchInscritos($params)
        return $dataProvider;
     }
 
+
+//usado para gerar lista de crendenciados com a finalidade de imprimir certificados!!!
+    public function searchCredenciados($params)
+    {
+
+        
+        if (!Yii::$app->user->isGuest) {
+            $query = Inscreve::find()->where(['evento_idevento' => $params['evento_idevento']])->andWhere(['credenciado' => 1]);
+        }
+        else {
+            return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+       return $dataProvider;
+    }
 }
