@@ -414,6 +414,9 @@ class InscreveController extends Controller
     // setup kartik\mpdf\Pdf component
 
         $id_evento = Yii::$app->request->post('evento_idevento'); 
+
+        $usuario =Yii::$app->request->post('usuario_certificado');  
+
         $model = $this->findModel($id_evento);
         
 
@@ -456,7 +459,12 @@ class InscreveController extends Controller
                 $pdf->MultiCell(0,4,("Certificado"),0, 'C');
             }
 
-        $nome= Yii::$app->user->identity->nome;
+        if ($usuario == NULL){
+            $nome= Yii::$app->user->identity->nome;
+        }  
+        else {
+            $nome = $usuario;
+        }
 
         $dia_inicio = (date('d',strtotime($model->dataIni)));
         $dia_inicio = ($dia_inicio == 1 ? '1º' : $dia_inicio); //convertendo o 1 em 1º

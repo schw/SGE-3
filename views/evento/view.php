@@ -52,6 +52,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php echo Html::a(Html::img('@web/img/listar_inscritos.png'), ['inscritos/index','evento_idevento' => $model->idevento], ['width' => '10']) ?>
                 <?php echo Html::a('Listar Inscritos', 'index.php?r=inscritos/index&evento_idevento='.$model->idevento); ?>
             </div>
+
+                                <!-- Certificado -->
+                    <div style="width: 80px; float: right; padding: 10px;">
+                        <?php echo Html::a(Html::img('@web/img/certificado.png'), ['/certificados/'], ['target' => 'blank',
+                        'data'=>[
+                        'method' => 'POST',
+                        'params'=>['evento_idevento' => $model->idevento],
+                    ]
+                    ]); ?>
+                        <?php echo Html::a('Gerar Certificado', ['/certificados/'], [
+                        'data'=>[
+                        'method' => 'POST',
+                        'params'=>['evento_idevento' => $model->idevento],
+                    ]
+                    ]);?>
+                    </div>
+                    <!-- fim do certificado -->
             
             <?php if(!Yii::$app->user->isGuest && $model->canAccessResponsible()){ ?>
                 <div style="width: 100px; float: right; padding: 10px;">
