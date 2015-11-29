@@ -49,6 +49,26 @@ use yii\grid\GridView;
      ],
  ]); ?>
 
+<?php $id_evento = Yii::$app->request->post('evento_idevento');
+$model = $dataProvider2->getModels();
+$count = $dataProvider2->getCount();
+
+$i = 0;
+while($i<$count){
+    $nome[$i] = $model[$i]->palestrante;
+    $i++;
+}
+
+
+ ?>
+
+
+<?= Html::a('<span class="glyphicon glyphicon-print"></span>', ['inscreve/pdf'], ['target' => 'blank',
+                        'data'=>[
+                        'method' => 'POST',
+                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome],
+                            ]]); ?>
+
     <p>
         <h4> Lista de Palestrantes:</h4>
     </p>
@@ -110,4 +130,4 @@ use yii\grid\GridView;
      ],
  ]); ?>
 
- </div>
+</div>

@@ -415,12 +415,24 @@ class InscreveController extends Controller
 
         $id_evento = Yii::$app->request->post('evento_idevento'); 
 
-        $usuario =Yii::$app->request->post('usuario_certificado');  
+        $usuarios_string =Yii::$app->request->post('usuario_certificado');  
+
+        $usuario_vetor  = explode(',', $usuarios_string);
+
 
         $model = $this->findModel($id_evento);
         
 
             $pdf = new mPDF('utf-8', 'A4-L');
+
+            $i = 0;
+
+            while($i<5){
+                $usuario = $usuario_vetor[$i];//verificar a emissão de certificados na view do participante
+                                                //acredito que deixou de funcionar
+                $i++;
+
+
             $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
 
             if($model->imagem != NULL){
@@ -512,9 +524,9 @@ class InscreveController extends Controller
 
             // fim do aqui
         }
+            
+    }
             $pdf->Output('');
-
-            exit;
 
     }
 
