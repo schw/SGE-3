@@ -154,7 +154,9 @@ public function searchInscritos($params)
         $id_evento = Yii::$app->request->post('evento_idevento');
         
         if (!Yii::$app->user->isGuest) {
-            $query = ItemProgramacao::find()->where(['evento_idevento' => $id_evento]);
+            //$query = ItemProgramacao::find()->where(['evento_idevento' => $id_evento]);
+            $query = ItemProgramacao::find()->select('palestrante')->
+                    where(['evento_idevento' => $id_evento])->distinct(); // não aparecer + de 1 igual
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
@@ -173,4 +175,32 @@ public function searchInscritos($params)
         }
        return $dataProvider;
     }
+
+    public function searchVoluntarios()
+    {
+            
+        $id_evento = Yii::$app->request->post('evento_idevento');
+        
+        if (!Yii::$app->user->isGuest) {
+            //$query = ItemProgramacao::find()->where(['evento_idevento' => $id_evento]);
+            $query = EventoHasVoluntario::find()->where(['evento_idevento' => $id_evento]);
+        }
+        else {
+            return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        //$this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+       return $dataProvider;
+    }
+
 }
