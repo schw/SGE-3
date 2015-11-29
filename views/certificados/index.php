@@ -22,6 +22,8 @@ use yii\grid\GridView;
     	</br><h4> Lista de credenciadados:</h4>
 	</p>
 
+<?php $id_evento = Yii::$app->request->post('evento_idevento'); ?>
+
 
 <?= GridView::widget([
         'showOnEmpty' => 'true',
@@ -49,25 +51,29 @@ use yii\grid\GridView;
      ],
  ]); ?>
 
-<?php $id_evento = Yii::$app->request->post('evento_idevento');
-$model = $dataProvider2->getModels();
-$count = $dataProvider2->getCount();
+<?php 
+        $model = $dataProvider->getModels();
 
-$i = 0;
-while($i<$count){
-    $nome[$i] = $model[$i]->palestrante;
-    $i++;
-}
+        $count = $dataProvider->getCount();
 
+        var_dump($count);
+
+        $i = 0;
+        while($i<$count){
+            $nome[$i] = $model[$i]->usuario->nome;
+            $i++;
+        }
+
+        if ($count > 1){
+           echo Html::a('Gerar Certificado em Lote', ['certificados/pdf'], ['target' => 'blank',
+                                'data'=>[
+                                'method' => 'POST',
+                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome],
+                                    ]]);
+        }
 
  ?>
 
-
-<?= Html::a('<span class="glyphicon glyphicon-print"></span>', ['inscreve/pdf'], ['target' => 'blank',
-                        'data'=>[
-                        'method' => 'POST',
-                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome],
-                            ]]); ?>
 
     <p>
         <h4> Lista de Palestrantes:</h4>
@@ -100,6 +106,28 @@ while($i<$count){
      ],
  ]); ?>
 
+<?php 
+        $model2 = $dataProvider2->getModels();
+        $count2 = $dataProvider2->getCount();
+
+
+        var_dump($count2);
+        $i = 0;
+        while($i<$count2){
+            $nome2[$i] = $model2[$i]->palestrante;
+            $i++;
+        }
+
+        if ($count2 > 1){
+           echo Html::a('Gerar Certificado em lote', ['certificados/pdf'], ['target' => 'blank',
+                                'data'=>[
+                                'method' => 'POST',
+                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome2],
+                                    ]]);
+        }
+
+ ?>
+
     <p>
         <h4> Lista de Voluntários:</h4>
     </p>
@@ -129,5 +157,27 @@ while($i<$count){
 ],
      ],
  ]); ?>
+
+
+<?php 
+        $model3 = $dataProvider3->getModels();
+        $count3 = $dataProvider3->getCount();
+
+        var_dump($count3);
+        $i = 0;
+        while($i<$count3){
+            $nome3[$i] = $model3[$i]->voluntario->nome;
+            $i++;
+        }
+
+        if ($count3 > 1){
+          echo Html::a('Gerar Certificado em lote', ['certificados/pdf'], ['target' => 'blank',
+                                'data'=>[
+                                'method' => 'POST',
+                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome3],
+                                    ]]);
+        }
+
+ ?>
 
 </div>
