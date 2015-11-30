@@ -55,10 +55,20 @@ use yii\grid\GridView;
  <script>
     function myFunction() {
         var keys = $('#gridview_id').yiiGridView('getSelectedRows');
-            console.table(keys, ['usuario_idusuario', 'evento_idevento']);
-            console.log(JSON.stringify(keys));
-
-
+            //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
+            //console.log(JSON.stringify(keys));
+            keys = JSON.stringify(keys);
+            
+        var array = [];
+        for(var i in keys) {
+            if(keys.hasOwnProperty(i) && !isNaN(+i)) {
+                array[+i] = keys[i];
+            }
+            
+            console.log(array);
+}
+            
+            
     }
 </script>
 
