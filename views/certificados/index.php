@@ -29,6 +29,7 @@ use yii\grid\GridView;
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
         'summary' => '',
+        'options' => ['id' => 'gridview_id'],
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
@@ -50,6 +51,19 @@ use yii\grid\GridView;
 ],
      ],
  ]); ?>
+
+ <script>
+    function myFunction() {
+        var keys = $('#gridview_id').yiiGridView('getSelectedRows');
+            console.table(keys, ['usuario_idusuario', 'evento_idevento']);
+            console.log(JSON.stringify(keys));
+
+
+    }
+</script>
+
+
+<button onclick="myFunction()">Click me</button>
 
 <?php 
         $model = $dataProvider->getModels();
