@@ -53,27 +53,54 @@ use yii\grid\GridView;
  ]); ?>
 
  <script>
-    function myFunction() {
+function AjaxF()
+{
+    var ajax;
+    
+    try
+    {
+        ajax = new XMLHttpRequest();
+    } 
+    catch(e) 
+    {
+        try
+        {
+            ajax = new ActiveXObject("Msxml2.XMLHTTP");
+        }
+        catch(e) 
+        {
+            try 
+            {
+                ajax = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch(e) 
+            {
+                alert("Seu browser não da suporte à AJAX!");
+                return false;
+            }
+        }
+    }
+    return ajax;
+}
+
+function myFunction() {
         var keys = $('#gridview_id').yiiGridView('getSelectedRows');
             //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
             //console.log(JSON.stringify(keys));
-            keys = JSON.stringify(keys);
-            
-        var array = [];
-        for(var i in keys) {
-            if(keys.hasOwnProperty(i) && !isNaN(+i)) {
-                array[+i] = keys[i];
-            }
-            
-            console.log(array);
-}
-            
-            
+            //keys = JSON.stringify(keys);
+var ids = [];
+
+    for (var i=0 ; i<Object.keys(keys).length ; i++){
+
+        ids[i] = keys[i].usuario_idusuario;
     }
+
+    console.log(ids);
+}
 </script>
 
-
 <button onclick="myFunction()">Click me</button>
+
 
 <?php 
         $model = $dataProvider->getModels();
