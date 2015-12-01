@@ -46,6 +46,11 @@ class CertificadosController extends \yii\web\Controller
 
         ]);
     }
+    
+        public function actionTeste()
+    {
+       return $this->render('teste');
+    }
 
 
 //funcao que converte mes em numeral para extenso

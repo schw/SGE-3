@@ -72,7 +72,7 @@ var ids = [];
       //document.getElementById("demo").innerHTML = xhttp.responseText;
     }
   };
-  xhttp.open("GET", "certificados/", true);
+  xhttp.open("GET", "index.php?r=certificados/teste", true);
   xhttp.send();
 
 
