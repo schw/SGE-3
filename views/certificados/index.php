@@ -53,35 +53,6 @@ use yii\grid\GridView;
  ]); ?>
 
  <script>
-function AjaxF()
-{
-    var ajax;
-    
-    try
-    {
-        ajax = new XMLHttpRequest();
-    } 
-    catch(e) 
-    {
-        try
-        {
-            ajax = new ActiveXObject("Msxml2.XMLHTTP");
-        }
-        catch(e) 
-        {
-            try 
-            {
-                ajax = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            catch(e) 
-            {
-                alert("Seu browser não da suporte à AJAX!");
-                return false;
-            }
-        }
-    }
-    return ajax;
-}
 
 function myFunction() {
         var keys = $('#gridview_id').yiiGridView('getSelectedRows');
@@ -94,6 +65,17 @@ var ids = [];
 
         ids[i] = keys[i].usuario_idusuario;
     }
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      //document.getElementById("demo").innerHTML = xhttp.responseText;
+    }
+  };
+  xhttp.open("GET", "certificados/", true);
+  xhttp.send();
+
+
 
     console.log(ids);
 }
