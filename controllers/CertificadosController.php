@@ -47,9 +47,11 @@ class CertificadosController extends \yii\web\Controller
         ]);
     }
     
-        public function actionTeste()
+
+public function actionTeste()
     {
-       return $this->render('teste');
+        $ids = Yii::$app->request->get('ids');        
+        echo $ids; 
     }
 
 

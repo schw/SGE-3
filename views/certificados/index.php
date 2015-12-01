@@ -70,15 +70,17 @@ var ids = [];
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       //document.getElementById("demo").innerHTML = xhttp.responseText;
+      console.log('valor em php: '+xhttp.responseText);
     }
   };
-  xhttp.open("GET", "index.php?r=certificados/teste", true);
+  xhttp.open("GET", "index.php?r=certificados/teste&ids="+ids, false);
   xhttp.send();
+    
 
-
-
-    console.log(ids);
+    //console.log(ids);
 }
+
+
 </script>
 
 <button onclick="myFunction()">Click me</button>
