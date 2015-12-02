@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ItemprogramacaoSearch */
@@ -10,6 +12,12 @@ use yii\grid\GridView;
 $this->title = 'Gerenciar Programação';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?= Html::jsFile('@web/js/lib/moment.min.js'); ?>
+<?= Html::jsFile('@web/js/lib/jquery.min.js');?>
+<?= Html::jsFile('@web/js/lib/jquery-ui.custom.min.js');?>
+
+
+
 <div class="itemprogramacao-index">
 
     <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
@@ -20,65 +28,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3){?>
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Adicionar Programação', ['create', 'idevento' => Yii::$app->request->get('idevento')], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel,
-        'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
-            //'iditemProgramacao',
-            'titulo',
-            'descricao',
-            'palestrante',
-            ['attribute' => 'data', 'format' => ['date', 'php:d-m-Y']],   
-            // 'hora',
-            // 'vagas',
-            // 'cargaHoraria',
-            // 'detalhe',
-            // 'notificacao',
-            // 'local_idlocal',
-            //'evento_idevento',
-            ['attribute' => 'tipo', 'value' => 'tipo.titulo'],  //Substitução do idtipo pelo titulo do tipo
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}'],
-        ],
-    ]); ?>
-    <?php } ?>
+    <div id='external-events'>
+        <h4>Tipos</h4>
+        <div class='fc-event'>Um Evento Qualquer</div>
+        <div class='fc-event'>My Event 2</div>
+        <div class='fc-event'>My Event 3</div>
+        <div class='fc-event'>My Event 4</div>
+        <div class='fc-event'>My Event 5</div>
+        <p>Arraste os evento</p>
+        <p></p>
+    </div>
 
-    <?php 
-    $this->title = 'Programação';
-    $this->params['breadcrumbs'][] = $this->title;
-    
-    if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){?>
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel,
-        'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
-            //'iditemProgramacao',
-            'titulo',
-            'descricao',
-            'palestrante',
-            ['attribute' => 'data', 'format' => ['date', 'php:d-m-Y']],
-            // 'hora',
-            // 'vagas',
-            // 'cargaHoraria',
-            // 'detalhe',
-            // 'notificacao',
-            // 'local_idlocal',
-            //'evento_idevento',
-            ['attribute' => 'tipo', 'value' => 'tipo.titulo'],  //Substitução do idtipo pelo titulo do tipo
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'', 'headerOptions' => ['width' => '80'], 'template' => '{view}{link}'],
-        ],
-    ]); ?>
-    <?php } ?>
-
+    <?= yii2fullcalendar\yii2fullcalendar::widget([
+      'options' => [
+        'lang' => 'pt-br',
+      ],
+      'clientOptions' => [
+        'weekends' => false,
+        'editable' => true,
+        'droppable' => true,
+       ],
+       //'ajaxEvents' => Url::to(['/timetrack/default/jsoncalendar']),
+      'events' => $itensProgramacaoCalendar
+      ]);
+    ?>
+    </div>
 </div>

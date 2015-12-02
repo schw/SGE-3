@@ -36,12 +36,28 @@ class ItemProgramacaoController extends Controller
     public function actionIndex($idevento)
     {
 
-        $searchModel = new ItemProgramacaoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        /*$searchModel = new ItemProgramacaoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
+
+        $itemProgramacaoSearch = new ItemProgramacaoSearch();
+        $itensProgramacaoBanco = $itemProgramacaoSearch->search(['idevento' => $idevento])->getModels();
+        $itensProgramacaoCalendar = array();
+
+        foreach($itensProgramacaoBanco as $itemProgramacao){
+            $itemProgramacaoCalendar = new \yii2fullcalendar\models\Event();
+            $itemProgramacaoCalendar->id = $itemProgramacao->iditemProgramacao;
+            $itemProgramacaoCalendar->title = $itemProgramacao->titulo;
+            $itemProgramacaoCalendar->start = $itemProgramacao->data."T".$itemProgramacao->hora;
+            $itensProgramacaoCalendar[] = $itemProgramacaoCalendar;
+        }
+
+        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
+        $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'itensProgramacaoCalendar' => $itensProgramacaoCalendar,
+            'arrayTipo' => $arrayTipo,
+            'arrayLocal' => $arrayLocal,
         ]);
     }
 
@@ -108,6 +124,28 @@ class ItemProgramacaoController extends Controller
                 'arrayLocal' => $arrayLocal,
             ]);
         }
+    }
+
+
+    public function actionJsoncalendar($start=NULL,$end=NULL,$_=NULL){
+
+    \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+    $times = \app\modules\timetrack\models\Timetable::find()->where(array('category'=>\app\modules\timetrack\models\Timetable::CAT_TIMETRACK))->all();
+
+    $events = array();
+
+    foreach ($times AS $time){
+      //Testing
+      $Event = new \yii2fullcalendar\models\Event();
+      $Event->id = $time->id;
+      $Event->title = $time->categoryAsString;
+      $Event->start = date('Y-m-d\TH:i:s\Z',strtotime($time->date_start.' '.$time->time_start));
+      $Event->end = date('Y-m-d\TH:i:s\Z',strtotime($time->date_end.' '.$time->time_end));
+      $events[] = $Event;
+    }
+
+    return $events;
     }
 
     /**

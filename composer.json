@@ -24,6 +24,7 @@
         "kartik-v/yii2-widgets": "@dev",
         "kartik-v/yii2-money": "*",
         "mpdf/mpdf": "dev-master",
+        "philippfrenzel/yii2fullcalendar":"*",
         "kartik-v/yii2-mpdf": "dev-master"
     },
     "require-dev": {
