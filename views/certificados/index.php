@@ -44,7 +44,7 @@ use yii\grid\GridView;
                         return Html::a('<span class="glyphicon glyphicon-print"></span>', ['inscreve/pdf'], ['target' => 'blank',
                         'data'=>[
                         'method' => 'POST',
-                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->usuario->nome],
+                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->usuario->nome, 'tipousuario_certificado' => 0],
                             ]]);
                 },
         ],
@@ -103,7 +103,7 @@ var ids = [];
            echo Html::a('Gerar Certificado em Lote', ['certificados/pdf'], ['target' => 'blank',
                                 'data'=>[
                                 'method' => 'POST',
-                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome],
+                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome, 'tipousuario_certificado' => 1],
                                     ]]);
         }
 
@@ -185,7 +185,7 @@ var ids = [];
                         return Html::a('<span class="glyphicon glyphicon-print"></span>', ['inscreve/pdf'], ['target' => 'blank',
                         'data'=>[
                         'method' => 'POST',
-                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->voluntario->nome],
+                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->voluntario->nome, 'tipousuario_certificado' => 2],
                             ]]);
                 },
         ],

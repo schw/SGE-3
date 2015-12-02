@@ -97,7 +97,7 @@ public function converterMes($current){
     // get your HTML raw content without any layouts or scripts
    
     // setup kartik\mpdf\Pdf component
-
+        $tipo_usuario = Yii::$app->request->post('tipousuario_certificado'); 
         $id_evento = Yii::$app->request->post('evento_idevento'); 
 
         $usuarios_string =Yii::$app->request->post('usuario_certificado');  
@@ -178,12 +178,27 @@ public function converterMes($current){
         $pdf->Ln(20);
 
         $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
-
+if( $tipo_usuario ==0){
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
             ('.$model->sigla.')</b>, com carga horária de <b>'.$model->cargaHoraria.
                 ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
                 de Manaus - AM.</p>');
+}
+else if ( $tipo_usuario == 1){
+        $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
+            Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
+            ('.$model->sigla.')</b>, na condição de palestrante, com carga horária de <b>'.$model->cargaHoraria.
+                ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
+                de Manaus - AM.</p>');
+}
+else{
+        $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
+            Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
+            ('.$model->sigla.')</b>, na condição de volntário, com carga horária de <b>'.$model->cargaHoraria.
+                ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
+                de Manaus - AM.</p>');
+}
     
         $pdf->Ln(15);
         
