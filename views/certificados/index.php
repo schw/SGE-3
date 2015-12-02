@@ -70,7 +70,7 @@ var ids = [];
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       //document.getElementById("demo").innerHTML = xhttp.responseText;
-      console.log('valor em php: '+xhttp.responseText);
+      window.location = "/index.php?r=evento%2Fgerenciareventos";
     }
   };
   xhttp.open("GET", "index.php?r=certificados/teste&ids="+ids, false);
