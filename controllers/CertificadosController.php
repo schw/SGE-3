@@ -195,7 +195,7 @@ else if ( $tipo_usuario == 1){
 else{
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
-            ('.$model->sigla.')</b>, na condição de volntário, com carga horária de <b>'.$model->cargaHoraria.
+            ('.$model->sigla.')</b>, na condição de voluntário, com carga horária de <b>'.$model->cargaHoraria.
                 ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
                 de Manaus - AM.</p>');
 }

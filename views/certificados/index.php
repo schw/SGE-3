@@ -157,7 +157,7 @@ var ids = [];
            echo Html::a('Gerar Certificado em lote', ['certificados/pdf'], ['target' => 'blank',
                                 'data'=>[
                                 'method' => 'POST',
-                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome2],
+                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome2, 'tipousuario_certificado' => 2],
                                     ]]);
         }
 
@@ -185,7 +185,7 @@ var ids = [];
                         return Html::a('<span class="glyphicon glyphicon-print"></span>', ['inscreve/pdf'], ['target' => 'blank',
                         'data'=>[
                         'method' => 'POST',
-                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->voluntario->nome, 'tipousuario_certificado' => 2],
+                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->voluntario->nome],
                             ]]);
                 },
         ],
@@ -209,7 +209,7 @@ var ids = [];
           echo Html::a('Gerar Certificado em lote', ['certificados/pdf'], ['target' => 'blank',
                                 'data'=>[
                                 'method' => 'POST',
-                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome3],
+                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome3, 'tipousuario_certificado' => 3],
                                     ]]);
         }
 
