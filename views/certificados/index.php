@@ -4,7 +4,7 @@ use yii\widgets\LinkPager;
 use yii\grid\GridView;
 
 ?>
-
+<div id="myformcontainer"></div>
 <div class="inscritos-index">
 
     <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
@@ -55,25 +55,27 @@ use yii\grid\GridView;
  <script>
 
 function myFunction() {
-        var keys = $('#gridview_id').yiiGridView('getSelectedRows');
+    var keys = $('#gridview_id').yiiGridView('getSelectedRows');
             //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
             //console.log(JSON.stringify(keys));
             //keys = JSON.stringify(keys);
-var ids = [];
+    var ids = [];
 
     for (var i=0 ; i<Object.keys(keys).length ; i++){
 
-        ids[i] = keys[i].usuario_idusuario;
+            ids[i] = keys[i].usuario_idusuario;
     }
 
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (xhttp.readyState == 4 && xhttp.status == 200) {
-      //document.getElementById("demo").innerHTML = xhttp.responseText;
-      window.location = "/index.php?r=evento%2Fgerenciareventos";
-    }
-  };
-  xhttp.open("GET", "index.php?r=certificados/teste&ids="+ids, false);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+          //document.getElementById("demo").innerHTML = ;
+          window.location = "index.php?r=certificados/teste&ids="+xhttp.responseText;
+          
+       }
+    };
+  
+  xhttp.open("GET", "index.php?r=certificados/idsusuarios&ids="+ids, true);
   xhttp.send();
     
 

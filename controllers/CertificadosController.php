@@ -31,6 +31,15 @@ class CertificadosController extends \yii\web\Controller
         }
     }
 
+        protected function findModelUser($id)
+    {
+        if (($model = User::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
 
     public function actionIndex()
     {
@@ -48,10 +57,32 @@ class CertificadosController extends \yii\web\Controller
     }
     
 
-public function actionTeste()
+public function actionIdsusuarios()
     {
         $ids = Yii::$app->request->get('ids');        
         echo $ids; 
+    }
+
+public function actionTeste()
+    {
+        $ids = Yii::$app->request->get('ids');        
+        $ids_usuario_vetor  = explode(',', $ids);
+        $count = sizeof($ids_usuario_vetor);
+        $i = 0;
+
+        while($i<$count){
+            $model = $this->findModelUser($ids_usuario_vetor[$i]);
+            $nome[$i] = $model->nome;
+            $i++;
+        }
+
+        $nome_array = implode(",", $nome);
+
+        //print_r($ids_usuario_vetor);
+
+        Yii::$app->response->redirect(['certificados/pdf',
+            'tipousuario_certificado' => 0, 'usuario_certificado' => $nome_array, 'evento_idevento' => 22]);
+
     }
 
 
@@ -97,10 +128,10 @@ public function converterMes($current){
     // get your HTML raw content without any layouts or scripts
    
     // setup kartik\mpdf\Pdf component
-        $tipo_usuario = Yii::$app->request->post('tipousuario_certificado'); 
-        $id_evento = Yii::$app->request->post('evento_idevento'); 
+        $tipo_usuario = Yii::$app->request->get('tipousuario_certificado'); 
+        $id_evento = Yii::$app->request->get('evento_idevento'); 
 
-        $usuarios_string =Yii::$app->request->post('usuario_certificado');  
+        $usuarios_string =Yii::$app->request->get('usuario_certificado');  
 
         $usuario_vetor  = explode(',', $usuarios_string);
 
@@ -188,14 +219,13 @@ if( $tipo_usuario ==0){
 else if ( $tipo_usuario == 1){
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
-            ('.$model->sigla.')</b>, na condição de palestrante, com carga horária de <b>'.$model->cargaHoraria.
-                ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
+            ('.$model->sigla.')</b>, na qualidade de palestrante, realizado no período de '.$tag.', na cidade 
                 de Manaus - AM.</p>');
 }
 else{
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
-            ('.$model->sigla.')</b>, na condição de voluntário, com carga horária de <b>'.$model->cargaHoraria.
+            ('.$model->sigla.')</b>, na qualidade de voluntário, com carga horária de <b>'.$model->cargaHoraria.
                 ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
                 de Manaus - AM.</p>');
 }
