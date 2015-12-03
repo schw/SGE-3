@@ -135,6 +135,9 @@ input{
     #evento-dataini-disp-kvdate, #evento-datafim-disp-kvdate, .field-evento-horaini-disp, .field-evento-horafim-disp{
       width: 100%;
     }
+    #eventosativoscollapse {
+      width: 100% !important;
+    }
 }
 
 #coordenadorhasevento-usuario_idusuario{
@@ -143,4 +146,8 @@ input{
 
 #coordenadorhasevento-evento_idevento{
   width: 40%;
+}
+
+#eventosativoscollapse{
+  width: 1000px;
 }
