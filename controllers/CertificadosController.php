@@ -6,11 +6,13 @@ use Yii;
 use app\models\Inscreve;
 use app\models\InscreveSearch;
 use app\models\User;
-// adicionado estes quatro:
+// adicionado estes seis:
 use app\models\EventoSearch;
 use app\models\Evento;
 use app\models\ItemProgramacao;
 use app\models\ItemProgramacaoSearch;
+use app\models\Voluntario;
+use app\models\VoluntarioSearch;
 // fim
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -40,6 +42,14 @@ class CertificadosController extends \yii\web\Controller
         }
     }
 
+        protected function findModelVoluntario($id)
+    {
+        if (($model = Voluntario::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 
     public function actionIndex()
     {
@@ -63,7 +73,7 @@ public function actionIdsusuarios()
         echo $ids; 
     }
 
-public function actionTeste()
+public function actionPdfcredenciados()
     {   
         $id_evento = Yii::$app->request->get('evento_idevento');        
         $tipo_usuario = Yii::$app->request->get('tipousuario');
@@ -88,7 +98,65 @@ public function actionTeste()
         $session->set('usuario_certificado', $nome_array);
         $session->set('evento_idevento', $id_evento);
 
-        Yii::$app->response->redirect(['certificados/pdf','target' => 'blank']);
+        Yii::$app->response->redirect(['certificados/pdf']);
+
+    }
+
+    public function actionPdfpalestrantes()
+    {   
+        $id_evento = Yii::$app->request->get('evento_idevento');        
+        $tipo_usuario = Yii::$app->request->get('tipousuario');
+        $ids = Yii::$app->request->get('ids');        
+        $ids_usuario_vetor  = explode(',', $ids);
+        $count = sizeof($ids_usuario_vetor);
+        $i = 0;
+
+        while($i<$count){
+            $model = $this->findModelUser($ids_usuario_vetor[$i]);
+            $nome[$i] = $model->nome;
+            $i++;
+        }
+
+        $nome_array = implode(",", $nome);
+
+        //print_r($ids_usuario_vetor);
+
+        $session = Yii::$app->session;
+
+        $session->set('tipousuario_certificado', $tipo_usuario);
+        $session->set('usuario_certificado', $nome_array);
+        $session->set('evento_idevento', $id_evento);
+
+        Yii::$app->response->redirect(['certificados/pdf']);
+
+    }
+
+    public function actionPdfvoluntarios()
+    {   
+        $id_evento = Yii::$app->request->get('evento_idevento');        
+        $tipo_usuario = Yii::$app->request->get('tipousuario');
+        $ids = Yii::$app->request->get('ids');        
+        $ids_usuario_vetor  = explode(',', $ids);
+        $count = sizeof($ids_usuario_vetor);
+        $i = 0;
+
+        while($i<$count){
+            $model = $this->findModelVoluntario($ids_usuario_vetor[$i]);
+            $nome[$i] = $model->nome;
+            $i++;
+        }
+
+        $nome_array = implode(",", $nome);
+
+        //print_r($ids_usuario_vetor);
+
+        $session = Yii::$app->session;
+
+        $session->set('tipousuario_certificado', $tipo_usuario);
+        $session->set('usuario_certificado', $nome_array);
+        $session->set('evento_idevento', $id_evento);
+
+        Yii::$app->response->redirect(['certificados/pdf']);
 
     }
 
@@ -139,6 +207,9 @@ public function converterMes($current){
         $tipo_usuario = $session->get('tipousuario_certificado');
         $usuarios_string = $session->get('usuario_certificado');
         $id_evento = $session->get('evento_idevento');
+
+        $session->close();
+        $session->destroy();
 
 
         //$tipo_usuario = Yii::$app->request->get('tipousuario_certificado'); 

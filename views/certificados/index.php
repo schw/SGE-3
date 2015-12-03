@@ -6,7 +6,7 @@ use yii\grid\GridView;
 
 <script>
 function myFunctionCredenciado(tipousuario) {
-    var keys = $('#gridview_id').yiiGridView('getSelectedRows');
+    var keys = $('#gridview_id_credenciados').yiiGridView('getSelectedRows');
             //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
             //console.log(JSON.stringify(keys));
             //keys = JSON.stringify(keys);
@@ -28,7 +28,81 @@ function myFunctionCredenciado(tipousuario) {
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
               //document.getElementById("demo").innerHTML = ;
-              window.open("index.php?r=certificados/teste&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText);
+              window.open("index.php?r=certificados/pdfcredenciados&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText);
+              
+           }
+        };
+      
+      xhttp.open("GET", "index.php?r=certificados/idsusuarios&ids="+ids, true);
+      xhttp.send();
+    }
+    else{
+        alert("não há certificados");
+    }
+
+}
+
+function myFunctionPalestrantes(tipousuario) {
+    var keys = $('#gridview_id_palestrantes').yiiGridView('getSelectedRows');
+            //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
+            //console.log(JSON.stringify(keys));
+            //keys = JSON.stringify(keys);
+    var ids = [];
+    
+    var id_evento;
+
+    if (Object.keys(keys).length > 0){
+
+        id_evento = keys[0].evento_idevento;
+
+        for (var i=0 ; i<Object.keys(keys).length ; i++){
+
+                ids[i] = keys[i].usuario_idusuario;
+       
+        }
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+              //document.getElementById("demo").innerHTML = ;
+              window.open("index.php?r=certificados/pdfpalestrantes&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText);
+              
+           }
+        };
+      
+      xhttp.open("GET", "index.php?r=certificados/idsusuarios&ids="+ids, true);
+      xhttp.send();
+    }
+    else{
+        alert("não há certificados");
+    }
+
+}
+
+function myFunctionVoluntarios(tipousuario) {
+    var keys = $('#gridview_id_voluntarios').yiiGridView('getSelectedRows');
+            //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
+            console.log(JSON.stringify(keys));
+            //keys = JSON.stringify(keys);
+    var ids = [];
+    
+    var id_evento;
+
+    if (Object.keys(keys).length > 0){
+
+        id_evento = keys[0].evento_idevento;
+
+        for (var i=0 ; i<Object.keys(keys).length ; i++){
+
+                ids[i] = keys[i].voluntario_idvoluntario;
+       
+        }
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+              //document.getElementById("demo").innerHTML = ;
+              window.open("index.php?r=certificados/pdfvoluntarios&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText);
               
            }
         };
@@ -68,7 +142,7 @@ function myFunctionCredenciado(tipousuario) {
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
         'summary' => '',
-        'options' => ['id' => 'gridview_id'],
+        'options' => ['id' => 'gridview_id_credenciados'],
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
@@ -91,15 +165,10 @@ function myFunctionCredenciado(tipousuario) {
      ],
  ]); ?>
 
-<button onclick="myFunctionCredenciado(0)">Click me</button>
-
-
 <?php 
         $model = $dataProvider->getModels();
 
         $count = $dataProvider->getCount();
-
-        var_dump($count);
 
         $i = 0;
         while($i<$count){
@@ -107,12 +176,15 @@ function myFunctionCredenciado(tipousuario) {
             $i++;
         }
 
-        if ($count > 1){
-           echo Html::a('Gerar Certificado em Lote', ['certificados/pdf'], ['target' => 'blank',
-                                'data'=>[
-                                'method' => 'POST',
-                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome, 'tipousuario_certificado' => 1],
-                                    ]]);
+        if ($count > 0){
+
+            echo '<button onclick="myFunctionCredenciado(0)">Gerar Certificados</button>';
+
+           //echo Html::a('Gerar Certificado em Lote', ['certificados/pdf'], ['target' => 'blank',
+           //                     'data'=>[
+           //                     'method' => 'POST',
+           //                     'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome, 'tipousuario_certificado' => 1],
+           //                         ]]);
         }
 
  ?>
@@ -127,6 +199,7 @@ function myFunctionCredenciado(tipousuario) {
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider2,
         'summary' => '',
+        'options' => ['id' => 'gridview_id_palestrantes'],
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
@@ -153,20 +226,21 @@ function myFunctionCredenciado(tipousuario) {
         $model2 = $dataProvider2->getModels();
         $count2 = $dataProvider2->getCount();
 
-
-        var_dump($count2);
         $i = 0;
         while($i<$count2){
             $nome2[$i] = $model2[$i]->palestrante;
             $i++;
         }
 
-        if ($count2 > 1){
-           echo Html::a('Gerar Certificado em lote', ['certificados/pdf'], ['target' => 'blank',
-                                'data'=>[
-                                'method' => 'POST',
-                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome2, 'tipousuario_certificado' => 2],
-                                    ]]);
+        if ($count2 > 0){
+
+            echo '<button onclick="myFunctionPalestrantes(1)">Gerar Certificados</button>';
+
+           //echo Html::a('Gerar Certificado em lote', ['certificados/pdf'], ['target' => 'blank',
+           //                     'data'=>[
+           //                    'method' => 'POST',
+           //                     'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome2, 'tipousuario_certificado' => 2],
+           //                         ]]);
         }
 
  ?>
@@ -179,6 +253,7 @@ function myFunctionCredenciado(tipousuario) {
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider3,
         'summary' => '',
+        'options' => ['id' => 'gridview_id_voluntarios'],
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
@@ -202,23 +277,27 @@ function myFunctionCredenciado(tipousuario) {
  ]); ?>
 
 
+
+
 <?php 
         $model3 = $dataProvider3->getModels();
         $count3 = $dataProvider3->getCount();
 
-        var_dump($count3);
         $i = 0;
         while($i<$count3){
             $nome3[$i] = $model3[$i]->voluntario->nome;
             $i++;
         }
 
-        if ($count3 > 1){
-          echo Html::a('Gerar Certificado em lote', ['certificados/pdf'], ['target' => 'blank',
-                                'data'=>[
-                                'method' => 'POST',
-                                'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome3, 'tipousuario_certificado' => 3],
-                                    ]]);
+        if ($count3 > 0){
+
+            echo '<button onclick="myFunctionVoluntarios(2)">Gerar Certificados</button>';
+
+          //echo Html::a('Gerar Certificado em lote', ['certificados/pdf'], ['target' => 'blank',
+          //                      'data'=>[
+          //                      'method' => 'POST',
+          //                      'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome3, 'tipousuario_certificado' => 3],
+          //                         ]]);
         }
 
  ?>
