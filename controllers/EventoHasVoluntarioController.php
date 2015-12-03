@@ -39,8 +39,7 @@ class EventoHasVoluntarioController extends Controller
     {
         $searchModel = new EventoHasVoluntarioSearch();
         $dataProvider = $searchModel->search($idevento);
-        $evento['descricao'] = Evento::findOne($idevento)->descricao;
-        $evento['id'] = $idevento;
+        $evento =  $this->findEvento($idevento);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -150,7 +149,7 @@ class EventoHasVoluntarioController extends Controller
         if (($model = EventoHasVoluntario::findOne(['evento_idevento' => $evento_idevento, 'voluntario_idvoluntario' => $voluntario_idvoluntario])) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('Página não Encontrada');
         }
     }
 
@@ -158,6 +157,16 @@ class EventoHasVoluntarioController extends Controller
         if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
             throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
         }
+    }
+
+    public function findEvento($idevento){
+
+        if($evento = Evento::findOne($idevento)){
+            $evento['descricao'] = Evento::findOne($idevento)->descricao;
+            $evento['id'] = $idevento;
+            return $evento;
+        }else
+            throw new NotFoundHttpException('Página não Encontrada');
     }
 
     /*Tipo: sucess, danger, warning*/

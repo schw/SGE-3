@@ -18,39 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 	
 	<div id="page-wrapper">
-	<?= Html::a(Html::img('@web/img/home_icomp.png', ['id'=>'homeICOMP'])) ?>
-	<!-- <?php
-	/*
-	echo Collapse::widget([
-    'items' => [
-        // equivalent to the above
-        [
-            'label' => 'Collapsible Group Item #1',
-            'content' => 'Anim pariatur cliche...',
-            // open its content by default
-            
-        ],
-        // another group item
-        [
-            'label' => 'Collapsible Group Item #1',
-            'content' => 'Anim pariatur cliche...',
-            
-            
-        ],
-        // if you want to swap out .panel-body with .list-group, you may use the following
-        [
-            'label' => 'Collapsible Group Item #1',
-            'content' => [
-                'Anim pariatur cliche...',
-                'Anim pariatur cliche...'
-            ],
-            
-            
-            'footer' => 'Footer' // the footer label in list-group
-        ],
-	    ]
-	]);*/
-	?>-->
+        <h1>Eventos Ativos</h1>
+        <?php
+        	echo Collapse::widget([
+                'id' => 'eventosativoscollapse',
+                'items' => $eventos
+    	    ]);
+    	?>
 	</div>
-
 </div>

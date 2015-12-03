@@ -36,11 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div id='external-events'>
         <h4>Tipos</h4>
-        <div class='fc-event'>Um Evento Qualquer</div>
-        <div class='fc-event'>My Event 2</div>
-        <div class='fc-event'>My Event 3</div>
-        <div class='fc-event'>My Event 4</div>
-        <div class='fc-event'>My Event 5</div>
+        <?php foreach ($arrayTipo as $item) {?>
+          <div class='fc-event'><?= $item ?></div>
+        <?php } ?>
         <p>Arraste os evento</p>
         <p></p>
     </div>

@@ -68,6 +68,7 @@ use kartik\datecontrol\DateControl;
             $arrayPalestrante,
             ['prompt'=>'Selecione um Palestrante']
         );?>
+    <p><?= Html::a('Mais Palestrantes', ['palestrante/index'], ['class' => 'btn btn-primary']); ?><p>
 
     <?= $form->field($model, 'local_idlocal')->dropDownList(
             $arrayLocal,

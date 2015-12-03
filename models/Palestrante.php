@@ -32,7 +32,7 @@ class Palestrante extends \yii\db\ActiveRecord
         return [
             [['nome'], 'required'],
             [['nome'], 'string', 'max' => 50],
-            [['email'], 'string', 'max' => 45],
+            [['email'], 'email',],
             [['email'], 'unique',]
         ];
     }
