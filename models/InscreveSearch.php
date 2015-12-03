@@ -10,6 +10,7 @@ use app\models\Evento;
 use app\models\Tipo;
 use app\models\User;
 use app\models\ItemProgramacao;
+use app\models\Palestrante;
 /**
  * InscreveSearch represents the model behind the search form about `app\models\Inscreve`.
  */
@@ -155,8 +156,13 @@ public function searchInscritos($params)
         
         if (!Yii::$app->user->isGuest) {
             //$query = ItemProgramacao::find()->where(['evento_idevento' => $id_evento]);
-            $query = ItemProgramacao::find()->select('palestrante')->
-                    where(['evento_idevento' => $id_evento])->distinct(); // não aparecer + de 1 igual
+            //$query = ItemProgramacao::find()->joinWith('palestrante')
+            //->where(['evento_idevento' => $id_evento])->joinWith('palestrante');
+
+            $query = ItemProgramacao::find()->where(['evento_idevento' => $id_evento])
+            ->joinWith('palestrante');
+
+
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado

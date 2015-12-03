@@ -44,8 +44,9 @@ function myFunctionCredenciado(tipousuario) {
 
 function myFunctionPalestrantes(tipousuario) {
     var keys = $('#gridview_id_palestrantes').yiiGridView('getSelectedRows');
+            //console.log(keys);
             //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
-            //console.log(JSON.stringify(keys));
+            alert(keys);    
             //keys = JSON.stringify(keys);
     var ids = [];
     
@@ -53,24 +54,19 @@ function myFunctionPalestrantes(tipousuario) {
 
     if (Object.keys(keys).length > 0){
 
-        id_evento = keys[0].evento_idevento;
+        id_evento = keys[0];
 
-        for (var i=0 ; i<Object.keys(keys).length ; i++){
-
-                ids[i] = keys[i].usuario_idusuario;
-       
-        }
 
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
               //document.getElementById("demo").innerHTML = ;
-              window.open("index.php?r=certificados/pdfpalestrantes&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText);
+              window.open("index.php?r=certificados/pdfpalestrantes&tipousuario="+tipousuario+"&evento_idevento=23&ids="+xhttp.responseText);
               
            }
         };
       
-      xhttp.open("GET", "index.php?r=certificados/idsusuarios&ids="+ids, true);
+      xhttp.open("GET", "index.php?r=certificados/idsusuarios&ids="+keys, true);
       xhttp.send();
     }
     else{
@@ -82,7 +78,7 @@ function myFunctionPalestrantes(tipousuario) {
 function myFunctionVoluntarios(tipousuario) {
     var keys = $('#gridview_id_voluntarios').yiiGridView('getSelectedRows');
             //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
-            console.log(JSON.stringify(keys));
+            //console.log(JSON.stringify(keys));
             //keys = JSON.stringify(keys);
     var ids = [];
     
@@ -194,7 +190,6 @@ function myFunctionVoluntarios(tipousuario) {
         <h4> Lista de Palestrantes:</h4>
     </p>
 
-
 <?= GridView::widget([
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider2,
@@ -204,7 +199,7 @@ function myFunctionVoluntarios(tipousuario) {
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
             //['attribute' => 'Participante', 'value' => 'usuario.nome'],
-            'palestrante',
+            'palestrante.nome',
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
             'template' => '{imprimir} {link}','buttons' => [
                 'imprimir' => function ($url,$model,$key) {
@@ -214,7 +209,7 @@ function myFunctionVoluntarios(tipousuario) {
                         return Html::a('<span class="glyphicon glyphicon-print"></span>', ['inscreve/pdf'], ['target' => 'blank',
                         'data'=>[
                         'method' => 'POST',
-                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->palestrante],
+                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->palestrante->nome],
                             ]]);
                 },
         ],

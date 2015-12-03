@@ -95,6 +95,12 @@ class ItemProgramacao extends \yii\db\ActiveRecord
         }
     }
 
+    public function getPalestrante()
+    {
+        return $this->hasOne(Palestrante::className(), ['idPalestrante' => 'palestrante_idPalestrante']);
+    }
+
+
     public function getEventoIdevento()
     {
         return $this->hasOne(Evento::className(), ['idevento' => 'evento_idevento']);

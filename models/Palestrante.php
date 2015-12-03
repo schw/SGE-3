@@ -60,8 +60,10 @@ class Palestrante extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getItemProgramacaos()
+
+        public function getItemProgramacao()
     {
         return $this->hasMany(ItemProgramacao::className(), ['palestrante_idPalestrante' => 'idPalestrante']);
     }
+
 }
