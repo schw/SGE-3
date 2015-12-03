@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\helpers\ArrayHelper;
 use app\models\Evento;
+use app\models\Palestrante;
 use app\models\Local;
 use app\models\Tipo;
 use app\models\EventoSearch;
@@ -133,8 +134,11 @@ class EventoController extends Controller
         $model = new Evento();
         $model->responsavel = Yii::$app->user->identity->idusuario;
         $model->allow = 1;
-        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
+        
+        $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
+        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
+        
         
         if ($model->load(Yii::$app->request->post())) {
             $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'));
@@ -152,6 +156,7 @@ class EventoController extends Controller
                 'model' => $model,
                 'arrayTipo' => $arrayTipo,
                 'arrayLocal' => $arrayLocal,
+                'arrayPalestrante' => $arrayPalestrante,
             ]);
         }
     }
@@ -168,8 +173,10 @@ class EventoController extends Controller
         $this->validaEvento($id);
 
         $model = $this->findModel($id);
-        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
+
+        $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
+        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
 
         if ($model->load(Yii::$app->request->post())) {
             $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'));

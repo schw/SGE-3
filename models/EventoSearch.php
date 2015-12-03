@@ -20,7 +20,7 @@ class EventoSearch extends Evento
     public function rules()
     {
         return [
-            [['idevento', 'vagas', 'cargaHoraria', 'allow'], 'integer'],
+            [['idevento', 'vagas', 'cargaHoraria', 'allow', 'palestrante_idPalestrante', 'local_idlocal', 'tipo_idtipo'], 'integer'],
             [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'imagem', 'detalhe', 'tipo', 'responsavel'],  'safe'],
         ];
     }

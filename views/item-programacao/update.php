@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = 'Atualizar';
         'model' => $model,
         'arrayTipo' => $arrayTipo,
         'arrayLocal' => $arrayLocal,
+        'arrayPalestrante' => $arrayPalestrante,
     ]) ?>
 
 </div>

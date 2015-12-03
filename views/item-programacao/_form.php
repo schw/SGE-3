@@ -20,8 +20,6 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'descricao')->textArea(['maxlength' => '300', 'cols' => 25]) ?>
 
-    <?= $form->field($model, 'palestrante')->textInput(['maxlength' => true]) ?>
-
     <?php //$form->field($model, 'data')->widget(DatePicker::className(),['clientOptions' => ['dateFormat' => 'dd-MM-yyyy',], 'dateFormat' => 'dd-MM-yyyy',]) ?>
 
     <?= $form->field($model, 'data')->widget(DateControl::classname(), [
@@ -48,18 +46,16 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'detalhe')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'palestrante_idPalestrante')->dropDownList(
+            $arrayPalestrante,
+            ['prompt'=>'Selecione um Palestrante']
+        );?>
+
     <?= $form->field($model, 'local_idlocal')->dropDownList(
             $arrayLocal,
             ['prompt'=>'Selecione um Local']
         );?>
     <p><?= Html::a('Mais Locais', ['local/index'], ['class' => 'btn btn-primary']); ?><p>
-
-    <?php /* Html::activeDropDownList($model, 'local_idlocal',
-      ArrayHelper::map(local::find()->all(), 'idlocal', 'descricao')) */?>
-
-    <?php /*$form->field($model, 'evento_idevento')->dropDownList(ArrayHelper::map(\app\models\Evento::find()->all(),'idevento', 'descricao'),[ 'prompt' => '' ]) */?>
-
-    <?php //$form->field($model, 'tipo_idtipo')->textInput() ?>
 
     <?= $form->field($model, 'tipo_idtipo')->dropDownList(
             $arrayTipo,

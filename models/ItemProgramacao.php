@@ -45,9 +45,9 @@ class ItemProgramacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['palestrante', 'titulo', 'descricao', 'data', 'hora', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento'], 'required', 'message'=>'Este campo é obrigatório'],
+            [['titulo', 'descricao', 'data', 'hora', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento'], 'required', 'message'=>'Este campo é obrigatório'],
             [['hora'], 'safe'],
-            [['vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
+            [['vagas', 'cargaHoraria','palestrante_idPalestrante', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
             [['data'], 'string'],
             [['data'], 'validateDate'],
             [['titulo', 'palestrante', 'notificacao'], 'string', 'max' => 150],
@@ -73,6 +73,7 @@ class ItemProgramacao extends \yii\db\ActiveRecord
             'cargaHoraria' => '*Carga Horária',
             'detalhe' => 'Detalhe',
             'notificacao' => 'Notificação',
+            'palestrante_idPalestrante' => 'Palestrante',
             'local_idlocal' => 'Localização',
             'evento_idevento' => 'Evento',
             'tipo.titulo' => 'Tipo',

@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 use app\models\ItemProgramacao;
 use app\models\Local;
 use app\models\Tipo;
+use app\models\Palestrante;
 use app\models\ItemProgramacaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -85,8 +86,11 @@ class ItemProgramacaoController extends Controller
     {
         $model = new ItemProgramacao();
         $model->notificacao = '1';
-        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
+        
+        $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
+        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
+        
         $model->evento_idevento = Yii::$app->request->get('idevento');
         if ($model->load(Yii::$app->request->post())) {
             if($model->save()){
@@ -99,6 +103,7 @@ class ItemProgramacaoController extends Controller
                 'model' => $model,
                 'arrayTipo' => $arrayTipo,
                 'arrayLocal' => $arrayLocal,
+                'arrayPalestrante' => $arrayPalestrante,
             ]);
         }
     }
@@ -112,8 +117,11 @@ class ItemProgramacaoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
+
+        $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
+        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
+        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->iditemProgramacao]);
@@ -124,28 +132,6 @@ class ItemProgramacaoController extends Controller
                 'arrayLocal' => $arrayLocal,
             ]);
         }
-    }
-
-
-    public function actionJsoncalendar($start=NULL,$end=NULL,$_=NULL){
-
-    \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-    $times = \app\modules\timetrack\models\Timetable::find()->where(array('category'=>\app\modules\timetrack\models\Timetable::CAT_TIMETRACK))->all();
-
-    $events = array();
-
-    foreach ($times AS $time){
-      //Testing
-      $Event = new \yii2fullcalendar\models\Event();
-      $Event->id = $time->id;
-      $Event->title = $time->categoryAsString;
-      $Event->start = date('Y-m-d\TH:i:s\Z',strtotime($time->date_start.' '.$time->time_start));
-      $Event->end = date('Y-m-d\TH:i:s\Z',strtotime($time->date_end.' '.$time->time_end));
-      $events[] = $Event;
-    }
-
-    return $events;
     }
 
     /**

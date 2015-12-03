@@ -19,7 +19,7 @@ class ItemProgramacaoSearch extends ItemProgramacao
     {
         return [
             [['iditemProgramacao', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
-            [['titulo', 'descricao', 'palestrante', 'data', 'hora', 'detalhe', 'notificacao'], 'safe'],
+            [['titulo', 'descricao', 'data', 'hora', 'detalhe', 'notificacao'], 'safe'],
         ];
     }
 
@@ -67,7 +67,6 @@ class ItemProgramacaoSearch extends ItemProgramacao
 
         $query->andFilterWhere(['like', 'titulo', $this->titulo])
             ->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'palestrante', $this->palestrante])
             ->andFilterWhere(['like', 'data', $this->data])
             ->andFilterWhere(['like', 'detalhe', $this->detalhe])
             ->andFilterWhere(['like', 'notificacao', $this->notificacao]);

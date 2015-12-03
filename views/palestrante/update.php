@@ -3,15 +3,15 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Evento */
+/* @var $model app\models\Palestrante */
 
-$this->title = 'Alterar Evento: ' . ' ' . $model->descricao;
-$this->params['breadcrumbs'][] = ['label' => 'Eventos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->idevento, 'url' => ['view', 'id' => $model->idevento]];
+$this->title = 'Editar: ' . ' ' . $model->nome;
+$this->params['breadcrumbs'][] = ['label' => 'Palestrantes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->idPalestrante, 'url' => ['view', 'id' => $model->idPalestrante]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="evento-update">
-	
+<div class="palestrante-update">
+
 	<!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
     <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
     
@@ -23,12 +23,9 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-        'arrayTipo' => $arrayTipo,
-        'arrayLocal' => $arrayLocal,
-        'arrayPalestrante' => $arrayPalestrante,	
-    ]) ?>
+	    <?= $this->render('_form', [
+	        'model' => $model,
+	    ]) ?>
     </div>
 
 </div>

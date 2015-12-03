@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'arrayTipo' => $arrayTipo,
         'arrayLocal' => $arrayLocal,
+        'arrayPalestrante' => $arrayPalestrante,
     ]) ?>
 </div>
 

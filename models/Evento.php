@@ -47,7 +47,7 @@ class Evento extends \yii\db\ActiveRecord
         return [
             [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'cargaHoraria', 'allow', 
             'responsavel', 'tipo_idtipo', 'local_idlocal'], 'required', 'message' => 'Este campo é Obrigatório'],
-            [['vagas', 'allow', 'responsavel', 'tipo_idtipo', 'local_idlocal'], 'integer'],
+            [['vagas', 'allow', 'responsavel','palestrante_idPalestrante', 'tipo_idtipo', 'local_idlocal'], 'integer'],
             [['cargaHoraria'], 'integer', 'min' => 0],
             [['dataIni', 'dataFim'], 'string',],
             [['dataIni'], 'validateDateIni'],
@@ -84,7 +84,7 @@ class Evento extends \yii\db\ActiveRecord
             'local_idlocal' => '*Local',
             'local.descricao' => 'Local',
             'credenciado' => 'Credenciado',
-            'responsavel0.nome' => 'Coordenador',
+            'palestrante_idPalestrante' => 'Palestrante',
             'dataini' => '*Data Inicial',
             'datafim' => '*Data Final',
             'CargaHoraria' => '*Carga Horária'
@@ -130,6 +130,14 @@ class Evento extends \yii\db\ActiveRecord
     public function getResponsavel0()
     {
         return $this->hasOne(User::className(), ['idusuario' => 'responsavel']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPalestrante()
+    {
+        return $this->hasOne(Palestrante::className(), ['idPalestrante' => 'palestrante_idPalestrante']);
     }
 
     /**

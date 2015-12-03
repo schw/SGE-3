@@ -64,6 +64,11 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'detalhe')->textArea(['maxlength' => true, 'cols' => 25]) ?>
 
+    <?= $form->field($model, 'palestrante_idPalestrante')->dropDownList(
+            $arrayPalestrante,
+            ['prompt'=>'Selecione um Palestrante']
+        );?>
+
     <?= $form->field($model, 'local_idlocal')->dropDownList(
             $arrayLocal,
             ['prompt'=>'Selecione um Local']
