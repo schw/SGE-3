@@ -18,9 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 	
 	<div id="page-wrapper">
-	<?= Html::a(Html::img('@web/img/home_icomp.png', ['id'=>'homeICOMP'])) ?>
-	<!-- <?php
-	/*
+	<?php
+	
 	echo Collapse::widget([
     'items' => [
         // equivalent to the above
@@ -30,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // open its content by default
             
         ],
-        // another group item
+    /*    // another group item
         [
             'label' => 'Collapsible Group Item #1',
             'content' => 'Anim pariatur cliche...',
@@ -47,10 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
             
             
             'footer' => 'Footer' // the footer label in list-group
-        ],
+        ],*/
 	    ]
-	]);*/
-	?>-->
+	]);
+	?>
 	</div>
 
 </div>

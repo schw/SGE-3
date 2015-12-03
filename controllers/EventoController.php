@@ -246,7 +246,7 @@ class EventoController extends Controller
                 throw new NotFoundHttpException('Evento Solicitado não Encontrado.');
     }
 
-    /*Tipo: sucess, danger, warning*/
+    /*Tipo: success, danger, warning*/
     protected function mensagens($tipo, $titulo, $mensagem){
         Yii::$app->session->setFlash($tipo, [
             'type' => $tipo,

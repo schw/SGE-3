@@ -37,9 +37,6 @@ class ItemProgramacaoController extends Controller
     public function actionIndex($idevento)
     {
 
-        /*$searchModel = new ItemProgramacaoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
-
         $itemProgramacaoSearch = new ItemProgramacaoSearch();
         $itensProgramacaoBanco = $itemProgramacaoSearch->search(['idevento' => $idevento])->getModels();
         $itensProgramacaoCalendar = array();
