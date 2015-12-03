@@ -64,7 +64,9 @@ public function actionIdsusuarios()
     }
 
 public function actionTeste()
-    {
+    {   
+        $id_evento = Yii::$app->request->get('evento_idevento');        
+        $tipo_usuario = Yii::$app->request->get('tipousuario');
         $ids = Yii::$app->request->get('ids');        
         $ids_usuario_vetor  = explode(',', $ids);
         $count = sizeof($ids_usuario_vetor);
@@ -80,8 +82,13 @@ public function actionTeste()
 
         //print_r($ids_usuario_vetor);
 
-        Yii::$app->response->redirect(['certificados/pdf',
-            'tipousuario_certificado' => 0, 'usuario_certificado' => $nome_array, 'evento_idevento' => 22]);
+        $session = Yii::$app->session;
+
+        $session->set('tipousuario_certificado', $tipo_usuario);
+        $session->set('usuario_certificado', $nome_array);
+        $session->set('evento_idevento', $id_evento);
+
+        Yii::$app->response->redirect(['certificados/pdf','target' => 'blank']);
 
     }
 
@@ -128,10 +135,16 @@ public function converterMes($current){
     // get your HTML raw content without any layouts or scripts
    
     // setup kartik\mpdf\Pdf component
-        $tipo_usuario = Yii::$app->request->get('tipousuario_certificado'); 
-        $id_evento = Yii::$app->request->get('evento_idevento'); 
+        $session = Yii::$app->session;
+        $tipo_usuario = $session->get('tipousuario_certificado');
+        $usuarios_string = $session->get('usuario_certificado');
+        $id_evento = $session->get('evento_idevento');
 
-        $usuarios_string =Yii::$app->request->get('usuario_certificado');  
+
+        //$tipo_usuario = Yii::$app->request->get('tipousuario_certificado'); 
+        //$id_evento = Yii::$app->request->get('evento_idevento'); 
+
+        //$usuarios_string =Yii::$app->request->get('usuario_certificado');  
 
         $usuario_vetor  = explode(',', $usuarios_string);
 

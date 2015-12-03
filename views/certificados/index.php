@@ -2,8 +2,47 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use yii\grid\GridView;
-
 ?>
+
+<script>
+function myFunctionCredenciado(tipousuario) {
+    var keys = $('#gridview_id').yiiGridView('getSelectedRows');
+            //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
+            //console.log(JSON.stringify(keys));
+            //keys = JSON.stringify(keys);
+    var ids = [];
+    
+    var id_evento;
+
+    if (Object.keys(keys).length > 0){
+
+        id_evento = keys[0].evento_idevento;
+
+        for (var i=0 ; i<Object.keys(keys).length ; i++){
+
+                ids[i] = keys[i].usuario_idusuario;
+       
+        }
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+              //document.getElementById("demo").innerHTML = ;
+              window.open("index.php?r=certificados/teste&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText);
+              
+           }
+        };
+      
+      xhttp.open("GET", "index.php?r=certificados/idsusuarios&ids="+ids, true);
+      xhttp.send();
+    }
+    else{
+        alert("não há certificados");
+    }
+
+}
+</script>
+
 <div id="myformcontainer"></div>
 <div class="inscritos-index">
 
@@ -52,40 +91,7 @@ use yii\grid\GridView;
      ],
  ]); ?>
 
- <script>
-
-function myFunction() {
-    var keys = $('#gridview_id').yiiGridView('getSelectedRows');
-            //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
-            //console.log(JSON.stringify(keys));
-            //keys = JSON.stringify(keys);
-    var ids = [];
-
-    for (var i=0 ; i<Object.keys(keys).length ; i++){
-
-            ids[i] = keys[i].usuario_idusuario;
-    }
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-          //document.getElementById("demo").innerHTML = ;
-          window.location = "index.php?r=certificados/teste&ids="+xhttp.responseText;
-          
-       }
-    };
-  
-  xhttp.open("GET", "index.php?r=certificados/idsusuarios&ids="+ids, true);
-  xhttp.send();
-    
-
-    //console.log(ids);
-}
-
-
-</script>
-
-<button onclick="myFunction()">Click me</button>
+<button onclick="myFunctionCredenciado(0)">Click me</button>
 
 
 <?php 
