@@ -6,14 +6,15 @@ use Yii;
 use app\models\Inscreve;
 use app\models\InscreveSearch;
 use app\models\User;
-// adicionado estes seis:
+
 use app\models\EventoSearch;
 use app\models\Evento;
 use app\models\ItemProgramacao;
 use app\models\ItemProgramacaoSearch;
 use app\models\Voluntario;
 use app\models\VoluntarioSearch;
-// fim
+use app\models\Palestrante;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -45,6 +46,24 @@ class CertificadosController extends \yii\web\Controller
         protected function findModelVoluntario($id)
     {
         if (($model = Voluntario::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+        protected function findModelItem($id)
+    {
+        if (($model = ItemProgramacao::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+        protected function findModelPalestrante($id)
+    {
+        if (($model = Palestrante::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -107,13 +126,16 @@ public function actionPdfcredenciados()
         $id_evento = Yii::$app->request->get('evento_idevento');        
         $tipo_usuario = Yii::$app->request->get('tipousuario');
         $ids = Yii::$app->request->get('ids');        
-        $ids_usuario_vetor  = explode(',', $ids);
-        $count = sizeof($ids_usuario_vetor);
+        $ids_itemProgramacao  = explode(',', $ids);
+        $count = sizeof($ids_itemProgramacao);
         $i = 0;
 
         while($i<$count){
-            $model = $this->findModelUser($ids_usuario_vetor[$i]);
+            $model = $this->findModelItem($ids_itemProgramacao[$i]);
+            $aux[$i] = $model->palestrante_idPalestrante;
+            $model = $this->findModelPalestrante($aux[$i]);
             $nome[$i] = $model->nome;
+
             $i++;
         }
 

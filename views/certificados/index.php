@@ -42,26 +42,19 @@ function myFunctionCredenciado(tipousuario) {
 
 }
 
-function myFunctionPalestrantes(tipousuario) {
+function myFunctionPalestrantes(tipousuario,id_evento) {
     var keys = $('#gridview_id_palestrantes').yiiGridView('getSelectedRows');
             //console.log(keys);
             //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
-            alert(keys);    
             //keys = JSON.stringify(keys);
-    var ids = [];
     
-    var id_evento;
-
     if (Object.keys(keys).length > 0){
-
-        id_evento = keys[0];
-
 
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
               //document.getElementById("demo").innerHTML = ;
-              window.open("index.php?r=certificados/pdfpalestrantes&tipousuario="+tipousuario+"&evento_idevento=23&ids="+xhttp.responseText);
+              window.open("index.php?r=certificados/pdfpalestrantes&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText);
               
            }
         };
@@ -163,7 +156,7 @@ function myFunctionVoluntarios(tipousuario) {
 
 <?php 
         $model = $dataProvider->getModels();
-
+        $id_evento = Yii::$app->request->post('evento_idevento');
         $count = $dataProvider->getCount();
 
         $i = 0;
@@ -198,8 +191,7 @@ function myFunctionVoluntarios(tipousuario) {
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
-            //['attribute' => 'Participante', 'value' => 'usuario.nome'],
-            'palestrante.nome',
+            ['attribute' => 'Palestrante', 'value' => 'palestrante.nome'],
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
             'template' => '{imprimir} {link}','buttons' => [
                 'imprimir' => function ($url,$model,$key) {
@@ -229,7 +221,7 @@ function myFunctionVoluntarios(tipousuario) {
 
         if ($count2 > 0){
 
-            echo '<button onclick="myFunctionPalestrantes(1)">Gerar Certificados</button>';
+            echo '<button onclick="myFunctionPalestrantes(1,'.$id_evento.')">Gerar Certificados</button>';
 
            //echo Html::a('Gerar Certificado em lote', ['certificados/pdf'], ['target' => 'blank',
            //                     'data'=>[
