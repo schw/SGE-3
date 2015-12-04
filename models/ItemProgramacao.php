@@ -45,12 +45,12 @@ class ItemProgramacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titulo', 'descricao', 'data', 'hora', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento'], 'required', 'message'=>'Este campo é obrigatório'],
+            [['titulo', 'descricao', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento'], 'required', 'message'=>'Este campo é obrigatório'],
             [['hora'], 'safe'],
             [['vagas', 'cargaHoraria','palestrante_idPalestrante', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
             [['data'], 'string'],
             [['data'], 'validateDate'],
-            [['titulo', 'palestrante', 'notificacao'], 'string', 'max' => 150],
+            [['titulo', 'notificacao'], 'string', 'max' => 150],
             [['descricao'], 'string', 'max' => 300],
             [['data'], 'string', 'max' => 10],
             [['detalhe'], 'string', 'max' => 800]
@@ -66,7 +66,6 @@ class ItemProgramacao extends \yii\db\ActiveRecord
             'iditemProgramacao' => 'Iditem Programacao',
             'titulo' => '*Título',
             'descricao' => '*Descrição',
-            'palestrante' => '*Palestrante',
             'data' => '*Data',
             'hora' => '*Hora',
             'vagas' => '*Vagas',

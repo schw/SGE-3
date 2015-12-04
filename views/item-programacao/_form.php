@@ -13,6 +13,8 @@ use kartik\datecontrol\DateControl;
 ?>
 
 <div class="itemprogramacao-form">
+<?= $model->hora ?>
+<?= $model->data ?>
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
@@ -20,31 +22,10 @@ use kartik\datecontrol\DateControl;
 
     <?= $form->field($model, 'descricao')->textArea(['maxlength' => '300', 'cols' => 25]) ?>
 
-    <?php //$form->field($model, 'data')->widget(DatePicker::className(),['clientOptions' => ['dateFormat' => 'dd-MM-yyyy',], 'dateFormat' => 'dd-MM-yyyy',]) ?>
-
-    <?= $form->field($model, 'data')->widget(DateControl::classname(), [
-    //'language' => $config->language,
-    'type' => DateControl::FORMAT_DATE,
-    'language' => 'pt-BR',
-    //'autoWidget' => $config->autoWidget,
-    //'widgetClass' => $config->widgetClass,
-    'displayFormat' => 'php:d-F-Y' 
-    // display as 'php:d-F-Y' or 'php:d-F-Y H:i:s'
-    //'saveOptions' => $saveOptions,
-    //'options' => $options
-    ]) ?>
-
-
-    <?= $form->field($model, 'hora')->widget(DateControl::classname(), [
-    'language' => 'pt-BR',
-    'type'=>DateControl::FORMAT_TIME,
-    ]) ?>
-
     <?= $form->field($model, 'vagas')->textInput(['type' => 'number']) ?>
-
-    <?= $form->field($model, 'cargaHoraria')->textInput() ?>
-
-    <?= $form->field($model, 'detalhe')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'cargaHoraria')->textInput(['type' => 'number']) ?>
+    
 
     <?= $form->field($model, 'palestrante_idPalestrante')->dropDownList(
             $arrayPalestrante,

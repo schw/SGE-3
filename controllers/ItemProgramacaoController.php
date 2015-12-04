@@ -46,6 +46,7 @@ class ItemProgramacaoController extends Controller
             $itemProgramacaoCalendar->id = $itemProgramacao->iditemProgramacao;
             $itemProgramacaoCalendar->title = $itemProgramacao->titulo;
             $itemProgramacaoCalendar->start = $itemProgramacao->data."T".$itemProgramacao->hora;
+            $itemProgramacaoCalendar->id = $itemProgramacao->iditemProgramacao;
             $itensProgramacaoCalendar[] = $itemProgramacaoCalendar;
         }
 
@@ -83,6 +84,9 @@ class ItemProgramacaoController extends Controller
     {
         $model = new ItemProgramacao();
         $model->notificacao = '1';
+
+        $model->data = filter_input(INPUT_GET, 'data');
+        $model->hora = filter_input(INPUT_GET, 'hora');
         
         $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
@@ -90,13 +94,13 @@ class ItemProgramacaoController extends Controller
         
         $model->evento_idevento = Yii::$app->request->get('idevento');
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()){
+            if($model->save()){                
                 return $this->redirect(['view', 'id' => $model->iditemProgramacao]);
             }else{
                 print_r($model->getErrors());
             }
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
                 'arrayTipo' => $arrayTipo,
                 'arrayLocal' => $arrayLocal,

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ItemprogramacaoSearch */
@@ -30,12 +31,18 @@ $this->params['breadcrumbs'][] = $this->title;
    <div id="page-wrapper">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Adicionar Programação', ['create', 'idevento' => Yii::$app->request->get('idevento')], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php
+      Modal::begin([
+        'header' => '<h2>Criar Item de Programação</h2>',
+        'id' => 'modal',
+        'size' => 'modal-lg',
+      ]);
+
+      echo "<div id='modalContent'></div>";
+      Modal::end();
+    ?>
 
     <div id='external-events'>
-        <h4>Tipos</h4>
         <?php foreach ($arrayTipo as $item) {?>
           <div class='fc-event'><?= $item ?></div>
         <?php } ?>
@@ -44,17 +51,39 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <?= yii2fullcalendar\yii2fullcalendar::widget([
+      'id' => 'calendarItemProgramacao',
       'options' => [
         'lang' => 'pt-br',
       ],
       'clientOptions' => [
-        'weekends' => false,
+        'weekends' => true,
         'editable' => true,
         'droppable' => true,
+        'defaultView' => 'agendaWeek',
+        'drop' => new JsExpression("function(start, end) {
+            dateStr = start;
+            var data = (new Date(dateStr)).toISOString().slice(0, 10)
+            var hora = (new Date(dateStr)).toISOString().slice(12, 16)
+            idevento = getParameterByName('idevento');
+
+            $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'idevento': idevento}, function(data){
+                $('#modal').modal('show')
+                .find('#modalContent')
+                .html(data);
+            });
+        }"),
+        'eventClick' => new JsExpression("function(calEvent, jsEvent, view) {
+            $.get('index.php?r=item-programacao/update', {'data': data, 'hora': hora, 'idevento': idevento}, function(data){
+                $('#modal').modal('show')
+                .find('#modalContent')
+                .html(data);
+            });
+        }"),
        ],
        //'ajaxEvents' => Url::to(['/timetrack/default/jsoncalendar']),
       'events' => $itensProgramacaoCalendar
       ]);
     ?>
+    <?= Html::button('teste', ['id' => 'bota']) ?>
     </div>
 </div>

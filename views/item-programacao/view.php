@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'iditemProgramacao',
             'titulo',
             'descricao',
-            'palestrante',
+            'palestrante.nome',
             'data',
             'hora',
             'vagas',
@@ -56,5 +56,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'tipo.titulo',
         ],
     ]) ?>
+    </div>
 
 </div>
