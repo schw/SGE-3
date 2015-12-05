@@ -9,8 +9,6 @@ use yii\helpers\Html;
 $this->title = 'Adicionar Programação';
 $this->params['breadcrumbs'][] = ['label' => 'Item de Programação', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-$model->data = filter_input(INPUT_GET, 'data');
-$model->hora = filter_input(INPUT_GET, 'hora');
 ?>
 <div class="itemprogramacao-create">
 
