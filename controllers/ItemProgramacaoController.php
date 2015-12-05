@@ -87,6 +87,7 @@ class ItemProgramacaoController extends Controller
 
         $model->data = filter_input(INPUT_GET, 'data');
         $model->hora = filter_input(INPUT_GET, 'hora');
+        $model->tipo_idtipo = filter_input(INPUT_GET, 'tipo');
         
         $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');

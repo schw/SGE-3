@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use yii\jui\DatePicker;
 use kartik\datecontrol\Module;
 use kartik\datecontrol\DateControl;
+use kartik\widgets\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Itemprogramacao */
@@ -13,8 +14,9 @@ use kartik\datecontrol\DateControl;
 ?>
 
 <div class="itemprogramacao-form">
-<?= $model->hora ?>
-<?= $model->data ?>
+DATA: <?= $model->hora ?><br>
+HORA: <?= $model->data ?><br>
+TIPO: <?= $model->tipo->titulo ?><br>
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
@@ -25,25 +27,26 @@ use kartik\datecontrol\DateControl;
     <?= $form->field($model, 'vagas')->textInput(['type' => 'number']) ?>
     
     <?= $form->field($model, 'cargaHoraria')->textInput(['type' => 'number']) ?>
-    
 
-    <?= $form->field($model, 'palestrante_idPalestrante')->dropDownList(
-            $arrayPalestrante,
-            ['prompt'=>'Selecione um Palestrante']
-        );?>
+    <?= $form->field($model, 'palestrante_idPalestrante')->widget(Select2::classname(), [
+        'data' => $arrayPalestrante,
+        'options' => ['placeholder' => 'Selecione um palestrante ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
     <p><?= Html::a('Mais Palestrantes', ['palestrante/index'], ['class' => 'btn btn-primary']); ?><p>
     
-    <?= $form->field($model, 'local_idlocal')->dropDownList(
-            $arrayLocal,
-            ['prompt'=>'Selecione um Local']
-        );?>
+    <?= $form->field($model, 'local_idlocal')->widget(Select2::classname(), [
+        'data' => $arrayLocal,
+        'options' => ['placeholder' => 'Selecione um Local ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
     <p><?= Html::a('Mais Locais', ['local/index'], ['class' => 'btn btn-primary']); ?><p>
-
-    <?= $form->field($model, 'tipo_idtipo')->dropDownList(
-            $arrayTipo,
-            ['prompt'=>'Selecione um Tipo']
-    ); ?>
-    <p><?= Html::a('Mais Tipos', ['tipo/index'], ['class' => 'btn btn-primary']); ?><p>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Finalizar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

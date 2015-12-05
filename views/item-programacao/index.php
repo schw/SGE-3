@@ -43,8 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
     <div id='external-events'>
-        <?php foreach ($arrayTipo as $item) {?>
-          <div class='fc-event'><?= $item ?></div>
+        <?php foreach ($arrayTipo as $key => $item) {?>
+          <div class='fc-event' id=<?=$key.">".$item?></div>
         <?php } ?>
         <p>Arraste os evento</p>
         <p></p>
@@ -60,13 +60,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'editable' => true,
         'droppable' => true,
         'defaultView' => 'agendaWeek',
-        'drop' => new JsExpression("function(start, end) {
-            dateStr = start;
+        'drop' => new JsExpression("function(start, end, calEvent) {
+            var tipo = calEvent.helper.context.id;
+            var dateStr = start;
             var data = (new Date(dateStr)).toISOString().slice(0, 10)
             var hora = (new Date(dateStr)).toISOString().slice(12, 16)
-            idevento = getParameterByName('idevento');
+            var idevento = getParameterByName('idevento');
 
-            $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'idevento': idevento}, function(data){
+            $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'idevento': idevento, 'tipo': tipo}, function(data){
                 $('#modal').modal('show')
                 .find('#modalContent')
                 .html(data);
