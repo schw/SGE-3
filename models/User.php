@@ -27,6 +27,7 @@ use yii\base\Model;
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     var $senha_repeat;
+    public $qtd_evento;// não apagar, pois é necessário para o relatório!
     /**
      * @inheritdoc
      */
