@@ -51,6 +51,7 @@ AppAsset::register($this);
             ['label' => 'Cadastre-se', 'url' => ['/user/create'], 'visible' => Yii::$app->user->isGuest],
             ['label' => 'Voluntários', 'url' => ['voluntario/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
             ['label' => 'Palestrantes', 'url' => ['palestrante/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
+            ['label' => 'Relatórios', 'url' => ['relatorios/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
             ['label' => 'Minhas Inscrições', 'url' => ['inscreve/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3)],
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :

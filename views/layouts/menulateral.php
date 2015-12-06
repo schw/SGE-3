@@ -17,6 +17,7 @@
 	            ['label' => 'Cadastre-se', 'icon' => 'info-sign', 'url' => ['/user/create'], 'visible' => Yii::$app->user->isGuest],
 	            ['label' => 'Voluntários', 'icon' => 'user', 'url' => ['voluntario/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
 	            ['label' => 'Palestrantes', 'icon' => 'blackboard', 'url' => ['palestrante/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
+	            ['label' => 'Relatórios', 'icon' => 'stats', 'url' => ['relatorios/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
 	            ['label' => 'Minhas Inscrições', 'icon' => 'flag', 'url' => ['inscreve/index'], 'visible' => 
 	            (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3)],
 	            ['label' => 'Perfil', 'icon' => 'user', 'url' => ['user/view'], 'visible' => (!Yii::$app->user->isGuest)],
