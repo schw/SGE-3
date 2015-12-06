@@ -30,6 +30,8 @@ use yii\web\UploadedFile;
  */
 class Evento extends \yii\db\ActiveRecord
 {
+
+    public $qtd_evento; // não apagar, é necessário para o relatório
     /**
      * @inheritdoc
      */
@@ -219,6 +221,17 @@ class Evento extends \yii\db\ActiveRecord
 
     public function getCargaHoraria(){
         return $this->cargaHoraria." hs";
+    }
+
+        public function getInscritosEventos()
+    {
+         $model = Evento:: find()->select(['sigla','COUNT(inscreve.evento_idevento) AS qtd_evento'])
+        ->leftJoin('inscreve', 'inscreve.evento_idevento = evento.idevento')
+        ->groupBy('sigla')
+        ->orderBy('qtd_evento DESC')
+        ->all();
+
+        return $model;
     }
     
 }

@@ -198,4 +198,32 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 break;
         }
     }
+
+    //função necessária para emissão de RELATÓRIOS, NÃO APAGAR!
+    public function getCoordenadoresEventos()
+    {
+         $model = User:: find()->select(['nome','COUNT(evento.responsavel) AS qtd_evento'])
+        ->leftJoin('evento', 'evento.responsavel = user.idusuario')
+        ->where('user.tipoUsuario = 1')
+        ->groupBy('nome')
+        ->orderBy('qtd_evento DESC')
+        ->all();
+
+        return $model;
+    }
+
+        public function getParticipantesEventos()
+    {
+         $model = User:: find()->select(['nome','COUNT(inscreve.evento_idevento) AS qtd_evento'])
+        ->leftJoin('inscreve', 'inscreve.usuario_idusuario = user.idusuario')
+        ->where('user.tipoUsuario = 3')
+        ->groupBy('nome')
+        ->orderBy('qtd_evento DESC')
+        ->all();
+
+        return $model;
+    }
+
+
+
 }
