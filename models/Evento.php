@@ -166,7 +166,10 @@ class Evento extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ItemProgramacao::className(), ['evento_idevento' => 'idevento']);
     }
-
+    public function getItemProgramacao()
+    {
+        return $this->hasMany(ItemProgramacao::className(), ['evento_idevento' => 'idevento']);
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

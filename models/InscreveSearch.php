@@ -155,13 +155,13 @@ public function searchInscritos($params)
         $id_evento = Yii::$app->request->post('evento_idevento');
         
         if (!Yii::$app->user->isGuest) {
-            //$query = ItemProgramacao::find()->where(['evento_idevento' => $id_evento]);
-            //$query = ItemProgramacao::find()->joinWith('palestrante')
-            //->where(['evento_idevento' => $id_evento])->joinWith('palestrante');
 
-            $query = ItemProgramacao::find()->where(['evento_idevento' => $id_evento])
-            ->joinWith('palestrante');
-
+            $query = Palestrante::find()->where(['evento_idevento' => $id_evento])
+            ->joinWith('itemProgramacao');
+            
+            $query2 = Palestrante::find()->where(['idevento' => $id_evento])
+            ->joinWith('evento');
+            $query->union($query2);
 
         }
         else {

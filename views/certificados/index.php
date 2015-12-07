@@ -44,6 +44,7 @@ function myFunctionCredenciado(tipousuario) {
 
 function myFunctionPalestrantes(tipousuario,id_evento) {
     var keys = $('#gridview_id_palestrantes').yiiGridView('getSelectedRows');
+        alert(keys);
             //console.log(keys);
             //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
             //keys = JSON.stringify(keys);
@@ -191,17 +192,20 @@ function myFunctionVoluntarios(tipousuario) {
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
-            ['attribute' => 'Palestrante', 'value' => 'palestrante.nome'],
+            ['attribute' => 'Palestrante', 'value' => 'nome'],
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
             'template' => '{imprimir} {link}','buttons' => [
                 'imprimir' => function ($url,$model,$key) {
 
                         $id_evento = Yii::$app->request->post('evento_idevento');
 
+//                        var_dump($model->nome);
+//                        exit();
+
                         return Html::a('<span class="glyphicon glyphicon-print"></span>', ['inscreve/pdf'], ['target' => 'blank',
                         'data'=>[
                         'method' => 'POST',
-                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->palestrante->nome],
+                        'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $model->nome],
                             ]]);
                 },
         ],
@@ -215,7 +219,7 @@ function myFunctionVoluntarios(tipousuario) {
 
         $i = 0;
         while($i<$count2){
-            $nome2[$i] = $model2[$i]->palestrante;
+            $nome2[$i] = $model2[$i]->nome;
             $i++;
         }
 

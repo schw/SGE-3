@@ -131,9 +131,9 @@ public function actionPdfcredenciados()
         $i = 0;
 
         while($i<$count){
-            $model = $this->findModelItem($ids_itemProgramacao[$i]);
-            $aux[$i] = $model->palestrante_idPalestrante;
-            $model = $this->findModelPalestrante($aux[$i]);
+            //$model = $this->findModelItem($ids_itemProgramacao[$i]); //<-- apagar
+            //$aux[$i] = $model->palestrante_idPalestrante;             //<-- apagar
+            $model = $this->findModelPalestrante($ids_itemProgramacao[$i]);
             $nome[$i] = $model->nome;
 
             $i++;

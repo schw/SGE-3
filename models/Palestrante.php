@@ -57,6 +57,11 @@ class Palestrante extends \yii\db\ActiveRecord
         return $this->hasMany(Evento::className(), ['palestrante_idPalestrante' => 'idPalestrante']);
     }
 
+    public function getEvento()
+    {
+        return $this->hasMany(Evento::className(), ['palestrante_idPalestrante' => 'idPalestrante']);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
