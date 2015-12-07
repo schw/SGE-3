@@ -37,7 +37,7 @@ function myFunctionCredenciado(tipousuario) {
       xhttp.send();
     }
     else{
-        alert("não há certificados");
+        alert("Selecione pelo menos um Participante.");
     }
 
 }
@@ -63,7 +63,7 @@ function myFunctionPalestrantes(tipousuario,id_evento) {
       xhttp.send();
     }
     else{
-        alert("não há certificados");
+        alert("Selecione pelo menos um Palestrante.");
     }
 
 }
@@ -100,7 +100,7 @@ function myFunctionVoluntarios(tipousuario) {
       xhttp.send();
     }
     else{
-        alert("não há certificados");
+        alert("Selecione pelo menos um Voluntário");
     }
 
 }
