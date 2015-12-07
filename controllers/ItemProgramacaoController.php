@@ -69,6 +69,8 @@ class ItemProgramacaoController extends Controller
     {
         $model = $this->findModel($id);
         $model->data = date("d-m-Y", strtotime($model->data));
+        if(!$model->detalhe)
+                $model->detalhe = "Nenhum";
 
         return $this->renderAjax('view', [
             'model' => $model,

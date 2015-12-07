@@ -30,6 +30,7 @@ $(document).ready(function() {
 
 });
 
+var TIPO;
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

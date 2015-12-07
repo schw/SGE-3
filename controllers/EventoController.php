@@ -142,7 +142,6 @@ class EventoController extends Controller
         
         if ($model->load(Yii::$app->request->post())) {
             $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'));
-            
             if(!$model->save(true))
                 return $this->render('create', [
                     'model' => $model,
