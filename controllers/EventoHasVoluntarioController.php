@@ -163,7 +163,7 @@ class EventoHasVoluntarioController extends Controller
 
         if($evento = Evento::findOne($idevento)){
             $evento['descricao'] = Evento::findOne($idevento)->descricao;
-            $evento['id'] = $idevento;
+            $evento['idevento'] = $idevento;
             return $evento;
         }else
             throw new NotFoundHttpException('Página não Encontrada');

@@ -12,17 +12,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="itemprogramacao-view">
 
-    <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
-    <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
-    
-    <!-- Importação do arquivo responsável por exibir o menu lateral-->
-    <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
-
-   <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
-   <div id="page-wrapper">
-    <h1><?= Html::encode($this->title) ?><input type="image" align="right" id ="icone" src="<?php ?>img/icon-voltar.png" onclick="location. href= 'http://localhost/SGE3/web/index.php?r=item-programacao%2Findex&idevento=<?php echo $model->evento_idevento; ?>'" ></h1>  
-    </br>
-
     <?php if(Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2){ ?>
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->iditemProgramacao], ['class' => 'btn btn-primary']) ?>
@@ -41,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            //'iditemProgramacao',
             'titulo',
             'descricao',
             'palestrante.nome',
@@ -56,6 +44,4 @@ $this->params['breadcrumbs'][] = $this->title;
             'tipo.titulo',
         ],
     ]) ?>
-    </div>
-
 </div>

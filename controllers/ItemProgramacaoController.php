@@ -70,7 +70,7 @@ class ItemProgramacaoController extends Controller
         $model = $this->findModel($id);
         $model->data = date("d-m-Y", strtotime($model->data));
 
-        return $this->render('view', [
+        return $this->renderAjax('view', [
             'model' => $model,
         ]);
     }
@@ -96,7 +96,7 @@ class ItemProgramacaoController extends Controller
         $model->evento_idevento = Yii::$app->request->get('idevento');
         if ($model->load(Yii::$app->request->post())) {
             if($model->save()){                
-                return $this->redirect(['view', 'id' => $model->iditemProgramacao]);
+                return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
             }else{
                 print_r($model->getErrors());
             }
@@ -132,6 +132,7 @@ class ItemProgramacaoController extends Controller
                 'model' => $model,
                 'arrayTipo' => $arrayTipo,
                 'arrayLocal' => $arrayLocal,
+                'arrayPalestrante' => $arrayPalestrante,
             ]);
         }
     }

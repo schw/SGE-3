@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
       Modal::begin([
-        'header' => '<h2>Criar Item de Programação</h2>',
+        'header' => '<h2>Item de Programação</h2>',
         'id' => 'modal',
         'size' => 'modal-lg',
       ]);
@@ -63,8 +63,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'drop' => new JsExpression("function(start, end, calEvent) {
             var tipo = calEvent.helper.context.id;
             var dateStr = start;
-            var data = (new Date(dateStr)).toISOString().slice(0, 10)
-            var hora = (new Date(dateStr)).toISOString().slice(12, 16)
+            var data = (new Date(dateStr)).toISOString().slice(0, 10);
+            var hora = (new Date(dateStr)).toISOString().slice(12, 16);
             var idevento = getParameterByName('idevento');
 
             $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'idevento': idevento, 'tipo': tipo}, function(data){
@@ -74,11 +74,29 @@ $this->params['breadcrumbs'][] = $this->title;
             });
         }"),
         'eventClick' => new JsExpression("function(calEvent, jsEvent, view) {
-            $.get('index.php?r=item-programacao/update', {'data': data, 'hora': hora, 'idevento': idevento}, function(data){
-                $('#modal').modal('show')
-                .find('#modalContent')
-                .html(data);
-            });
+
+          if(calEvent.id)
+            $.get('index.php?r=item-programacao/view', {'id': calEvent.id}, function(data){
+                  $('#modal').modal('show')
+                  .find('#modalContent')
+                  .html(data);
+              });
+        else{
+          var tipo = calEvent.title;
+          console.log(calEvent)
+          console.log(calEvent.start._d);
+          var dateStr = calEvent.start._d;
+          var data = (new Date(dateStr)).toISOString().slice(0, 10);
+          var hora = (new Date(dateStr)).toISOString().slice(12, 16);
+          var idevento = getParameterByName('idevento');
+          $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'idevento': idevento, 'tipo': tipo}, function(data){
+            $('#modal').modal('show')
+            .find('#modalContent')
+            .html(data);
+          });
+        }
+          alert('Event: ' + calEvent.id);
+          $(this).css('border-color', 'red');
         }"),
        ],
        //'ajaxEvents' => Url::to(['/timetrack/default/jsoncalendar']),

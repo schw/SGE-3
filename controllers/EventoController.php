@@ -186,6 +186,7 @@ class EventoController extends Controller
                     'model' => $model,
                     'arrayTipo' => $arrayTipo,
                     'arrayLocal' => $arrayLocal,
+                    'arrayPalestrante' => $arrayPalestrante,
                 ]);
             else
                 return $this->redirect(['evento/gerenciareventos']);
@@ -194,6 +195,7 @@ class EventoController extends Controller
                 'model' => $model,
                 'arrayTipo' => $arrayTipo,
                 'arrayLocal' => $arrayLocal,
+                'arrayPalestrante' => $arrayPalestrante,
             ]);
         }
     }

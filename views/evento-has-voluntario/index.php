@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Adicionar Voluntário ao Evento', ['create', 'idevento' => $evento['id']], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Adicionar Voluntário ao Evento', ['create', 'idevento' => $evento['idevento']], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

@@ -16,7 +16,6 @@ use kartik\widgets\Select2;
 <div class="itemprogramacao-form">
 DATA: <?= $model->hora ?><br>
 HORA: <?= $model->data ?><br>
-TIPO: <?= $model->tipo->titulo ?><br>
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 

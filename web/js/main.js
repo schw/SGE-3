@@ -21,7 +21,11 @@ $(document).ready(function() {
 	});
 
 	$('#bota').click(function(){
-		alert($('#calendarItemProgramacao').fullCalendar('clientEvents'));
+		things = $('#calendarItemProgramacao').fullCalendar('clientEvents');
+		for (var i = things.length - 1; i >= 0; i--) {
+			if(!things[i].id)
+				alert("Item de Programação ainda pendente "+things[i].title+" no dia "+(new Date(things[i].start)).toISOString().slice(0, 10));
+		};
 	});
 
 });
