@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "986bd542975702e87b4e79e214206763",
-    "content-hash": "4572deb08fb3ff1c0fac23f594dad16a",
+    "hash": "112dc6d2d7a3fc0bf2b7f7a574f46a0c",
+    "content-hash": "8fee5923187159846f44841d3ec87275",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1091,16 +1091,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-datepicker",
-            "version": "v1.3.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-datepicker.git",
-                "reference": "368b181ef658c05707fe41dd16eee4d9ffd9da38"
+                "reference": "520ba281f592d6bbbf2be33386a03423bccc8cd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/368b181ef658c05707fe41dd16eee4d9ffd9da38",
-                "reference": "368b181ef658c05707fe41dd16eee4d9ffd9da38",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/520ba281f592d6bbbf2be33386a03423bccc8cd0",
+                "reference": "520ba281f592d6bbbf2be33386a03423bccc8cd0",
                 "shasum": ""
             },
             "require": {
@@ -1136,7 +1136,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-07-19 04:49:03"
+            "time": "2015-11-14 12:47:50"
         },
         {
             "name": "kartik-v/yii2-widget-datetimepicker",
@@ -2635,7 +2635,8 @@
         "kartik-v/yii2-datecontrol": 20,
         "kartik-v/yii2-widgets": 20,
         "mpdf/mpdf": 20,
-        "kartik-v/yii2-mpdf": 20
+        "kartik-v/yii2-mpdf": 20,
+        "kartik-v/yii2-widget-datepicker": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
