@@ -46,6 +46,7 @@ class ItemProgramacaoController extends Controller
             $itemProgramacaoCalendar->id = $itemProgramacao->iditemProgramacao;
             $itemProgramacaoCalendar->title = $itemProgramacao->titulo;
             $itemProgramacaoCalendar->start = $itemProgramacao->data."T".$itemProgramacao->hora;
+            $itemProgramacaoCalendar->end = $itemProgramacao->data."T".$itemProgramacao->horaFim;
             $itemProgramacaoCalendar->id = $itemProgramacao->iditemProgramacao;
             $itensProgramacaoCalendar[] = $itemProgramacaoCalendar;
         }
@@ -89,11 +90,17 @@ class ItemProgramacaoController extends Controller
 
         $model->data = filter_input(INPUT_GET, 'data');
         $model->hora = filter_input(INPUT_GET, 'hora');
-        $model->tipo_idtipo = filter_input(INPUT_GET, 'tipo');
-        
+        $model->horaFim = filter_input(INPUT_GET, 'horafim');
+
+        if(!$model->tipo_idtipo = filter_input(INPUT_GET, 'tipo'))
+            if ($tipo = filter_input(INPUT_GET, 'titulo')){
+                $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
+                $model->tipo_idtipo = array_search($tipo, $arrayTipo);
+            }else
+                return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
+            
         $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
-        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
         
         $model->evento_idevento = Yii::$app->request->get('idevento');
         if ($model->load(Yii::$app->request->post())) {
@@ -105,7 +112,6 @@ class ItemProgramacaoController extends Controller
         } else {
             return $this->renderAjax('create', [
                 'model' => $model,
-                'arrayTipo' => $arrayTipo,
                 'arrayLocal' => $arrayLocal,
                 'arrayPalestrante' => $arrayPalestrante,
             ]);
@@ -125,7 +131,7 @@ class ItemProgramacaoController extends Controller
         $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
-        
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->iditemProgramacao]);

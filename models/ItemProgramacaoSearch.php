@@ -19,7 +19,7 @@ class ItemProgramacaoSearch extends ItemProgramacao
     {
         return [
             [['iditemProgramacao', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
-            [['titulo', 'descricao', 'data', 'hora', 'detalhe', 'notificacao'], 'safe'],
+            [['titulo', 'descricao', 'data', 'hora', 'horaFim', 'detalhe', 'notificacao'], 'safe'],
         ];
     }
 
