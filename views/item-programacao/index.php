@@ -42,17 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
       Modal::end();
     ?>
 
-    <!-- Janela Modal com Bloco de Nota -->
-      <div id="dialog2" class="window">
-      Então?<br />
-      Construir uma <b>Janela Modal Simples</b> com o formato que você quiser é fácil!<br />
-      Simples e totalmente personalizável : ) <br /><br />
-      <input type="button" value="Fechar" class="close"/>
-      </div>
-    <!-- Fim Janela Modal com Bloco de Nota -->
-
-    <div id="mask"></div>
-
     <div id='external-events'>
         <?php foreach ($arrayTipo as $key => $item) {?>
           <div class='fc-event' id=<?=$key.">".$item?></div>
@@ -117,6 +106,6 @@ $this->params['breadcrumbs'][] = $this->title;
       'events' => $itensProgramacaoCalendar
       ]);
     ?>
-    <?= Html::button('teste', ['id' => 'bota']) ?>
+    <?= Html::button('Itens a serem editados', ['id' => 'bota']) ?>
     </div>
 </div>
