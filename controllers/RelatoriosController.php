@@ -55,6 +55,9 @@ class RelatoriosController extends \yii\web\Controller
  
         $pdf = new mPDF('utf-8', 'A4-P');
 
+        $x = $_POST['datainicial'];
+        $y = $_POST['datafinal'];
+
         $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
 
         $pdf->SetFont("Helvetica",'B', 14);
