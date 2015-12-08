@@ -20,23 +20,51 @@ $this->params['breadcrumbs'][] = $this->title;
                 <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
             </div>
 
-            <div style="width: 200px; margin-top:20px;">
-                <?php echo Html::a('Quantitativo de Eventos Coordenados por Professor', ['relatorios/coordpdf'], 
-                    ['target'=>'_blank', 'class' => 'list-group-item list-group-item-info', 'style' => 'width: 400px;text-align: left; float: left']); 
-                ?>
-            </div>
+            <div id="menu-relatorios" style="width: 100%; text-align: center;">
+                <div style="width: 190px; float: left ;  padding: 10px; margin-right: 15%;">
+                        <?php echo Html::a(Html::img('@web/img/reportcoord.png'), ['relatorios/coordpdf'], 
+                                ['target'=>'_blank', 'style' => 'text-align: center ; float: center']); ?>
+                        <?php echo '<br>'.Html::a('N° de Eventos Coordenados por Professor', ['relatorios/coordpdf'], 
+                                ['target'=>'_blank', 'style' => 'text-align: center']); ?>
+                </div>    
 
-            <div style="width: 200px;  margin-top:20px;">
-                <?php echo Html::a('Quantitativo de Inscrições por participante', ['relatorios/particpdf'], 
-                    ['target' => "_blank" ,	'class' => 'list-group-item list-group-item-info', 'style' => 'width: 400px;text-align: left; float: left']); 
-                ?>
-            </div>
+                <div style="width: 190px; float: left ;  padding: 10px; margin-right: 15%;">
+                        <?php echo Html::a(Html::img('@web/img/reportevento.png'), ['relatorios/eventopdf'], 
+                                ['target'=>'_blank', 'style' => 'text-align: center ; float: center']); ?>
+                        <?php echo '<br>'.Html::a('N° de Inscrições por Evento', ['relatorios/eventopdf'], 
+                                ['target'=>'_blank', 'style' => 'text-align: center']); ?>
+                </div>  
 
-            <div style="width: 200px; margin-top:20px;">
-                <?php echo Html::a('Quantitativo de inscritos por Evento',  ['relatorios/eventopdf'], 
-                        ['target' => "_blank" ,'class' => 'list-group-item list-group-item-info', 'style' => 'width: 400px;text-align: left; float: left']); 
-                ?>
-            </div>
+                <div style="width: 190px; float: left ; padding: 10px;margin-right: 15%;">
+                        <?php echo Html::a(Html::img('@web/img/reportaluno.png'), ['relatorios/particpdf'], 
+                                ['target'=>'_blank', 'style' => 'text-align: center ; float: center']); ?>
+                        <?php echo '<br>'.Html::a('N° de Inscrições por participante', ['relatorios/particpdf'], 
+                                ['target'=>'_blank', 'style' => 'text-align: center']); ?>
+                </div>
 
+            </div>
     </div>
+
+            <!--
+                        <div style="width: 200px; margin-top:20px;">
+                            <?php echo Html::a('Quantitativo de Eventos Coordenados por Professor', ['relatorios/coordpdf'], 
+                                ['target'=>'_blank', 'class' => 'list-group-item list-group-item-info', 'style' => 'width: 400px;text-align: left; float: left']); 
+                            ?>
+                        </div>
+
+                        <div style="width: 200px;  margin-top:20px;">
+                            <?php echo Html::a('Quantitativo de Inscrições por participante', ['relatorios/particpdf'], 
+                                ['target' => "_blank" ,	'class' => 'list-group-item list-group-item-info', 'style' => 'width: 400px;text-align: left; float: left']); 
+                            ?>
+                        </div>
+
+                        <div style="width: 200px; margin-top:20px;">
+                            <?php echo Html::a('Quantitativo de inscritos por Evento',  ['relatorios/eventopdf'], 
+                                    ['target' => "_blank" ,'class' => 'list-group-item list-group-item-info', 'style' => 'width: 400px;text-align: left; float: left']); 
+                            ?>
+                        </div>
+
+                </div>
+
+            -->
 </div>
