@@ -15,25 +15,28 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 
    <div id="page-wrapper">
-    <div id="geral" style="width: 100%; text-align: center;">
-        <div id="titulo" style= "float: left">
-            <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
-        </div>
+    <div id="geral" style="width: 100%; text-align: left;">
+            <div id="titulo" >
+                <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
+            </div>
 
-    <div style="width: 200px; float: right; padding: 10px 10px;margin-top:20px;">
-          <?php echo Html::a('Eventos por Professor', ['relatorios/coordpdf'], ['target' => "_blank"],
-          	['class' => 'btn btn-default']); 
-            ?>
-        </div>
-    <div style="width: 200px; float: right; padding: 10px 10px;margin-top:20px;">
-            <?php echo Html::a('Eventos por participante', ['relatorios/particpdf'], ['target' => "_blank"],
-          	['class' => 'btn btn-default']); 
-            ?>
-        </div>
+            <div style="width: 200px; margin-top:20px;">
+                <?php echo Html::a('Quantitativo de Eventos Coordenados por Professor', ['relatorios/coordpdf'], 
+                    ['target'=>'_blank', 'class' => 'list-group-item list-group-item-info', 'style' => 'width: 400px;text-align: left; float: left']); 
+                ?>
+            </div>
 
-    <div style="width: 200px; float: right; padding: 10px; margin-top:20px;">
-            <?php echo Html::a('Numero de Inscritos',  ['relatorios/eventopdf'], ['target' => "_blank"],['class' => 'btn btn-default']); 
-            ?>
-        </div>
+            <div style="width: 200px;  margin-top:20px;">
+                <?php echo Html::a('Quantitativo de Inscrições por participante', ['relatorios/particpdf'], 
+                    ['target' => "_blank" ,	'class' => 'list-group-item list-group-item-info', 'style' => 'width: 400px;text-align: left; float: left']); 
+                ?>
+            </div>
 
+            <div style="width: 200px; margin-top:20px;">
+                <?php echo Html::a('Quantitativo de inscritos por Evento',  ['relatorios/eventopdf'], 
+                        ['target' => "_blank" ,'class' => 'list-group-item list-group-item-info', 'style' => 'width: 400px;text-align: left; float: left']); 
+                ?>
+            </div>
+
+    </div>
 </div>

@@ -7,9 +7,6 @@ use yii\grid\GridView;
 <script>
 function myFunctionCredenciado(tipousuario) {
     var keys = $('#gridview_id_credenciados').yiiGridView('getSelectedRows');
-            //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
-            //console.log(JSON.stringify(keys));
-            //keys = JSON.stringify(keys);
     var ids = [];
     
     var id_evento;
@@ -27,7 +24,7 @@ function myFunctionCredenciado(tipousuario) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-              //document.getElementById("demo").innerHTML = ;
+
               window.open("index.php?r=certificados/pdfcredenciados&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText);
               
            }
@@ -44,17 +41,13 @@ function myFunctionCredenciado(tipousuario) {
 
 function myFunctionPalestrantes(tipousuario,id_evento) {
     var keys = $('#gridview_id_palestrantes').yiiGridView('getSelectedRows');
-        alert(keys);
-            //console.log(keys);
-            //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
-            //keys = JSON.stringify(keys);
     
     if (Object.keys(keys).length > 0){
 
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-              //document.getElementById("demo").innerHTML = ;
+
               window.open("index.php?r=certificados/pdfpalestrantes&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText);
               
            }
@@ -71,9 +64,7 @@ function myFunctionPalestrantes(tipousuario,id_evento) {
 
 function myFunctionVoluntarios(tipousuario) {
     var keys = $('#gridview_id_voluntarios').yiiGridView('getSelectedRows');
-            //console.table(keys, ['usuario_idusuario', 'evento_idevento']);
-            //console.log(JSON.stringify(keys));
-            //keys = JSON.stringify(keys);
+
     var ids = [];
     
     var id_evento;
@@ -91,7 +82,7 @@ function myFunctionVoluntarios(tipousuario) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-              //document.getElementById("demo").innerHTML = ;
+
               window.open("index.php?r=certificados/pdfvoluntarios&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText);
               
            }
