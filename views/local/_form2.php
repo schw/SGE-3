@@ -14,14 +14,16 @@ use yii\widgets\Pjax;
 var geocoder = new google.maps.Geocoder();
 var marker;
 
+
+
 function geocodePosition(pos) {
   geocoder.geocode({
     latLng: pos
   }, function(responses) {
     if (responses && responses.length > 0) {
-      updateMarkerAddress(responses[0].formatted_address);
+      //updateMarkerAddress(responses[0].formatted_address);
     } else {
-      updateMarkerAddress('Cannot determine address at this location.');
+      //updateMarkerAddress('Não foi possivel determinar um endereço proximo');
     }
   });
 }
@@ -37,6 +39,10 @@ function updateMarkerPosition(latLng) {
   ].join(', ');
   //window.location.href = "http://localhost/clone/sge3/web/index.php?r=local/create" + "&lat=" + latLng;
   //return getTheMarkerPosition*/
+}
+
+function getTheMarkerPosition(latLng) {
+  return latLng
 }
 
 function AjaxF()
@@ -81,11 +87,12 @@ function AlteraConteudo(latLng)
 	}
 	//window.location.href = "http://localhost/clone/sge3/web/index.php?r=local/create" + "&lat=" + latLng;
 	// Variável com os dados que serão enviados ao PHP
+	var id = document.getElementById('id').value;
 	var lat = latLng.lat();
 	var lng = latLng.lng();
 	var nome = document.getElementById('nome').value;
 	alert(lat+lng+nome);
-	ajax.open("GET", "http://localhost/clone/sge3/web/index.php?r=local/create&lat="+lat+"&lng="+lng+"&nome="+nome);
+	ajax.open("GET", "http://localhost/clone/sge3/web/index.php?r=local/update&lat="+lat+"&lng="+lng+"&nome="+nome+"&id="+id);
 	ajax.setRequestHeader("Content-Type", "text/html");
 	ajax.send();
 }
@@ -106,7 +113,8 @@ function updateMarkerAddress(str) {
 }
 
 function initialize() {
-	var latLng = new google.maps.LatLng(-3.0902246179108674, -59.963963071594264);
+	//var latLng = new google.maps.LatLng(-3.089571110370445, -59.96582988906863);
+	var latLng = new google.maps.LatLng(<?php echo $model->latitude ?>, <?php echo $model->longitude?>);
 	var map = new google.maps.Map(document.getElementById('mapCanvas'), {
 	  zoom: 15,
 	  center: latLng,
@@ -156,7 +164,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		#infoPanel {
 			float: left;
 			margin-left: 10px;
-			display: none
 		}
 	</style>
 <div id="conteudo">
@@ -165,7 +172,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			<div id="address"></div>
 		</div>
 	<div class="local-form" style="margin-top: 10px;">
-		<input id="nome" placeholder="Nome do local" type="text" size="50" width="50" >
+		<input id="nome" placeholder="Nome do local" type="text" size="50" width="50" value="<?=$model->descricao;?>">
 		<?= Html::button('Salvar',['onclick'=>"botao()",'class' => 'btn btn-primary'])?>
 		
 	</div>
