@@ -27,7 +27,10 @@ $(document).ready(function() {
 			if(!things[i].id)
 				pendentes += "Item de Programação ainda pendente "+things[i].title+" no dia "+(new Date(things[i].start)).toISOString().slice(0, 10)+"\n";
 		};
-		alert(pendentes);
+		if(pendentes == "")
+			alert("Nenhum Item");
+		else
+			alert(pendentes);
 	});
 });
 

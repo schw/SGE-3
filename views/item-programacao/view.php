@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Excluir', ['delete', 'id' => $model->iditemProgramacao], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Tem certeza que você quer excluir este item?',
+                'confirm' => 'Tem certeza que você quer excluir o item \''.$model->titulo.'\' ?',
                 'method' => 'post',
             ],
         ]) ?>
