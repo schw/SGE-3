@@ -8,12 +8,16 @@ use app\models\LocalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\base\Exception;
 
 /**
  * LocalController implements the CRUD actions for Local model.
  */
 class LocalController extends Controller
 {
+	public $lat;
+	public $lng;
+	
     public function behaviors()
     {
         return [
@@ -40,7 +44,16 @@ class LocalController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
+    public function actionIndex2()
+    {
+    	$searchModel = new LocalSearch();
+    	$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    
+    	return $this->renderPartial('index2', [
+    			'searchModel' => $searchModel,
+    			'dataProvider' => $dataProvider,
+    	]);
+    }
     /**
      * Displays a single Local model.
      * @param integer $id
@@ -52,6 +65,13 @@ class LocalController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+    
+    public function actionView2($id)
+    {
+    	return $this->renderPartial('view2', [
+    			'model' => $this->findModel($id),
+    	]);
+    }
 
     /**
      * Creates a new Local model.
@@ -60,15 +80,24 @@ class LocalController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Local();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idlocal]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+    	$model = new Local();
+    	echo '<script language="javascript">';
+    	echo 'alert("mensagem vinda do create")';
+    	echo '</script>';
+    	if(isset($_GET['lat']) && isset($_GET['lng']) && $_GET['nome']){
+    		//$model = new Local();
+    		//$model->latitude = $_GET['lat'];
+    		$model->latitude = $_GET['lat'];
+    		$model->longitude = $_GET['lng'];
+    		$model->descricao = $_GET['nome'];
+    		$model->save();
+    		//return $this->render('view', ['id' => $model->idlocal]);
+    		//return $this->render('view',[ 'model' => $this->findModel($id)]);
+    		//return $this->renderPartial('view',[ 'id' => $model->idlocal]);
+    		//return $this->redirect(['view2','id' => $model->idlocal]);
+    		return $this->redirect(['index2']);
+    	}
+        return $this->render('create',['model'=>$model]);
     }
 
     /**
@@ -80,14 +109,25 @@ class LocalController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idlocal]);
-        } else {
+        echo '<script language="javascript">';
+        echo 'alert("mensagem vinda do update")';
+        echo '</script>';
+        if(isset($_GET['lat']) && isset($_GET['lng']) && $_GET['nome']){
+        	//$model = new Local();
+        	//$model->latitude = $_GET['lat'];
+        	$model->latitude = $_GET['lat'];
+        	$model->longitude = $_GET['lng'];
+        	$model->descricao = $_GET['nome'];
+        	$model->save();
+        	//return $this->render('view', ['id' => $model->idlocal]);
+        	//return $this->render('view',[ 'model' => $this->findModel($id)]);
+        	//return $this->renderPartial('view',[ 'id' => $model->idlocal]);
+        	//return $this->redirect(['view2','id' => $model->idlocal]);
+        	return $this->redirect(['index2']);
+        }
             return $this->render('update', [
                 'model' => $model,
             ]);
-        }
     }
 
     /**
@@ -98,8 +138,13 @@ class LocalController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+    	try{
+        	$this->findModel($id)->delete();
+    	}catch(Exception $e){
+    		echo '<script language="javascript">';
+    		echo 'alert("Esta localização não pode ser excluida")';
+    		echo '</script>';
+    	}
         return $this->redirect(['index']);
     }
 

@@ -88,6 +88,7 @@ class ItemProgramacaoController extends Controller
         $model = new ItemProgramacao();
         $model->notificacao = '1';
 
+        $model->evento_idevento = Yii::$app->request->get('idevento');
         $model->data = filter_input(INPUT_GET, 'data');
         $model->hora = filter_input(INPUT_GET, 'hora');
         $model->horaFim = filter_input(INPUT_GET, 'horafim');
@@ -102,14 +103,17 @@ class ItemProgramacaoController extends Controller
         $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
         
-        $model->evento_idevento = Yii::$app->request->get('idevento');
+        
         if ($model->load(Yii::$app->request->post())) {
             if($model->save()){                
+                $this->mensagens('success', "Item '".$model->titulo."' foi Adicionado", 'O Item de Programação foi Adicionado com Sucesso');
                 return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
             }else{
-                print_r($model->getErrors());
+                $this->mensagens('danger', $model->titulo.' Não Adicionado', 'Houve um erro ao adicionar Item de Programacão');
+                return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
             }
         } else {
+            
             return $this->renderAjax('create', [
                 'model' => $model,
                 'arrayLocal' => $arrayLocal,
@@ -130,15 +134,13 @@ class ItemProgramacaoController extends Controller
 
         $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
-        $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->iditemProgramacao]);
+            return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'arrayTipo' => $arrayTipo,
                 'arrayLocal' => $arrayLocal,
                 'arrayPalestrante' => $arrayPalestrante,
             ]);
@@ -174,5 +176,18 @@ class ItemProgramacaoController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    /*Tipo: success, danger, warning*/
+    protected function mensagens($tipo, $titulo, $mensagem){
+        Yii::$app->session->setFlash($tipo, [
+            'type' => $tipo,
+            'duration' => 1200,
+            'icon' => 'home',
+            'message' => $mensagem,
+            'title' => $titulo,
+            'positonY' => 'bottom',
+            'positonX' => 'right'
+        ]);
     }
 }

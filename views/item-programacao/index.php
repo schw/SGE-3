@@ -67,7 +67,12 @@ $this->params['breadcrumbs'][] = $this->title;
             var hora = (new Date(dateStr)).toISOString().slice(11, 16);
             var idevento = getParameterByName('idevento');
 
-            $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'idevento': idevento, 'tipo': tipo}, function(data){
+            if(data < (new Date()).toISOString().slice(0, 10)){
+              alert('Data inválida. Informe um data futura');
+              return false;
+            }
+
+            $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'idevento': idevento, 'tipo': tipo, 'requ': 'AJAX'}, function(data){
                 $('#modal').modal('show')
                 .find('#modalContent')
                 .html(data);
@@ -92,7 +97,12 @@ $this->params['breadcrumbs'][] = $this->title;
               var horaFim = null;
             var data = (new Date(dateStr)).toISOString().slice(0, 10);
             var hora = (new Date(dateStr)).toISOString().slice(11, 16);
-            
+
+            if(data < (new Date()).toISOString().slice(0, 10)){
+              alert('Data inválida. Informe um data futura');
+              return false;
+            }
+
             var idevento = getParameterByName('idevento');
             $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'horafim': horaFim, 'idevento': idevento, 'titulo': titulo}, function(data){
               $('#modal').modal('show')
@@ -101,6 +111,16 @@ $this->params['breadcrumbs'][] = $this->title;
             });
           }
         }"),
+      'eventDrop' => new JsExpression("function(event, delta, revertFunc) {
+        var dateStr = event.start._d;
+        var data = (new Date(dateStr)).toISOString().slice(0, 10);
+        if(data < (new Date()).toISOString().slice(0, 10)){
+          alert('Data inválida. Informe um data futura');
+          revertFunc();
+          return false;
+        }
+
+      }"),
        ],
        //'ajaxEvents' => Url::to(['/timetrack/default/jsoncalendar']),
       'events' => $itensProgramacaoCalendar
