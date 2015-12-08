@@ -21,16 +21,15 @@ $(document).ready(function() {
 	});
 
 	$('#bota').click(function(){
-		things = $('#calendarItemProgramacao').fullCalendar('clientEvents');
+		var pendentes="";
+		var things = $('#calendarItemProgramacao').fullCalendar('clientEvents');
 		for (var i = things.length - 1; i >= 0; i--) {
 			if(!things[i].id)
-				alert("Item de Programação ainda pendente "+things[i].title+" no dia "+(new Date(things[i].start)).toISOString().slice(0, 10));
+				pendentes += "Item de Programação ainda pendente "+things[i].title+" no dia "+(new Date(things[i].start)).toISOString().slice(0, 10)+"\n";
 		};
+		alert(pendentes);
 	});
-
 });
-
-var TIPO;
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

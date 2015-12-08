@@ -37,8 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'hora',
             'vagas',
             'cargaHoraria',
-            'detalhe',
-            'notificacao',
             'local.descricao',
             'evento.descricao',
             'tipo.titulo',

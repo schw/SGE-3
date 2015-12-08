@@ -81,27 +81,31 @@ $this->params['breadcrumbs'][] = $this->title;
                   .find('#modalContent')
                   .html(data);
               });
-        else{
+          else{
 
-          console.log(calEvent)
-          console.log(calEvent.start._d);
-          var dateStr = calEvent.start._d;
-          var data = (new Date(dateStr)).toISOString().slice(0, 10);
-          var hora = (new Date(dateStr)).toISOString().slice(11, 16);
-          var idevento = getParameterByName('idevento');
-          $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'idevento': idevento, 'tipo': tipo}, function(data){
-            $('#modal').modal('show')
-            .find('#modalContent')
-            .html(data);
-          });
-        }
-          alert('Event: ' + calEvent.id);
+            var titulo = calEvent.title;
+            var dateStr = calEvent.start._d;
+            if(calEvent.end != null){
+              var dateStr2 = calEvent.end._d
+              var horaFim = (new Date(dateStr2)).toISOString().slice(11, 16);
+            }else
+              var horaFim = null;
+            var data = (new Date(dateStr)).toISOString().slice(0, 10);
+            var hora = (new Date(dateStr)).toISOString().slice(11, 16);
+            
+            var idevento = getParameterByName('idevento');
+            $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'horafim': horaFim, 'idevento': idevento, 'titulo': titulo}, function(data){
+              $('#modal').modal('show')
+              .find('#modalContent')
+              .html(data);
+            });
+          }
         }"),
        ],
        //'ajaxEvents' => Url::to(['/timetrack/default/jsoncalendar']),
       'events' => $itensProgramacaoCalendar
       ]);
     ?>
-    <?= Html::button('teste', ['id' => 'bota']) ?>
+    <?= Html::button('Itens a serem editados', ['id' => 'bota']) ?>
     </div>
 </div>

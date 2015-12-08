@@ -46,7 +46,7 @@ class ItemProgramacao extends \yii\db\ActiveRecord
     {
         return [
             [['titulo', 'descricao', 'vagas', 'cargaHoraria', 'local_idlocal', 'evento_idevento'], 'required', 'message'=>'Este campo é obrigatório'],
-            [['hora'], 'safe'],
+            [['hora', 'horaFim'], 'safe'],
             [['vagas', 'cargaHoraria','palestrante_idPalestrante', 'local_idlocal', 'evento_idevento', 'tipo_idtipo'], 'integer'],
             [['data'], 'string'],
             [['data'], 'validateDate'],
@@ -68,6 +68,7 @@ class ItemProgramacao extends \yii\db\ActiveRecord
             'descricao' => '*Descrição',
             'data' => '*Data',
             'hora' => '*Hora',
+            'horaFim' => 'Hora Término',
             'vagas' => '*Vagas',
             'cargaHoraria' => '*Carga Horária',
             'detalhe' => 'Detalhe',
