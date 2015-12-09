@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 ?>
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"></script>
 <script type="text/javascript">
 var geocoder = new google.maps.Geocoder();
 var marker;
@@ -85,7 +85,7 @@ function AlteraConteudo(latLng)
 	var lng = latLng.lng();
 	var nome = document.getElementById('nome').value;
 	alert(lat+lng+nome);
-	ajax.open("GET", "http://localhost/clone/sge3/web/index.php?r=local/create&lat="+lat+"&lng="+lng+"&nome="+nome);
+	ajax.open("GET", "index.php?r=local/create&lat="+lat+"&lng="+lng+"&nome="+nome);
 	ajax.setRequestHeader("Content-Type", "text/html");
 	ajax.send();
 }
