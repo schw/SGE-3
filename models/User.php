@@ -200,11 +200,13 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     }
 
     //função necessária para emissão de RELATÓRIOS, NÃO APAGAR!
-    public function getCoordenadoresEventos()
+    public function getCoordenadoresEventos($datainicial,$datafinal)
     {
-         $model = User:: find()->select(['nome','COUNT(evento.responsavel) AS qtd_evento'])
+
+               
+         $model = User:: find()->select(['nome','COUNT(evento.idevento) AS qtd_evento'])
         ->leftJoin('evento', 'evento.responsavel = user.idusuario')
-        ->where('user.tipoUsuario = 1')
+        ->where('user.tipoUsuario = 1 AND ((dataini is NULL OR datafim is NULL) OR (dataini >"'.$datainicial.'" AND datafim < "'.$datafinal.'"))')
         ->groupBy('nome')
         ->orderBy('qtd_evento DESC')
         ->all();

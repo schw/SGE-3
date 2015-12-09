@@ -55,8 +55,8 @@ class RelatoriosController extends \yii\web\Controller
  
         $pdf = new mPDF('utf-8', 'A4-P');
 
-        $x = $_POST['datainicial'];
-        $y = $_POST['datafinal'];
+        $datainicial = $_GET['datainicial'];
+        $datafinal = $_GET['datafinal'];
 
         $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
 
@@ -95,7 +95,7 @@ class RelatoriosController extends \yii\web\Controller
 
         $conteudo = "";
         $relatorio = new User();
-        $model = $relatorio->getCoordenadoresEventos();//obtendo model dos coordenadores de eventos
+        $model = $relatorio->getCoordenadoresEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos
         $qtd_rows = count($model); //quantidade de rows
 
         //meio da tabela -> aqui haverá as repetições de cada linha
