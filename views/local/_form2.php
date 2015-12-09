@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 ?>
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"></script>
 <script type="text/javascript">
 var geocoder = new google.maps.Geocoder();
 var marker;
@@ -23,7 +23,7 @@ function geocodePosition(pos) {
     if (responses && responses.length > 0) {
       //updateMarkerAddress(responses[0].formatted_address);
     } else {
-      //updateMarkerAddress('Não foi possivel determinar um endereço proximo');
+      //updateMarkerAddress('Nï¿½o foi possivel determinar um endereï¿½o proximo');
     }
   });
 }
@@ -67,7 +67,7 @@ function AjaxF()
 			}
 			catch(e) 
 			{
-				alert("Seu browser não da suporte à AJAX!");
+				alert("Seu browser nï¿½o da suporte ï¿½ AJAX!");
 				return false;
 			}
 		}
@@ -86,7 +86,7 @@ function AlteraConteudo(latLng)
 		}
 	}
 	//window.location.href = "http://localhost/clone/sge3/web/index.php?r=local/create" + "&lat=" + latLng;
-	// Variável com os dados que serão enviados ao PHP
+	// Variï¿½vel com os dados que serï¿½o enviados ao PHP
 	var id = document.getElementById('id').value;
 	var lat = latLng.lat();
 	var lng = latLng.lng();
