@@ -203,14 +203,43 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function getCoordenadoresEventos($datainicial,$datafinal)
     {
 
+        if ($datainicial != NULL && $datafinal != NULL){
+            
+            $datainicial = (date("Y-m-d", strtotime($datainicial)));
+            $datafinal = (date("Y-m-d", strtotime($datafinal)));
+            
+            $where = 'user.tipoUsuario = 1 AND (dataini is NULL OR (dataini >="'.$datainicial.'" AND dataini <= "'.$datafinal.'"))';
+        }
+        else if ($datainicial == NULL && $datafinal == NULL){
+            
+            $datainicial = (date("Y-m-d", strtotime($datainicial)));
+            $datafinal = (date("Y-m-d", strtotime($datafinal)));
+            $where = 'user.tipoUsuario = 1 AND (dataini is NULL)';            
+        }
+        else if ($datainicial != NULL){
+            
+            $datainicial = (date("Y-m-d", strtotime($datainicial)));
+            $datafinal = (date("Y-m-d", strtotime($datafinal)));
+            $where = 'user.tipoUsuario = 1 AND (dataini is NULL OR (dataini >="'.$datainicial.'"))';            
+        }
+        else{
+            
+            $datainicial = (date("Y-m-d", strtotime($datainicial)));
+            $datafinal = (date("Y-m-d", strtotime($datafinal)));
+            $where = 'user.tipoUsuario = 1 AND (dataini is NULL OR (dataini <="'.$datafinal.'"))';            
+        }
+
+
         $datainicial = (date("Y-m-d", strtotime($datainicial)));
         $datafinal = (date("Y-m-d", strtotime($datafinal)));
+
+        //$where = 'user.tipoUsuario = 1 AND (dataini is NULL OR (dataini >="'.$datainicial.'" AND dataini <= "'.$datafinal.'"))';
         //$data final se referente à data limite do intervalo para
         //geração do relatório. portanto, nada tem a ver com a datafim do evento
               
          $model = User:: find()->select(['nome','COUNT(evento.idevento) AS qtd_evento'])
         ->leftJoin('evento', 'evento.responsavel = user.idusuario')
-        ->where('user.tipoUsuario = 1 AND (dataini is NULL OR (dataini >="'.$datainicial.'" AND dataini <= "'.$datafinal.'"))')
+        ->where($where)
         ->groupBy('nome')
         ->orderBy('qtd_evento DESC')
         ->all();
