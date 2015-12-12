@@ -77,7 +77,7 @@ class RelatoriosController extends \yii\web\Controller
 
         $pdf->Ln(15);
         $pdf->SetFont('Arial','',18);
-        $pdf->MultiCell(0,6,("Coordenador de Evento x Nº de eventos coordenados"),0, 'C');
+        $pdf->MultiCell(0,6,("Quantidade de Eventos criados por Professor"),0, 'C');
         $pdf->Line(5,72,290,72);
         //FIM DO TITULO DO RELATÓRIO
 
@@ -172,7 +172,8 @@ class RelatoriosController extends \yii\web\Controller
 
         $pdf->Ln(15);
         $pdf->SetFont('Arial','',18);
-        $pdf->MultiCell(0,6,("Participante x Quantidade de Inscrições"),0, 'C');
+        $pdf->MultiCell(0,6,("Quantidade de Inscrições por Participante"),0, 'C');
+        $pdf->Line(5,72,290,72);
         //FIM DO TITULO DO RELATÓRIO
 
         $pdf->SetFont('Arial','',18);
@@ -193,21 +194,31 @@ class RelatoriosController extends \yii\web\Controller
         $model = $relatorio->getParticipantesEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos
         $qtd_rows = count($model); //quantidade de rows
 
-        //meio da tabela -> aqui haverá as repetições de cada linha
-        for ($i = 0; $i<$qtd_rows; $i++){
+        if ($qtd_rows != 0){
 
-            $coordenador = $model[$i]->nome;
-            $qtd_evento = $model[$i]->qtd_evento;
 
-            $conteudo = $conteudo . '<tr>
-                <td>'.$coordenador.'</td>
-                <td align = "center">'.$qtd_evento.'</td>
-                </tr>
-            ';
+            //meio da tabela -> aqui haverá as repetições de cada linha
+            for ($i = 0; $i<$qtd_rows; $i++){
+
+                $coordenador = $model[$i]->nome;
+                $qtd_evento = $model[$i]->qtd_evento;
+
+                $conteudo = $conteudo . '<tr>
+                    <td>'.$coordenador.'</td>
+                    <td align = "center">'.$qtd_evento.'</td>
+                    </tr>
+                ';
+            }
+                    
+            //fim da tabela
+            $pdf->WriteHTML($inicio.$conteudo.'</table>');
         }
-                
-        //fim da tabela
-        $pdf->WriteHTML($inicio.$conteudo.'</table>');
+
+        else {
+            $pdf->SetFont('Arial','',22);
+            $pdf->WriteHTML('<br>'.'<div align = "center"> Não foram encontrados registros. </div>');   
+
+        }
     
         $pdf->Ln(15);
         
@@ -262,7 +273,8 @@ class RelatoriosController extends \yii\web\Controller
 
         $pdf->Ln(15);
         $pdf->SetFont('Arial','',18);
-        $pdf->MultiCell(0,6,("Evento x Total de Inscrito"),0, 'C');
+        $pdf->MultiCell(0,6,("Quantidade de Inscritos por evento"),0, 'C');
+        $pdf->Line(5,72,290,72);
         //FIM DO TITULO DO RELATÓRIO
 
         $pdf->SetFont('Arial','',18);
@@ -283,22 +295,29 @@ class RelatoriosController extends \yii\web\Controller
         $model = $relatorio->getInscritosEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos
         $qtd_rows = count($model); //quantidade de rows
 
-        //meio da tabela -> aqui haverá as repetições de cada linha
-        for ($i = 0; $i<$qtd_rows; $i++){
+        if ($qtd_rows != 0){
 
-            $coordenador = $model[$i]->sigla;
-            $qtd_evento = $model[$i]->qtd_evento;
+            //meio da tabela -> aqui haverá as repetições de cada linha
+            for ($i = 0; $i<$qtd_rows; $i++){
 
-            $conteudo = $conteudo . '<tr>
-                <td>'.$coordenador.'</td>
-                <td align = "center">'.$qtd_evento.'</td>
-                </tr>
-            ';
+                $coordenador = $model[$i]->sigla;
+                $qtd_evento = $model[$i]->qtd_evento;
+
+                $conteudo = $conteudo . '<tr>
+                    <td>'.$coordenador.'</td>
+                    <td align = "center">'.$qtd_evento.'</td>
+                    </tr>
+                ';
+            }
+                    
+            //fim da tabela
+            $pdf->WriteHTML($inicio.$conteudo.'</table>');
         }
-                
-        //fim da tabela
-        $pdf->WriteHTML($inicio.$conteudo.'</table>');
-    
+        else{
+            $pdf->SetFont('Arial','',22);
+            $pdf->WriteHTML('<br>'.'<div align = "center"> Não foram encontrados registros. </div>'); 
+        }
+
         $pdf->Ln(15);
         
         $current = date('Y/m/d');
