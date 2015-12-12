@@ -226,11 +226,38 @@ class Evento extends \yii\db\ActiveRecord
         return $this->cargaHoraria." hs";
     }
 
-        public function getInscritosEventos()
+//usado para relatórios, não apagar !!!
+        public function getInscritosEventos($datainicial, $datafinal)
     {
+
+        if ($datainicial != NULL && $datafinal != NULL){
+            
+            $datainicial = (date("Y-m-d", strtotime($datainicial)));
+            $datafinal = (date("Y-m-d", strtotime($datafinal)));
+            
+            $where = '((dataini >="'.$datainicial.'" AND dataini <= "'.$datafinal.'"))';
+        }
+        else if ($datainicial == NULL && $datafinal == NULL){
+            
+            $where = '';            
+        }
+        else if ($datainicial != NULL){
+            
+            $datainicial = (date("Y-m-d", strtotime($datainicial)));
+
+            $where = '(dataini >="'.$datainicial.'")';            
+        }
+        else{
+            
+            $datafinal = (date("Y-m-d", strtotime($datafinal)));
+            $where = '(dataini <="'.$datafinal.'")';            
+        }
+
+
          $model = Evento:: find()->select(['sigla','COUNT(inscreve.evento_idevento) AS qtd_evento'])
         ->leftJoin('inscreve', 'inscreve.evento_idevento = evento.idevento')
         ->groupBy('sigla')
+        ->where($where)
         ->orderBy('qtd_evento DESC')
         ->all();
 

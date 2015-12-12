@@ -26,22 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
             </div>
 
-<script>
-function myFunction (){
-
-}
-</script
-
-
-
-
-<!-- Button trigger modal -->
-<button type="button" onclick="myFunction()" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  N° de Eventos Coordenados por Professor
-</button>
-
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalCoordPdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -82,35 +68,138 @@ function myFunction (){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+      
         <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/coordpdf/', 'class' => 'btn btn-primary', 'target'=>'_blank'] ) ?> 
             <?php ActiveForm::end(); ?>
       </div>
     </div>
   </div>
 </div>
+<!-- -->
+
+<!-- Modal -->
+<div class="modal fade" id="modalParticPdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Intervalo de datas para geração do Relatórios</h4>
+      </div>
+      <div class="modal-body">
+        
+        <?php 
+        $form = ActiveForm::begin(['action' =>['relatorios/particpdf'], 'id' => 'forum_post', 
+            'method' => 'get','options'=>['target'=>'_blank']]);
+            ?>
+
+                <?php
+                    echo DatePicker::widget([
+                        'name' => 'datainicial',
+                        'options' => ['placeholder' => 'Escolha a data Inicial ...'],
+                        'pluginOptions' => [
+                            'todayHighlight' => true,
+                            'todayBtn' => true,
+                            'format' => 'dd-mm-yyyy',
+                            'autoclose' => true,
+                        ]
+                    ]);
+                   echo '<br>';
+                    echo DatePicker::widget([
+                        'name' => 'datafinal',
+                        'options' => ['placeholder' => 'Escolha a data Final ...'],
+                        'pluginOptions' => [
+                            'todayHighlight' => true,
+                            'todayBtn' => true,
+                            'format' => 'dd-mm-yyyy',
+                            'autoclose' => true,
+                        ]
+                    ]);
+                ?>
+            
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/particpdf/', 'class' => 'btn btn-primary', 'target'=>'_blank'] ) ?> 
+            <?php ActiveForm::end(); ?>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- -->
+
+<!-- Modal -->
+<div class="modal fade" id="modalEventoPdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Intervalo de datas para geração do Relatórios</h4>
+      </div>
+      <div class="modal-body">
+        
+        <?php 
+        $form = ActiveForm::begin(['action' =>['relatorios/eventopdf'], 'id' => 'forum_post', 
+            'method' => 'get','options'=>['target'=>'_blank']]);
+            ?>
+
+                <?php
+                    echo DatePicker::widget([
+                        'name' => 'datainicial',
+                        'options' => ['placeholder' => 'Escolha a data Inicial ...'],
+                        'pluginOptions' => [
+                            'todayHighlight' => true,
+                            'todayBtn' => true,
+                            'format' => 'dd-mm-yyyy',
+                            'autoclose' => true,
+                        ]
+                    ]);
+                   echo '<br>';
+                    echo DatePicker::widget([
+                        'name' => 'datafinal',
+                        'options' => ['placeholder' => 'Escolha a data Final ...'],
+                        'pluginOptions' => [
+                            'todayHighlight' => true,
+                            'todayBtn' => true,
+                            'format' => 'dd-mm-yyyy',
+                            'autoclose' => true,
+                        ]
+                    ]);
+                ?>
+            
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/eventopdf/', 'class' => 'btn btn-primary', 'target'=>'_blank'] ) ?> 
+            <?php ActiveForm::end(); ?>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- -->
 
 
             <div id="menu-relatorios" style="width: 100%; text-align: center;">
-                <div style="width: 190px; float: left ;  padding: 10px; margin-right: 15%;">
-                        <?php echo Html::a(Html::img('@web/img/reportcoord.png'), ['relatorios/coordpdf'], 
-                                ['target'=>'_blank', 'style' => 'text-align: center ; float: center']); ?>
-                        <?php echo '<br>'.Html::a('N° de Eventos Coordenados por Professor', ['relatorios/coordpdf'], 
-                                ['target'=>'_blank', 'style' => 'text-align: center']); ?>
+
+            <a data-toggle="modal" data-target="#modalCoordPdf">
+                <div style="width: 190px; float: left ;  padding: 10px; margin-right: 8%; border-style: solid;">
+                    <img src = '../web/img/reportevento.png'><br>
+                          N° de Eventos Criados por Professor
                 </div>    
+            </a>
 
-                <div style="width: 190px; float: left ;  padding: 10px; margin-right: 15%;">
-                        <?php echo Html::a(Html::img('@web/img/reportevento.png'), ['relatorios/eventopdf'], 
-                                ['target'=>'_blank', 'style' => 'text-align: center ; float: center']); ?>
-                        <?php echo '<br>'.Html::a('N° de Inscrições por Evento', ['relatorios/eventopdf'], 
-                                ['target'=>'_blank', 'style' => 'text-align: center']); ?>
-                </div>  
+            <a data-toggle="modal" data-target="#modalEventoPdf">
+                <div style="width: 190px; float: left ;  padding: 10px; margin-right: 8%; border-style: solid;">
+                    <img src = '../web/img/reportcoord.png'><br>
+                           N° de Inscrições por Evento
+                </div>    
+            </a>
 
-                <div style="width: 190px; float: left ; padding: 10px;margin-right: 15%;">
-                        <?php echo Html::a(Html::img('@web/img/reportaluno.png'), ['relatorios/particpdf'], 
-                                ['target'=>'_blank', 'style' => 'text-align: center ; float: center']); ?>
-                        <?php echo '<br>'.Html::a('N° de Inscrições por participante', ['relatorios/particpdf'], 
-                                ['target'=>'_blank', 'style' => 'text-align: center']); ?>
-                </div>
+            <a data-toggle="modal" data-target="#modalParticPdf">
+                <div style="width: 190px; float: left ;  padding: 10px; margin-right: 8%; border-style: solid;">
+                    <img src = '../web/img/reportaluno.png'><br>
+                        N° de Inscrições por Participante
+                </div>    
+            </a>
 
             </div>
     </div>

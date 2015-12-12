@@ -201,37 +201,30 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     //função necessária para emissão de RELATÓRIOS, NÃO APAGAR!
     public function getCoordenadoresEventos($datainicial,$datafinal)
-    {
+    {   
 
         if ($datainicial != NULL && $datafinal != NULL){
             
             $datainicial = (date("Y-m-d", strtotime($datainicial)));
             $datafinal = (date("Y-m-d", strtotime($datafinal)));
             
-            $where = 'user.tipoUsuario = 1 AND (dataini is NULL OR (dataini >="'.$datainicial.'" AND dataini <= "'.$datafinal.'"))';
+            $where = 'user.tipoUsuario = 1 AND ((dataini >="'.$datainicial.'" AND dataini <= "'.$datafinal.'"))';
         }
         else if ($datainicial == NULL && $datafinal == NULL){
             
-            $datainicial = (date("Y-m-d", strtotime($datainicial)));
-            $datafinal = (date("Y-m-d", strtotime($datafinal)));
-            $where = 'user.tipoUsuario = 1 AND (dataini is NULL)';            
+            $where = 'user.tipoUsuario = 1';            
         }
         else if ($datainicial != NULL){
             
             $datainicial = (date("Y-m-d", strtotime($datainicial)));
-            $datafinal = (date("Y-m-d", strtotime($datafinal)));
-            $where = 'user.tipoUsuario = 1 AND (dataini is NULL OR (dataini >="'.$datainicial.'"))';            
+
+            $where = 'user.tipoUsuario = 1 AND (dataini >="'.$datainicial.'")';            
         }
         else{
             
-            $datainicial = (date("Y-m-d", strtotime($datainicial)));
             $datafinal = (date("Y-m-d", strtotime($datafinal)));
-            $where = 'user.tipoUsuario = 1 AND (dataini is NULL OR (dataini <="'.$datafinal.'"))';            
+            $where = 'user.tipoUsuario = 1 AND (dataini <="'.$datafinal.'")';            
         }
-
-
-        $datainicial = (date("Y-m-d", strtotime($datainicial)));
-        $datafinal = (date("Y-m-d", strtotime($datafinal)));
 
         //$where = 'user.tipoUsuario = 1 AND (dataini is NULL OR (dataini >="'.$datainicial.'" AND dataini <= "'.$datafinal.'"))';
         //$data final se referente à data limite do intervalo para
@@ -240,7 +233,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
          $model = User:: find()->select(['nome','COUNT(evento.idevento) AS qtd_evento'])
         ->leftJoin('evento', 'evento.responsavel = user.idusuario')
         ->where($where)
-        ->groupBy('nome')
+        ->groupBy('user.nome')
         ->orderBy('qtd_evento DESC')
         ->all();
 
@@ -248,12 +241,37 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     }
     
     //função necessária para emissão de RELATÓRIOS, NÃO APAGAR!
-        public function getParticipantesEventos()
+        public function getParticipantesEventos($datainicial,$datafinal)
     {
+
+        if ($datainicial != NULL && $datafinal != NULL){
+            
+            $datainicial = (date("Y-m-d", strtotime($datainicial)));
+            $datafinal = (date("Y-m-d", strtotime($datafinal)));
+            
+            $where = 'user.tipoUsuario = 3 AND ((dataini >="'.$datainicial.'" AND dataini <= "'.$datafinal.'"))';
+        }
+        else if ($datainicial == NULL && $datafinal == NULL){
+            
+            $where = 'user.tipoUsuario = 3';            
+        }
+        else if ($datainicial != NULL){
+            
+            $datainicial = (date("Y-m-d", strtotime($datainicial)));
+
+            $where = 'user.tipoUsuario = 3 AND (dataini >="'.$datainicial.'")';            
+        }
+        else{
+            
+            $datafinal = (date("Y-m-d", strtotime($datafinal)));
+            $where = 'user.tipoUsuario = 3 AND (dataini <="'.$datafinal.'")';            
+        }
+
          $model = User:: find()->select(['nome','COUNT(inscreve.evento_idevento) AS qtd_evento'])
         ->leftJoin('inscreve', 'inscreve.usuario_idusuario = user.idusuario')
-        ->where('user.tipoUsuario = 3')
-        ->groupBy('nome')
+        ->rightJoin('evento','inscreve.evento_idevento = evento.idevento')
+        ->where($where)
+        ->groupBy('user.nome')
         ->orderBy('qtd_evento DESC')
         ->all();
 

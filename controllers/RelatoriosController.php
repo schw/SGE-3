@@ -78,42 +78,47 @@ class RelatoriosController extends \yii\web\Controller
         $pdf->Ln(15);
         $pdf->SetFont('Arial','',18);
         $pdf->MultiCell(0,6,("Coordenador de Evento x Nº de eventos coordenados"),0, 'C');
+        $pdf->Line(5,72,290,72);
         //FIM DO TITULO DO RELATÓRIO
 
-        $pdf->SetFont('Arial','',18);
         $pdf->Ln(10);
 
         $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
-        //inicio da tabela
-        $inicio = '<table border="1" align = "center">
-                <tr>
-                <th width = "550px">Coordenador de Evento</th>
-                <th width = "100px">Quantidade de Eventos</th>
-                </tr>
-        ';
+            //inicio da tabela
+            $inicio = '<table border="1" align = "center">
+                    <tr>
+                    <th width = "550px">Coordenador de Evento</th>
+                    <th width = "100px">Quantidade de Eventos</th>
+                    </tr>
+            ';
 
         $conteudo = "";
         $relatorio = new User();
         $model = $relatorio->getCoordenadoresEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos
         $qtd_rows = count($model); //quantidade de rows
+        if ($qtd_rows != 0){
 
-        //meio da tabela -> aqui haverá as repetições de cada linha
-        for ($i = 0; $i<$qtd_rows; $i++){
+            //meio da tabela -> aqui haverá as repetições de cada linha
+            for ($i = 0; $i<$qtd_rows; $i++){
 
-            $coordenador = $model[$i]->nome;
-            $qtd_evento = $model[$i]->qtd_evento;
+                $coordenador = $model[$i]->nome;
+                $qtd_evento = $model[$i]->qtd_evento;
 
-            $conteudo = $conteudo . '<tr>
-                <td>'.$coordenador.'</td>
-                <td align = "center">'.$qtd_evento.'</td>
-                </tr>
-            ';
+                $conteudo = $conteudo . '<tr>
+                    <td>'.$coordenador.'</td>
+                    <td align = "center">'.$qtd_evento.'</td>
+                    </tr>
+                ';
+            }
+                    
+            //fim da tabela
+            $pdf->WriteHTML($inicio.$conteudo.'</table>');
         }
-                
-        //fim da tabela
-        $pdf->WriteHTML($inicio.$conteudo.'</table>');
-    
+        else {
+            $pdf->SetFont('Arial','',22);
+            $pdf->WriteHTML('<br>'.'<div align = "center"> Não foram encontrados registros. </div>');   
+        }
         $pdf->Ln(15);
         
         $current = date('Y/m/d');
@@ -142,6 +147,9 @@ class RelatoriosController extends \yii\web\Controller
     }
 
     public function actionParticpdf() {
+
+        $datainicial = $_GET['datainicial'];
+        $datafinal = $_GET['datafinal'];
  
         $pdf = new mPDF('utf-8', 'A4-P');
 
@@ -182,7 +190,7 @@ class RelatoriosController extends \yii\web\Controller
 
         $conteudo = "";
         $relatorio = new User();
-        $model = $relatorio->getParticipantesEventos();//obtendo model dos coordenadores de eventos
+        $model = $relatorio->getParticipantesEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos
         $qtd_rows = count($model); //quantidade de rows
 
         //meio da tabela -> aqui haverá as repetições de cada linha
@@ -229,6 +237,9 @@ class RelatoriosController extends \yii\web\Controller
     }
 
     public function actionEventopdf() {
+
+        $datainicial = $_GET['datainicial'];
+        $datafinal = $_GET['datafinal'];
  
         $pdf = new mPDF('utf-8', 'A4-P');
 
@@ -269,7 +280,7 @@ class RelatoriosController extends \yii\web\Controller
 
         $conteudo = "";
         $relatorio = new Evento();
-        $model = $relatorio->getInscritosEventos();//obtendo model dos coordenadores de eventos
+        $model = $relatorio->getInscritosEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos
         $qtd_rows = count($model); //quantidade de rows
 
         //meio da tabela -> aqui haverá as repetições de cada linha
