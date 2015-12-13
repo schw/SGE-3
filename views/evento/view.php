@@ -1,5 +1,8 @@
+</body>
 <?php
-
+use kartik\social\FacebookPlugin;
+use kartik\social\GooglePlugin;
+use kartik\social\TwitterPlugin;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -10,6 +13,15 @@ $this->title = $model->descricao;
 $this->params['breadcrumbs'][] = ['label' => 'Eventos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<head>
+	<meta charset="UTF-8"/>
+	<meta property="og:url"           content=<?php echo Yii::$app->request->absoluteUrl;?> />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="<?php echo $model->descricao;?>" />
+	<meta property="og:description"   content="Evento do Instituto de Computação da UFAM"/>
+	<meta property="og:image"		  content="<?php echo "https://".Yii::$app->request->serverName.Yii::$app->request->baseUrl."/img/home_icomp.png"; ?>">
+</head>
+<body>
 <div class="evento-view">
     <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 
@@ -224,6 +236,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'local.descricao',
         ],
     ]) ?>
+	<div style="height: 30px; width: 100%; display: inline-block;">
+	   <div style="float: left">
+	   <?php echo FacebookPlugin::widget(
+			['type'=>FacebookPlugin::SHARE, 
+			 'settings' => ['layout' => 'button_count','href'=>Yii::$app->request->absoluteUrl]	
+			]);?>
+		</div>
+		<div style="margin: 1px 0 0 5px; float: left;" >
+		<?php echo GooglePlugin::widget(
+			['type'=>GooglePlugin::SHARE,
+			 'settings' => ['annotation'=>'bubble','height'=>20]
+			]);
+		?>
+		<?php echo TwitterPlugin::widget(
+				['type'=>TwitterPlugin::SHARE, 
+				 'settings' => ['size'=>'medium']			
+		]);
+		?></div>
+	</div>
     <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
     <h2>QRCode <?= $model->descricao ?></h2>
     <?= Html::img('plugins/getQRCode.php?conteudo_QRCODE='.$model->idevento, ['alt' => 'QRCode', 'id' => 'imgqrcode']) ?>

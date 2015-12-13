@@ -101,8 +101,25 @@ $config = [
             ]
         ]
         // other settings
-    ]
-],
+    ],
+	  'social' => [
+    	// the module class
+    	'class' => 'kartik\social\Module',
+    		
+		// the global settings for the facebook plugins widget
+    	'facebook' => [
+    		'appId' => 'FACEBOOK_APP_ID',
+    		'secret' => 'FACEBOOK_APP_SECRET',
+    		],
+    	'google' => [
+    		'pageId' => 'GOOGLE_PLUS_PAGE_ID',
+    		'clientId' => 'GOOGLE_API_CLIENT_ID',
+    	],
+    	'twitter' => [
+    		'screenName' => 'TWITTER_SCREEN_NAME'
+    	],
+      ],
+	],
 ];
 
 if (YII_ENV_DEV) {
