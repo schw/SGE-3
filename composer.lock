@@ -802,16 +802,16 @@
         },
         {
             "name": "kartik-v/yii2-krajee-base",
-            "version": "v1.7.9",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-                "reference": "6f10fd0a0bfccd729764c65fa65eb4ccf2cbade9"
+                "reference": "602e7203680642ac4a2a5f9355316eaa9939b6ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/6f10fd0a0bfccd729764c65fa65eb4ccf2cbade9",
-                "reference": "6f10fd0a0bfccd729764c65fa65eb4ccf2cbade9",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/602e7203680642ac4a2a5f9355316eaa9939b6ff",
+                "reference": "602e7203680642ac4a2a5f9355316eaa9939b6ff",
                 "shasum": ""
             },
             "require": {
@@ -844,7 +844,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-11-25 07:03:35"
+            "time": "2015-12-11 19:01:49"
         },
         {
             "name": "kartik-v/yii2-money",
@@ -993,16 +993,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-activeform",
-            "version": "v1.4.6",
+            "version": "v1.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-activeform.git",
-                "reference": "59a224de3104552c55de3a6aa67138ee1b73fd70"
+                "reference": "6acc1539c37d731c79a67989409ad76e389fd5f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-activeform/zipball/59a224de3104552c55de3a6aa67138ee1b73fd70",
-                "reference": "59a224de3104552c55de3a6aa67138ee1b73fd70",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-activeform/zipball/6acc1539c37d731c79a67989409ad76e389fd5f0",
+                "reference": "6acc1539c37d731c79a67989409ad76e389fd5f0",
                 "shasum": ""
             },
             "require": {
@@ -1036,7 +1036,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-12-05 11:11:22"
+            "time": "2015-12-11 19:07:50"
         },
         {
             "name": "kartik-v/yii2-widget-affix",
@@ -1192,12 +1192,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-datepicker.git",
-                "reference": "520ba281f592d6bbbf2be33386a03423bccc8cd0"
+                "reference": "98ba4680c5cc7bc1de68fff18199857b08a803a8"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/98ba4680c5cc7bc1de68fff18199857b08a803a8",
-                "reference": "520ba281f592d6bbbf2be33386a03423bccc8cd0",
+                "reference": "98ba4680c5cc7bc1de68fff18199857b08a803a8",
                 "shasum": ""
             },
             "require": {
@@ -1233,7 +1233,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-11-14 12:47:50"
+            "time": "2015-12-12 10:34:53"
         },
         {
             "name": "kartik-v/yii2-widget-datetimepicker",

@@ -235,7 +235,7 @@ class Evento extends \yii\db\ActiveRecord
             $datainicial = (date("Y-m-d", strtotime($datainicial)));
             $datafinal = (date("Y-m-d", strtotime($datafinal)));
             
-            $where = '((dataini >="'.$datainicial.'" AND dataini <= "'.$datafinal.'"))';
+            $where = '((dataInscricao >="'.$datainicial.'" AND dataInscricao <= "'.$datafinal.'"))';
         }
         else if ($datainicial == NULL && $datafinal == NULL){
             
@@ -245,12 +245,12 @@ class Evento extends \yii\db\ActiveRecord
             
             $datainicial = (date("Y-m-d", strtotime($datainicial)));
 
-            $where = '(dataini >="'.$datainicial.'")';            
+            $where = '(dataInscricao >="'.$datainicial.'")';            
         }
         else{
             
             $datafinal = (date("Y-m-d", strtotime($datafinal)));
-            $where = '(dataini <="'.$datafinal.'")';            
+            $where = '(dataInscricao <="'.$datafinal.'")';            
         }
 
 

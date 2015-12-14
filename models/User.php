@@ -249,7 +249,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             $datainicial = (date("Y-m-d", strtotime($datainicial)));
             $datafinal = (date("Y-m-d", strtotime($datafinal)));
             
-            $where = 'user.tipoUsuario = 3 AND ((dataini >="'.$datainicial.'" AND dataini <= "'.$datafinal.'"))';
+            $where = 'user.tipoUsuario = 3 AND ((dataInscricao >="'.$datainicial.'" AND dataInscricao <= "'.$datafinal.'"))';
         }
         else if ($datainicial == NULL && $datafinal == NULL){
             
@@ -259,17 +259,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             
             $datainicial = (date("Y-m-d", strtotime($datainicial)));
 
-            $where = 'user.tipoUsuario = 3 AND (dataini >="'.$datainicial.'")';            
+            $where = 'user.tipoUsuario = 3 AND (dataInscricao >="'.$datainicial.'")';            
         }
         else{
             
             $datafinal = (date("Y-m-d", strtotime($datafinal)));
-            $where = 'user.tipoUsuario = 3 AND (dataini <="'.$datafinal.'")';            
+            $where = 'user.tipoUsuario = 3 AND (dataInscricao <="'.$datafinal.'")';            
         }
 
          $model = User:: find()->select(['nome','COUNT(inscreve.evento_idevento) AS qtd_evento'])
         ->leftJoin('inscreve', 'inscreve.usuario_idusuario = user.idusuario')
-        ->rightJoin('evento','inscreve.evento_idevento = evento.idevento')
         ->where($where)
         ->groupBy('user.nome')
         ->orderBy('qtd_evento DESC')
@@ -278,6 +277,18 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return $model;
     }
 
+    public function getListaInscritos($id_evento)
+    {   
+              
+         $model = User:: find()->select(['user.nome','user.email','evento.sigla'])
+        ->innerJoin('inscreve', 'inscreve.usuario_idusuario = user.idusuario')
+        ->rightJoin('evento', 'evento.idevento = inscreve.evento_idevento')
+        ->where('inscreve.evento_idevento = "'.$id_evento.'"')
+        ->orderBy('nome')
+        ->all();
+
+        return $model;
+    }
 
 
 }

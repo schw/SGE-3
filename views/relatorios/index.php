@@ -20,29 +20,82 @@ $this->params['breadcrumbs'][] = $this->title;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
 
-$(function() {
-    $("#forum_post").submit(function(e) {
-        var datainicial,datafinal,dia, mes, ano;
-        datainicial = $("#datainicial").val();
-        datafinal = $("#datafinal").val();
+    function datas(datainicial,datafinal){
+            var dia, mes, ano;
 
-        dia = datainicial.substring(0,2);
-        mes = datainicial.substring(3,5);
-        ano = datainicial.substring(6,10);
-        var dateini = new Date(ano, mes, dia);
+            dia = datainicial.substring(0,2);
+            mes = datainicial.substring(3,5);
+            ano = datainicial.substring(6,10);
+            var dateini = new Date(ano, mes, dia);
 
-        dia = datafinal.substring(0,2);
-        mes = datafinal.substring(3,5);
-        ano = datafinal.substring(6,10);
-        var datefim = new Date(ano, mes, dia);
+            dia = datafinal.substring(0,2);
+            mes = datafinal.substring(3,5);
+            ano = datafinal.substring(6,10);
+            var datefim = new Date(ano, mes, dia);
 
-        if ((dateini > datefim)) {
-            $("#ErroDatas").html("<b>Data inicial deve ser menor que a data Final</b>");
-            e.preventDefault()
-        }
+            if ((dateini > datefim)) {
+                return 0;
+            }
+
+            return 1;
+    }
+
+    $(function() {
+        $("#forum_post").submit(function(e) {
+            
+            var datainicial,datafinal;
+            datainicial = $("#datainicial").val();
+            datafinal = $("#datafinal").val();
+
+            var retorno = datas(datainicial,datafinal);
+
+            if (retorno == 0){
+                $("#ErroDatas").html("<b>Data inicial deve ser ANTERIOR a Data Final</b>");
+                e.preventDefault();
+            }
+            else {
+                $("#ErroDatas").html("<b></b>");
+            }
+
+        });
+
+
+        $("#forum_post1").submit(function(e) {
+
+            var datainicial,datafinal;
+            datainicial = $("#datainicial1").val();
+            datafinal = $("#datafinal1").val();
+
+            var retorno = datas(datainicial,datafinal);
+
+            if (retorno == 0){
+                $("#ErroDatas1").html("<b>Data inicial deve ser ANTERIOR a Data Final</b>");
+                e.preventDefault();
+            }
+            else {
+                $("#ErroDatas1").html("<b></b>");
+            }
+        });
+
+        $("#forum_post2").submit(function(e) {
+
+            var datainicial,datafinal;
+            datainicial = $("#datainicial2").val();
+            datafinal = $("#datafinal2").val();
+
+            var retorno = datas(datainicial,datafinal);
+
+            if (retorno == 0){
+                $("#ErroDatas2").html("<b>Data inicial deve ser ANTERIOR a Data Final</b>");
+                e.preventDefault();
+            }
+            else {
+                $("#ErroDatas2").html("<b></b>");
+            }
+        });
 
     });
-});
+
 </script>
 </head>
 
@@ -99,7 +152,7 @@ $(function() {
             
       </div>
 
-        <div id = 'ErroDatas'> </div>
+        <div id = 'ErroDatas' style="padding-left:20px; color: #FF0000" > </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -124,13 +177,14 @@ $(function() {
       <div class="modal-body">
         
         <?php 
-        $form = ActiveForm::begin(['action' =>['relatorios/particpdf'], 'id' => 'forum_post', 
+        $form = ActiveForm::begin(['action' =>['relatorios/particpdf'], 'id' => 'forum_post1', 
             'method' => 'get','options'=>['target'=>'_blank']]);
             ?>
 
                 <?php
                     echo DatePicker::widget([
                         'name' => 'datainicial',
+                        'id' =>'datainicial1',
                         'options' => ['placeholder' => 'Escolha a data Inicial ...'],
                         'pluginOptions' => [
                             'todayHighlight' => true,
@@ -142,6 +196,7 @@ $(function() {
                    echo '<br>';
                     echo DatePicker::widget([
                         'name' => 'datafinal',
+                        'id' =>'datafinal1',
                         'options' => ['placeholder' => 'Escolha a data Final ...'],
                         'pluginOptions' => [
                             'todayHighlight' => true,
@@ -153,6 +208,9 @@ $(function() {
                 ?>
             
       </div>
+
+        <div id = 'ErroDatas1' style="padding-left:20px; color: #FF0000" > </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
         <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/particpdf/', 'class' => 'btn btn-primary', 'target'=>'_blank'] ) ?> 
@@ -174,13 +232,14 @@ $(function() {
       <div class="modal-body">
         
         <?php 
-        $form = ActiveForm::begin(['action' =>['relatorios/eventopdf'], 'id' => 'forum_post', 
+        $form = ActiveForm::begin(['action' =>['relatorios/eventopdf'], 'id' => 'forum_post2', 
             'method' => 'get','options'=>['target'=>'_blank']]);
             ?>
 
                 <?php
                     echo DatePicker::widget([
                         'name' => 'datainicial',
+                        'id' =>'datainicial2',
                         'options' => ['placeholder' => 'Escolha a data Inicial ...'],
                         'pluginOptions' => [
                             'todayHighlight' => true,
@@ -192,6 +251,7 @@ $(function() {
                    echo '<br>';
                     echo DatePicker::widget([
                         'name' => 'datafinal',
+                        'id' =>'datafinal2',
                         'options' => ['placeholder' => 'Escolha a data Final ...'],
                         'pluginOptions' => [
                             'todayHighlight' => true,
@@ -203,6 +263,9 @@ $(function() {
                 ?>
             
       </div>
+
+        <div id = 'ErroDatas2' style="padding-left:20px; color: #FF0000" > </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
         <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/eventopdf/', 'class' => 'btn btn-primary', 'target'=>'_blank'] ) ?> 

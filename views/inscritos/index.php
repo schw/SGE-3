@@ -14,14 +14,25 @@ use yii\grid\GridView;
     <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
-   <div id="page-wrapper">
+      <div id="page-wrapper">
+    <div id="geral" style="width: 100%; text-align: center;">
+        <div id="titulo" style= "float: left">
+            <label><strong><h1> Lista de Inscritos </h1></strong></label>
+        </div>
 
-    <h1>Lista de Inscritos</h1>
+    <div style="width: 80px; float: right; ">
+            <?php echo Html::a(Html::img('@web/img/reportcoord.png'), ['inscritos/listainscritospdf','evento_idevento' => '22'], ['width' => '10']) ?>
+            <div style="width: 70px; text-align:center;">
+                <?php echo Html::a('Lista de Inscritos', ['inscritos/listainscritospdf', 'evento_idevento' => '22']); ?>
+            </div>
+        </div>
+    </div>
 
 <?= GridView::widget([
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
+        'summary' => '',
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
             ['attribute' => 'Participante', 'value' => 'usuario.nome'],
