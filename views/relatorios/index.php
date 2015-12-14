@@ -11,12 +11,42 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Evento */
 
-
 $this->title = "Relatórios";
 $this->params['breadcrumbs'][] = ['label' => 'Eventos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+
+$(function() {
+    $("#forum_post").submit(function(e) {
+        var datainicial,datafinal,dia, mes, ano;
+        datainicial = $("#datainicial").val();
+        datafinal = $("#datafinal").val();
+
+        dia = datainicial.substring(0,2);
+        mes = datainicial.substring(3,5);
+        ano = datainicial.substring(6,10);
+        var dateini = new Date(ano, mes, dia);
+
+        dia = datafinal.substring(0,2);
+        mes = datafinal.substring(3,5);
+        ano = datafinal.substring(6,10);
+        var datefim = new Date(ano, mes, dia);
+
+        if ((dateini > datefim)) {
+            $("#ErroDatas").html("<b>Data inicial deve ser menor que a data Final</b>");
+            e.preventDefault()
+        }
+
+    });
+});
+</script>
+</head>
+
+
 <div class="evento-view">
     <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 
@@ -42,8 +72,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
 
                 <?php
-                    echo DatePicker::widget([
+                    echo 'Data Inicial'.DatePicker::widget([
                         'name' => 'datainicial',
+                        'id' =>'datainicial',
                         'options' => ['placeholder' => 'Escolha a data Inicial ...'],
                         'pluginOptions' => [
                             'todayHighlight' => true,
@@ -53,8 +84,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ]);
                    echo '<br>';
-                    echo DatePicker::widget([
+                    echo 'Data Inicial'.DatePicker::widget([
                         'name' => 'datafinal',
+                        'id' => 'datafinal',
                         'options' => ['placeholder' => 'Escolha a data Final ...'],
                         'pluginOptions' => [
                             'todayHighlight' => true,
@@ -66,10 +98,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
             
       </div>
+
+        <div id = 'ErroDatas'> </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
       
         <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/coordpdf/', 'class' => 'btn btn-primary', 'target'=>'_blank'] ) ?> 
+
             <?php ActiveForm::end(); ?>
       </div>
     </div>
