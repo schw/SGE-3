@@ -208,7 +208,7 @@ public function inscreverComPacote($id_evento,$id_pacote)
 public function reduzir_vagas_evento($id_evento,$resultado){
 
     $sql = "update evento set
-        vagas = vagas -".$resultado."
+        vagas = vagas -1
         where idevento = $id_evento";
 
         $resultado = Yii::$app->db->createCommand($sql)->execute();
@@ -266,7 +266,7 @@ public function reduzirVagas($id_pacote , $id_evento,$opcao)
 public function aumentar_vagas_evento($id_evento,$resultado){
 
     $sql = "update evento set
-        vagas = vagas +".$resultado." 
+        vagas = vagas + 1 
         where idevento = $id_evento";
 
         $resultado = Yii::$app->db->createCommand($sql)->execute();
