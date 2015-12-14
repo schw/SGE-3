@@ -282,7 +282,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
               
          $model = User:: find()->select(['user.nome','user.email','evento.sigla'])
         ->innerJoin('inscreve', 'inscreve.usuario_idusuario = user.idusuario')
-        ->rightJoin('evento', 'evento.idevento = inscreve.evento_idevento')
+        ->innerJoin('evento', 'evento.idevento = inscreve.evento_idevento')
         ->where('inscreve.evento_idevento = "'.$id_evento.'"')
         ->orderBy('nome')
         ->all();

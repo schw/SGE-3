@@ -276,8 +276,7 @@ public function converterMes($current){
 
         $model = new User(); 
         $model = $model->getListaInscritos($id_evento);
-        var_dump($model[0]->nome);
-        
+       
 
         $pdf = new mPDF('utf-8', 'A4-P');
 
