@@ -85,6 +85,37 @@ class CertificadosController extends \yii\web\Controller
         ]);
     }
     
+    public function actionCredenciado()
+    {
+        $searchModel = new InscreveSearch();
+        $dataProvider = $searchModel->searchCredenciados(Yii::$app->request->queryParams);
+        return $this->render('credenciado', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionPalestrante()
+    {
+        $searchModel = new InscreveSearch();
+        $dataProvider2 = $searchModel->searchPalestrantes(Yii::$app->request->queryParams);
+        return $this->render('palestrante', [
+            'searchModel' => $searchModel,
+            'dataProvider2' => $dataProvider2,
+
+        ]);
+    }
+
+    public function actionVoluntario()
+    {
+        $searchModel = new InscreveSearch();
+        $dataProvider3 = $searchModel->searchVoluntarios(Yii::$app->request->queryParams);
+        return $this->render('voluntario', [
+            'searchModel' => $searchModel,
+            'dataProvider3' => $dataProvider3,
+
+        ]);
+    }
 
 public function actionIdsusuarios()
     {
