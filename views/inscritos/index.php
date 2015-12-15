@@ -74,5 +74,6 @@ use yii\grid\GridView;
 ],
      ],
  ]); ?>
+ </div>
 
  </div>

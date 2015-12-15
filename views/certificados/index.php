@@ -283,5 +283,5 @@ function myFunctionVoluntarios(tipousuario) {
         }
 
  ?>
-
+ </div>
 </div>
