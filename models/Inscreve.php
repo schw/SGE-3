@@ -424,8 +424,12 @@ public function VerificaCredenciamento($params)
         $estacredenciado = Inscreve::find()->joinWith('evento')->Where(['idevento' => $params['id']])
        ->andWhere(['usuario_idusuario' => $idusuario])->one();
 
-       return $estacredenciado->credenciado;
-
+       if  ($estacredenciado != NULL){
+            return $estacredenciado->credenciado;$estacredenciado;
+        }
+        else {
+            return -1;
+        }
     }
 
 
