@@ -5,6 +5,7 @@ use kartik\social\GooglePlugin;
 use kartik\social\TwitterPlugin;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Evento */
@@ -66,19 +67,55 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
                                 <!-- Certificado -->
-                    <div style="width: 80px; float: right; padding: 10px;">
-                        <?php echo Html::a(Html::img('@web/img/certificado.png'), ['/certificados/'], ['target' => 'blank',
+
+<!-- Modal -->
+<div class="modal fade" id="modalEventoPdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"> Escolha o Tipo de Usuário </h4>
+      </div>
+      <div class="modal-body">
+
+                        <?php echo Html::a('Participante', ['/certificados/credenciado'], [
+                        'class' => 'btn btn-primary',
                         'data'=>[
                         'method' => 'POST',
                         'params'=>['evento_idevento' => $model->idevento],
                     ]
                     ]); ?>
-                        <?php echo Html::a('Gerar Certificado', ['/certificados/'], [
+                        <?php echo Html::a('Palestrante', ['/certificados/palestrante'], 
+                        [
+                        'class' => 'btn btn-primary',
                         'data'=>[
                         'method' => 'POST',
                         'params'=>['evento_idevento' => $model->idevento],
                     ]
-                    ]);?>
+                    ]); ?>  
+                        <?php echo Html::a('Voluntário', ['/certificados/voluntario'], [
+                        'class' => 'btn btn-primary',
+                        'data'=>[
+                        'method' => 'POST',
+                        'params'=>['evento_idevento' => $model->idevento],
+                    ]
+                    ]); ?>  
+            
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- -->
+
+                    <div style=" float: right; padding: 10px;">
+                    <a data-toggle="modal" data-target="#modalEventoPdf">
+                        <div style="width: 50px; float: left">
+                            <img src = '../web/img/certificado.png'><br>
+                                   Gerar Certificado
+                        </div>    
+                    </a>
+
                     </div>
                     <!-- fim do certificado -->
             
