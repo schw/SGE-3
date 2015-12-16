@@ -415,4 +415,18 @@ public function VerificaEncerramento($params)
         return 0;
 
     }
+
+public function VerificaCredenciamento($params)
+    {
+
+        $idusuario = Yii::$app->user->identity->idusuario;
+
+        $estacredenciado = Inscreve::find()->joinWith('evento')->Where(['idevento' => $params['id']])
+       ->andWhere(['usuario_idusuario' => $idusuario])->one();
+
+       return $estacredenciado->credenciado;
+
+    }
+
+
 }

@@ -99,6 +99,9 @@ class EventoController extends Controller
         $verificaEncerramento = (new Inscreve())->verificaEncerramento
                 (Yii::$app->request->queryParams);
 
+        $verificaCredenciamento = (new Inscreve())->verificaCredenciamento
+                (Yii::$app->request->queryParams);
+
         $pacote = (new Inscreve())->possuiPacote
                 (Yii::$app->request->queryParams);
 
@@ -119,6 +122,7 @@ class EventoController extends Controller
             'model' => $model,
             'inscrito' => $verificaInscrito,
             'encerrado' => $verificaEncerramento,
+            'credenciamento' => $verificaCredenciamento,
             'existeVagas' => $verificaVagas,
         ]);
     }

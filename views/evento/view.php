@@ -196,7 +196,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php 
                 }
         }
-        else{ ?>
+        else if ($credenciamento){ ?>
                                 <!-- Certificado -->
                     <div style="width: 80px; float: right; padding: 10px;">
                         <?php echo Html::a(Html::img('@web/img/certificado.png'), ['inscreve/pdf'], ['target' => 'blank',
