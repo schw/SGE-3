@@ -49,14 +49,16 @@ class UserController extends Controller
      */
     public function actionView()
     {
-        $id = Yii::$app->request->post('id');
+        $model = new User();
+    	$id = Yii::$app->request->post('id');
         if(!$id){
             $this->autorizaUsuario($id);
-            $id = Yii::$app->user->identity->idusuario;
+            $id = Yii::$app->user->identity->idusuario;    
+            //$model = User::findByEmail(Yii::$app->user->identity->email); 
         }
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        	return $this->render('view', [
+        			'model' => $this->findModel($id),
+        	]);
     }
 
     /**
@@ -67,33 +69,43 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idusuario]);
+        if ($model->load(Yii::$app->request->post())) {
+        	$model->senha = md5($model->senha);
+        	if($model->save(false)){
+            	//return $this->redirect(['view', 'id' => $model->idusuario]);
+        		return $this->redirect(['site/login']);
+        	}
         } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
     }
-
-    /**
-     * Updates an existing User model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $this->autorizaUsuario($id);
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idusuario]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+	
+	/**
+	 * Updates an existing User model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * 
+	 * @param integer $id        	
+	 * @return mixed
+	 */
+	public function actionUpdate($id) {
+		$this->autorizaUsuario ( $id );
+		$model = $this->findModel ( $id );
+		if(Yii::$app->user->identity->idusuario === $model->idusuario){
+		if ($model->load ( Yii::$app->request->post () ) ) {
+			$model->senha = md5($model->senha);
+			if($model->save(false)){
+				return $this->redirect ( ['view', 'id' => $model->idusuario]);
+				}
+	        } else {
+	            return $this->render('update', [
+	                'model' => $model,
+	            ]);
+	        }
+		}else{
+			return $this->goBack();
+		}
     }
 
     /**
