@@ -81,9 +81,6 @@ class LocalController extends Controller
     public function actionCreate()
     {
     	$model = new Local();
-    	echo '<script language="javascript">';
-    	echo 'alert("mensagem vinda do create")';
-    	echo '</script>';
     	if(isset($_GET['lat']) && isset($_GET['lng']) && $_GET['nome']){
     		//$model = new Local();
     		//$model->latitude = $_GET['lat'];
@@ -109,9 +106,6 @@ class LocalController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        echo '<script language="javascript">';
-        echo 'alert("mensagem vinda do update")';
-        echo '</script>';
         if(isset($_GET['lat']) && isset($_GET['lng']) && $_GET['nome']){
         	//$model = new Local();
         	//$model->latitude = $_GET['lat'];
@@ -141,9 +135,6 @@ class LocalController extends Controller
     	try{
         	$this->findModel($id)->delete();
     	}catch(Exception $e){
-    		echo '<script language="javascript">';
-    		echo 'alert("Esta localização não pode ser excluida")';
-    		echo '</script>';
     	}
         return $this->redirect(['index']);
     }

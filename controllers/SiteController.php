@@ -157,6 +157,7 @@ class SiteController extends Controller
             }           
             if($usuario!=null && $usuario->tipoUsuario===3) //se o usuario com email informado existe...
             {
+            	$senha = $this->geraSenha(10);
                 echo '<script language="javascript">';
                 echo 'alert("Email enviado")';
                 echo '</script>';
@@ -164,10 +165,12 @@ class SiteController extends Controller
                 ->setFrom(Yii::$app->params['adminEmail'])
                 ->setTo($email)
                 ->setSubject("Senha para o Sistema gerenciador de eventos")
-                ->setTextBody("Sua senha é ".$usuario->senha)
+                ->setTextBody("Sua senha é ".$senha)
                 ->send();
-                return $this->render('recuperar');
-            }else{
+                $usuario->senha = md5($senha);
+                $usuario->save(false);
+            	return $this->render('recuperar');
+	    }else{
                 echo '<script language="javascript">';
                 echo 'alert(você deve acessar o sge pelo portal do professor ou secretaria")';
                 echo '</script>';
@@ -201,6 +204,26 @@ class SiteController extends Controller
     		}
     	}
     	
+    }
+    
+    function geraSenha($tamanho = 8, $maiusculas = true, $numeros = true, $simbolos = true)
+    {
+    	$lmin = 'abcdefghijklmnopqrstuvwxyz';
+    	$lmai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    	$num = '1234567890';
+    	$simb = '!@#$%*-';
+    	$retorno = '';
+    	$caracteres = '';
+    	$caracteres .= $lmin;
+    	if ($maiusculas) $caracteres .= $lmai;
+    	if ($numeros) $caracteres .= $num;
+    	if ($simbolos) $caracteres .= $simb;
+    	$len = strlen($caracteres);
+    	for ($n = 1; $n <= $tamanho; $n++) {
+    		$rand = mt_rand(1, $len);
+    		$retorno .= $caracteres[$rand-1];
+    	}
+    	return $retorno;
     }
     
 }

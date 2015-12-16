@@ -12,6 +12,7 @@ use app\models\ItemProgramacaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\funcoes;
 
 /**
  * ItemProgramacaoController implements the CRUD actions for ItemProgramacao model.
@@ -37,6 +38,7 @@ class ItemProgramacaoController extends Controller
     public function actionIndex($idevento)
     {
 
+        
         $itemProgramacaoSearch = new ItemProgramacaoSearch();
         $itensProgramacaoBanco = $itemProgramacaoSearch->search(['idevento' => $idevento])->getModels();
         $itensProgramacaoCalendar = array();
