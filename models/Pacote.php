@@ -52,12 +52,12 @@ class Pacote extends \yii\db\ActiveRecord
     {
         return [
             'idpacote' => 'Idpacote',
-            'titulo' => 'Titulo',
-            'descricao' => 'Descricao',
-            'valor' => 'Valor',
+            'titulo' => '*Título',
+            'descricao' => '*Descrição',
+            'valor' => '*Valor',
             'status' => 'Status',
             'evento_idevento' => 'Evento Idevento',
-            'itens' => 'Itens Programação',
+            'itens' => '*Itens Programação',
             'valormoeda' => 'Valor'
         ];
     }

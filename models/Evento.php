@@ -70,7 +70,7 @@ class Evento extends \yii\db\ActiveRecord
         return [
             'idevento' => 'Idevento',
             'sigla' => '*Sigla',
-            'descricao' => '*Descrição',
+            'descricao' => '*Título',
             'dataIni' => '*Data Inicial',
             'dataFim' => '*Data Final',
             'horaIni' => '*Hora Inicial',
