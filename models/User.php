@@ -61,16 +61,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
     	return [
     			'idusuario' => 'Idusuario',
-    			'nome' => 'Nome',
-    			'senha' => 'Senha',
-    			'cracha' => 'Cracha',
-    			'email' => 'Email',
-    			'instituicao' => 'Instituicao',
+    			'nome' => '*Nome',
+    			'senha' => '*Senha',
+    			'cracha' => 'Crachá',
+    			'email' => '*Email',
+    			'instituicao' => 'Instituição',
     			'tipoUsuario' => 'Tipo Usuario',
     			'notificarViaEmail' => 'Notificar Via Email',
     			'authKey' => 'Auth Key',
     			'accessToken' => 'Access Token',
-                'senha_repeat' => 'Confirmar Senha',
+                'senha_repeat' => '*Confirmar Senha',
                 'descricaotipousuario' => 'Perfil',
     	];
     }

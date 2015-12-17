@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <div id="page-wrapper">
 	    <h1><?= Html::encode($this->title) ?></h1>
+	    <p align="right">Campos marcados com * são Obrigatórios</p><div></div>
 
 	    <?= $this->render('_form', [
 	        'model' => $model,

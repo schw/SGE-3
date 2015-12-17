@@ -7,16 +7,24 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
+$this->title = 'Usuários';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
+    <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
+    <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
+    
+    <!-- Importação do arquivo responsável por exibir o menu lateral-->
+    <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
+
+   <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
+   <div id="page-wrapper">
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Criar Usuário', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idusuario',
+            //'idusuario',
             'nome',
             'senha',
             'cracha',
