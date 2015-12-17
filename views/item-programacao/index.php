@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-    <h1><?= Html::encode($this->title) ?></h1>
+    
 
     <?php
       Modal::begin([
@@ -42,6 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
       Modal::end();
     ?>
 
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2){ ?>
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
     <div id='external-events'>
         <?php foreach ($arrayTipo as $key => $item) {?>
           <div class='fc-event' id=<?=$key.">".$item?></div>
@@ -49,6 +53,17 @@ $this->params['breadcrumbs'][] = $this->title;
         <p>Arraste os evento</p>
         <p></p>
     </div>
+
+    <?php 
+    }?>
+
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){ ?>
+    <?php $this->title = 'Programação';
+    $this->params['breadcrumbs'][] = $this->title;
+    ?>
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php 
+    }?>
 
     <?= yii2fullcalendar\yii2fullcalendar::widget([
       'id' => 'calendarItemProgramacao',
@@ -126,6 +141,9 @@ $this->params['breadcrumbs'][] = $this->title;
       'events' => $itensProgramacaoCalendar
       ]);
     ?>
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2){ ?>
     <?= Html::button('Itens a serem editados', ['id' => 'bota']) ?>
+    <?php 
+    }?>
     </div>
 </div>
