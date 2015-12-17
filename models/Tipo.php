@@ -41,7 +41,7 @@ class Tipo extends \yii\db\ActiveRecord
     {
         return [
             'idtipo' => 'Idtipo',
-            'titulo' => 'Titulo',
+            'titulo' => '*Título',
         ];
     }
 

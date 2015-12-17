@@ -47,10 +47,10 @@ class Voluntario extends \yii\db\ActiveRecord
     {
         return [
             'idvoluntario' => 'Idvoluntario',
-            'nome' => 'Nome',
-            'email' => 'Email',
-            'cracha' => 'Cracha',
-            'instituicao' => 'Instituicao',
+            'nome' => '*Nome',
+            'email' => '*Email',
+            'cracha' => '*Crachá',
+            'instituicao' => 'Instituição',
         ];
     }
 
