@@ -281,7 +281,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
         return $model;
     }
+    
+    public function getListaInscritos($id_evento)
+    {   
+              
+         $model = User:: find()->select(['user.nome','user.email','evento.sigla'])
+        ->innerJoin('inscreve', 'inscreve.usuario_idusuario = user.idusuario')
+        ->innerJoin('evento', 'evento.idevento = inscreve.evento_idevento')
+        ->where('inscreve.evento_idevento = "'.$id_evento.'"')
+        ->orderBy('nome')
+        ->all();
 
-
-
+       return $model;
+    }
 }
