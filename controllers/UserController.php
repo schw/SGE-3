@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
+use yii\db\IntegrityException;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -70,11 +71,15 @@ class UserController extends Controller
     {
         $model = new User();
         if ($model->load(Yii::$app->request->post())) {
-        	$model->senha = md5($model->senha);
-        	if($model->save(false)){
-            	//return $this->redirect(['view', 'id' => $model->idusuario]);
-        		return $this->redirect(['site/login']);
-        	}
+        	if($e = $model->save(false)){
+        	  $this->mensagens('success', 'Cadastro realizado', 'Cadastro efetuado com Sucesso');
+        	  return $this->redirect(['site/login']);
+        	 }else{
+        	    return $e;
+        	    return $this->render('create', [
+                'model' => $model,
+                ]);
+        	 }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -147,5 +152,18 @@ class UserController extends Controller
         /*if(Yii::$app->user->identity->idusuario != $id){
             throw new NotFoundHttpException("Erro: Id Inválido");
         }*/
+    }
+    
+    /*Tipo: success, danger, warning*/
+    protected function mensagens($tipo, $titulo, $mensagem){
+        Yii::$app->session->setFlash($tipo, [
+            'type' => $tipo,
+            'duration' => 1200,
+            'icon' => 'home',
+            'message' => $mensagem,
+            'title' => $titulo,
+            'positonY' => 'bottom',
+            'positonX' => 'right'
+        ]);
     }
 }

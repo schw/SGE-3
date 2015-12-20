@@ -9,6 +9,8 @@ use yii\helpers\Html;
 $this->title = 'Novo Usuário';
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$model->senha = "";
+$model->senha_repeat="";
 ?>
 <div class="user-create">
 

@@ -9,6 +9,8 @@ $this->title = 'Editar Perfil';
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->idusuario, 'url' => ['view', 'id' => $model->idusuario]];
 $this->params['breadcrumbs'][] = 'Update';
+$model->senha = "";
+$model->senha_repeat="";
 ?>
 <div class="user-update">
 	
