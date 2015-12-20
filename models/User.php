@@ -77,6 +77,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     
     public function beforeSave(){
         $this->senha = md5($this->senha);
+        return true;
     }
     
     /**

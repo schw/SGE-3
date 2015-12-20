@@ -71,11 +71,10 @@ class UserController extends Controller
     {
         $model = new User();
         if ($model->load(Yii::$app->request->post())) {
-        	if($e = $model->save(false)){
+        	if($model->save()){
         	  $this->mensagens('success', 'Cadastro realizado', 'Cadastro efetuado com Sucesso');
         	  return $this->redirect(['site/login']);
         	 }else{
-        	    return $e;
         	    return $this->render('create', [
                 'model' => $model,
                 ]);
