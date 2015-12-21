@@ -7,6 +7,7 @@ use app\models\Tipo;
 use app\models\TipoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 
 /**
@@ -32,6 +33,7 @@ class TipoController extends Controller
      */
     public function actionIndex()
     {
+        $this->autorizaUsuario();
         $searchModel = new TipoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -48,6 +50,7 @@ class TipoController extends Controller
      */
     public function actionView($id)
     {
+        $this->autorizaUsuario();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -60,6 +63,7 @@ class TipoController extends Controller
      */
     public function actionCreate()
     {
+        $this->autorizaUsuario();
         $model = new Tipo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -79,6 +83,7 @@ class TipoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->autorizaUsuario();
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -98,6 +103,7 @@ class TipoController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->autorizaUsuario();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -116,6 +122,12 @@ class TipoController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function autorizaUsuario(){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
+            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
         }
     }
 }

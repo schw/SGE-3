@@ -14,7 +14,7 @@ use app\models\ItemProgramacaoSearch;
 use app\models\Voluntario;
 use app\models\VoluntarioSearch;
 use app\models\Palestrante;
-
+use yii\web\ForbiddenHttpException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -72,6 +72,7 @@ class CertificadosController extends \yii\web\Controller
 
     public function actionIndex()
     {
+        $this->autorizaUsuario();
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->searchCredenciados(Yii::$app->request->queryParams);
         $dataProvider2 = $searchModel->searchPalestrantes(Yii::$app->request->queryParams);
@@ -399,5 +400,10 @@ else{
 
     }
 
+    protected function autorizaUsuario(){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
+            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
+        }
+    }
 
 }

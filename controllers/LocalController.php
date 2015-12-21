@@ -7,6 +7,7 @@ use app\models\Local;
 use app\models\LocalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use yii\base\Exception;
 
@@ -36,6 +37,7 @@ class LocalController extends Controller
      */
     public function actionIndex()
     {
+        $this->autorizaUsuario();
         $searchModel = new LocalSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -61,6 +63,7 @@ class LocalController extends Controller
      */
     public function actionView($id)
     {
+        $this->autorizaUsuario();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -80,7 +83,8 @@ class LocalController extends Controller
      */
     public function actionCreate()
     {
-    	$model = new Local();
+    	$this->autorizaUsuario();
+        $model = new Local();
     	if(isset($_GET['lat']) && isset($_GET['lng']) && $_GET['nome']){
     		//$model = new Local();
     		//$model->latitude = $_GET['lat'];
@@ -105,6 +109,7 @@ class LocalController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->autorizaUsuario();
         $model = $this->findModel($id);
         if(isset($_GET['lat']) && isset($_GET['lng']) && $_GET['nome']){
         	//$model = new Local();
@@ -132,7 +137,8 @@ class LocalController extends Controller
      */
     public function actionDelete($id)
     {
-    	try{
+    	$this->autorizaUsuario();
+        try{
         	$this->findModel($id)->delete();
     	}catch(Exception $e){
     	}
@@ -152,6 +158,12 @@ class LocalController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function autorizaUsuario(){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
+            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
         }
     }
 }

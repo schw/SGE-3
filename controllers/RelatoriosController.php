@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\models\User;
 use app\models\Relatorios;
 use app\models\Evento;
+use yii\web\ForbiddenHttpException;
 use Yii;
 use mPDF;
 
@@ -12,6 +13,7 @@ class RelatoriosController extends \yii\web\Controller
 {
     public function actionIndex()
     {
+        $this->autorizaUsuario();
         return $this->render('index');
     }
 
@@ -344,5 +346,12 @@ class RelatoriosController extends \yii\web\Controller
         exit;
 
     }
+
+    protected function autorizaUsuario(){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
+            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
+        }
+    }
+
 
 }
