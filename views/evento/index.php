@@ -43,7 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'detalhe',
                 // 'allow',
                 ['attribute' => 'tipo', 'value' => 'tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
-                'responsavel0.nome',
+                //'responsavel0.nome',
+                ['attribute' => 'Número de Inscritos', 'value' => 'qtd_evento'],
                 ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view}'],
             ],
         ]); ?>
