@@ -33,7 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ano = datafinal.substring(6,10);
             var datefim = new Date(ano, mes, dia);
 
-            if ((dateini > datefim)) {
+            if ((datainicial.length == 0) || (datafinal.length == 0)){
+                return 1;
+            }
+            else if ((dateini > datefim)) {
                 return 0;
             }
 
@@ -121,7 +124,9 @@ $this->params['breadcrumbs'][] = $this->title;
         
         <?php 
         $form = ActiveForm::begin(['action' =>['relatorios/coordpdf'], 'id' => 'forum_post', 
-            'method' => 'get','options'=>['target'=>'_blank']]);
+            'method' => 'get',
+            //'options'=>['target'=>'_blank']
+            ]);
             ?>
 
                 <?php
@@ -137,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ]);
                    echo '<br>';
-                    echo 'Data Inicial'.DatePicker::widget([
+                    echo 'Data Final'.DatePicker::widget([
                         'name' => 'datafinal',
                         'id' => 'datafinal',
                         'options' => ['placeholder' => 'Escolha a data Final ...'],
@@ -157,7 +162,8 @@ $this->params['breadcrumbs'][] = $this->title;
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
       
-        <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/coordpdf/', 'class' => 'btn btn-primary', 'target'=>'_blank'] ) ?> 
+        <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/coordpdf/', 'class' => 'btn btn-primary', //'target'=>'_blank'
+        ] ) ?> 
 
             <?php ActiveForm::end(); ?>
       </div>
@@ -178,11 +184,13 @@ $this->params['breadcrumbs'][] = $this->title;
         
         <?php 
         $form = ActiveForm::begin(['action' =>['relatorios/particpdf'], 'id' => 'forum_post1', 
-            'method' => 'get','options'=>['target'=>'_blank']]);
+            'method' => 'get',
+                //'options'=>['target'=>'_blank']
+            ]);
             ?>
 
                 <?php
-                    echo DatePicker::widget([
+                    echo 'Data Inicial'.DatePicker::widget([
                         'name' => 'datainicial',
                         'id' =>'datainicial1',
                         'options' => ['placeholder' => 'Escolha a data Inicial ...'],
@@ -194,7 +202,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ]);
                    echo '<br>';
-                    echo DatePicker::widget([
+                    echo 'Data Final'.DatePicker::widget([
                         'name' => 'datafinal',
                         'id' =>'datafinal1',
                         'options' => ['placeholder' => 'Escolha a data Final ...'],
@@ -213,7 +221,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/particpdf/', 'class' => 'btn btn-primary', 'target'=>'_blank'] ) ?> 
+        <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/particpdf/', 'class' => 'btn btn-primary', //'target'=>'_blank'
+        ] ) ?> 
             <?php ActiveForm::end(); ?>
       </div>
     </div>
@@ -233,11 +242,13 @@ $this->params['breadcrumbs'][] = $this->title;
         
         <?php 
         $form = ActiveForm::begin(['action' =>['relatorios/eventopdf'], 'id' => 'forum_post2', 
-            'method' => 'get','options'=>['target'=>'_blank']]);
+            'method' => 'get',
+                //'options'=>['target'=>'_blank']
+                ]);
             ?>
 
                 <?php
-                    echo DatePicker::widget([
+                    echo 'Data Inicial'.DatePicker::widget([
                         'name' => 'datainicial',
                         'id' =>'datainicial2',
                         'options' => ['placeholder' => 'Escolha a data Inicial ...'],
@@ -249,7 +260,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ]);
                    echo '<br>';
-                    echo DatePicker::widget([
+                    echo 'Data Final'.DatePicker::widget([
                         'name' => 'datafinal',
                         'id' =>'datafinal2',
                         'options' => ['placeholder' => 'Escolha a data Final ...'],
@@ -268,7 +279,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/eventopdf/', 'class' => 'btn btn-primary', 'target'=>'_blank'] ) ?> 
+        <?= Html::SubmitButton( 'Gerar Relatório',['relatorios/eventopdf/', 'class' => 'btn btn-primary', //'target'=>'_blank'
+        ] ) ?> 
             <?php ActiveForm::end(); ?>
       </div>
     </div>

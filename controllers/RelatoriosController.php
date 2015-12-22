@@ -55,37 +55,10 @@ class RelatoriosController extends \yii\web\Controller
 
     public function actionCoordpdf() {
  
-        $pdf = new mPDF('utf-8', 'A4-P');
-
         $datainicial = $_GET['datainicial'];
         $datafinal = $_GET['datafinal'];
 
-        $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
-
-        $pdf->SetFont("Helvetica",'B', 14);
-		
-        $pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
-        $pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
-        $pdf->MultiCell(0,6,("UNIVERSIDADE FEDERAL DO AMAZONAS"),0, 'C');
-        $pdf->Ln(3);
-        $pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
-        //$pdf->MultiCell(0,5,("-----------------"),0, 'C');
-        $pdf->SetDrawColor(0,0,0);
-        $pdf->Line(5,52,290,52);
-        $pdf->Image('../web/img/logo-brasil.jpg', 10, 12, 32.32);
-        $pdf->Image('../web/img/ufam.jpg', 175, 12, 25.25);
-
-        //TÍLULO DO RELATÓRIO
-
-        $pdf->Ln(15);
-        $pdf->SetFont('Arial','',18);
-        $pdf->MultiCell(0,6,("Quantidade de Eventos criados por Professor"),0, 'C');
-        $pdf->Line(5,72,290,72);
-        //FIM DO TITULO DO RELATÓRIO
-
-        $pdf->Ln(10);
-
-        $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
+        //$tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
             //inicio da tabela
             $inicio = '<table border="1" align = "center">
@@ -95,56 +68,24 @@ class RelatoriosController extends \yii\web\Controller
                     </tr>
             ';
 
-        $conteudo = "";
         $relatorio = new User();
         $model = $relatorio->getCoordenadoresEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos
         $qtd_rows = count($model); //quantidade de rows
-        if ($qtd_rows != 0){
 
-            //meio da tabela -> aqui haverá as repetições de cada linha
-            for ($i = 0; $i<$qtd_rows; $i++){
-
-                $coordenador = $model[$i]->nome;
-                $qtd_evento = $model[$i]->qtd_evento;
-
-                $conteudo = $conteudo . '<tr>
-                    <td>'.$coordenador.'</td>
-                    <td align = "center">'.$qtd_evento.'</td>
-                    </tr>
-                ';
-            }
-                    
-            //fim da tabela
-            $pdf->WriteHTML($inicio.$conteudo.'</table>');
-        }
-        else {
-            $pdf->SetFont('Arial','',22);
-            $pdf->WriteHTML('<br>'.'<div align = "center"> Não foram encontrados registros. </div>');   
-        }
-        $pdf->Ln(15);
         
         $current = date('Y/m/d');
 
         $currentTime = strtotime($current);
 
         $mes = $this->converterMes($current);
-    
-    	//DATA ATUAL   
-        $pdf->MultiCell(0,4,('Relatório emitido por: '.Yii::$app->user->identity->nome),0, 'C');
-        $pdf->Ln(3);
-        $pdf->MultiCell(0,4,('Manaus, '.date('d', $currentTime).' de '. $mes. ' de '. 
-            date('Y', $currentTime).'.'),0, 'C');
-    	//FIM DA DATA ATUAL
 
-            $pdf->SetFont('Helvetica','I',8);
-            $pdf->Line(5,265,290,265);
-            $pdf->SetXY(10, 265);
-            $pdf->MultiCell(0,5,"",0, 'C');
-            $pdf->MultiCell(0,4,("Av. Rodrigo Otávio, 6.200 - Campus Universitário Senador Arthur Virgílio Filho - CEP 69077-000 - Manaus, AM, Brasil"),0, 'C');
-            $pdf->MultiCell(0,4,(" Tel. (092) 3305-1193/2808/2809         E-mail: secretaria@icomp.ufam.edu.br          http://www.icomp.ufam.edu.br"),0, 'C');
+        $data ='Manaus, '.date('d', $currentTime).' de '. $mes. ' de '. 
+            date('Y', $currentTime).'.';
 
-        $pdf->Output('');
-        exit;
+        return $this->render('coord', [
+            'model' => $model,
+            'data' => $data,
+        ]);
 
     }
 
@@ -152,198 +93,72 @@ class RelatoriosController extends \yii\web\Controller
 
         $datainicial = $_GET['datainicial'];
         $datafinal = $_GET['datafinal'];
- 
-        $pdf = new mPDF('utf-8', 'A4-P');
 
-        $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
+        //$tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
-        $pdf->SetFont("Helvetica",'B', 14);
-        
-        $pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
-        $pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
-        $pdf->MultiCell(0,6,("UNIVERSIDADE FEDERAL DO AMAZONAS"),0, 'C');
-        $pdf->Ln(3);
-        $pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
-        //$pdf->MultiCell(0,5,("-----------------"),0, 'C');
-        $pdf->SetDrawColor(0,0,0);
-        $pdf->Line(5,52,290,52);
-        $pdf->Image('../web/img/logo-brasil.jpg', 10, 12, 32.32);
-        $pdf->Image('../web/img/ufam.jpg', 175, 12, 25.25);
+            //inicio da tabela
+            $inicio = '<table border="1" align = "center">
+                    <tr>
+                    <th width = "550px">Participante</th>
+                    <th width = "100px">Quantidade de Inscrições</th>
+                    </tr>
+            ';
 
-        //TÍLULO DO RELATÓRIO
-
-        $pdf->Ln(15);
-        $pdf->SetFont('Arial','',18);
-        $pdf->MultiCell(0,6,("Quantidade de Inscrições por Participante"),0, 'C');
-        $pdf->Line(5,72,290,72);
-        //FIM DO TITULO DO RELATÓRIO
-
-        $pdf->SetFont('Arial','',18);
-        $pdf->Ln(10);
-
-        $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
-
-        //inicio da tabela
-        $inicio = '<table border="1" align = "center">
-                <tr>
-                <th width = "550px">Participante</th>
-                <th width = "100px">Quantidade de Inscrições</th>
-                </tr>
-        ';
-
-        $conteudo = "";
         $relatorio = new User();
         $model = $relatorio->getParticipantesEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos
         $qtd_rows = count($model); //quantidade de rows
 
-        if ($qtd_rows != 0){
-
-
-            //meio da tabela -> aqui haverá as repetições de cada linha
-            for ($i = 0; $i<$qtd_rows; $i++){
-
-                $coordenador = $model[$i]->nome;
-                $qtd_evento = $model[$i]->qtd_evento;
-
-                $conteudo = $conteudo . '<tr>
-                    <td>'.$coordenador.'</td>
-                    <td align = "center">'.$qtd_evento.'</td>
-                    </tr>
-                ';
-            }
-                    
-            //fim da tabela
-            $pdf->WriteHTML($inicio.$conteudo.'</table>');
-        }
-
-        else {
-            $pdf->SetFont('Arial','',22);
-            $pdf->WriteHTML('<br>'.'<div align = "center"> Não foram encontrados registros. </div>');   
-
-        }
-    
-        $pdf->Ln(15);
         
         $current = date('Y/m/d');
 
         $currentTime = strtotime($current);
 
         $mes = $this->converterMes($current);
-    
-        //DATA ATUAL   
-        $pdf->MultiCell(0,4,('Relatório emitido por: '.Yii::$app->user->identity->nome),0, 'C');
-        $pdf->Ln(3);
-        $pdf->MultiCell(0,4,('Manaus, '.date('d', $currentTime).' de '. $mes. ' de '. 
-            date('Y', $currentTime).'.'),0, 'C');
-        //FIM DA DATA ATUAL
 
-            $pdf->SetFont('Helvetica','I',8);
-            $pdf->Line(5,265,290,265);
-            $pdf->SetXY(10, 265);
-            $pdf->MultiCell(0,5,"",0, 'C');
-            $pdf->MultiCell(0,4,("Av. Rodrigo Otávio, 6.200 - Campus Universitário Senador Arthur Virgílio Filho - CEP 69077-000 - Manaus, AM, Brasil"),0, 'C');
-            $pdf->MultiCell(0,4,(" Tel. (092) 3305-1193/2808/2809         E-mail: secretaria@icomp.ufam.edu.br          http://www.icomp.ufam.edu.br"),0, 'C');
+        $data ='Manaus, '.date('d', $currentTime).' de '. $mes. ' de '. 
+            date('Y', $currentTime).'.';
 
-        $pdf->Output('');
-        exit;
+        return $this->render('partic', [
+            'model' => $model,
+            'data' => $data,
+        ]);
 
     }
 
     public function actionEventopdf() {
 
+
         $datainicial = $_GET['datainicial'];
         $datafinal = $_GET['datafinal'];
- 
-        $pdf = new mPDF('utf-8', 'A4-P');
 
-        $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
+        //$tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
-        $pdf->SetFont("Helvetica",'B', 14);
-        
-        $pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
-        $pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
-        $pdf->MultiCell(0,6,("UNIVERSIDADE FEDERAL DO AMAZONAS"),0, 'C');
-        $pdf->Ln(3);
-        $pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
-        //$pdf->MultiCell(0,5,("-----------------"),0, 'C');
-        $pdf->SetDrawColor(0,0,0);
-        $pdf->Line(5,52,290,52);
-        $pdf->Image('../web/img/logo-brasil.jpg', 10, 12, 32.32);
-        $pdf->Image('../web/img/ufam.jpg', 175, 12, 25.25);
+            //inicio da tabela
+            $inicio = '<table border="1" align = "center">
+                    <tr>
+                    <th width = "550px">Sigla do Evento</th>
+                    <th width = "100px">Quantidade de Inscricoes</th>
+                    </tr>
+            ';
 
-        //TÍLULO DO RELATÓRIO
-
-        $pdf->Ln(15);
-        $pdf->SetFont('Arial','',18);
-        $pdf->MultiCell(0,6,("Quantidade de Inscritos por evento"),0, 'C');
-        $pdf->Line(5,72,290,72);
-        //FIM DO TITULO DO RELATÓRIO
-
-        $pdf->SetFont('Arial','',18);
-        $pdf->Ln(10);
-
-        $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
-
-        //inicio da tabela
-        $inicio = '<table border="1" align = "center">
-                <tr>
-                <th width = "550px">Sigla do Evento</th>
-                <th width = "100px">Total de Inscritos</th>
-                </tr>
-        ';
-
-        $conteudo = "";
         $relatorio = new Evento();
         $model = $relatorio->getInscritosEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos
         $qtd_rows = count($model); //quantidade de rows
 
-        if ($qtd_rows != 0){
-
-            //meio da tabela -> aqui haverá as repetições de cada linha
-            for ($i = 0; $i<$qtd_rows; $i++){
-
-                $coordenador = $model[$i]->sigla;
-                $qtd_evento = $model[$i]->qtd_evento;
-
-                $conteudo = $conteudo . '<tr>
-                    <td>'.$coordenador.'</td>
-                    <td align = "center">'.$qtd_evento.'</td>
-                    </tr>
-                ';
-            }
-                    
-            //fim da tabela
-            $pdf->WriteHTML($inicio.$conteudo.'</table>');
-        }
-        else{
-            $pdf->SetFont('Arial','',22);
-            $pdf->WriteHTML('<br>'.'<div align = "center"> Não foram encontrados registros. </div>'); 
-        }
-
-        $pdf->Ln(15);
         
         $current = date('Y/m/d');
 
         $currentTime = strtotime($current);
 
         $mes = $this->converterMes($current);
-    
-        //DATA ATUAL   
-        $pdf->MultiCell(0,4,('Relatório emitido por: '.Yii::$app->user->identity->nome),0, 'C');
-        $pdf->Ln(3);
-        $pdf->MultiCell(0,4,('Manaus, '.date('d', $currentTime).' de '. $mes. ' de '. 
-            date('Y', $currentTime).'.'),0, 'C');
-        //FIM DA DATA ATUAL
 
-            $pdf->SetFont('Helvetica','I',8);
-            $pdf->Line(5,265,290,265);
-            $pdf->SetXY(10, 265);
-            $pdf->MultiCell(0,5,"",0, 'C');
-            $pdf->MultiCell(0,4,("Av. Rodrigo Otávio, 6.200 - Campus Universitário Senador Arthur Virgílio Filho - CEP 69077-000 - Manaus, AM, Brasil"),0, 'C');
-            $pdf->MultiCell(0,4,(" Tel. (092) 3305-1193/2808/2809         E-mail: secretaria@icomp.ufam.edu.br          http://www.icomp.ufam.edu.br"),0, 'C');
+        $data ='Manaus, '.date('d', $currentTime).' de '. $mes. ' de '. 
+            date('Y', $currentTime).'.';
 
-        $pdf->Output('');
-        exit;
+        return $this->render('evento', [
+            'model' => $model,
+            'data' => $data,
+        ]);
 
     }
 
