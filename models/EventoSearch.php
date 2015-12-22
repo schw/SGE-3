@@ -105,7 +105,10 @@ class EventoSearch extends Evento
 
 
         }else{
-            $query = Evento::find()->where("dataFim >= '". date('Y-m-d')."'")->andWhere(['responsavel' => Yii::$app->user->identity->idusuario]);
+            $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
+            where("dataFim >= '". date('Y-m-d')."'")->joinWith("inscreve")->
+                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla');
+
         }
 
         $dataProvider = new ActiveDataProvider([

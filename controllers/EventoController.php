@@ -68,7 +68,7 @@ class EventoController extends Controller
         $dataProvider2 = $searchModel->searchEventosCoodenadores($status);
 
         if($status == 'passado')
-            return $this->render('index', [
+            return $this->render('gerenciarEventos', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
                 'dataProvider2' => $dataProvider2,
@@ -82,6 +82,7 @@ class EventoController extends Controller
                 'status' => $status,
             ]);
     }
+
 
     /**
      * Displays a single Evento model.
