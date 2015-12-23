@@ -276,89 +276,100 @@ public function converterMes($current){
 
         $model = new User(); 
         $model = $model->getListaInscritos($id_evento);
-       
+
+        $ItemProgramacao = new ItemProgramacao();
+        $ItemProgramacao = $ItemProgramacao->getListaItem($id_evento);
+
+        $qtd_item_programacao = count($ItemProgramacao);
 
         $pdf = new mPDF('utf-8', 'A4-P');
 
-        $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
+        for($j = 0 ; $j < $qtd_item_programacao; $j++){
 
-        $pdf->SetFont("Helvetica",'B', 14);
-        
-        $pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
-        $pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
-        $pdf->MultiCell(0,6,("UNIVERSIDADE FEDERAL DO AMAZONAS"),0, 'C');
-        $pdf->Ln(3);
-        $pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
-        //$pdf->MultiCell(0,5,("-----------------"),0, 'C');
-        $pdf->SetDrawColor(0,0,0);
-        $pdf->Line(5,52,290,52);
-        $pdf->Image('../web/img/logo-brasil.jpg', 10, 12, 32.32);
-        $pdf->Image('../web/img/ufam.jpg', 175, 12, 25.25);
+            $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
 
-        //TÍLULO DO RELATÓRIO
+            $pdf->SetFont("Helvetica",'B', 14);
+            
+            $pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
+            $pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
+            $pdf->MultiCell(0,6,("UNIVERSIDADE FEDERAL DO AMAZONAS"),0, 'C');
+            $pdf->Ln(3);
+            $pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
+            //$pdf->MultiCell(0,5,("-----------------"),0, 'C');
+            $pdf->SetDrawColor(0,0,0);
+            $pdf->Line(5,52,290,52);
+            $pdf->Image('../web/img/logo-brasil.jpg', 10, 12, 32.32);
+            $pdf->Image('../web/img/ufam.jpg', 175, 12, 25.25);
 
-        $pdf->Ln(15);
-        $pdf->SetFont('Arial','',18);
-        $pdf->MultiCell(0,6,("Lista de Participantes"),0, 'C');
-        $pdf->Line(5,72,290,72);
-        //FIM DO TITULO DO RELATÓRIO
+            //TÍLULO DO RELATÓRIO
 
-        $pdf->Ln(10);
+            $pdf->Ln(15);
+            $pdf->SetFont('Arial','',18);
+            $pdf->MultiCell(0,6,("Lista de Participantes"),0, 'C');
+            $pdf->Line(5,72,290,72);
+            //FIM DO TITULO DO RELATÓRIO
 
-        $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
+            $pdf->Ln(10);
+            $pdf->SetFont('Arial','',12);
+            $pdf->MultiCell(0,6,('Programação: '.$ItemProgramacao[$j]->titulo),0, 'L');
 
-            //inicio da tabela
-            $inicio = '<table border="1" align = "center">
-                    <tr>
-                    <th width = "250px">Nome do Participante</th>
-                    <th width = "500px">Assinatura</th>
-                    </tr>
-            ';
+            $pdf->Ln(5);
 
-        $conteudo = "";
-        $qtd_rows = count($model); //quantidade de rows
-        if ($qtd_rows != 0){
+            $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
-            //meio da tabela -> aqui haverá as repetições de cada linha
-            for ($i = 0; $i<$qtd_rows; $i++){
-
-                $coordenador = $model[$i]->nome;
-
-
-                $conteudo = $conteudo . '<tr>
-                    <td>'.$coordenador.'</td>
-                    <td align = "center"></td>
-                    </tr>
+                //inicio da tabela
+                $inicio = '
+                    <table border="1" align = "center">
+                        <tr>
+                        <th width = "250px">Nome do Participante</th>
+                        <th width = "500px">Assinatura</th>
+                        </tr>
                 ';
+
+            $conteudo = "";
+            $qtd_rows = count($model); //quantidade de rows
+            if ($qtd_rows != 0){
+
+                //meio da tabela -> aqui haverá as repetições de cada linha
+                for ($i = 0; $i<$qtd_rows; $i++){
+
+                    $participante = $model[$i]->nome;
+
+
+                    $conteudo = $conteudo . '<tr>
+                        <td>'.$participante.'</td>
+                        <td height = "40px" align = "center"></td>
+                        </tr>
+                    ';
+                }
+                        
+                //fim da tabela
+                $pdf->WriteHTML($inicio.$conteudo.'</table>');
             }
-                    
-            //fim da tabela
-            $pdf->WriteHTML($inicio.$conteudo.'</table>');
-        }
-        else {
-            $pdf->SetFont('Arial','',22);
-            $pdf->WriteHTML('<br>'.'<div align = "center"> Não foram encontrados registros. </div>');   
-        }
-        $pdf->Ln(15);
+            else {
+                $pdf->SetFont('Arial','',22);
+                $pdf->WriteHTML('<br>'.'<div align = "center"> Não foram encontrados registros. </div>');   
+            }
+            $pdf->Ln(15);
+            
+            $current = date('Y/m/d');
+
+            $currentTime = strtotime($current);
+
+            $mes = $this->converterMes($current);
         
-        $current = date('Y/m/d');
+            //DATA ATUAL   
+            $pdf->MultiCell(0,4,('Manaus, '.date('d', $currentTime).' de '. $mes. ' de '. 
+                date('Y', $currentTime).'.'),0, 'C');
+            //FIM DA DATA ATUAL
 
-        $currentTime = strtotime($current);
-
-        $mes = $this->converterMes($current);
-    
-        //DATA ATUAL   
-        $pdf->MultiCell(0,4,('Manaus, '.date('d', $currentTime).' de '. $mes. ' de '. 
-            date('Y', $currentTime).'.'),0, 'C');
-        //FIM DA DATA ATUAL
-
-            $pdf->SetFont('Helvetica','I',8);
-            $pdf->Line(5,265,290,265);
-            $pdf->SetXY(10, 265);
-            $pdf->MultiCell(0,5,"",0, 'C');
-            $pdf->MultiCell(0,4,("Av. Rodrigo Otávio, 6.200 - Campus Universitário Senador Arthur Virgílio Filho - CEP 69077-000 - Manaus, AM, Brasil"),0, 'C');
-            $pdf->MultiCell(0,4,(" Tel. (092) 3305-1193/2808/2809         E-mail: secretaria@icomp.ufam.edu.br          http://www.icomp.ufam.edu.br"),0, 'C');
-
+                $pdf->SetFont('Helvetica','I',8);
+                $pdf->Line(5,265,290,265);
+                $pdf->SetXY(10, 265);
+                $pdf->MultiCell(0,5,"",0, 'C');
+                $pdf->MultiCell(0,4,("Av. Rodrigo Otávio, 6.200 - Campus Universitário Senador Arthur Virgílio Filho - CEP 69077-000 - Manaus, AM, Brasil"),0, 'C');
+                $pdf->MultiCell(0,4,(" Tel. (092) 3305-1193/2808/2809         E-mail: secretaria@icomp.ufam.edu.br          http://www.icomp.ufam.edu.br"),0, 'C');
+        }
         $pdf->Output('');
         exit;
 

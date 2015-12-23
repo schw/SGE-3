@@ -168,4 +168,15 @@ class ItemProgramacao extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Voluntario::className(), ['idvoluntario' => 'voluntario_idvoluntario'])->viaTable('itemprogramacao_has_voluntario', ['itemProgramacao_iditemProgramacao' => 'iditemProgramacao']);
     }
+
+    public function getListaItem ($id_evento){
+
+         $model = ItemProgramacao:: find()->select(['itemProgramacao.titulo','itemProgramacao.descricao'])
+        ->where('evento_idevento = "'.$id_evento.'"')
+        ->all();
+
+       return $model;
+    }
+
+
 }

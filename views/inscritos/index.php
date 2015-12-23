@@ -20,13 +20,22 @@ use yii\grid\GridView;
             <label><strong><h1> Lista de Inscritos </h1></strong></label>
         </div>
 
-    <div style="width: 80px; float: right; ">
+    <div style="width: 110px; float: right; ">
             <?php 
                 $id_evento = Yii::$app->request->get('evento_idevento');       
                 echo Html::a(Html::img('@web/img/reportcoord.png'), ['inscritos/listainscritospdf','evento_idevento' => $id_evento], ['width' => '10']) 
             ?>
-            <div style="width: 70px; text-align:center;">
-                <?php echo Html::a('Lista de Inscritos', ['inscritos/listainscritospdf', 'evento_idevento' => $id_evento]); ?>
+            <div style="width: 110px; text-align:center;">
+                <?php echo Html::a('Inscritos no Evento', ['inscritos/listainscritospdf', 'evento_idevento' => $id_evento]); ?>
+            </div>
+        </div>
+    <div style="width: 110px; float: right; ">
+            <?php 
+                $id_evento = Yii::$app->request->get('evento_idevento');       
+                echo Html::a(Html::img('@web/img/reportcoord.png'), ['inscritos/listainscritospdf','evento_idevento' => $id_evento], ['width' => '10']) 
+            ?>
+            <div style="width: 110px; text-align:center;">
+                <?php echo Html::a('Inscritos conforme Programação', ['inscritos/listainscritospdf', 'evento_idevento' => $id_evento]); ?>
             </div>
         </div>
     </div>
