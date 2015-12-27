@@ -32,6 +32,7 @@ class Evento extends \yii\db\ActiveRecord
 {
 
     public $qtd_evento; // não apagar, é necessário para o relatório
+    public $nome; // não apagar, é necessário para o relatório
     /**
      * @inheritdoc
      */
@@ -263,5 +264,20 @@ class Evento extends \yii\db\ActiveRecord
 
         return $model;
     }
+
+    public function getInscritosEventosPacotes($iditemProgramacao){
+
+        $model = Evento:: find()->select(['nome'])
+        ->innerJoin('inscreve', 'inscreve.evento_idevento = evento.idevento')
+        ->innerJoin('itemProgramacao_has_pacote',
+                'itemProgramacao_has_pacote.pacote_idpacote = inscreve.pacote_idpacote')
+        ->innerJoin('user','user.idusuario = inscreve.usuario_idusuario')
+        ->where('itemProgramacao_has_pacote.itemProgramacao_idItemProgramacao ='.$iditemProgramacao)
+        ->all();
+
+        return $model;
+    }
+
+
     
 }

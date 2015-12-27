@@ -171,7 +171,7 @@ class ItemProgramacao extends \yii\db\ActiveRecord
 
     public function getListaItem ($id_evento){
 
-         $model = ItemProgramacao:: find()->select(['itemProgramacao.titulo','itemProgramacao.descricao'])
+         $model = ItemProgramacao:: find()->select(['itemProgramacao.iditemProgramacao','itemProgramacao.titulo','itemProgramacao.descricao'])
         ->where('evento_idevento = "'.$id_evento.'"')
         ->all();
 

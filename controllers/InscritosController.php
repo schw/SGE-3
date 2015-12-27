@@ -269,22 +269,7 @@ public function converterMes($current){
             return $tag;
     }
 
-
-    public function actionListainscritospdf() {
-
-        $id_evento = Yii::$app->request->get('evento_idevento');       
-
-        $model = new User(); 
-        $model = $model->getListaInscritos($id_evento);
-
-        $ItemProgramacao = new ItemProgramacao();
-        $ItemProgramacao = $ItemProgramacao->getListaItem($id_evento);
-
-        $qtd_item_programacao = count($ItemProgramacao);
-
-        $pdf = new mPDF('utf-8', 'A4-P');
-
-        for($j = 0 ; $j < $qtd_item_programacao; $j++){
+    public function pdfConteudo($pdf,$model,$ItemProgramacao,$j){
 
             $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
 
@@ -311,7 +296,13 @@ public function converterMes($current){
 
             $pdf->Ln(10);
             $pdf->SetFont('Arial','',12);
-            $pdf->MultiCell(0,6,('Programação: '.$ItemProgramacao[$j]->titulo),0, 'L');
+
+            if ($j != -1){
+                $pdf->MultiCell(0,6,('Programação: '.$ItemProgramacao[$j]->titulo),0, 'L');
+            }
+            else{
+                $pdf->MultiCell(0,6,('Evento: '.$model[0]->descricao),0, 'L');   
+            }
 
             $pdf->Ln(5);
 
@@ -321,6 +312,7 @@ public function converterMes($current){
                 $inicio = '
                     <table border="1" align = "center">
                         <tr>
+                        <th> # </th>
                         <th width = "250px">Nome do Participante</th>
                         <th width = "500px">Assinatura</th>
                         </tr>
@@ -337,6 +329,7 @@ public function converterMes($current){
 
 
                     $conteudo = $conteudo . '<tr>
+                        <td width = "30px">'.($i+1).'</td>
                         <td>'.$participante.'</td>
                         <td height = "40px" align = "center"></td>
                         </tr>
@@ -369,6 +362,46 @@ public function converterMes($current){
                 $pdf->MultiCell(0,5,"",0, 'C');
                 $pdf->MultiCell(0,4,("Av. Rodrigo Otávio, 6.200 - Campus Universitário Senador Arthur Virgílio Filho - CEP 69077-000 - Manaus, AM, Brasil"),0, 'C');
                 $pdf->MultiCell(0,4,(" Tel. (092) 3305-1193/2808/2809         E-mail: secretaria@icomp.ufam.edu.br          http://www.icomp.ufam.edu.br"),0, 'C');
+
+        return $pdf;
+
+    }
+
+
+    public function actionListainscritospdf() {
+
+        $id_evento = Yii::$app->request->get('evento_idevento');       
+
+        $ItemProgramacao = new ItemProgramacao();
+        $ItemProgramacao = $ItemProgramacao->getListaItem($id_evento);
+
+        $qtd_item_programacao = count($ItemProgramacao);
+
+        $model = new User(); 
+        $model = $model->getListaInscritos($id_evento);
+
+        $pdf = new mPDF('utf-8', 'A4-P');
+
+        if($qtd_item_programacao == 0){ //não há itens de programação, ou seja, so o evento
+
+            $pdf = $this->pdfConteudo($pdf,$model,0,-1);
+
+        }
+        else{
+
+            for($j = 0 ; $j < $qtd_item_programacao; $j++){
+
+            $model2 = new Evento(); 
+            $model2 = $model2->getInscritosEventosPacotes($ItemProgramacao[$j]->iditemProgramacao);
+
+                if(count($model2) == 0){
+
+                    $pdf = $this->pdfConteudo($pdf,$model,$ItemProgramacao,$j);
+                }
+                else{
+                    $pdf = $this->pdfConteudo($pdf,$model2,$ItemProgramacao,$j);
+                }
+            }
         }
         $pdf->Output('');
         exit;

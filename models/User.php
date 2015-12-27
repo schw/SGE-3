@@ -28,6 +28,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     var $senha_repeat;
     public $qtd_evento;// não apagar, pois é necessário para o relatório!
+    public $descricao;
     /**
      * @inheritdoc
      */
@@ -286,7 +287,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function getListaInscritos($id_evento)
     {   
               
-         $model = User:: find()->select(['user.nome','user.email','evento.sigla'])
+         $model = User:: find()->select(['user.nome','user.email','evento.sigla','evento.descricao'])
         ->innerJoin('inscreve', 'inscreve.usuario_idusuario = user.idusuario')
         ->innerJoin('evento', 'evento.idevento = inscreve.evento_idevento')
         ->where('inscreve.evento_idevento = "'.$id_evento.'"')
