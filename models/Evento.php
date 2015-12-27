@@ -273,6 +273,7 @@ class Evento extends \yii\db\ActiveRecord
                 'itemProgramacao_has_pacote.pacote_idpacote = inscreve.pacote_idpacote')
         ->innerJoin('user','user.idusuario = inscreve.usuario_idusuario')
         ->where('itemProgramacao_has_pacote.itemProgramacao_idItemProgramacao ='.$iditemProgramacao)
+        ->orderBy('nome')
         ->all();
 
         return $model;
