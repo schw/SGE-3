@@ -40,33 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo Html::a(Html::img('@web/img/programacao.png'), ['item-programacao/index','idevento' => $model->idevento], ['width' => '10']) ?>
             <?php echo Html::a('Programação', ['item-programacao/index', 'idevento' => $model->idevento]); ?>
         </div>
-
-
-        <?php if(!Yii::$app->user->isGuest && $model->canAccess()){ ?>
-            <div style="width: 80px; float: right; padding: 10px;">
-                <?= Html::a(Html::img('@web/img/delete.png'), ['delete', 'id' => $model->idevento], [
-                    'data' => [
-                        'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
-                        'method' => 'post',
-                    ],
-                ]) ?>
-                        <?= Html::a('Remover Evento', ['delete', 'id' => $model->idevento], [
-                            'data' => [
-                                'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
-                                'method' => 'post',
-                            ],
-                        ]) ?>
-            </div>
-            <div style="width: 80px; float: right; padding: 10px;">
-                <?= Html::a(Html::img('@web/img/editar.png'), ['update', 'id' => $model->idevento]) ?>
-                <?php echo Html::a('Alterar Evento', 'index.php?r=evento/update&id='.$model->idevento); ?>
-            </div>
-            <div style="width: 80px; float: right; padding: 10px;">
-                <?php echo Html::a(Html::img('@web/img/listar_inscritos.png'), ['inscritos/index','evento_idevento' => $model->idevento], ['width' => '10']) ?>
-                <?php echo Html::a('Listar Inscritos', 'index.php?r=inscritos/index&evento_idevento='.$model->idevento); ?>
-            </div>
-
-                                <!-- Certificado -->
+        
+        <?php if(Yii::$app->user->identity->idusuario == $model->responsavel || 
+            CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $model->idevento])->count()){ ?>
+        <!-- Certificado -->
 
 <!-- Modal -->
 <div class="modal fade" id="modalEventoPdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -118,6 +95,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     </div>
                     <!-- fim do certificado -->
+        <?php } ?>
+
+
+        <?php if(!Yii::$app->user->isGuest && $model->canAccess()){ ?>
+            <div style="width: 80px; float: right; padding: 10px;">
+                <?= Html::a(Html::img('@web/img/delete.png'), ['delete', 'id' => $model->idevento], [
+                    'data' => [
+                        'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+                        <?= Html::a('Remover Evento', ['delete', 'id' => $model->idevento], [
+                            'data' => [
+                                'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
+                                'method' => 'post',
+                            ],
+                        ]) ?>
+            </div>
+            <div style="width: 80px; float: right; padding: 10px;">
+                <?= Html::a(Html::img('@web/img/editar.png'), ['update', 'id' => $model->idevento]) ?>
+                <?php echo Html::a('Alterar Evento', 'index.php?r=evento/update&id='.$model->idevento); ?>
+            </div>
+            <div style="width: 80px; float: right; padding: 10px;">
+                <?php echo Html::a(Html::img('@web/img/listar_inscritos.png'), ['inscritos/index','evento_idevento' => $model->idevento], ['width' => '10']) ?>
+                <?php echo Html::a('Listar Inscritos', 'index.php?r=inscritos/index&evento_idevento='.$model->idevento); ?>
+            </div>
+
+                                
             
             <?php if(!Yii::$app->user->isGuest && $model->canAccessResponsible()){ ?>
                 <div style="width: 100px; float: right; padding: 10px;">
