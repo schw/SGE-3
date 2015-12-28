@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php 
     }?>
-
+ <?= $evento->dataIni ?>
     <?= yii2fullcalendar\yii2fullcalendar::widget([
       'id' => 'calendarItemProgramacao',
       'options' => [
@@ -82,8 +82,9 @@ $this->params['breadcrumbs'][] = $this->title;
             var hora = (new Date(dateStr)).toISOString().slice(11, 16);
             var idevento = getParameterByName('idevento');
 
-            if(data < (new Date()).toISOString().slice(0, 10)){
-              alert('Data inválida. Informe um data futura');
+            if(data < '$evento->dataIni' || data > '$evento->dataFim'){
+              alert('Data inválida. Informe uma data  entre: $evento->dataIni e $evento->dataFim');
+              $('#calendarItemProgramacao').fullCalendar('removeEvents', calEvent._id);
               return false;
             }
 
@@ -129,8 +130,8 @@ $this->params['breadcrumbs'][] = $this->title;
       'eventDrop' => new JsExpression("function(event, delta, revertFunc) {
         var dateStr = event.start._d;
         var data = (new Date(dateStr)).toISOString().slice(0, 10);
-        if(data < (new Date()).toISOString().slice(0, 10)){
-          alert('Data inválida. Informe um data futura');
+        if(data < '$evento->dataIni' || data > '$evento->dataFim'){
+          alert('Data inválida. Informe uma data  entre: $evento->dataIni e $evento->dataFim');
           revertFunc();
           return false;
         }

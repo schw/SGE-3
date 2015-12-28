@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\helpers\ArrayHelper;
 use app\models\ItemProgramacao;
+use app\models\Evento;
 use app\models\Local;
 use app\models\Tipo;
 use app\models\Palestrante;
@@ -42,6 +43,7 @@ class ItemProgramacaoController extends Controller
         $itemProgramacaoSearch = new ItemProgramacaoSearch();
         $itensProgramacaoBanco = $itemProgramacaoSearch->search(['idevento' => $idevento])->getModels();
         $itensProgramacaoCalendar = array();
+        $evento = Evento::findOne($idevento);
 
         foreach($itensProgramacaoBanco as $itemProgramacao){
             $itemProgramacaoCalendar = new \yii2fullcalendar\models\Event();
@@ -60,6 +62,7 @@ class ItemProgramacaoController extends Controller
             'itensProgramacaoCalendar' => $itensProgramacaoCalendar,
             'arrayTipo' => $arrayTipo,
             'arrayLocal' => $arrayLocal,
+            'evento' => $evento,
         ]);
     }
 
