@@ -23,10 +23,10 @@ use yii\grid\GridView;
     <div style="width: 110px; float: right; margin-bottom: 10px ">
             <?php 
                 $id_evento = Yii::$app->request->get('evento_idevento');       
-                echo Html::a(Html::img('@web/img/reportcoord.png'), ['inscritos/listainscritospdf','evento_idevento' => $id_evento], ['width' => '10']) 
+                echo Html::a(Html::img('@web/img/reportcoord.png'), ['inscritos/listainscritospdf','evento_idevento' => $id_evento], ['target' =>'_blank','width' => '10']) 
             ?>
             <div style="width: 110px; text-align:center;">
-                <?php echo Html::a('Inscritos conforme Programação', ['inscritos/listainscritospdf', 'evento_idevento' => $id_evento]); ?>
+                <?php echo Html::a('Inscritos conforme Programação', ['inscritos/listainscritospdf', 'evento_idevento' => $id_evento],['target' =>'_blank']); ?>
             </div>
         </div>
     </div>
