@@ -92,6 +92,7 @@ class EventoController extends Controller
     public function actionView($id)
     {
         //$this->autorizaUsuario();
+        
         Yii::$app->user->isGuest ? $verificaInscrito = 0 : 
         
         $verificaInscrito = (new Inscreve())->verificaInscrito
@@ -119,12 +120,15 @@ class EventoController extends Controller
         }
 
         $model = $this->findModel($id);
+        
+        $reponsavel = (CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $model->idevento])->count());
         return $this->render('view', [
             'model' => $model,
             'inscrito' => $verificaInscrito,
             'encerrado' => $verificaEncerramento,
             'credenciamento' => $verificaCredenciamento,
             'existeVagas' => $verificaVagas,
+            'reponsavel' => $reponsavel,
         ]);
     }
 

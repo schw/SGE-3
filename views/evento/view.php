@@ -41,8 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo Html::a('Programação', ['item-programacao/index', 'idevento' => $model->idevento]); ?>
         </div>
         
-        <?php if(Yii::$app->user->identity->idusuario == $model->responsavel || 
-            CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $model->idevento])->count()){ ?>
+        <?php if(Yii::$app->user->identity->idusuario == $model->responsavel || $responsavel) { ?>
         <!-- Certificado -->
 
 <!-- Modal -->
