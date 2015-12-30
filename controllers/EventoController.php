@@ -230,6 +230,25 @@ class EventoController extends Controller
         return $this->redirect(['gerenciareventos']);
     }
 
+    public function actionIdentidade($idevento){
+        $model = $this->findModel($idevento);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/previsualizacao/');
+            $model->save();            
+        }
+
+        return $this->render('identidade', ['model' => $model]);
+    }
+
+    public function actionPrevia(){
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/previsualizacao/');
+        }
+
+        return $this->render('certificados/certifPrevia', $model->imagem);
+    }
+
     /**
      * Finds the Evento model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
