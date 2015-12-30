@@ -197,11 +197,11 @@ class Evento extends \yii\db\ActiveRecord
     {
         if ($imageFile != null) {
             $imageName = date('dmYhms');
-            $imageFile->saveAs($diretorio . $imageName . '.' . $imageFile->extension);
-            return $imageName.".".$imageFile->extension;
-        } else {
-            return null;
+            if(!$imageFile->saveAs($diretorio . $imageName . '.' . $imageFile->extension))
+                return $imageName.".".$imageFile->extension;
         }
+        
+        return null;
     }
 
     /*Verifica se o evento pode ser editado pelo usuario autenticado*/
