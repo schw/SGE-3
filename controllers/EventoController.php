@@ -150,7 +150,8 @@ class EventoController extends Controller
         
         
         if ($model->load(Yii::$app->request->post())) {
-            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'));
+            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
+            $model->imagem2 = $model->upload(UploadedFile::getInstance($model, 'imagem2'),'uploads/identidade/');
             if(!$model->save(true))
                 return $this->render('create', [
                     'model' => $model,
@@ -187,7 +188,8 @@ class EventoController extends Controller
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'));
+            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
+            $model->imagem2 = $model->upload(UploadedFile::getInstance($model, 'imagem2'),'uploads/identidade/');
             
             if(!$model->save(true))
                 return $this->render('update', [

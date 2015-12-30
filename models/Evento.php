@@ -58,7 +58,7 @@ class Evento extends \yii\db\ActiveRecord
             [['horaIni', 'horaFim'], 'safe'],
             [['horaFim'], 'validadeHoraFim'],
             [['sigla', 'descricao'], 'string', 'max' => 45],
-            [['imagem'], 'string'],
+            [['imagem', 'imagem2'], 'string'],
             [['detalhe'], 'string', 'max' => 800],
         ];
     }
@@ -78,7 +78,8 @@ class Evento extends \yii\db\ActiveRecord
             'horaFim' => '*Hora Final',
             'vagas' => 'Vagas',
             'cargaHoraria' => '*Carga Horária',
-            'imagem' => 'Identidade Visual',
+            'imagem' => 'Imagem p/ Certificados',
+            'imagem2' => 'Identidade Visual',
             'detalhe' => 'Detalhe',
             'allow' => '*Status',
             'responsavel' => '*Responsável',
@@ -192,11 +193,11 @@ class Evento extends \yii\db\ActiveRecord
 
 
     /*Função para geração de nome e Salvamento da imagem na pasta "Web/uploads/" retorna no o nome  ser inserido no banco */
-    public function upload($imageFile)
+    public function upload($imageFile,$diretorio)
     {
         if ($imageFile != null) {
             $imageName = date('dmYhms');
-            $imageFile->saveAs('uploads/' . $imageName . '.' . $imageFile->extension);
+            $imageFile->saveAs($diretorio . $imageName . '.' . $imageFile->extension);
             return $imageName.".".$imageFile->extension;
         } else {
             return null;
