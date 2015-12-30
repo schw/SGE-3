@@ -16,13 +16,13 @@ use kartik\widgets\Select2;
 <div class="evento-form">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-
+    
     <?= $form->field($model, 'imagem')->fileInput() ?>
     
     <div class="form-group">
-        <?= Html::submitButton('Enviar Imagem', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Salva e Prever', ['class' => 'btn btn-primary']) ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
+	
+	<?php ActiveForm::end(); ?>
 
 </div>

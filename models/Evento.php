@@ -197,7 +197,7 @@ class Evento extends \yii\db\ActiveRecord
     {
         if ($imageFile != null) {
             $imageName = date('dmYhms');
-            if(!$imageFile->saveAs($diretorio . $imageName . '.' . $imageFile->extension))
+            if($imageFile->saveAs($diretorio . $imageName . '.' . $imageFile->extension))
                 return $imageName.".".$imageFile->extension;
         }
         

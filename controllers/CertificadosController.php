@@ -403,7 +403,7 @@ else{
 
 public function actionPrevisualizacao() {
  
-        $nomeImagem = Yii::$app->request->post('imagem'); 
+        $nomeImagem = Yii::$app->request->get('imagem'); 
 
         
             $pdf = new mPDF('utf-8', 'A4-L');
@@ -414,7 +414,7 @@ public function actionPrevisualizacao() {
                 <style>
                     body {
                         
-                        body{font-family:Arial;background-image: url(../web/uploads/previsualizacao".$nomeImagem.") no-repeat;
+                        body{font-family:Arial;background-image: url(../web/uploads/".$nomeImagem.") no-repeat;
                         background-image-resolution:300dpi;background-image-resize:6;}
                     }
                 </style>
