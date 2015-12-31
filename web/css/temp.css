@@ -41,7 +41,7 @@ input{
   width: 300px;
 }
 
-#evento-imagem{
+#evento-imagem, #evento-imagem2{
   padding: 0px;
   border: none;
   border-radius: none;
