@@ -182,14 +182,16 @@ class EventoController extends Controller
         $this->validaEvento($id);
 
         $model = $this->findModel($id);
+        $imagem = $model->imagem2;
 
         $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
             $model->imagem2 = $model->upload(UploadedFile::getInstance($model, 'imagem2'),'uploads/identidade/');
+            if($model->imagem2 == null)
+                $model->imagem2 = $imagem;
             
             if(!$model->save(true))
                 return $this->render('update', [
@@ -247,10 +249,13 @@ class EventoController extends Controller
         }
 
         $model = $this->findModel($idevento);
+        $imagem = $model->imagem;
         if($model->imagem != null)
                  shell_exec("rm uploads/".$model->imagem." -f");
         if ($model->load(Yii::$app->request->post())) {
             $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
+            if($model->imagem == null)
+                $model->imagem = $imagem;
             $model->save();
 
             return $this->redirect([$redicionamento,
