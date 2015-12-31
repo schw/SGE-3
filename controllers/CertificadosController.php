@@ -422,10 +422,26 @@ public function actionPrevisualizacao() {
 
 
                     ");
+
+            if($nomeImagem == NULL){
+                $pdf->SetFont("Helvetica",'B', 14);
+                $pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
+                $pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
+                $pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
+                //$pdf->MultiCell(0,5,("-----------------"),0, 'C');
+                $pdf->SetDrawColor(0,0,0);
+                $pdf->Line(5,42,290,42);
+                $pdf->Image('../web/img/logo-brasil.jpg', 10, 7, 32.32);
+                $pdf->Image('../web/img/ufam.jpg', 260, 7, 25.25);
+
+            }
             
             $pdf->Ln(45);
             $pdf->SetFont('Arial','B',22);
 
+            if($nomeImagem == NULL){
+                $pdf->MultiCell(0,4,("Certificado"),0, 'C');
+            }
 
 
         $dia_inicio = (date('d',strtotime($model->dataIni)));
@@ -461,6 +477,20 @@ public function actionPrevisualizacao() {
         
         $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $mes. ' de '. 
             date('Y', $currentTime).'.             '),0,1, 'C');
+
+        if($nomeImagem == NULL){
+            $pdf->SetFont('Helvetica','I',8);
+            $pdf->Line(5,185,290,185);
+            $pdf->SetXY(10, 180);
+            $pdf->MultiCell(0,5,"",0, 'C');
+            $pdf->MultiCell(0,4,("Av. Rodrigo Otávio, 6.200 - Campus Universitário Senador Arthur Virgílio Filho - CEP 69077-000 - Manaus, AM, Brasil"),0, 'C');
+            $pdf->MultiCell(0,4,(" Tel. (092) 3305-1193/2808/2809         E-mail: secretaria@icomp.ufam.edu.br          http://www.icomp.ufam.edu.br"),0, 'C');
+            //$pdf->Image('components/com_portalsecretaria/images/icon_telefone.jpg', '40', '290');
+            //$pdf->Image('components/com_portalsecretaria/images/icon_email.jpg', '73', '290');
+            //$pdf->Image('components/com_portalsecretaria/images/icon_casa.jpg', '134', '290');
+
+            // fim do aqui
+        }
 
             $pdf->Output('');
     }

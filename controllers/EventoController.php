@@ -237,7 +237,15 @@ class EventoController extends Controller
         if (isset($_POST['frag'])){
             $redicionamento = 'gerenciareventos';
         }
-        
+        else if (isset($_POST['frag2'])){
+            $model = $this->findModel($idevento);
+            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
+            //$model->save();
+            return $this->redirect([$redicionamento,
+                'imagem' => $model->imagem,
+            ]);
+        }
+
         $model = $this->findModel($idevento);
         if($model->imagem != null)
                  shell_exec("rm uploads/".$model->imagem." -f");

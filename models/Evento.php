@@ -78,7 +78,7 @@ class Evento extends \yii\db\ActiveRecord
             'horaFim' => '*Hora Final',
             'vagas' => 'Vagas',
             'cargaHoraria' => '*Carga Horária',
-            'imagem' => 'Imagem p/ Certificados',
+            'imagem' => '',
             'imagem2' => 'Identidade Visual',
             'detalhe' => 'Detalhe',
             'allow' => '*Status',
