@@ -14,6 +14,14 @@ use kartik\widgets\Select2;
 
 ?>
 
+<script type="text/javascript">
+	
+	function retirarBlank(){
+		document.getElementById('certificadosform').target = '_self';
+	}
+
+</script>
+
 
 <div class="evento-identidade">
 
@@ -28,7 +36,7 @@ use kartik\widgets\Select2;
 
 	   <h2> Selecione uma imagem para o certificado </h2>
 
-	    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data','target' => '_blank']]); ?>
+	    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data','id' => 'certificadosform','target' => '_blank']]); ?>
 	    
 	    <?= $form->field($model, 'imagem')->fileInput() ?>
 		<p>
@@ -39,8 +47,9 @@ use kartik\widgets\Select2;
 	    <div class="form-group">
 
 			<?= Html::submitButton('Visualizar Certificado', ['class' => 'btn btn-warning', 'name' => 'frag2']); ?>
-			<?= Html::submitButton('Salvar', ['name' => 'frag','class' => 'btn btn-success']); ?>
-			<?= Html::SubmitButton('Salvar e Visualizar Certificado', ['class' => 'btn btn-primary']); ?>
+			<?='</br></br>'?>
+			<?= Html::submitButton('Salvar', ['onclick' => 'retirarBlank()' ,'name' => 'frag','class' => 'btn btn-success']); ?>
+
 	    </div>
 		
 		<?php ActiveForm::end(); ?>

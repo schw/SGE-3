@@ -150,7 +150,7 @@ class EventoController extends Controller
         
         
         if ($model->load(Yii::$app->request->post())) {
-            //$model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
+            
             $model->imagem2 = $model->upload(UploadedFile::getInstance($model, 'imagem2'),'uploads/identidade/');
             if(!$model->save(true))
                 return $this->render('create', [
@@ -199,7 +199,7 @@ class EventoController extends Controller
                     'arrayPalestrante' => $arrayPalestrante,
                 ]);
             else
-                return $this->redirect(['evento/gerenciareventos']);
+                return $this->redirect(['evento/identidade', 'idevento' => $model->idevento]);
         } else {
             return $this->render('update', [
                 'model' => $model,

@@ -61,7 +61,6 @@ use kartik\widgets\Select2;
 
     <?= $form->field($model, 'cargaHoraria')->textInput(['type' => 'number'])?>
 
-    <?= $form->field($model, 'imagem')->fileInput() ?>
     <?= $form->field($model, 'imagem2')->fileInput() ?>
 
     <?= $form->field($model, 'detalhe')->textArea(['maxlength' => true, 'cols' => 25]) ?>
