@@ -231,6 +231,13 @@ class EventoController extends Controller
     }
 
     public function actionIdentidade($idevento){
+
+        $redicionamento = 'certificados/previsualizacao';
+
+        if (isset($_POST['frag'])){
+            $redicionamento = 'gerenciareventos';
+        }
+        
         $model = $this->findModel($idevento);
         if($model->imagem != null)
                  shell_exec("rm uploads/".$model->imagem." -f");
@@ -238,7 +245,7 @@ class EventoController extends Controller
             $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
             $model->save();
 
-            return $this->redirect(['certificados/previsualizacao',
+            return $this->redirect([$redicionamento,
                 'imagem' => $model->imagem,
             ]);
         }
