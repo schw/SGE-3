@@ -58,7 +58,7 @@ class SiteController extends Controller
         $eventos = $searchModel->searchEventos(Yii::$app->request->queryParams)->getModels();
 
         foreach ($eventos as $evento) {
-            array_push($eventoView, ['label' => $evento->sigla, 'content' => ["<strong>Descrição: </strong>".$evento->descricao."
+            array_push($eventoView, ['label' => $evento->descricao, 'content' => ["<strong>Titulo: </strong>".$evento->descricao."
                 <br><strong>Detalhe:</strong> ".$evento->detalhe, Html::a('Veja Mais', ['evento/view', 'id' => $evento->idevento], ['class' => 'btn'])]]);
         }
 
