@@ -164,8 +164,8 @@ class SiteController extends Controller
                 Yii::$app->mailer->compose()
                 ->setFrom(Yii::$app->params['adminEmail'])
                 ->setTo($email)
-                ->setSubject("Senha para o Sistema gerenciador de eventos")
-                ->setTextBody("Sua senha é ".$senha)
+                ->setSubject("[SGE] Recuperação de Senha")
+                ->setTextBody("Recuperar sua senha"."\n\n"."Olá ".$usuario->nome.", você solicitou a recuperação de senha, geramos uma nova senha de acesso para você: ".$senha)
                 ->send();
                 $usuario->senha = md5($senha);
                 $usuario->save(false);
@@ -179,31 +179,6 @@ class SiteController extends Controller
         }else{
             return $this->render('recuperar');
         }
-    }
-    
-    public function actionRecupera(){
-    	echo '<script language="javascript">';
-    	echo 'alert("mensagem vinda do formulario")';
-    	echo '</script>';
-    	if ( Yii::$app->request->post())
-    	{
-    		$email = Yii::$app->request->post('email');
-    		$usuario = User::find()->where(['email'=>$email])->one();
-    		if($usuario!=null) //se o usuario com email informado existe...
-    		{
-    			echo '<script language="javascript">';
-    			echo 'alert("mensagem vinda do recuperar")';
-    			echo '</script>';
-    			Yii::$app->mailer->compose()
-    			->setFrom('wes.lima.23@gmail.com')
-    			->setTo($email)
-    			->setSubject('Senha SGE')
-    			->setTextBody($usuario->senha)
-    			->setHtmlBody('<b>HTML content</b>')
-    			->send();
-    		}
-    	}
-    	
     }
     
     function geraSenha($tamanho = 8, $maiusculas = true, $numeros = true, $simbolos = true)
