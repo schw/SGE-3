@@ -400,6 +400,71 @@ else{
 
     }
 
+
+public function actionPrevisualizacao() {
+ 
+        $nomeImagem = Yii::$app->request->get('imagem'); 
+
+        
+            $pdf = new mPDF('utf-8', 'A4-L');
+
+
+                $x=$pdf->WriteHTML("
+
+                <style>
+                    body {
+                        
+                        body{font-family:Arial;background-image: url(../web/uploads/".$nomeImagem.") no-repeat;
+                        background-image-resolution:300dpi;background-image-resize:6;}
+                    }
+                </style>
+
+
+
+                    ");
+            
+            $pdf->Ln(45);
+            $pdf->SetFont('Arial','B',22);
+
+
+
+        $dia_inicio = (date('d',strtotime($model->dataIni)));
+        $dia_inicio = ($dia_inicio == 1 ? '1º' : $dia_inicio); //convertendo o 1 em 1º
+        $mes_inicio = $this->converterMes($model->dataIni);
+        $ano_inicio = (date('Y',strtotime($model->dataIni)));
+
+        $dia_fim = (date('d',strtotime($model->dataFim)));
+        $dia_fim = ($dia_fim == 1 ? '1º' : $dia_fim); //convertendo o 1 em 1º
+        $mes_fim = $this->converterMes($model->dataFim);
+        $ano_fim = (date('Y',strtotime($model->dataFim)));
+
+        $pdf->SetFont('Arial','',18);
+
+        $pdf->Ln(20);
+
+        $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
+
+        $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
+            Certificamos que <b> XXXXXXXXXXXXXXXXXXXXXX </b> participou do evento <b> XXXXXXXXXX 
+            ('.$model->sigla.')</b>, com carga horária de <b> XX
+                 hora(s)</b>, realizado no período de '.$tag.', na cidade 
+                de Manaus - AM.</p>');
+    
+        $pdf->Ln(15);
+        
+        $current = date('Y/m/d');
+
+        $currentTime = strtotime($current);
+
+        $mes = $this->converterMes($current);
+        
+        
+        $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $mes. ' de '. 
+            date('Y', $currentTime).'.             '),0,1, 'C');
+
+            $pdf->Output('');
+    }
+
     protected function autorizaUsuario(){
         if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
             throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');

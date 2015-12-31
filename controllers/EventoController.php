@@ -150,7 +150,7 @@ class EventoController extends Controller
         
         
         if ($model->load(Yii::$app->request->post())) {
-            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
+            //$model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
             $model->imagem2 = $model->upload(UploadedFile::getInstance($model, 'imagem2'),'uploads/identidade/');
             if(!$model->save(true))
                 return $this->render('create', [
@@ -159,7 +159,7 @@ class EventoController extends Controller
                     'arrayLocal' => $arrayLocal,
                 ]);
             else
-                return $this->redirect(['evento/gerenciareventos']);
+                return $this->redirect(['evento/identidade', 'idevento' => $model->idevento]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -228,6 +228,24 @@ class EventoController extends Controller
             $this->mensagens('danger', 'Pacote Não Removido', 'Pacote pode ser Removido');
 
         return $this->redirect(['gerenciareventos']);
+    }
+
+    public function actionIdentidade($idevento){
+        $model = $this->findModel($idevento);
+        if($model->imagem != null)
+                 shell_exec("rm uploads/".$model->imagem." -f");
+        if ($model->load(Yii::$app->request->post())) {
+            $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
+            $model->save();
+
+            return $this->redirect(['certificados/previsualizacao',
+                'imagem' => $model->imagem,
+            ]);
+        }
+
+        return $this->render('identidade', [
+                'model' => $model,
+            ]);
     }
 
     /**
