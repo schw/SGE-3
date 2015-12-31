@@ -71,8 +71,6 @@ AppAsset::register($this);
             <p>
                 Olá <?= Yii::$app->user->identity->nome ?>, <br>
                 Perfil: <?= Yii::$app->user->identity->getDescricaoTipoUsuario() ?><br>
-                Data: <?= date('d-m-Y') ?><br>
-                Hora: <?= date('H:i:s') ?>
             </p>
             <?php } ?>
         </div>

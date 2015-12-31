@@ -2,7 +2,8 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use yii\grid\GridView;
-
+ 
+ $this->title = "Lista de Inscritos";
 ?>
 
 <div class="inscritos-index">

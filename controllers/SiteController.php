@@ -108,40 +108,6 @@ class SiteController extends Controller
         return $this->render('about');
     }
     
-    public function actionUsuario(){
-    	echo '<script language="javascript">';
-    	if(Yii::$app->user->identity->tipoUsuario === 3){ 
-    		echo 'alert("mensagem vinda do usuario")';
-    		echo '</script>';
-    		return $this->render('usuario',['model'=> Yii::$app->user->identity]);
-    	}elseif(Yii::$app->user->identity->tipoUsuario === 2){
-    		echo 'alert("mensagem vinda do secretario")';
-    		echo '</script>';
-    		return $this->render('secretaria',['model'=> Yii::$app->user->identity]);
-    	}else{
-    		echo 'alert("mensagem vinda do coordenador")';
-    		echo '</script>';
-    		return $this->render('coordenador',['model'=> Yii::$app->user->identity]);
-    	//return $this->goBack();
-    
-    	}
-    }
-    
-    public function actionCoordenador(){
-    	echo '<script language="javascript">';
-    	echo 'alert("mensagem vinda do actionCoordenador")';
-    	echo '</script>';
-    	return $this->render('coordenador',['model'=> Yii::$app->user->identity]);
-    	//return $this->goBack();
-    }
-    
-    public function actionSecretaria(){
-    	echo '<script language="javascript">';
-    	echo 'alert("mensagem vinda do actionSecretaria")';
-    	echo '</script>';
-    	return $this->render('secretaria',['model'=> Yii::$app->user->identity]);
-    	//return $this->goBack();
-    }
     
     public function actionRecuperar(){
     	    if ( Yii::$app->request->post())
@@ -152,7 +118,7 @@ class SiteController extends Controller
             //$usuario = User::findByEmail($email);
             if($usuario===null){
                 echo '<script language="javascript">';
-                echo 'alert("Email invalido")';
+                echo 'alert("Informe um Email válido")';
                 echo '</script>';
             }           
             if($usuario!=null && $usuario->tipoUsuario===3) //se o usuario com email informado existe...
@@ -164,46 +130,21 @@ class SiteController extends Controller
                 Yii::$app->mailer->compose()
                 ->setFrom(Yii::$app->params['adminEmail'])
                 ->setTo($email)
-                ->setSubject("Senha para o Sistema gerenciador de eventos")
-                ->setTextBody("Sua senha é ".$senha)
+                ->setSubject("[SGE] Recuperação de Senha")
+                ->setTextBody("Recuperar sua senha"."\n\n"."Olá ".$usuario->nome.", você solicitou a recuperação de senha, geramos uma nova senha de acesso para você: ".$senha)
                 ->send();
-                $usuario->senha = md5($senha);
+                $usuario->senha = $senha;
                 $usuario->save(false);
-            	return $this->render('recuperar');
+            	return $this->goHome();
 	    }else{
                 echo '<script language="javascript">';
-                echo 'alert(você deve acessar o sge pelo portal do professor ou secretaria")';
+                echo 'alert(Você deve acessar o SGE pelo portal do professor ou secretaria")';
                 echo '</script>';
                 return $this->render('recuperar');
                 }
         }else{
             return $this->render('recuperar');
         }
-    }
-    
-    public function actionRecupera(){
-    	echo '<script language="javascript">';
-    	echo 'alert("mensagem vinda do formulario")';
-    	echo '</script>';
-    	if ( Yii::$app->request->post())
-    	{
-    		$email = Yii::$app->request->post('email');
-    		$usuario = User::find()->where(['email'=>$email])->one();
-    		if($usuario!=null) //se o usuario com email informado existe...
-    		{
-    			echo '<script language="javascript">';
-    			echo 'alert("mensagem vinda do recuperar")';
-    			echo '</script>';
-    			Yii::$app->mailer->compose()
-    			->setFrom('wes.lima.23@gmail.com')
-    			->setTo($email)
-    			->setSubject('Senha SGE')
-    			->setTextBody($usuario->senha)
-    			->setHtmlBody('<b>HTML content</b>')
-    			->send();
-    		}
-    	}
-    	
     }
     
     function geraSenha($tamanho = 8, $maiusculas = true, $numeros = true, $simbolos = true)
