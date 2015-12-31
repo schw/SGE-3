@@ -58,7 +58,7 @@ class SiteController extends Controller
         $eventos = $searchModel->searchEventos(Yii::$app->request->queryParams)->getModels();
 
         foreach ($eventos as $evento) {
-            array_push($eventoView, ['label' => $evento->descricao, 'content' => ["<strong>Titulo: </strong>".$evento->descricao."
+            array_push($eventoView, ['label' => $evento->sigla, 'content' => ["<strong>Descrição: </strong>".$evento->descricao."
                 <br><strong>Detalhe:</strong> ".$evento->detalhe, Html::a('Veja Mais', ['evento/view', 'id' => $evento->idevento], ['class' => 'btn'])]]);
         }
 
@@ -108,40 +108,6 @@ class SiteController extends Controller
         return $this->render('about');
     }
     
-    public function actionUsuario(){
-    	echo '<script language="javascript">';
-    	if(Yii::$app->user->identity->tipoUsuario === 3){ 
-    		echo 'alert("mensagem vinda do usuario")';
-    		echo '</script>';
-    		return $this->render('usuario',['model'=> Yii::$app->user->identity]);
-    	}elseif(Yii::$app->user->identity->tipoUsuario === 2){
-    		echo 'alert("mensagem vinda do secretario")';
-    		echo '</script>';
-    		return $this->render('secretaria',['model'=> Yii::$app->user->identity]);
-    	}else{
-    		echo 'alert("mensagem vinda do coordenador")';
-    		echo '</script>';
-    		return $this->render('coordenador',['model'=> Yii::$app->user->identity]);
-    	//return $this->goBack();
-    
-    	}
-    }
-    
-    public function actionCoordenador(){
-    	echo '<script language="javascript">';
-    	echo 'alert("mensagem vinda do actionCoordenador")';
-    	echo '</script>';
-    	return $this->render('coordenador',['model'=> Yii::$app->user->identity]);
-    	//return $this->goBack();
-    }
-    
-    public function actionSecretaria(){
-    	echo '<script language="javascript">';
-    	echo 'alert("mensagem vinda do actionSecretaria")';
-    	echo '</script>';
-    	return $this->render('secretaria',['model'=> Yii::$app->user->identity]);
-    	//return $this->goBack();
-    }
     
     public function actionRecuperar(){
     	    if ( Yii::$app->request->post())
@@ -152,7 +118,7 @@ class SiteController extends Controller
             //$usuario = User::findByEmail($email);
             if($usuario===null){
                 echo '<script language="javascript">';
-                echo 'alert("Email invalido")';
+                echo 'alert("Informe um Email válido")';
                 echo '</script>';
             }           
             if($usuario!=null && $usuario->tipoUsuario===3) //se o usuario com email informado existe...
@@ -167,12 +133,12 @@ class SiteController extends Controller
                 ->setSubject("[SGE] Recuperação de Senha")
                 ->setTextBody("Recuperar sua senha"."\n\n"."Olá ".$usuario->nome.", você solicitou a recuperação de senha, geramos uma nova senha de acesso para você: ".$senha)
                 ->send();
-                $usuario->senha = md5($senha);
+                $usuario->senha = $senha;
                 $usuario->save(false);
-            	return $this->render('recuperar');
+            	return $this->goHome();
 	    }else{
                 echo '<script language="javascript">';
-                echo 'alert(você deve acessar o sge pelo portal do professor ou secretaria")';
+                echo 'alert(Você deve acessar o SGE pelo portal do professor ou secretaria")';
                 echo '</script>';
                 return $this->render('recuperar');
                 }
