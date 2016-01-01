@@ -250,8 +250,6 @@ class EventoController extends Controller
 
         $model = $this->findModel($idevento);
         $imagem = $model->imagem;
-        if($model->imagem != null)
-                 shell_exec("rm uploads/".$model->imagem." -f");
         if ($model->load(Yii::$app->request->post())) {
             $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
             if($model->imagem == null)
