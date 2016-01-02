@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
         <p>
-            <?= Html::a('Novo Evento', ['create'], ['class' => 'btn btn-success']) ?>
+            <?php if(Yii::$app->user->identity->tipoUsuario != 2) echo Html::a('Novo Evento', ['create'], ['class' => 'btn btn-success'])?>
         </p>
 
         <?= GridView::widget([

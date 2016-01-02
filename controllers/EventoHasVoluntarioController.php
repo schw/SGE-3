@@ -32,15 +32,17 @@ class EventoHasVoluntarioController extends Controller
     }
 
     /**
-     * Lists all EventoHasVoluntario models.
+     * Lista todos voluntário que está alocados para um determinado evento.
      * @return mixed
      */
-    public function actionIndex($idevento)
-    {
+    public function actionIndex($idevento){
+
+        $this->autorizaUsuario($idevento);
+        $evento = $this->findEvento($idevento);
+
         $searchModel = new EventoHasVoluntarioSearch();
         $dataProvider = $searchModel->search($idevento);
-        $evento =  $this->findEvento($idevento);
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -49,31 +51,19 @@ class EventoHasVoluntarioController extends Controller
     }
 
     /**
-     * Displays a single EventoHasVoluntario model.
-     * @param string $evento_idevento
-     * @param integer $voluntario_idvoluntario
-     * @return mixed
-     */
-    public function actionView($evento_idevento, $voluntario_idvoluntario)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($evento_idevento, $voluntario_idvoluntario),
-        ]);
-    }
-
-    /**
      * Creates a new EventoHasVoluntario model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate($idevento){
+
+        $this->autorizaUsuario($idevento);
+        
         $model = new EventoHasVoluntario();
         $searchModel = new EventoHasVoluntarioSearch();
 
         $arrayVoluntarios = ArrayHelper::map($searchModel->searchVoluntarios()->getModels(), 'idvoluntario', 'nome');
-        //$arrayEventosAtivos =  ArrayHelper::map((new EventoSearch())->searchEventosResponsavel('ativo')->getModels(), 'idevento', 'descricao');
-        $idevento = filter_input(INPUT_GET, 'idevento');
+        
         $model->evento_idevento = $idevento;
 
         if ($model->load(Yii::$app->request->post())) {
@@ -96,26 +86,6 @@ class EventoHasVoluntarioController extends Controller
     }
 
     /**
-     * Updates an existing EventoHasVoluntario model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $evento_idevento
-     * @param integer $voluntario_idvoluntario
-     * @return mixed
-     */
-    public function actionUpdate($evento_idevento, $voluntario_idvoluntario)
-    {
-        $model = $this->findModel($evento_idevento, $voluntario_idvoluntario);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'evento_idevento' => $model->evento_idevento, 'voluntario_idvoluntario' => $model->voluntario_idvoluntario]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
      * Deletes an existing EventoHasVoluntario model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $evento_idevento
@@ -124,7 +94,8 @@ class EventoHasVoluntarioController extends Controller
      */
     public function actionDelete($evento_idevento, $voluntario_idvoluntario)
     {
-        $this->autorizaUsuario();
+        $this->autorizaUsuario($evento_idevento);
+
         $model = $this->findModel($evento_idevento, $voluntario_idvoluntario);
         $voluntario = $model->voluntario->nome;
         if($model->delete()){
@@ -153,12 +124,6 @@ class EventoHasVoluntarioController extends Controller
         }
     }
 
-    protected function autorizaUsuario(){
-        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
-            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
-        }
-    }
-
     public function findEvento($idevento){
 
         if($evento = Evento::findOne($idevento)){
@@ -169,7 +134,17 @@ class EventoHasVoluntarioController extends Controller
             throw new NotFoundHttpException('Página não Encontrada');
     }
 
-    /*Tipo: sucess, danger, warning*/
+    protected function autorizaUsuario($idevento){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3)
+            return $this->redirect(['evento/index']);
+        
+        $evento = $this->findEvento($idevento);
+        if(!$evento->canAccess())
+            return $this->redirect(['evento/index']);
+    }
+
+    /* Envio de mensagens para views
+       Tipo: success, danger, warning*/
     protected function mensagens($tipo, $titulo, $mensagem){
         Yii::$app->session->setFlash($tipo, [
             'type' => $tipo,

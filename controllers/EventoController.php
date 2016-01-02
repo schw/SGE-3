@@ -147,7 +147,11 @@ class EventoController extends Controller
      * @return mixed
      */
     public function actionCreate(){
+        
+        /*Controle de Permissão Início*/
         $this->autorizaUsuario();
+        Yii::$app->user->identity->tipoUsuario == 2 ? $this->redirect(['index']) : 
+        /*Controle de Permissão Fim*/
 
         $model = new Evento();
         $model->responsavel = Yii::$app->user->identity->idusuario;
@@ -188,11 +192,11 @@ class EventoController extends Controller
     public function actionUpdate($id)
     {
         $this->autorizaUsuario();
-        $this->validaEvento($id);
-
         $model = $this->findModel($id);
-        $imagem = $model->imagem2;
 
+        !$model->canAccess() ? $this->redirect(['evento/index']) :
+        
+        $imagem = $model->imagem2;
         $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
         $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');
@@ -230,6 +234,7 @@ class EventoController extends Controller
     public function actionDelete($id)
     {
         $this->autorizaUsuario();
+        $model->canAccess() ? $this->redirect(['evento/index']) :
 
         $model = $this->findModel($id);
         
@@ -243,6 +248,8 @@ class EventoController extends Controller
 
     public function actionIdentidade($idevento){
         $this->autorizaUsuario();
+        $model = $this->findModel($idevento);
+        $model->canAccess() ? $this->redirect(['evento/index']) :
 
         $redicionamento = 'certificados/previsualizacao';
 
@@ -257,8 +264,7 @@ class EventoController extends Controller
                 'imagem' => $model->imagem,
             ]);
         }
-
-        $model = $this->findModel($idevento);
+        
         $imagem = $model->imagem;
         if ($model->load(Yii::$app->request->post())) {
             $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
@@ -294,17 +300,12 @@ class EventoController extends Controller
 
     protected function autorizaUsuario(){
         if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
-            $this->redirect(['index']);
+            return $this->redirect(['index']);
         }
     }
 
-    protected function validaEvento($id){
-        if(Evento::find()->where(['responsavel' => Yii::$app->user->identity->idusuario])->andWhere(['idevento' => $id])->count() == 0 &&
-            CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $id])->count() == 0)
-                throw new NotFoundHttpException('Evento Solicitado não Encontrado.');
-    }
-
-    /*Tipo: success, danger, warning*/
+    /* Envio de mensagens para views
+       Tipo: success, danger, warning*/
     protected function mensagens($tipo, $titulo, $mensagem){
         Yii::$app->session->setFlash($tipo, [
             'type' => $tipo,

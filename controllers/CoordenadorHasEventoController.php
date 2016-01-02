@@ -6,6 +6,7 @@ use Yii;
 use app\models\CoordenadorHasEvento;
 use app\models\CoordenadorHasEventoSearch;
 use app\models\EventoSearch;
+use app\models\Evento;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
@@ -37,7 +38,8 @@ class CoordenadorHasEventoController extends Controller
      */
     public function actionIndex($idevento)
     {
-        $this->autorizaUsuario();
+        $this->autorizaUsuario($idevento);
+
         $searchModel = new CoordenadorHasEventoSearch();
         $dataProvider = $searchModel->search($idevento);
 
@@ -49,30 +51,18 @@ class CoordenadorHasEventoController extends Controller
     }
 
     /**
-     * Displays a single CoordenadorHasEvento model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new CoordenadorHasEvento model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate(){
-        $this->autorizaUsuario();
+        
+        $this->autorizaUsuario(0);
 
         $model = new CoordenadorHasEvento();
         $searchModel = new CoordenadorHasEventoSearch();
         
         $arrayUsuarios = ArrayHelper::map($searchModel->searchCoordenadores()->getModels(), 'idusuario', 'nome');
-        $arrayEventosAtivos =  ArrayHelper::map((new EventoSearch())->searchEventosResponsavel('ativo')->getModels(), 'idevento', 'descricao');
 
         $idevento = filter_input(INPUT_GET, 'idevento');
         $model->evento_idevento = $idevento;
@@ -98,25 +88,6 @@ class CoordenadorHasEventoController extends Controller
     }
 
     /**
-     * Updates an existing CoordenadorHasEvento model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->evento_idevento]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
      * Deletes an existing CoordenadorHasEvento model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -124,7 +95,8 @@ class CoordenadorHasEventoController extends Controller
      */
     public function actionDelete($usuario_idusuario, $evento_idevento)
     {
-        $this->autorizaUsuario();
+        $this->autorizaUsuario($evento_idevento);
+
         $model = $this->findModel($usuario_idusuario, $evento_idevento);
         $coordenador = $model->usuario->nome;
         if($model->delete()){
@@ -152,10 +124,23 @@ class CoordenadorHasEventoController extends Controller
         }
     }
 
-    protected function autorizaUsuario(){
-        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
-            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
-        }
+    public function findEvento($idevento){
+
+        if($evento = Evento::findOne($idevento)){
+            $evento['descricao'] = Evento::findOne($idevento)->descricao;
+            $evento['idevento'] = $idevento;
+            return $evento;
+        }else
+            throw new NotFoundHttpException('Página não Encontrada');
+    }
+
+    protected function autorizaUsuario($idevento){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3 || Yii::$app->user->identity->tipoUsuario == 2)
+            return $this->redirect(['evento/index']);
+        
+        $evento = $this->findEvento($idevento);
+        if(!$evento->canAccess())
+            return $this->redirect(['evento/index']);
     }
 
     /*Tipo: sucess, danger, warning*/

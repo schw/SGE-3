@@ -17,11 +17,6 @@ use yii\widgets\ActiveForm;
             ['prompt'=>'Selecione um Coordenador']
         );?>
 
-    <?= $form->field($model, 'evento_idevento')->dropDownList(
-            $arrayEventosAtivos,
-            ['prompt'=>'Selecione um Evento']
-    );?>
-
     <div class="form-group">
         <?= Html::submitButton('Adicionar Coordenador', ['class' => 'btn btn-success']) ?>
     </div>

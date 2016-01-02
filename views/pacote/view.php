@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
         <h1><?= Html::encode($this->title) ?></h1>
-        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2){ ?>
+        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3){ ?>
             <p>
                 <?= Html::a('Alterar', ['update', 'id' => $model->idpacote], ['class' => 'btn btn-primary',]) ?>
                 <?= Html::a('Remover', ['delete', 'id' => $model->idpacote], [

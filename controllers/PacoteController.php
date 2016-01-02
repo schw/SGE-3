@@ -6,6 +6,7 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use app\models\Pacote;
+use app\models\Evento;
 use app\models\ItemProgramacao;
 use app\models\ItemProgramacaoHasPacote;
 use app\models\ItemProgramacaoHasPacoteSearch;
@@ -37,9 +38,8 @@ class PacoteController extends Controller
      * Lists all Pacote models.
      * @return mixed
      */
-    public function actionIndex($idevento)
-    {
-        //$this->autorizaUsuario();
+    public function actionIndex($idevento){
+
         $searchModel = new PacoteSearch();
         $dataProvider = $searchModel->searchEvento(Yii::$app->request->queryParams);
 
@@ -55,9 +55,8 @@ class PacoteController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        //$this->autorizaUsuario();
+    public function actionView($id){
+
         $searchModel = new PacoteSearch();
         $dataProvider = $searchModel->searchItemProgramacaoPacote($id);
 
@@ -76,7 +75,7 @@ class PacoteController extends Controller
      */
     public function actionCreate($idevento)
     {
-        $this->autorizaUsuario();
+        $this->autorizaUsuario($idevento);
         
         $itemProgramacaoSearch = new ItemProgramacaoSearch();
         $itensProgramacao = ArrayHelper::map($itemProgramacaoSearch->search(['idevento' => $idevento])->getModels(), 'iditemProgramacao', 'titulo');
@@ -109,10 +108,10 @@ class PacoteController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
-        $this->autorizaUsuario();
+    public function actionUpdate($id){
+
         $model = $this->findModel($id);
+        $this->autorizaUsuario($model->evento_idevento);
         
         /*Inicio da obtenção de um array com os ids e descricões de todos os itens de Programação*/
         $itemProgramacaoSearch = new ItemProgramacaoSearch();
@@ -143,7 +142,8 @@ class PacoteController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->autorizaUsuario();
+        $this->autorizaUsuario($model->evento_idevento);
+
         $model = $this->findModel($id);
         $idevento = $model->evento_idevento;
         $pacoteDescricao = $model->descricao;
@@ -173,10 +173,23 @@ class PacoteController extends Controller
         }
     }
 
-    protected function autorizaUsuario(){
-        if(Yii::$app->user->isGuest || Yii::$app->user->identity->idusuario == 3){
-            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
-        }
+    public function findEvento($idevento){
+
+        if($evento = Evento::findOne($idevento)){
+            $evento['descricao'] = Evento::findOne($idevento)->descricao;
+            $evento['idevento'] = $idevento;
+            return $evento;
+        }else
+            throw new NotFoundHttpException('Página não Encontrada');
+    }
+
+    protected function autorizaUsuario($idevento){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3 || Yii::$app->user->identity->tipoUsuario == 2)
+            return $this->redirect(['index', 'idevento' => $idevento]);
+        
+        $evento = $this->findEvento($idevento);
+        if(!$evento->canAccess())
+            return $this->redirect(['index']);
     }
 
 
