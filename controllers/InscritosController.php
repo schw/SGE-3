@@ -278,11 +278,11 @@ public function converterMes($current){
             //$pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
             //$pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
             //$pdf->MultiCell(0,6,("UNIVERSIDADE FEDERAL DO AMAZONAS"),0, 'C');
-            $pdf->Ln(23);
+            $pdf->Ln(15);
             //$pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
             //$pdf->MultiCell(0,5,("-----------------"),0, 'C');
             $pdf->SetDrawColor(0,0,0);
-            $pdf->Line(5,52,290,52);
+            $pdf->Line(5,42,290,42);
             //$pdf->Image('../web/img/logo-brasil.jpg', 10, 12, 32.32);
             //$pdf->Image('../web/img/ufam.jpg', 175, 12, 25.25);
 
@@ -291,18 +291,58 @@ public function converterMes($current){
             $pdf->Ln(15);
             $pdf->SetFont('Arial','',18);
             $pdf->MultiCell(0,6,("Lista de Participantes"),0, 'C');
-            $pdf->Line(5,72,290,72);
             //FIM DO TITULO DO RELATÓRIO
 
-            $pdf->Ln(10);
+            $pdf->Ln(5);
             $pdf->SetFont('Arial','',12);
+            //$pdf->Line(5,55,290,55);
+            if ($j != -1){ //so entra nesse if, se houver itens de programação
 
-            if ($j != -1){
-                $pdf->MultiCell(0,6,('Programação: '.$ItemProgramacao[$j]->titulo),0, 'L');
+                $pdf->WriteHTML('<table width="100%" border = "1"> 
+                    <tr>
+                        <td>Sigla: '.$ItemProgramacao[$j]->sigla.'
+                        <br>
+                        Evento: '.$ItemProgramacao[$j]->descricao.'
+                        <br>
+                        Programação: '.$ItemProgramacao[$j]->titulo.'
+                        </td>
+                    </tr>
+                    </table>
+                    ');
+
+                //$pdf->MultiCell(0,6,('Sigla: '.$ItemProgramacao[$j]->sigla),0, 'L');   
+                //$pdf->MultiCell(0,6,('Evento: '.$ItemProgramacao[$j]->descricao.'('.$ItemProgramacao[$j]->sigla.')'),0, 'L');   
+                //$pdf->MultiCell(0,6,('Programação: '.$ItemProgramacao[$j]->titulo),0, 'L');
             }
             else{
-                $pdf->MultiCell(0,6,('Evento: '.$model[0]->descricao),0, 'L');   
+                    if($model[0]->descricao != NULL){
+
+                        $pdf->WriteHTML('<table width="100%" border = "1"> 
+                            <tr>
+                                <td>
+                                Evento: '.$model[0]->descricao.'
+                                </td>
+                            </tr>
+                            </table>
+                        ');
+
+                        //$pdf->MultiCell(0,6,('Evento: '.$model[0]->descricao),0, 'L');   
+                    }
+                    else{
+                        $evento_idevento = Yii::$app->request->get('evento_idevento'); 
+                        $dadosEvento = Evento::findOne($evento_idevento);
+                        
+                        $pdf->WriteHTML('<table width="100%" border = "1"> 
+                            <tr>
+                                <td>
+                                Evento: '.$dadosEvento->descricao.'
+                                </td>
+                            </tr>
+                            </table>
+                        ');
+                    }
             }
+            //$pdf->Line(5,77,290,77);
 
             $pdf->Ln(5);
 
@@ -341,7 +381,7 @@ public function converterMes($current){
             }
             else {
                 $pdf->SetFont('Arial','',22);
-                $pdf->WriteHTML('<br>'.'<div align = "center"> Não foram encontrados registros. </div>');   
+                $pdf->WriteHTML('<br>'.'<div align = "center"> Não foram encontrados registros de Participantes. </div>');   
             }
             $pdf->Ln(15);
             
@@ -385,9 +425,9 @@ public function converterMes($current){
             $pdf->SetHTMLHeader('
                 <table width="100%" style="vertical-align: bottom; font-family: serif; font-size: 8pt; color: #000000; font-weight: bold; font-style: italic;">
                     <tr>
-                        <td width="20%" align="center" style="font-weight: bold; font-style: italic;"> <img src = "../web/img/logo-brasil.jpg" height="90px" width="90px"> </td>
-                        <td width="60%" align="center" style="font-weight: bold; font-style: italic;">  PODER EXECUTIVO <br> UNIVERSIDADE FEDERAL DO AMAZONAS <br> INSTITUTO DE COMPUTAÇÃO </td>
-                        <td width="20%" align="center" style="font-weight: bold; font-style: italic;"> <img src = "../web/img/ufam.jpg" height="90px" width="70px"> </td>                    </tr>
+                        <td width="20%" align="center" style="font-family: Arial;font-weight: bold; font-size: 175%;"> <img src = "../web/img/logo-brasil.jpg" height="90px" width="90px"> </td>
+                        <td width="60%" align="center" style="font-family: Arial;font-weight: bold; font-size: 175%;">  PODER EXECUTIVO <br> UNIVERSIDADE FEDERAL DO AMAZONAS <br> INSTITUTO DE COMPUTAÇÃO </td>
+                        <td width="20%" align="center" style="font-family: Arial;font-weight: bold; font-size: 175%;"> <img src = "../web/img/ufam.jpg" height="90px" width="70px"> </td>                    </tr>
                 </table>
             ');
 
@@ -424,7 +464,9 @@ public function converterMes($current){
                 else{
                     $pdf = $this->pdfConteudo($pdf,$model2,$ItemProgramacao,$j);
                 }
-                $pdf->AddPage();
+                if($j < $qtd_item_programacao-1){
+                    $pdf->AddPage();
+                }
             }
         }
         $pdf->Output('');

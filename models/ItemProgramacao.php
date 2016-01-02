@@ -31,6 +31,8 @@ use Yii;
  */
 class ItemProgramacao extends \yii\db\ActiveRecord
 {
+    public $sigla; //sigla do evento
+    public $descricaoEvento; //descricao do evento
     /**
      * @inheritdoc
      */
@@ -171,7 +173,9 @@ class ItemProgramacao extends \yii\db\ActiveRecord
 
     public function getListaItem ($id_evento){
 
-         $model = ItemProgramacao:: find()->select(['itemProgramacao.iditemProgramacao','itemProgramacao.titulo','itemProgramacao.descricao'])
+         $model = ItemProgramacao:: find()->select(['evento.sigla','itemProgramacao.iditemProgramacao',
+            'itemProgramacao.titulo','itemProgramacao.descricao'])
+        ->leftJoin("evento","evento.idevento = itemProgramacao.evento_idevento")
         ->where('evento_idevento = "'.$id_evento.'"')
         ->all();
 
