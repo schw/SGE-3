@@ -118,23 +118,18 @@ class EventoController extends Controller
         }
 
         $model = $this->findModel($id);
-<<<<<<< HEAD
+
         if (Yii::$app->user->isGuest){
             return $this->render('view', [
-            'model' => $model,
-            'inscrito' => $verificaInscrito,
-            'encerrado' => $verificaEncerramento,
-            'credenciamento' => $verificaCredenciamento,
-            'existeVagas' => $verificaVagas,
-        ]);    
-        }
-        else{
-        $responsavel = (CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $model->idevento])->count());
-=======
-        
+                'model' => $model,
+                'inscrito' => $verificaInscrito,
+                'encerrado' => $verificaEncerramento,
+                'credenciamento' => $verificaCredenciamento,
+                'existeVagas' => $verificaVagas,
+            ]);    
+        }else{
         $responsavel = (CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
             ->andWhere(['evento_idevento' => $model->idevento])->count());
->>>>>>> 3e3d90479af1cd208e0b8316418bf2797fbdff26
         return $this->render('view', [
             'model' => $model,
             'inscrito' => $verificaInscrito,

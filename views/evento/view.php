@@ -41,11 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo Html::a('Programação', ['item-programacao/index', 'idevento' => $model->idevento]); ?>
         </div>
         
-<<<<<<< HEAD
         <?php if( (!Yii::$app->user->isGuest)  && Yii::$app->user->identity->idusuario == $model->responsavel) { ?>
-=======
-        <?php if(Yii::$app->user->isGuest && Yii::$app->user->identity->idusuario == $model->responsavel || $responsavel) { ?>
->>>>>>> 3e3d90479af1cd208e0b8316418bf2797fbdff26
         <!-- Certificado -->
 
 <!-- Modal -->
