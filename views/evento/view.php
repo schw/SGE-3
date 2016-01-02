@@ -41,7 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo Html::a('Programação', ['item-programacao/index', 'idevento' => $model->idevento]); ?>
         </div>
         
+<<<<<<< HEAD
         <?php if( (!Yii::$app->user->isGuest)  && Yii::$app->user->identity->idusuario == $model->responsavel) { ?>
+=======
+        <?php if(Yii::$app->user->isGuest && Yii::$app->user->identity->idusuario == $model->responsavel || $responsavel) { ?>
+>>>>>>> 3e3d90479af1cd208e0b8316418bf2797fbdff26
         <!-- Certificado -->
 
 <!-- Modal -->
@@ -220,46 +224,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php }
     } ?>
     </div>
-
-<!--
-    <p> <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
-        <?= Html::a('Alterar', ['update', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Remover', ['delete', 'id' => $model->idevento], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
-                'method' => 'post',
-            ],
-        ]) ?>
-        <?= Html::a('Listar Inscritos', ['inscritos/index', 'evento_idevento' => $model->idevento], ['class' => 'btn btn-success'] ); ?>
-        <?php } ?>
-
-        <?php 
-        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){
-        
-            if(!$inscrito){
-                echo Html::a('Inscreva-se', ['inscreve/inscrever'], [
-                    'class' => 'btn btn-primary',
-                    'data'=>[
-                    'method' => 'POST',
-                    'params'=>['evento_idevento' => $model->idevento],
-                ]
-                ]);
-            }else{
-                echo Html::a('Cancelar Inscrição', ['inscreve/cancelar'], [
-                    'class' => 'btn btn-danger',
-                    'data'=>[
-                    'method' => 'POST',
-                    'params'=>['evento_idevento' => $model->idevento],
-                ]
-                ]);
-            }
-        }?>
-
-        <?= Html::a('Pacotes', ['pacote/index', 'idevento' => $model->idevento], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Programação', ['item-programacao/index', 'id' => $model->idevento], ['class' => 'btn btn-primary']) ?>
-    </p>
-    -->
 
     <?= DetailView::widget([
         'model' => $model,

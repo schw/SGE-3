@@ -1,7 +1,3 @@
-h1{
-	/*text-align: center;*/
-}
-
 #banner{
 	width: 100%;
 	height: 150px;
@@ -149,5 +145,5 @@ input{
 }
 
 #eventosativoscollapse{
-  width: 1000px;
+  width: 100%;
 }
