@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php echo Html::a('Programação', ['item-programacao/index', 'idevento' => $model->idevento]); ?>
         </div>
         
-        <?php if(Yii::$app->user->identity->idusuario == $model->responsavel || $responsavel) { ?>
+        <?php if( (!Yii::$app->user->isGuest)  && Yii::$app->user->identity->idusuario == $model->responsavel) { ?>
         <!-- Certificado -->
 
 <!-- Modal -->
@@ -200,7 +200,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php 
                 }
         }
-        else if ($credenciamento){ ?>
+        else if ((!Yii::$app->user->isGuest) && $credenciamento){ ?>
                                 <!-- Certificado -->
                     <div style="width: 80px; float: right; padding: 10px;">
                         <?php echo Html::a(Html::img('@web/img/certificado.png'), ['inscreve/pdf'], ['target' => 'blank',

@@ -274,17 +274,17 @@ public function converterMes($current){
             $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
 
             $pdf->SetFont("Helvetica",'B', 14);
-            
-            $pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
-            $pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
-            $pdf->MultiCell(0,6,("UNIVERSIDADE FEDERAL DO AMAZONAS"),0, 'C');
-            $pdf->Ln(3);
-            $pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
+
+            //$pdf->MultiCell(0,6,"PODER EXECUTIVO",0, 'C');
+            //$pdf->MultiCell(0,6,("MINISTÉRIO DA EDUCAÇÃO"),0, 'C');
+            //$pdf->MultiCell(0,6,("UNIVERSIDADE FEDERAL DO AMAZONAS"),0, 'C');
+            $pdf->Ln(23);
+            //$pdf->MultiCell(0,6,("INSTITUTO DE COMPUTAÇÃO"),0, 'C');
             //$pdf->MultiCell(0,5,("-----------------"),0, 'C');
             $pdf->SetDrawColor(0,0,0);
             $pdf->Line(5,52,290,52);
-            $pdf->Image('../web/img/logo-brasil.jpg', 10, 12, 32.32);
-            $pdf->Image('../web/img/ufam.jpg', 175, 12, 25.25);
+            //$pdf->Image('../web/img/logo-brasil.jpg', 10, 12, 32.32);
+            //$pdf->Image('../web/img/ufam.jpg', 175, 12, 25.25);
 
             //TÍLULO DO RELATÓRIO
 
@@ -356,12 +356,12 @@ public function converterMes($current){
                 date('Y', $currentTime).'.'),0, 'C');
             //FIM DA DATA ATUAL
 
-                $pdf->SetFont('Helvetica','I',8);
-                $pdf->Line(5,265,290,265);
-                $pdf->SetXY(10, 265);
-                $pdf->MultiCell(0,5,"",0, 'C');
-                $pdf->MultiCell(0,4,("Av. Rodrigo Otávio, 6.200 - Campus Universitário Senador Arthur Virgílio Filho - CEP 69077-000 - Manaus, AM, Brasil"),0, 'C');
-                $pdf->MultiCell(0,4,(" Tel. (092) 3305-1193/2808/2809         E-mail: secretaria@icomp.ufam.edu.br          http://www.icomp.ufam.edu.br"),0, 'C');
+                //$pdf->SetFont('Helvetica','I',8);
+                $pdf->Line(5,275,290,275);
+                //$pdf->SetXY(10, 265);
+                //$pdf->MultiCell(0,5,"",0, 'C');
+                //$pdf->MultiCell(0,4,("Av. Rodrigo Otávio, 6.200 - Campus Universitário Senador Arthur Virgílio Filho - CEP 69077-000 - Manaus, AM, Brasil"),0, 'C');
+                //$pdf->MultiCell(0,4,(" Tel. (092) 3305-1193/2808/2809         E-mail: secretaria@icomp.ufam.edu.br          http://www.icomp.ufam.edu.br"),0, 'C');
 
         return $pdf;
 
@@ -382,6 +382,29 @@ public function converterMes($current){
 
         $pdf = new mPDF('utf-8', 'A4-P');
 
+            $pdf->SetHTMLHeader('
+                <table width="100%" style="vertical-align: bottom; font-family: serif; font-size: 8pt; color: #000000; font-weight: bold; font-style: italic;">
+                    <tr>
+                        <td width="20%" align="center" style="font-weight: bold; font-style: italic;"> <img src = "../web/img/logo-brasil.jpg" height="90px" width="90px"> </td>
+                        <td width="60%" align="center" style="font-weight: bold; font-style: italic;">  PODER EXECUTIVO <br> UNIVERSIDADE FEDERAL DO AMAZONAS <br> INSTITUTO DE COMPUTAÇÃO </td>
+                        <td width="20%" align="center" style="font-weight: bold; font-style: italic;"> <img src = "../web/img/ufam.jpg" height="90px" width="70px"> </td>                    </tr>
+                </table>
+            ');
+
+            $pdf->SetHTMLFooter('
+                <table width="100%" style="vertical-align: bottom; font-family: serif; font-size: 8pt; color: #000000; font-weight: bold; font-style: italic;">
+                    <tr>
+                        <td  colspan = "3" align="center" ><span style="font-weight: bold"> Av. Rodrigo Otávio, 6.200 - Campus Universitário Senador Arthur Virgílio Filho - CEP 69077-000 - Manaus, AM, Brasil </span></td>
+                    </tr>
+                    <tr>
+                        <td width="33%" align="center" style="font-weight: bold; font-style: italic;">  Tel. (092) 3305-1193/2808/2809</td>
+                        <td width="33%" align="center" style="font-weight: bold; font-style: italic;">  E-mail: secretaria@icomp.ufam.edu.br</td>
+                        <td width="33%" align="center" style="font-weight: bold; font-style: italic;">  http://www.icomp.ufam.edu.br </td>
+                    </tr>
+                </table>
+            ');
+
+
         if($qtd_item_programacao == 0){ //não há itens de programação, ou seja, so o evento
 
             $pdf = $this->pdfConteudo($pdf,$model,0,-1);
@@ -401,6 +424,7 @@ public function converterMes($current){
                 else{
                     $pdf = $this->pdfConteudo($pdf,$model2,$ItemProgramacao,$j);
                 }
+                $pdf->AddPage();
             }
         }
         $pdf->Output('');
