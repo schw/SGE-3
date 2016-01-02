@@ -89,9 +89,7 @@ class EventoController extends Controller
      * @param string $id
      * @return mixed
      */
-    public function actionView($id)
-    {
-        //$this->autorizaUsuario();
+    public function actionView($id){
         
         Yii::$app->user->isGuest ? $verificaInscrito = 0 : 
         
@@ -121,7 +119,8 @@ class EventoController extends Controller
 
         $model = $this->findModel($id);
         
-        $responsavel = (CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $model->idevento])->count());
+        $responsavel = (CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
+            ->andWhere(['evento_idevento' => $model->idevento])->count());
         return $this->render('view', [
             'model' => $model,
             'inscrito' => $verificaInscrito,
@@ -233,6 +232,7 @@ class EventoController extends Controller
     }
 
     public function actionIdentidade($idevento){
+        $this->autorizaUsuario();
 
         $redicionamento = 'certificados/previsualizacao';
 
@@ -284,7 +284,7 @@ class EventoController extends Controller
 
     protected function autorizaUsuario(){
         if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
-            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
+            $this->redirect(['index']);
         }
     }
 
