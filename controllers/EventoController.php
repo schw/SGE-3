@@ -234,7 +234,6 @@ class EventoController extends Controller
     public function actionDelete($id)
     {
         $this->autorizaUsuario();
-        $model->canAccess() ? $this->redirect(['evento/index']) :
 
         $model = $this->findModel($id);
         
@@ -247,9 +246,8 @@ class EventoController extends Controller
     }
 
     public function actionIdentidade($idevento){
-        $this->autorizaUsuario();
+        //$this->autorizaUsuario();
         $model = $this->findModel($idevento);
-        $model->canAccess() ? $this->redirect(['evento/index']) :
 
         $redicionamento = 'certificados/previsualizacao';
 

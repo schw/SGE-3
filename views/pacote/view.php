@@ -54,13 +54,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode('Programação') ?></h1>
             <?= GridView::widget([
             'dataProvider' => $dataProvider,
-            //'filterModel' => $searchModel,
             'columns' => [
                 'itemProgramacao.titulo',
                 'itemProgramacao.descricao',
                 'itemProgramacao.data',
                 ['attribute' => 'Local', 'value' => 'itemProgramacao.local.descricao'],
-                //['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>
     </div>
