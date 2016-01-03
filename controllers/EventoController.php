@@ -122,6 +122,7 @@ class EventoController extends Controller
         if (Yii::$app->user->isGuest){
             return $this->render('view', [
                 'model' => $model,
+                'allow'=> $model->allow,
                 'inscrito' => $verificaInscrito,
                 'encerrado' => $verificaEncerramento,
                 'credenciamento' => $verificaCredenciamento,
@@ -132,6 +133,7 @@ class EventoController extends Controller
             ->andWhere(['evento_idevento' => $model->idevento])->count());
         return $this->render('view', [
             'model' => $model,
+            'allow'=> $model->allow,
             'inscrito' => $verificaInscrito,
             'encerrado' => $verificaEncerramento,
             'credenciamento' => $verificaCredenciamento,
@@ -155,7 +157,7 @@ class EventoController extends Controller
 
         $model = new Evento();
         $model->responsavel = Yii::$app->user->identity->idusuario;
-        $model->allow = 1;
+        $model->allow = 0;
         
         $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
@@ -314,5 +316,66 @@ class EventoController extends Controller
             'positonY' => 'bottom',
             'positonX' => 'right'
         ]);
+    }
+
+    public function actionAbrir()
+    {   
+        if (isset($_GET['id'])) {
+            $id = filter_input(INPUT_GET, 'id');    
+        }
+        else{
+            return $this->redirect(['gerenciareventos']);            
+        }
+        
+        $model = $this->findModel($id);
+
+        $model->allow = 1;
+        
+        if ($model->save()){
+
+            $this->mensagens('success', 'Abertura das Inscrições', 'As inscrições deste evento foram abertas com sucesso.');
+
+            return $this->redirect(['gerenciareventos']);            
+        }
+
+        else{
+
+            //inserir messsagem de erro, $model->getErrors();
+            $this->mensagens('danger', 'Abertura das Inscrições', 'Não foi possível abrir as inscrições deste evento.');
+
+            return $this->redirect(['gerenciareventos']);            
+
+        }
+
+    }
+
+    public function actionFechar()
+    {   
+        if (isset($_GET['id'])) {
+            $id = filter_input(INPUT_GET, 'id');    
+        }
+        else{
+            return $this->redirect(['gerenciareventos']);            
+        }
+        
+        $model = $this->findModel($id);
+
+        $model->allow = 2;
+        
+        if ($model->save()){
+
+            $this->mensagens('success', 'Encerramento das Inscrições', 'As inscrições deste evento foram encerradas com sucesso.');
+
+            return $this->redirect(['gerenciareventos']);            
+        }
+
+        else{
+
+            $this->mensagens('danger', 'Encerramento das Inscrições', 'As inscrições deste evento foram encerradas com sucesso.');
+
+            return $this->redirect(['gerenciareventos']);            
+
+        }
+
     }
 }

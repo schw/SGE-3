@@ -112,10 +112,41 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ]) ?>
             </div>
+
+        <?php if($allow == 0) { ?>
             <div style="width: 80px; float: right; padding: 10px;">
                 <?= Html::a(Html::img('@web/img/editar.png'), ['update', 'id' => $model->idevento]) ?>
                 <?php echo Html::a('Alterar Evento', 'index.php?r=evento/update&id='.$model->idevento); ?>
             </div>
+            
+<!-- abrir inscrições -->
+            <div style="width: 80px; float: right; padding: 10px;">
+                <?= Html::a(Html::img('@web/img/x.png'), ['abrir', 'id' => $model->idevento]) ?>
+                <?php echo Html::a('Abrir Inscrições', 'index.php?r=evento/abrir&id='.$model->idevento); ?>
+            </div>
+
+
+<!-- fim do abrir inscrições -->
+<!-- fechar inscrições -->
+        <?php 
+        }
+        else if ($allow == 1) { ?>
+            <div style="width: 80px; float: right; padding: 10px;">
+                <?= Html::a(Html::img('@web/img/y.png'), ['fechar', 'id' => $model->idevento], [
+                    'data' => [
+                        'confirm' => 'Deseja encerrar as inscrições deste evento?  "'.$model->descricao.'" ?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+                        <?= Html::a('Encerrar Inscrições', ['fechar', 'id' => $model->idevento], [
+                            'data' => [
+                                'confirm' => 'Deseja encerrar as inscrições deste evento? "'.$model->descricao.'" ?',
+                                'method' => 'post',
+                            ],
+                        ]) ?>
+            </div>
+        <?php } ?>
+<!-- fim do fechar inscrições -->
             <div style="width: 80px; float: right; padding: 10px;">
                 <?php echo Html::a(Html::img('@web/img/listar_inscritos.png'), ['inscritos/index','evento_idevento' => $model->idevento], ['width' => '10']) ?>
                 <?php echo Html::a('Listar Inscritos', 'index.php?r=inscritos/index&evento_idevento='.$model->idevento); ?>
