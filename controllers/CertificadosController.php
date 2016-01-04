@@ -120,6 +120,7 @@ class CertificadosController extends \yii\web\Controller
 
 public function actionIdsusuarios()
     {
+
         $ids = Yii::$app->request->get('ids');        
         echo $ids; 
     }
@@ -461,8 +462,8 @@ public function actionPrevisualizacao() {
         $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
-            Certificamos que <b> XXXXXXXXXXXXXXXXXXXXXX </b> participou do evento <b> XXXXXXXXXX 
-            ('.$model->sigla.')</b>, com carga horária de <b> XX
+            Certificamos que <b> [Nome do Participante] </b> participou do evento <b> [Nome do Evento] 
+            ([Sigla do Evento])</b>, com carga horária de <b> [Carga Horária]
                  hora(s)</b>, realizado no período de '.$tag.', na cidade 
                 de Manaus - AM.</p>');
     

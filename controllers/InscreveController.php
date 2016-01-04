@@ -284,15 +284,11 @@ class InscreveController extends Controller
 
             return Yii::$app->getResponse()->redirect(array('/inscreve/','mensagem' =>'erro'));
         }
-       
-
 
     }
 
-
         public function actionIndex()
     {
-
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->searchInscricoes(Yii::$app->request->queryParams);
 
@@ -300,10 +296,18 @@ class InscreveController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-
     }
 
+        public function actionPassadas()
+    {
+        $searchModel = new InscreveSearch();
+        $dataProvider = $searchModel->searchInscricoespassadas(Yii::$app->request->queryParams);
 
+        return $this->render('passadas', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
         public function actionProgramacao()
     {
@@ -317,7 +321,6 @@ class InscreveController extends Controller
         ]);
 
     }
-
 
     /**
      * Updates an existing Inscreve model.

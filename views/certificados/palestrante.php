@@ -92,7 +92,8 @@ function myFunctionPalestrantes(tipousuario,id_evento) {
 
         if ($count2 > 0){
 
-            echo '<button onclick="myFunctionPalestrantes(1,'.$id_evento.')">Gerar Certificados</button>';
+            echo Html::submitButton('Gerar Certificado', ['onclick' => 'myFunctionPalestrantes(1,'.$id_evento.')' ,
+                'class' => 'btn btn-success']);
 
            //echo Html::a('Gerar Certificado em lote', ['certificados/pdf'], ['target' => 'blank',
            //                     'data'=>[

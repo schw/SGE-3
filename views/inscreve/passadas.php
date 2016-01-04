@@ -7,7 +7,7 @@ use kartik\widgets\Growl;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\InscreveSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = 'Minhas Inscrições Atuais ';
+$this->title = 'Minhas Inscrições Passadas ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

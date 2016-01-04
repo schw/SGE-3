@@ -74,7 +74,37 @@ public function searchInscricoes($params)
 
         
         if (!Yii::$app->user->isGuest) {
-            $query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario]);
+            $query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
+            ->andWhere("dataFim > '". date('Y-m-d')."'")
+            ->innerJoin('evento','evento.idevento = inscreve.evento_idevento');
+        }
+        else {
+            return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        return $dataProvider;
+    }
+
+public function searchInscricoespassadas($params)
+    {
+
+        
+        if (!Yii::$app->user->isGuest) {
+            $query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
+            ->andWhere("dataFim < '". date('Y-m-d')."'")
+            ->innerJoin('evento','evento.idevento = inscreve.evento_idevento');
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado

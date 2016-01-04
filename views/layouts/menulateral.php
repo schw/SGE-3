@@ -19,7 +19,9 @@
 	            ['label' => 'Palestrantes', 'icon' => 'blackboard', 'url' => ['palestrante/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
 	            ['label' => 'Relatórios', 'icon' => 'stats', 'url' => ['relatorios/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
 	            ['label' => 'Minhas Inscrições', 'icon' => 'flag', 'url' => ['inscreve/index'], 'visible' => 
-	            (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3)],
+	            (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3),'items' => [
+	                ['label' => 'Inscrições Atuais', 'url' => ['inscreve/index']],
+	                ['label' => 'Inscrições Passadas', 'url' => ['inscreve/passadas']],],], 
 	            ['label' => 'Perfil', 'icon' => 'user', 'url' => ['user/view'], 'visible' => (!Yii::$app->user->isGuest)],
                 ],
             ]);        

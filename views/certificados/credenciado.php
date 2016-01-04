@@ -101,7 +101,8 @@ function myFunctionCredenciado(tipousuario) {
 
         if ($count > 0){
 
-            echo '<button onclick="myFunctionCredenciado(0)">Gerar Certificados</button>';
+            echo Html::submitButton('Gerar Certificado', ['onclick' => 'myFunctionCredenciado(0)' ,
+                'class' => 'btn btn-success']); 
 
            //echo Html::a('Gerar Certificado em Lote', ['certificados/pdf'], ['target' => 'blank',
            //                     'data'=>[

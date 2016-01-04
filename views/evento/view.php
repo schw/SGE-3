@@ -121,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
             
 <!-- abrir inscrições -->
             <div style="width: 80px; float: right; padding: 10px;">
-                <?= Html::a(Html::img('@web/img/x.png'), ['abrir', 'id' => $model->idevento]) ?>
+                <?= Html::a(Html::img('@web/img/open.png'), ['abrir', 'id' => $model->idevento]) ?>
                 <?php echo Html::a('Abrir Inscrições', 'index.php?r=evento/abrir&id='.$model->idevento); ?>
             </div>
 
@@ -132,7 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         else if ($allow == 1) { ?>
             <div style="width: 80px; float: right; padding: 10px;">
-                <?= Html::a(Html::img('@web/img/y.png'), ['fechar', 'id' => $model->idevento], [
+                <?= Html::a(Html::img('@web/img/lock.png'), ['fechar', 'id' => $model->idevento], [
                     'data' => [
                         'confirm' => 'Deseja encerrar as inscrições deste evento?  "'.$model->descricao.'" ?',
                         'method' => 'post',
@@ -156,12 +156,12 @@ $this->params['breadcrumbs'][] = $this->title;
             
             <?php if(!Yii::$app->user->isGuest && $model->canAccessResponsible()){ ?>
                 <div style="width: 100px; float: right; padding: 10px;">
-                    <?php echo Html::a(Html::img('@web/img/add.png'), ['coordenador-has-evento/index','idevento' => $model->idevento], ['width' => '10']) ?>
+                    <?php echo Html::a(Html::img('@web/img/addcoord.png'), ['coordenador-has-evento/index','idevento' => $model->idevento], ['width' => '10']) ?>
                     <?php echo Html::a('Adicionar Coordenadores', ['coordenador-has-evento/index', 'idevento' => $model->idevento]); ?>
                 </div>
                 <?php } ?>
             <div style="width: 100px; float: right; padding: 10px;">
-                <?php echo Html::a(Html::img('@web/img/add.png'), ['evento-has-voluntario/index','idevento' => $model->idevento], ['width' => '10']) ?>
+                <?php echo Html::a(Html::img('@web/img/addvolun.png'), ['evento-has-voluntario/index','idevento' => $model->idevento], ['width' => '10']) ?>
                 <?php echo Html::a('Adicionar Voluntários', ['evento-has-voluntario/index', 'idevento' => $model->idevento]); ?>
             </div>
         <?php 

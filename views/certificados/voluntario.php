@@ -104,7 +104,8 @@ function myFunctionVoluntarios(tipousuario) {
 
         if ($count3 > 0){
 
-            echo '<button onclick="myFunctionVoluntarios(2)">Gerar Certificados</button>';
+            echo Html::submitButton('Gerar Certificado', ['onclick' => 'myFunctionVoluntarios(2)' ,
+                'class' => 'btn btn-success']); 
 
           //echo Html::a('Gerar Certificado em lote', ['certificados/pdf'], ['target' => 'blank',
           //                      'data'=>[
