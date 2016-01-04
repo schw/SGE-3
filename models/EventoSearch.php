@@ -43,7 +43,9 @@ class EventoSearch extends Evento
      * @return ActiveDataProvider
      */
     public function searchEventos($status){
-        $query = Evento::find()->where("dataFim > '". date('Y-m-d')."'");
+        //$query = Evento::find()->where("dataFim > '". date('Y-m-d')."'");
+        $query = Evento::find()->where("allow = '1' AND dataFim > '". date('Y-m-d')."'");
+        //mostrando apenas eventos permitidos (com inscricoes abertas)
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

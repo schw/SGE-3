@@ -360,7 +360,7 @@ class EventoController extends Controller
         
         $model = $this->findModel($id);
 
-        $model->allow = 2;
+        $model->allow = 0;
         
         if ($model->save()){
 
