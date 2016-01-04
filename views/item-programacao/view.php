@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="itemprogramacao-view">
 
-    <?php if(Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2){ ?>
+    <?php if(!Yii::$app->user->isGuest && $evento->canAccess()){ ?>
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->iditemProgramacao], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Excluir', ['delete', 'id' => $model->iditemProgramacao], [

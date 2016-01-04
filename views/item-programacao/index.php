@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
       Modal::end();
     ?>
 
-    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2){ ?>
+    <?php if(!Yii::$app->user->isGuest && $evento->canAccess()){ ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -97,7 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'eventClick' => new JsExpression("function(calEvent, jsEvent, view) {
 
           if(calEvent.id)
-            $.get('index.php?r=item-programacao/view', {'id': calEvent.id}, function(data){
+            $.get('index.php?r=item-programacao/view', {'id': calEvent.id, 'requ': 'AJAX'}, function(data){
                   $('#modal').modal('show')
                   .find('#modalContent')
                   .html(data);
@@ -142,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
       'events' => $itensProgramacaoCalendar
       ]);
     ?>
-    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2){ ?>
+    <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
     <?= Html::button('Itens a serem editados', ['id' => 'bota']) ?>
     <?php 
     }?>

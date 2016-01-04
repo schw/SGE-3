@@ -36,10 +36,8 @@ class ItemProgramacaoController extends Controller
      * Lists all ItemProgramacao models.
      * @return mixed
      */
-    public function actionIndex($idevento)
-    {
+    public function actionIndex($idevento){
 
-        
         $itemProgramacaoSearch = new ItemProgramacaoSearch();
         $itensProgramacaoBanco = $itemProgramacaoSearch->search(['idevento' => $idevento])->getModels();
         $itensProgramacaoCalendar = array();
@@ -71,15 +69,18 @@ class ItemProgramacaoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id){
+        
+        $this->validaAjax();
         $model = $this->findModel($id);
+        $evento = Evento::findOne($model->evento_idevento);
         $model->data = date("d-m-Y", strtotime($model->data));
         if(!$model->detalhe)
                 $model->detalhe = "Nenhum";
 
         return $this->renderAjax('view', [
             'model' => $model,
+            'evento' => $evento,
         ]);
     }
 
@@ -90,7 +91,8 @@ class ItemProgramacaoController extends Controller
      */
     public function actionCreate()
     {
-        $this->autorizaUsuario();
+        $this->validaAjax();
+        $this->autorizaUsuario(Yii::$app->request->get('idevento'));
 
         $model = new ItemProgramacao();
         $model->notificacao = '1';
@@ -135,10 +137,10 @@ class ItemProgramacaoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
-        $this->autorizaUsuario();
+    public function actionUpdate($id){
+
         $model = $this->findModel($id);
+        $this->autorizaUsuario($model->evento_idevento);
 
         $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');
@@ -161,8 +163,8 @@ class ItemProgramacaoController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id){
+        
         $this->autorizaUsuario();
         $model = $this->findModel($id);
         $idevento = $model->evento_idevento;
@@ -187,10 +189,28 @@ class ItemProgramacaoController extends Controller
         }
     }
 
-    protected function autorizaUsuario(){
-        if(Yii::$app->user->isGuest || Yii::$app->user->identity->idusuario == 3){
-            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
-        }
+    public function findEvento($idevento){
+
+        if($evento = Evento::findOne($idevento)){
+            $evento['descricao'] = Evento::findOne($idevento)->descricao;
+            $evento['idevento'] = $idevento;
+            return $evento;
+        }else
+            throw new NotFoundHttpException('Página não Encontrada');
+    }
+
+    protected function autorizaUsuario($idevento){
+        if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3 || Yii::$app->user->identity->tipoUsuario == 2)
+            return $this->redirect(['index', 'idevento' => $idevento]);
+        
+        $evento = $this->findEvento($idevento);
+        if(!$evento->canAccess())
+            return $this->redirect(['index']);
+    }
+
+    protected function validaAjax(){
+        if(Yii::$app->request->get('requ') != 'AJAX')
+            throw new NotFoundHttpException("A página solicitada não foi encontrada");
     }
 
     /*Tipo: success, danger, warning*/

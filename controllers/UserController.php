@@ -29,21 +29,6 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
      * Displays a single User model.
      * @param integer $id
      * @return mixed
@@ -69,6 +54,8 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
+        if(!Yii::$app->user->isGuest)
+            $this->redirect(['evento/index']);
         $model = new User();
         if ($model->load(Yii::$app->request->post())) {
         	if($model->save()){
@@ -118,8 +105,8 @@ class UserController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id){
+
         $this->autorizaUsuario($id);
         $this->findModel($id)->delete();
 
@@ -138,19 +125,15 @@ class UserController extends Controller
         if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não foi encontrada.');
         }
     }
 
     protected function autorizaUsuario($id){
         
         if(Yii::$app->user->isGuest){
-            throw new ForbiddenHttpException('Acesso Negado!! Realize Login.');
+            $this->redirect(['site/login']);
         }
-
-        /*if(Yii::$app->user->identity->idusuario != $id){
-            throw new NotFoundHttpException("Erro: Id Inválido");
-        }*/
     }
     
     /*Tipo: success, danger, warning*/

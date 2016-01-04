@@ -164,7 +164,7 @@ class RelatoriosController extends \yii\web\Controller
 
     protected function autorizaUsuario(){
         if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
-            throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
+            $this->redirect(['evento/index']);
         }
     }
 

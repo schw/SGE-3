@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use yii\grid\GridView;
+
+$this->title = 'Gerar Certificados';
 ?>
 
 <script>
@@ -110,7 +112,7 @@ function myFunctionVoluntarios(tipousuario) {
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
 
-    <h1>Gerar Certificados</h1>
+    <h1><?= $this->title ?></h1>
 
     <p>
     	</br><h4> Lista de credenciadados:</h4>
