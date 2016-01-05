@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-        <h1><?= Html::encode($this->title) ?></h1>
+        <h1><?= Html::encode($this->title)." ".Html::img('@web/img/notok.png')?></h1>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
         <p>

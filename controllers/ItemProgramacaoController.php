@@ -102,6 +102,9 @@ class ItemProgramacaoController extends Controller
         $model->hora = filter_input(INPUT_GET, 'hora');
         $model->horaFim = filter_input(INPUT_GET, 'horafim');
 
+        if($model->horaFim == null)
+            $model->horaFim = date('H:i', strtotime('+2 hour', strtotime($model->hora)));
+
         if(!$model->tipo_idtipo = filter_input(INPUT_GET, 'tipo'))
             if ($tipo = filter_input(INPUT_GET, 'titulo')){
                 $arrayTipo = ArrayHelper::map(Tipo::find()->all(), 'idtipo', 'titulo');

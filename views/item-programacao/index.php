@@ -120,7 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
             }
 
             var idevento = getParameterByName('idevento');
-            $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'horafim': horaFim, 'idevento': idevento, 'titulo': titulo}, function(data){
+            $.get('index.php?r=item-programacao/create', {'data': data, 'hora': hora, 'horafim': horaFim, 'idevento': idevento, 'titulo': titulo, 'requ': 'AJAX'}, function(data){
               $('#modal').modal('show')
               .find('#modalContent')
               .html(data);

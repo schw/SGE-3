@@ -47,7 +47,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 [['senha_repeat'], 'compare', 'compareAttribute' => 'senha', 'message' => 'Senhas são distintas'],
     			[['tipoUsuario', 'notificarViaEmail'], 'integer'],
     			[['nome'], 'string', 'max' => 50],
-    			[['senha', 'cracha'], 'string', 'min' => 6],
+    			[['senha', 'cracha'], 'string'],
                 [['instituicao'], 'string',  'max' => 20],
     			[['authKey', 'accessToken'], 'string', 'max' => 255],
                 [['email'], 'email', 'message' => 'Endereço de email inválido'],
