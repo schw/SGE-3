@@ -93,22 +93,29 @@ class EventoSearch extends Evento
     }
 
     /**
-     * Busca Todos os Eventos do usuário autenticado criando uma instância data provider.
+     * Busca os Eventos passados, com incrições abertas ou inscrições que podem ser abertas do usuário autenticado criando uma instância data provider.
      *
      * @param array $params
      *
      * @return ActiveDataProvider
      */
-    public function searchEventosResponsavel($status){
+    public function searchEventosResponsavel($params){
+        $status = $params['status'];
+        $inscricoes = $params['inscricoes'];
+
         if ($status == 'passado') {
             $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
             where("dataFim < '". date('Y-m-d')."'")->joinWith("inscreve")->
                 andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla');
 
+        }else if($inscricoes == 'fechada'){
+            $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
+            where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '0'")->joinWith("inscreve")->
+                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla');
 
         }else{
             $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
-            where("dataFim >= '". date('Y-m-d')."'")->joinWith("inscreve")->
+            where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '1'")->joinWith("inscreve")->
                 andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla');
 
         }
@@ -120,8 +127,6 @@ class EventoSearch extends Evento
         //$this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
@@ -158,14 +163,21 @@ class EventoSearch extends Evento
         return $dataProvider;
     }
 
-    public function searchEventosCoodenadores($status){
+    public function searchEventosCoodenadores($params){
+        $status = $params['status'];
+        $inscricoes = $params['inscricoes'];
 
         if ($status == 'passado') {
             $query = CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
                 ->andWhere("evento.dataFim < '". date('Y-m-d')."'");
+
+        }else if($inscricoes == 'fechada'){
+            $query = CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
+                ->andWhere("evento.dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '0'");
+
         }else{
             $query = CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
-                ->andWhere("evento.dataFim >= '". date('Y-m-d')."'");
+                ->andWhere("evento.dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '1'");
         }
 
         $query->joinWith('evento');

@@ -57,14 +57,15 @@ class CoordenadorHasEventoController extends Controller
      */
     public function actionCreate(){
         
-        $this->autorizaUsuario(0);
+        $idevento = filter_input(INPUT_GET, 'idevento');
+
+        $this->autorizaUsuario($idevento);
 
         $model = new CoordenadorHasEvento();
         $searchModel = new CoordenadorHasEventoSearch();
         
         $arrayUsuarios = ArrayHelper::map($searchModel->searchCoordenadores()->getModels(), 'idusuario', 'nome');
 
-        $idevento = filter_input(INPUT_GET, 'idevento');
         $model->evento_idevento = $idevento;
 
         if ($model->load(Yii::$app->request->post())) {
@@ -82,7 +83,6 @@ class CoordenadorHasEventoController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'arrayUsuarios' => $arrayUsuarios,
-                'arrayEventosAtivos' => $arrayEventosAtivos,
             ]);
         }
     }

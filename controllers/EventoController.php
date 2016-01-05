@@ -59,28 +59,37 @@ class EventoController extends Controller
     public function actionGerenciareventos()
     {
         $this->autorizaUsuario();
-        $status = filter_input(INPUT_GET, 'status');
+        $params['status'] = filter_input(INPUT_GET, 'status');
+        $params['inscricoes'] = filter_input(INPUT_GET, 'inscricoes');
 
-        if(!$status)
-            $status = 'ativo';
         $searchModel = new EventoSearch();
-        $dataProvider = $searchModel->searchEventosResponsavel($status);
-        $dataProvider2 = $searchModel->searchEventosCoodenadores($status);
+        $dataProvider = $searchModel->searchEventosResponsavel($params);
+        $dataProvider2 = $searchModel->searchEventosCoodenadores($params);
 
-        if($status == 'passado')
+        if($params['status'] == 'passado'){
+
+            return $this->render('passados', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'dataProvider2' => $dataProvider2,
+            ]);
+
+        }else if($params['inscricoes'] == 'fechada'){
+
+            return $this->render('inscricoesFechadas', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'dataProvider2' => $dataProvider2,
+            ]);
+
+        }else{
+
             return $this->render('gerenciarEventos', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
                 'dataProvider2' => $dataProvider2,
-                'status' => 'passado',
             ]);
-        else    
-            return $this->render('gerenciarEventos', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'dataProvider2' => $dataProvider2,
-                'status' => $status,
-            ]);
+        }
     }
 
 
@@ -274,6 +283,7 @@ class EventoController extends Controller
 
             return $this->redirect([$redicionamento,
                 'imagem' => $model->imagem,
+                'inscricoes' => 'fechada',
             ]);
         }
 
@@ -324,7 +334,7 @@ class EventoController extends Controller
             $id = filter_input(INPUT_GET, 'id');    
         }
         else{
-            return $this->redirect(['gerenciareventos']);            
+            return $this->redirect(['gerenciareventos', 'aberta']);            
         }
         
         $model = $this->findModel($id);
@@ -335,7 +345,7 @@ class EventoController extends Controller
 
             $this->mensagens('success', 'Abertura das Inscrições', 'As inscrições deste evento foram abertas com sucesso.');
 
-            return $this->redirect(['gerenciareventos']);            
+            return $this->redirect(['gerenciareventos', 'aberta']);            
         }
 
         else{
@@ -343,7 +353,7 @@ class EventoController extends Controller
             //inserir messsagem de erro, $model->getErrors();
             $this->mensagens('danger', 'Abertura das Inscrições', 'Não foi possível abrir as inscrições deste evento.');
 
-            return $this->redirect(['gerenciareventos']);            
+            return $this->redirect(['gerenciareventos', 'inscricoes' => 'aberta']);            
 
         }
 
@@ -366,14 +376,14 @@ class EventoController extends Controller
 
             $this->mensagens('success', 'Encerramento das Inscrições', 'As inscrições deste evento foram encerradas com sucesso.');
 
-            return $this->redirect(['gerenciareventos']);            
+            return $this->redirect(['gerenciareventos', 'inscricoes' => 'fechada']);            
         }
 
         else{
 
-            $this->mensagens('danger', 'Encerramento das Inscrições', 'As inscrições deste evento foram encerradas com sucesso.');
+            $this->mensagens('danger', 'Encerramento das Inscrições', 'As inscrições deste evento NÃO foram encerradas com sucesso.');
 
-            return $this->redirect(['gerenciareventos']);            
+            return $this->redirect(['gerenciareventos', 'inscricoes' => 'aberta']);            
 
         }
 

@@ -9,7 +9,7 @@ use kartik\widgets\Growl;
 /* @var $searchModel app\models\EventoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Meus Eventos Ativos - Inscrições Abertas';
+$this->title = 'Meus Eventos Passados';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="evento-index">
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'detalhe',
                 // 'allow',
                 //'responsavel',
-                ['attribute' => 'Tipo', 'value' => 'tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
+                ['attribute' => 'tipo', 'value' => 'tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
                 ['attribute' => 'Vagas', 'value' => 'vagas','headerOptions' => ['width' => '100']],
                 ['attribute' => 'Total de Inscritos', 'value' => 'qtd_evento','headerOptions' => ['width' => '170']],
                 //['attribute' => 'Total de Vagas', 'value' => 'vagas', 'visible' => $status == 'passado'],
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'detalhe',
                 // 'allow',
                 //'responsavel',
-                ['attribute' => 'Tipo', 'value' => 'evento.tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
+                ['attribute' => 'tipo', 'value' => 'evento.tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
                 ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view}{link}','buttons' => [
                 'view' => function ($url,$model,$key) {
                                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id' => $model->evento_idevento]);
