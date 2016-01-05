@@ -166,6 +166,87 @@ class InscritosController extends Controller
             return Yii::$app->getResponse()->redirect(array('/inscritos/index','evento_idevento' => $id_evento, 'mensagem' =>'sucesso'));
     }
 
+    public function actionCancelar()
+    {
+
+        $searchModel = new InscreveSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $id_usuario = Yii::$app->request->post('idusuario'); 
+        $id_evento = Yii::$app->request->post('evento_idevento'); 
+       
+        $model = $this->findModel($id_evento);
+
+        $id_pacote = Inscreve::findOne(['usuario_idusuario' => $id_usuario,'evento_idevento' => $id_evento])->pacote_idpacote;
+
+        $data_final_evento = Evento::findOne(['idevento' => $id_evento])->dataFim;
+        $data_atual = date('Y/m/d');
+
+        if(strtotime($data_atual) > strtotime($data_final_evento)) {
+            
+            Yii::$app->getSession()->setFlash('danger', [
+                 'type' => 'danger',
+                 'message' => 'O Evento '.$model->sigla.' já foi encerrado, não sendo possível cancelar a inscrição.',
+                 'title' => 'Inscrição',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+
+            //Yii::$app->session->setFlash('message', 'Erro: Você não está inscrito nesse evento');   
+
+            return Yii::$app->getResponse()->redirect(array('/inscritos/', 'evento_idevento' => $id_evento));
+        }
+
+        $cancela = new Inscreve();
+        $resultado = $cancela->cancelarCoord($id_evento,$id_usuario);
+
+        if ($resultado == 1){
+
+            $pacote  = new Inscreve(); 
+
+            $quantidade_de_pacotes = $pacote->possuiPacote();
+
+            if ($quantidade_de_pacotes != 0){
+
+                $aumentar = new Inscreve();
+                $aumentar->aumentarVagas($id_pacote,$id_evento,2);
+
+            }
+            else{
+
+                $aumentar = new Inscreve();
+                $aumentar->aumentarVagas(NULL,$id_evento,1);            
+
+            }
+                    Yii::$app->getSession()->setFlash('success', [
+                     'type' => 'success',
+                     'message' => 'Inscrição cancelada com sucesso.',
+                     'title' => 'Inscrição',
+                     'positonY' => 'bottom',
+                     'positonX' => 'right'
+                ]);
+
+
+                return Yii::$app->getResponse()->redirect(array('/inscritos/', 'evento_idevento' => $id_evento));
+
+        }
+        else{
+
+            Yii::$app->getSession()->setFlash('danger', [
+                 'type' => 'danger',
+                 'message' => 'Não foi possível cancelar a inscrição, pois esse perticipante não está inscrito no evento. ',
+                 'title' => 'Inscrição',
+                 'positonY' => 'bottom',
+                 'positonX' => 'right'
+             ]);
+
+            //Yii::$app->session->setFlash('message', 'Erro: Você não está inscrito nesse evento');   
+
+            return Yii::$app->getResponse()->redirect(array('/inscritos/', 'evento_idevento' => $id_evento));
+        }
+
+    }
+
 
 
     public function actionProgramacao()

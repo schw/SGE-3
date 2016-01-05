@@ -76,7 +76,7 @@ use yii\grid\GridView;
                             ]]);
                 },
                 'cancelarinscricao' => function ($url,$model,$key) {
-                          return Html::a('<span class="glyphicon glyphicon-remove-sign"></span>',['inscritos/credenciar'],[
+                          return Html::a('<span class="glyphicon glyphicon-remove-sign"></span>',['inscritos/cancelar'],[
                             'title'=> 'Cancelar Incrição',
                             'data'=>[
                             'confirm' => 'Deseja cancelar a inscrição deste participante: "'.$model->usuario->nome.'" ?',

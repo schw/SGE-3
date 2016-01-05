@@ -5,14 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\Inscreve;
 use app\models\InscreveSearch;
-// adicionado estes seis:
 use app\models\EventoSearch;
 use app\models\Evento;
 use app\models\ItemProgramacao;
 use app\models\ItemProgramacaoSearch;
 use app\models\Pacote;
 use app\models\PacoteSearch;
-// fim
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -214,10 +212,9 @@ class InscreveController extends Controller
 
         $id_usuario = Yii::$app->user->identity->idusuario;
         $id_evento = Yii::$app->request->post('evento_idevento'); 
-        $id_pacote = Inscreve::findOne(['usuario_idusuario' => $id_usuario,'evento_idevento' => $id_evento])->pacote_idpacote;
 
         $model = $this->findModel($id_evento);
-
+        $id_pacote = Inscreve::findOne(['usuario_idusuario' => $id_usuario,'evento_idevento' => $id_evento])->pacote_idpacote;
 
         $data_final_evento = Evento::findOne(['idevento' => $id_evento])->dataFim;
         $data_atual = date('Y/m/d');

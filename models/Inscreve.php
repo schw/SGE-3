@@ -143,6 +143,28 @@ public function cancelar($id_evento)
         return $resultado;
     }
 
+public function cancelarCoord($id_evento,$id_usuario)
+    {
+
+        $sql = "DELETE FROM inscreve WHERE usuario_idusuario = '$id_usuario' AND evento_idevento = '$id_evento'";
+        
+        try{
+            
+            $resultado = Yii::$app->db->createCommand($sql)->execute();
+
+        }catch(IntegrityException $e){
+
+            return 0;
+
+        }catch(Exception $e){
+
+                return 0;
+
+        }
+
+        return $resultado;
+    }
+
 
 public function inscrever($id_evento)
     {
