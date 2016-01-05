@@ -49,9 +49,10 @@ use yii\grid\GridView;
                 }
             },],
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '80'], 
-            'template' => '{view}{credenciar}{descredenciar}{link}','buttons' => [
+            'template' => '{view}{credenciar}{descredenciar}{cancelarinscricao}{link}','buttons' => [
                 'credenciar' => function ($url,$model,$key) {
                           return Html::a('<span class="glyphicon glyphicon-ok-circle"></span>', ['inscritos/credenciar'],[
+                            'title'=> 'Credenciar',
                             'data'=>[
                             'method' => 'POST',
                             'params'=>['idusuario' => $model->usuario->idusuario,'evento_idevento' => $model->evento->idevento],
@@ -59,16 +60,28 @@ use yii\grid\GridView;
                 },
                 'descredenciar' => function ($url,$model,$key) {
                           return Html::a('<span class="glyphicon glyphicon-remove"></span>', ['inscritos/descredenciar'],[
+                            'title'=> 'Descredenciar',
                             'data'=>[
+                            'confirm' => 'Deseja descredenciar este participante: "'.$model->usuario->nome.'" ?',
                             'method' => 'POST',
                             'params'=>['idusuario' => $model->usuario->idusuario,'evento_idevento' => $model->evento->idevento],
                             ]]);
                 },
                 'view' => function ($url,$model,$key) {
                           return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['user/view'],[
+                            'title'=> 'Visualizar Detalhes do Participante',
                             'data'=>[
                             'method' => 'POST',
                             'params'=>['id' => $model->usuario->idusuario],
+                            ]]);
+                },
+                'cancelarinscricao' => function ($url,$model,$key) {
+                          return Html::a('<span class="glyphicon glyphicon-remove-sign"></span>',['inscritos/credenciar'],[
+                            'title'=> 'Cancelar Incrição',
+                            'data'=>[
+                            'confirm' => 'Deseja cancelar a inscrição deste participante: "'.$model->usuario->nome.'" ?',
+                            'method' => 'POST',
+                            'params'=>['idusuario' => $model->usuario->idusuario,'evento_idevento' => $model->evento->idevento],
                             ]]);
                 },
         ],
