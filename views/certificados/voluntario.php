@@ -8,6 +8,12 @@ use yii\grid\GridView;
 
 function myFunctionVoluntarios(tipousuario) {
     var keys = $('#gridview_id_voluntarios').yiiGridView('getSelectedRows');
+    
+    do{
+
+        var cargaHoraria = parseInt(prompt("Entre com a carga horária dos voluntários", ""), 10)
+
+    }while(isNaN(cargaHoraria))
 
     var ids = [];
     
@@ -27,7 +33,7 @@ function myFunctionVoluntarios(tipousuario) {
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-              window.open("index.php?r=certificados/pdfvoluntarios&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText);
+              window.open("index.php?r=certificados/pdfvoluntarios&tipousuario="+tipousuario+"&evento_idevento="+id_evento+"&ids="+xhttp.responseText+"&ch="+cargaHoraria);
               
            }
         };

@@ -190,7 +190,8 @@ public function actionPdfcredenciados()
     {   
         $id_evento = Yii::$app->request->get('evento_idevento');        
         $tipo_usuario = Yii::$app->request->get('tipousuario');
-        $ids = Yii::$app->request->get('ids');        
+        $ids = Yii::$app->request->get('ids');
+        $ch = Yii::$app->request->get('ch');                
         $ids_usuario_vetor  = explode(',', $ids);
         $count = sizeof($ids_usuario_vetor);
         $i = 0;
@@ -210,6 +211,7 @@ public function actionPdfcredenciados()
         $session->set('tipousuario_certificado', $tipo_usuario);
         $session->set('usuario_certificado', $nome_array);
         $session->set('evento_idevento', $id_evento);
+        $session->set('cargaHoraria',$ch);
 
         Yii::$app->response->redirect(['certificados/pdf']);
 
@@ -262,6 +264,8 @@ public function converterMes($current){
         $tipo_usuario = $session->get('tipousuario_certificado');
         $usuarios_string = $session->get('usuario_certificado');
         $id_evento = $session->get('evento_idevento');
+        
+        $cargaHoraria = $session->get('cargaHoraria');
 
         $session->close();
         $session->destroy();
@@ -364,7 +368,7 @@ else if ( $tipo_usuario == 1){
 else{
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
-            ('.$model->sigla.')</b>, na qualidade de voluntário, com carga horária de <b>'.$model->cargaHoraria.
+            ('.$model->sigla.')</b>, na qualidade de voluntário, com carga horária de <b>'.$cargaHoraria.
                 ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
                 de Manaus - AM.</p>');
 }
