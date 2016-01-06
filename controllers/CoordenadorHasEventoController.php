@@ -39,6 +39,7 @@ class CoordenadorHasEventoController extends Controller
     public function actionIndex($idevento)
     {
         $this->autorizaUsuario($idevento);
+        $evento = $this->findEvento($idevento);
 
         $searchModel = new CoordenadorHasEventoSearch();
         $dataProvider = $searchModel->search($idevento);
@@ -47,6 +48,7 @@ class CoordenadorHasEventoController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'idevento' => $idevento,
+            'evento' => $evento,
         ]);
     }
 

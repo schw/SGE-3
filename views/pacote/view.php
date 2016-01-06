@@ -25,8 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <h3><?= $model->evento->descricao?> </h3>
         <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3){ ?>
             <p>
-                <?= Html::a('Alterar', ['update', 'id' => $model->idpacote], ['class' => 'btn btn-primary',]) ?>
-                <?= Html::a('Remover', ['delete', 'id' => $model->idpacote], [
+                <?= Html::a('Atualizar', ['update', 'id' => $model->idpacote], ['class' => 'btn btn-primary',]) ?>
+                <?= Html::a('Excluir', ['delete', 'id' => $model->idpacote], [
                     'class' => 'btn btn-danger',
                     'data' => [
                         'confirm' => 'Deseja remover o pacote "'.$model->descricao.'" ?',

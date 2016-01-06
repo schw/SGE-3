@@ -38,7 +38,7 @@ use kartik\money\MaskMoney;
 	?>
     
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Criar Pacote' : 'Atualizar Pacote', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Criar Pacote' : 'Salvar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

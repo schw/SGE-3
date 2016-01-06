@@ -42,9 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
       Modal::end();
     ?>
 
-    <?php if(!Yii::$app->user->isGuest && $evento->canAccess()){ ?>
-
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php if(!Yii::$app->user->isGuest && $evento->canAccess()){ ?>
 
     <div id='external-events'>
         <?php foreach ($arrayTipo as $key => $item) {?>
@@ -64,7 +63,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php 
     }?>
- <?= $evento->dataIni ?>
+ 
+
     <?= yii2fullcalendar\yii2fullcalendar::widget([
       'id' => 'calendarItemProgramacao',
       'options' => [

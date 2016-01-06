@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\CoordenadorHasEvento */
 
-$this->title = 'Atualizar Coordenador do Evento: ' . ' ' . $model->evento_idevento;
+$this->title = 'Editar Coordenador do Evento: ' . ' ' . $model->evento_idevento;
 $this->params['breadcrumbs'][] = ['label' => 'Coordenador Has Eventos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->evento_idevento, 'url' => ['view', 'id' => $model->evento_idevento]];
 $this->params['breadcrumbs'][] = 'Update';

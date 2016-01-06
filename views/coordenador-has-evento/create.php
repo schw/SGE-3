@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
     <h1><?= Html::encode($this->title) ?></h1>
+    <p align="right">Campos marcados com * são obrigatórios</p><div></div>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\EventoHasVoluntario */
 
-$this->title = 'Adicionar Voluntário';
+$this->title = 'Adicionar Voluntário ao Evento';
 $this->params['breadcrumbs'][] = ['label' => 'Evento Has Voluntarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
    <div id="page-wrapper">
 
 	    <h1><?= Html::encode($this->title) ?></h1>
+	    <p align="right">Campos marcados com * são obrigatórios</p><div></div>
 
 	    <?= $this->render('_form', [
 	        'model' => $model,

@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Local */
 
-//$this->title = 'Atualizar Local: ' . ' ' . $model->descricao;
+//$this->title = 'Editar Local: ' . ' ' . $model->descricao;
 $this->params['breadcrumbs'][] = ['label' => 'Locals', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->idlocal, 'url' => ['view', 'id' => $model->idlocal]];
 $this->params['breadcrumbs'][] = 'Update';

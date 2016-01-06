@@ -62,7 +62,7 @@ AppAsset::register($this);
             Yii::$app->user->isGuest ?
                 ['label' => 'Login', 'url' => ['/site/login']] :
                 [
-                    'label' => 'Logout (' . Yii::$app->user->identity->nome . ')',
+                    'label' => 'Sair (' . Yii::$app->user->identity->nome . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ],

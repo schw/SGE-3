@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
         );?>
 
     <div class="form-group">
-        <?= Html::submitButton('Adicionar Voluntário ao evento', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Adicionar Voluntário', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

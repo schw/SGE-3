@@ -165,8 +165,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			<div id="address"></div>
 		</div>
 	<div class="local-form" style="margin-top: 10px;">
+		<label class="control-label" for="local-nome">*Nome</label>
 		<input id="nome" placeholder="Nome do local" type="text" size="50" width="50" >
-		<?= Html::button('Salvar',['onclick'=>"botao()",'class' => 'btn btn-primary'])?>
+		<?= Html::button('Criar Local',['onclick'=>"botao()",'class' => 'btn btn-primary'])?>
 		
 	</div>
 </div>

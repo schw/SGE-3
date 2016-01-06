@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CoordenadorHasEventoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Coordenadores';
+$this->title = 'Coordenadores de ' .$evento['descricao'];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="coordenador-has-evento-index">
