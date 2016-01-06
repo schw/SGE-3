@@ -51,7 +51,7 @@ class Evento extends \yii\db\ActiveRecord
             [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'cargaHoraria', 'allow', 
             'responsavel', 'tipo_idtipo', 'local_idlocal'], 'required', 'message' => 'Este campo é Obrigatório'],
             [['vagas', 'allow', 'responsavel','palestrante_idPalestrante', 'tipo_idtipo', 'local_idlocal'], 'integer'],
-            [['cargaHoraria'], 'integer', 'min' => 0],
+            [['vagas', 'cargaHoraria'], 'integer', 'min' => 0],
             [['dataIni', 'dataFim'], 'string',],
             [['dataIni'], 'validateDateIni'],
             [['dataFim'], 'validateDateFim'],

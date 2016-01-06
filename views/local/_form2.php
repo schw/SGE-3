@@ -87,12 +87,12 @@ function AlteraConteudo(latLng)
 	}
 	//window.location.href = "http://localhost/clone/sge3/web/index.php?r=local/create" + "&lat=" + latLng;
 	// Vari�vel com os dados que ser�o enviados ao PHP
-	var id = document.getElementById('id').value;
+	var id =  <?= $model->idlocal ?>;
 	var lat = latLng.lat();
 	var lng = latLng.lng();
 	var nome = document.getElementById('nome').value;
 	alert(lat+lng+nome);
-	ajax.open("GET", "http://localhost/clone/sge3/web/index.php?r=local/update&lat="+lat+"&lng="+lng+"&nome="+nome+"&id="+id);
+	ajax.open("GET", "index.php?r=local/update&lat="+lat+"&lng="+lng+"&nome="+nome+"&id="+id);
 	ajax.setRequestHeader("Content-Type", "text/html");
 	ajax.send();
 }
