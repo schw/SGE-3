@@ -42,21 +42,22 @@ $this->params['breadcrumbs'][] = $this->title;
       Modal::end();
     ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php if(!Yii::$app->user->isGuest && $evento->canAccess()){ ?>
+    <h1><?= Html::encode($this->title) ?></h1>
+    
 
     <div id='external-events'>
         <?php foreach ($arrayTipo as $key => $item) {?>
           <div class='fc-event' id=<?=$key.">".$item?></div>
         <?php } ?>
-        <p>Arraste os evento</p>
+        <p>Arraste os eventos</p>
         <p></p>
     </div>
 
     <?php 
     }?>
 
-    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){ ?>
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3 || !$evento->canAccess()){ ?>
     <?php $this->title = 'Programação';
     $this->params['breadcrumbs'][] = $this->title;
     ?>
