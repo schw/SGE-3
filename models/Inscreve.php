@@ -458,5 +458,16 @@ public function VerificaCredenciamento($params)
         }
     }
 
+    public function getSomaCargaHorariaPacote ($idpacote){
+        $sql = "select sum(itemProgramacao.cargaHoraria) from itemProgramacao where iditemProgramacao in (
+                select itemProgramacao_iditemProgramacao from itemProgramacao_has_pacote 
+                as item join pacote as p on item.pacote_idpacote = p.idpacote 
+                where idpacote ='".$idpacote."')";
+        
+        $somaCargaHoraria = Yii::$app->db->createCommand($sql)->execute(); 
+        var_dump($cargaHoraria);
+        exit;
+    }
+
 
 }
