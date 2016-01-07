@@ -82,6 +82,14 @@ class EventoController extends Controller
                 'dataProvider2' => $dataProvider2,
             ]);
 
+        }else if($params['inscricoes'] == 'naoiniciada'){
+            
+            return $this->render('inscricoesNaoIniciadas', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'dataProvider2' => $dataProvider2,
+            ]);
+
         }else{
 
             return $this->render('gerenciarEventos', [

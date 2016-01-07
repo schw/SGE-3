@@ -112,12 +112,14 @@ class EventoSearch extends Evento
             $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
             where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '0'")->joinWith("inscreve")->
                 andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla');
-
+        }else if($inscricoes == 'naoiniciada'){
+            $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
+            where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow = null")->joinWith("inscreve")->
+                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla');
         }else{
             $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
             where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '1'")->joinWith("inscreve")->
                 andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla');
-
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -174,7 +176,9 @@ class EventoSearch extends Evento
         }else if($inscricoes == 'fechada'){
             $query = CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
                 ->andWhere("evento.dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '0'");
-
+        }else if($inscricoes == 'naoiniciada'){
+            $query = CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
+                ->andWhere("evento.dataFim >= '". date('Y-m-d')."'")->andWhere("allow = 'null'");
         }else{
             $query = CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
                 ->andWhere("evento.dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '1'");
