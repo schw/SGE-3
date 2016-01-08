@@ -73,7 +73,7 @@ function myFunctionCredenciado(tipousuario) {
             ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
             ['attribute' => 'Participante', 'value' => 'usuario.nome'],
             //'itemProgramacao.palestrante',
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
+/*            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
             'template' => '{imprimir} {link}','buttons' => [
                 'imprimir' => function ($url,$model,$key) {
 
@@ -86,7 +86,7 @@ function myFunctionCredenciado(tipousuario) {
                             ]]);
                 },
         ],
-],
+],*/
      ],
  ]); ?>
 
@@ -105,13 +105,7 @@ function myFunctionCredenciado(tipousuario) {
 
             echo Html::submitButton('Gerar Certificado', ['onclick' => 'myFunctionCredenciado(0)' ,
                 'class' => 'btn btn-success']); 
-
-           //echo Html::a('Gerar Certificado em Lote', ['certificados/pdf'], ['target' => 'blank',
-           //                     'data'=>[
-           //                     'method' => 'POST',
-           //                     'params'=>['evento_idevento' => $id_evento, 'usuario_certificado' => $nome, 'tipousuario_certificado' => 1],
-           //                         ]]);
-        }
+       }
 
  ?>
 

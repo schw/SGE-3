@@ -60,7 +60,7 @@ function myFunctionPalestrantes(tipousuario,id_evento) {
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
             ['attribute' => 'Palestrante', 'value' => 'nome'],
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
+           /* ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
             'template' => '{imprimir} {link}','buttons' => [
                 'imprimir' => function ($url,$model,$key) {
 
@@ -76,7 +76,7 @@ function myFunctionPalestrantes(tipousuario,id_evento) {
                             ]]);
                 },
         ],
-],
+],*/
      ],
  ]); ?>
 

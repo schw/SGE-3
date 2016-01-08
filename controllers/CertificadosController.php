@@ -148,6 +148,7 @@ public function actionPdfcredenciados()
 
         $session->set('tipousuario_certificado', $tipo_usuario);
         $session->set('usuario_certificado', $nome_array);
+        $session->set('usuarios_id',$ids_usuario_vetor);
         $session->set('evento_idevento', $id_evento);
 
         Yii::$app->response->redirect(['certificados/pdf']);
@@ -257,38 +258,14 @@ public function converterMes($current){
 
     public function actionPdf() {
  
-    // get your HTML raw content without any layouts or scripts
-   
-    // setup kartik\mpdf\Pdf component
         $session = Yii::$app->session;
         $tipo_usuario = $session->get('tipousuario_certificado');
         $usuarios_string = $session->get('usuario_certificado');
         $id_evento = $session->get('evento_idevento');
-        
+        $ids_usuario_vetor = $session->get('usuarios_id');
+        $ch_voluntario = $session->get('cargaHoraria');
+
         $model = $this->findModel($id_evento);
-
-        $cargaHoraria = new Inscreve();
-        $cargaHoraria = $cargaHoraria->getSomaCargaHorariaPacote(22,6);
-
-        if($session->get('cargaHoraria') != null){
-
-
-            
-        }
-
-        else if ($cargaHoraria == null && $session->get('cargaHoraria') == null ){
-
-            //não há pacotes
-
-            $cargaHoraria = $model->cargaHoraria;
-
-        }
-        else if ($cargaHoraria == null && $session->get('cargaHoraria') != null){
-
-            //variavel session GET é porque o usuario é voluntário
-            $cargaHoraria = $session->get('cargaHoraria');
-
-        }
 
         $session->close();
         $session->destroy();
@@ -309,8 +286,20 @@ public function converterMes($current){
             $i = 0;
 
             while($i<$count){
+
                 $usuario = $usuario_vetor[$i];//verificar a emissão de certificados na view do participante
-                                                //acredito que deixou de funcionar
+
+
+                $cargaHoraria = new Inscreve();
+                $cargaHoraria = $cargaHoraria->getSomaCargaHorariaPacote($id_evento,$ids_usuario_vetor[$i]);
+
+                if ($cargaHoraria == null){
+
+                    $cargaHoraria = $model->cargaHoraria;
+
+                }                                                
+
+
                 $i++;
 
 
@@ -391,7 +380,7 @@ else if ( $tipo_usuario == 1){
 else{
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
-            ('.$model->sigla.')</b>, na qualidade de voluntário, com carga horária de <b>'.$cargaHoraria.
+            ('.$model->sigla.')</b>, na qualidade de voluntário, com carga horária de <b>'.$ch_voluntario.
                 ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
                 de Manaus - AM.</p>');
 }

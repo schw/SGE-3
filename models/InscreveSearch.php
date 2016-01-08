@@ -131,7 +131,8 @@ public function searchInscritos($params)
 
         
         if (!Yii::$app->user->isGuest) {
-            $query = Inscreve::find()->where(['evento_idevento' => $params['evento_idevento']]);
+            $query = Inscreve::find()->where(['inscreve.evento_idevento' => $params['evento_idevento']])
+            ->leftJoin('pacote','pacote.idpacote = inscreve.pacote_idpacote');
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado

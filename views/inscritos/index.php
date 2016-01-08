@@ -27,7 +27,7 @@ use yii\grid\GridView;
                 echo Html::a(Html::img('@web/img/reportcoord.png'), ['inscritos/listainscritospdf','evento_idevento' => $id_evento], ['target' =>'_blank','width' => '10']) 
             ?>
             <div style="width: 110px; text-align:center;">
-                <?php echo Html::a('Inscritos conforme Programação', ['inscritos/listainscritospdf', 'evento_idevento' => $id_evento],['target' =>'_blank']); ?>
+                <?php echo Html::a('Gerar Lista (PDF)', ['inscritos/listainscritospdf', 'evento_idevento' => $id_evento],['target' =>'_blank']); ?>
             </div>
         </div>
     </div>
@@ -38,8 +38,24 @@ use yii\grid\GridView;
         //'filterModel' => $searchModel,
         'summary' => '',
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
             ['attribute' => 'Participante', 'value' => 'usuario.nome'],
+            ['attribute' =>'Pacote', 'value'=> 
+                function ($data){
+
+                    if($data->pacote_idpacote == null){
+                        return "-----";
+                    }
+                    else{
+                        return $data->pacote->titulo;
+                    }
+                }
+            ],
+            ['attribute' =>'dataInscricao', 'value'=> 
+                function ($data){
+                    return date("d-m-Y", strtotime($data->dataInscricao));
+                }
+            ],
             ['attribute' => 'credenciado', 'value' => 
             function ($data){
                 if ($data->credenciado){

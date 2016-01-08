@@ -418,11 +418,20 @@ class InscreveController extends Controller
         $usuario =Yii::$app->request->post('usuario_certificado');  
 
         $model = $this->findModel($id_evento);
+
+                $cargaHoraria = new Inscreve();
+                $cargaHoraria = $cargaHoraria->getSomaCargaHorariaPacote($id_evento,$nome= Yii::$app->user->identity->idusuario);
+
+                if ($cargaHoraria == null){
+
+                    $cargaHoraria = $model->cargaHoraria;
+
+                }  
         
 
             $pdf = new mPDF('utf-8', 'A4-L');
 
-            $pdf->WriteHTML(''); //se tirar isso, desaparece o cabeçalho
+            $pdf->WriteHTML('');
 
             if($model->imagem != NULL){
 
@@ -485,7 +494,7 @@ class InscreveController extends Controller
 
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
-            ('.$model->sigla.')</b>, com carga horária de <b>'.$model->cargaHoraria.
+            ('.$model->sigla.')</b>, com carga horária de <b>'.$cargaHoraria.
                 ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
                 de Manaus - AM.</p>');
     
