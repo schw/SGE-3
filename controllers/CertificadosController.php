@@ -265,7 +265,30 @@ public function converterMes($current){
         $usuarios_string = $session->get('usuario_certificado');
         $id_evento = $session->get('evento_idevento');
         
-        $cargaHoraria = $session->get('cargaHoraria');
+        $model = $this->findModel($id_evento);
+
+        $cargaHoraria = new Inscreve();
+        $cargaHoraria = $cargaHoraria->getSomaCargaHorariaPacote(22,6);
+
+        if($session->get('cargaHoraria') != null){
+
+
+            
+        }
+
+        else if ($cargaHoraria == null && $session->get('cargaHoraria') == null ){
+
+            //não há pacotes
+
+            $cargaHoraria = $model->cargaHoraria;
+
+        }
+        else if ($cargaHoraria == null && $session->get('cargaHoraria') != null){
+
+            //variavel session GET é porque o usuario é voluntário
+            $cargaHoraria = $session->get('cargaHoraria');
+
+        }
 
         $session->close();
         $session->destroy();
@@ -280,8 +303,7 @@ public function converterMes($current){
 
         $count = sizeof($usuario_vetor);
         
-        $model = $this->findModel($id_evento);
-        
+
             $pdf = new mPDF('utf-8', 'A4-L');
 
             $i = 0;
@@ -353,9 +375,10 @@ public function converterMes($current){
 
         $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 if( $tipo_usuario ==0){
+
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
-            ('.$model->sigla.')</b>, com carga horária de <b>'.$model->cargaHoraria.
+            ('.$model->sigla.')</b>, com carga horária de <b>'.$cargaHoraria.
                 ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
                 de Manaus - AM.</p>');
 }

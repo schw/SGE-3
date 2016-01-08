@@ -18,6 +18,8 @@ use Yii;
  */
 class Inscreve extends \yii\db\ActiveRecord
 {
+
+    public $cargaHorariaPacote;
     /**
      * @inheritdoc
      */
@@ -458,15 +460,23 @@ public function VerificaCredenciamento($params)
         }
     }
 
-    public function getSomaCargaHorariaPacote ($idpacote){
-        $sql = "select sum(itemProgramacao.cargaHoraria) from itemProgramacao where iditemProgramacao in (
+    public function getSomaCargaHorariaPacote ($idevento,$idusuario){
+
+        $idpacote = Inscreve::find()->select('pacote_idpacote')->Where(['evento_idevento' => $idevento, 
+                                'usuario_idusuario' => $idusuario])->one();
+        if ($idpacote == null){
+            return null;
+
+    }
+
+        $sql = "select sum(itemProgramacao.cargaHoraria) as cargaHorariaPacote from itemProgramacao where iditemProgramacao in (
                 select itemProgramacao_iditemProgramacao from itemProgramacao_has_pacote 
                 as item join pacote as p on item.pacote_idpacote = p.idpacote 
-                where idpacote ='".$idpacote."')";
+                where idpacote ='".$idpacote->pacote_idpacote."')";
         
-        $somaCargaHoraria = Yii::$app->db->createCommand($sql)->execute(); 
-        var_dump($cargaHoraria);
-        exit;
+        $somaCargaHoraria = Yii::$app->db->createCommand($sql)->queryOne();
+        
+        return $somaCargaHoraria['cargaHorariaPacote'];
     }
 
 
