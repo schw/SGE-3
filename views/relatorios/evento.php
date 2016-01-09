@@ -1,3 +1,10 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+
 <?php
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -24,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
    <div id="page-wrapper">
 
     <div id="geral" style="width: 100%; text-align: center;">
-        <div id="titulo" style= "text-align: left">
+        <div id="titulo" style= "text-align: center">
             <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
         </div>
 
@@ -37,12 +44,15 @@ $this->params['breadcrumbs'][] = $this->title;
     
     if($qtd_rows > 0){    
 ?>
-    <table border="1" style= "text-align: left  ">
-        <tr>
-            <th style= "text-align: center" width = "40px" >#</th>
-            <th style= "text-align: center" width = "250px" >Sigla do Evento</th>
-            <th style= "text-align: center" width = "300px">Quantidade de Inscrições</th>
-        </tr>
+    <div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Sigla do Evento</th>
+                <th style= "text-align: center">Quantidade de Inscrições</th>
+            </tr>
+        </thead>
 
     <?php 
 
@@ -51,12 +61,12 @@ $this->params['breadcrumbs'][] = $this->title;
             $qtd_evento = $model[$i]->qtd_evento;
 
             echo '<tr>
-                <td style= "text-align: center">'.($i+1).'</td>
-                <td style= "text-align: left">'.$coordenador.'</td>
+                <td>'.($i+1).'</td>
+                <td>'.$coordenador.'</td>
                 <td align = "center">'.$qtd_evento.'</td>
                 </tr>';
         }
-            echo '</table>';
+            echo '</table></div>';
     }
     else{
             echo '<div style= "text-align: center; font-weight: bold;"> Não há registros </div>';
