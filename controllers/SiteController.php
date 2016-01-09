@@ -134,7 +134,7 @@ class SiteController extends Controller
 	                ->setFrom(Yii::$app->params['adminEmail'])
 	                ->setTo($email)
 	                ->setSubject("[SGE] RecuperaÃ§Ã£o de Senha")
-	                ->setTextBody("Recuperar sua senha"."\n\n"."OlÃ¡ ".$usuario->nome.", vocÃª solicitou a recuperaÃ§Ã£o de senha geramos uma nova senha de acesso para vocÃª, por favor Copie e Cole a nova senha e modifique sua senha o mais rápido possível: ".$senha)
+	                ->setTextBody("Serviço de Recuperação de senha"."\n\n"."Olá ".$usuario->nome.", você solicitou a recuperação da sua senha. Geramos automaticamente uma nova senha de acesso para você. \nPor favor efetue o login no sistema com esta nova senha e modifique-a se achar necessário:\n\nSenha: ".$senha)
 	                ->send();
 	            	return $this->goHome();
             	}catch (\Exception $e){

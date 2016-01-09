@@ -187,7 +187,7 @@ $this->params['breadcrumbs'][] = $this->title;
             if(!$inscrito){ 
                 if($existeVagas != 0){ ?>
 
-                        <div style="width: 80px; float: right; padding: 10px;">
+                        <div class="divicone divicone-l1"> 
                             <?php echo Html::a(Html::img('@web/img/ok.png'), ['inscreve/inscrever'],  [
                             'data'=>[
                             'method' => 'POST',
@@ -224,8 +224,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php } 
             }else{ ?>
+                            <div class="divicone divicone-l1"> 
 
-                            <div style="width: 80px; float: right; padding: 10px;">
                                 <?= Html::a(Html::img('@web/img/block.png'), ['inscreve/cancelar'], [
                                     'data' => [
                                     'confirm' => 'Deseja cancelar inscrição no evento "'.$model->descricao.'" ?',
@@ -240,6 +240,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'params'=>['evento_idevento' => $model->idevento],
                                 ]
                                 ]); ?>
+
                             </div>
 
                     <?php 
@@ -247,7 +248,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         else if ((!Yii::$app->user->isGuest) && $credenciamento){ ?>
                                 <!-- Certificado -->
-                    <div style="width: 80px; float: right; padding: 10px;">
+                    <div class="divicone divicone-l1"> 
                         <?php echo Html::a(Html::img('@web/img/certificado.png'), ['inscreve/pdf'], ['target' => 'blank',
                         'data'=>[
                         'method' => 'POST',

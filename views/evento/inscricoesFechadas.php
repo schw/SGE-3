@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-        <div id="geral" style="width: 100%; text-align: center; border: solid; background-color: gray;">
+        <div id="geral" class="diviconegeral" style="width: 100%; text-align: center;">
             <div id="titulo" style= "float: left;">
                 <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
             </div>
