@@ -6,6 +6,7 @@ use kartik\social\TwitterPlugin;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Evento */
@@ -27,19 +28,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 
    <div id="page-wrapper">
-    <div id="geral" style="width: 100%; text-align: center;">
-        <div id="titulo" style= "float: left">
-            <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
+    <div id="geral" class="diviconegeral">
+        <div id="titulo" style= "float: left;">
+            <h1>Detalhes</h1>
         </div>
-
-    <div style="width: 80px; float: right; padding: 10px;">
-            <?php echo Html::a(Html::img('@web/img/pacotes.png'), ['pacote/index','idevento' => $model->idevento], ['width' => '10']) ?>
-            <?php echo Html::a('Pacote', ['pacote/index', 'idevento' => $model->idevento]); ?>
-        </div>
-        <div style="width: 100px; float: right; padding: 10px;">
-            <?php echo Html::a(Html::img('@web/img/programacao.png'), ['item-programacao/index','idevento' => $model->idevento], ['width' => '10']) ?>
-            <?php echo Html::a('Programação', ['item-programacao/index', 'idevento' => $model->idevento]); ?>
-        </div>
+        
+        <a href=<?= Url::to(['pacote/index', 'idevento' => $model->idevento])?>>
+            <div class="divicone divicone-l1">
+                <?= Html::img('@web/img/pacotes.png', ['class' => 'imgicone'])?>
+                <p class="labelicone">Pacote</p>
+            </div>
+        </a>
+        
+        <a href=<?= Url::to(['item-programacao/index', 'idevento' => $model->idevento])?>>
+            <div class="divicone divicone-l2">
+                <?= Html::img('@web/img/programacao.png', ['class' => 'imgicone']) ?>
+                <p class="labelicone">Programação</p>
+            </div>
+        </a>
         
         <?php if( (!Yii::$app->user->isGuest)  && Yii::$app->user->identity->idusuario == $model->responsavel) { ?>
         <!-- Certificado -->
@@ -84,46 +90,48 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <!-- -->
 
-                    <div style=" float: right; padding: 10px;">
                     <a data-toggle="modal" data-target="#modalEventoPdf">
-                        <div style="width: 50px; float: left">
-                            <img src = '../web/img/certificado.png'><br>
-                                   Gerar Certificado
-                        </div>    
+                        <div class="divicone divicone-l1">
+                            <img src = '../web/img/certificado.png' class="imgicone"><br>
+                                   <p>Gerar Certificado</p>
+                        </div>
                     </a>
-
-                    </div>
                     <!-- fim do certificado -->
         <?php } ?>
 
 
         <?php if(!Yii::$app->user->isGuest && $model->canAccess()){ ?>
-            <div style="width: 80px; float: right; padding: 10px;">
-                <?= Html::a(Html::img('@web/img/delete.png'), ['delete', 'id' => $model->idevento], [
-                    'data' => [
-                        'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
-                        'method' => 'post',
-                    ],
-                ]) ?>
-                        <?= Html::a('Remover Evento', ['delete', 'id' => $model->idevento], [
-                            'data' => [
-                                'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
-                                'method' => 'post',
-                            ],
-                        ]) ?>
+                <div class="divicone divicone-l1"> 
+                     <?= Html::a(Html::img('@web/img/delete.png', ['class' => 'imgicone']), ['delete', 'id' => $model->idevento], [
+                        'data' => [
+                            'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
+                            'method' => 'post',
+                        ],
+                    ]) ?>
+                    
+                    <?= Html::a('Remover Evento', ['delete', 'id' => $model->idevento], [
+                        'data' => [
+                            'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
+                            'method' => 'post',
+                        ],
+                    ]) ?>
             </div>
 
         <?php if($allow == 0) { ?>
-            <div style="width: 80px; float: right; padding: 10px;">
-                <?= Html::a(Html::img('@web/img/editar.png'), ['update', 'id' => $model->idevento]) ?>
-                <?php echo Html::a('Alterar Evento', 'index.php?r=evento/update&id='.$model->idevento); ?>
+        <a href=<?= Url::to(['evento/update', 'id' => $model->idevento])?>>
+            <div class="divicone divicone-l1">
+                <?= Html::img('@web/img/editar.png', ['class' => 'imgicone']) ?>
+                <p>Alterar Evento</p>
             </div>
+        </a>
             
 <!-- abrir inscrições -->
-            <div style="width: 80px; float: right; padding: 10px;">
-                <?= Html::a(Html::img('@web/img/open.png'), ['abrir', 'id' => $model->idevento]) ?>
+        <a href=<?= Url::to(['evento/abrir', 'id' => $model->idevento])?>>
+            <div class="divicone divicone-l1">
+                <?= Html::img('@web/img/open.png', ['class' => 'imgicone']) ?>
                 <?php echo Html::a('Abrir Inscrições', 'index.php?r=evento/abrir&id='.$model->idevento); ?>
             </div>
+        </a>
 
 
 <!-- fim do abrir inscrições -->
@@ -131,39 +139,45 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php 
         }
         else if ($allow == 1) { ?>
-            <div style="width: 80px; float: right; padding: 10px;">
+            <div class="divicone divicone-l1">
                 <?= Html::a(Html::img('@web/img/lock.png'), ['fechar', 'id' => $model->idevento], [
                     'data' => [
                         'confirm' => 'Deseja encerrar as inscrições deste evento?  "'.$model->descricao.'" ?',
                         'method' => 'post',
                     ],
                 ]) ?>
-                        <?= Html::a('Encerrar Inscrições', ['fechar', 'id' => $model->idevento], [
-                            'data' => [
-                                'confirm' => 'Deseja encerrar as inscrições deste evento? "'.$model->descricao.'" ?',
-                                'method' => 'post',
-                            ],
-                        ]) ?>
+                <?= Html::a('Encerrar Inscrições', ['fechar', 'id' => $model->idevento], [
+                    'data' => [
+                        'confirm' => 'Deseja encerrar as inscrições deste evento? "'.$model->descricao.'" ?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
             </div>
         <?php } ?>
 <!-- fim do fechar inscrições -->
-            <div style="width: 80px; float: right; padding: 10px;">
-                <?php echo Html::a(Html::img('@web/img/listar_inscritos.png'), ['inscritos/index','evento_idevento' => $model->idevento], ['width' => '10']) ?>
-                <?php echo Html::a('Listar Inscritos', 'index.php?r=inscritos/index&evento_idevento='.$model->idevento); ?>
+        <a href=<?= Url::to(['inscritos/index','evento_idevento' => $model->idevento])?>>
+            <div class="divicone divicone-l1">
+                <?= Html::img('@web/img/listar_inscritos.png', ['class' => 'imgicone']) ?>
+                <p>Listar Inscritos</p>
             </div>
+        </a>
 
                                 
             
             <?php if(!Yii::$app->user->isGuest && $model->canAccessResponsible()){ ?>
-                <div style="width: 100px; float: right; padding: 10px;">
-                    <?php echo Html::a(Html::img('@web/img/addcoord.png'), ['coordenador-has-evento/index','idevento' => $model->idevento], ['width' => '10']) ?>
-                    <?php echo Html::a('Adicionar Coordenadores', ['coordenador-has-evento/index', 'idevento' => $model->idevento]); ?>
+                <a href=<?= Url::to(['coordenador-has-evento/index','idevento' => $model->idevento])?>>
+                    <div class="divicone divicone-l2">
+                        <?= Html::img('@web/img/addcoord.png', ['class' => 'imgicone']) ?>
+                        <p>Adicionar Coordenador</p>
+                    </div>
+                </a>
+            <?php } ?>
+            <a href=<?= Url::to( ['evento-has-voluntario/index','idevento' => $model->idevento])?>>
+                <div class="divicone divicone-l1">
+                    <?= Html::img('@web/img/addvolun.png', ['class' => 'imgicone']) ?>
+                    <p>Adicionar Voluntário</p>
                 </div>
-                <?php } ?>
-            <div style="width: 100px; float: right; padding: 10px;">
-                <?php echo Html::a(Html::img('@web/img/addvolun.png'), ['evento-has-voluntario/index','idevento' => $model->idevento], ['width' => '10']) ?>
-                <?php echo Html::a('Adicionar Voluntários', ['evento-has-voluntario/index', 'idevento' => $model->idevento]); ?>
-            </div>
+            </a>
         <?php 
         }?>
 
@@ -250,7 +264,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <!-- fim do certificado -->
         <?php }
     } ?>
+        <div class="clear"></div>
     </div>
+    <h2><?= $this->title ?></h2>
 
     <?= DetailView::widget([
         'model' => $model,

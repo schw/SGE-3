@@ -55,8 +55,6 @@ use kartik\widgets\Select2;
     'type'=>DateControl::FORMAT_TIME,
     ]) ?>
 
-    <?= $model->horaFim ?>
-
     <?= $form->field($model, 'vagas')->textInput(['type' => 'number']) ?>
 
     <?= $form->field($model, 'cargaHoraria')->textInput(['type' => 'number'])?>

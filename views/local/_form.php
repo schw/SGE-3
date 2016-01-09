@@ -10,6 +10,32 @@ use yii\widgets\Pjax;
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"></script>
+</head>
+	<style>
+		#mapCanvas {
+			width: 100%;
+			height: 450px !important;
+			float: left;
+			margin-bottom: 20px;
+		}
+		
+		#infoPanel {
+			float: left;
+			margin-left: 10px;
+		}
+	</style>
+<div id="conteudo">
+	<div id="mapCanvas"></div>
+	<div class="local-form" style="margin-top: 10px;">
+		<?= Html::activeTextInput($model, 'idlocal',['style'=>"display:none;", 'id'=>'id'])?>
+		<?= Html::activeLabel($model, 'Nome')?>
+		<?= Html::activeTextInput($model, 'descricao',['maxlength'=>'49','id'=>'nome','placeholder'=>'Nome do local',
+				'style'=>"width:400px;"]);?>
+		<br>
+		<?= Html::button('Salvar',['onclick'=>"botao()",'class' => 'btn btn-primary']);?>
+	</div>
+</div>
+
 <script type="text/javascript">
 var geocoder = new google.maps.Geocoder();
 var marker;
@@ -19,9 +45,9 @@ function geocodePosition(pos) {
     latLng: pos
   }, function(responses) {
     if (responses && responses.length > 0) {
-      updateMarkerAddress(responses[0].formatted_address);
+      //updateMarkerAddress(responses[0].formatted_address);
     } else {
-      updateMarkerAddress('Cannot determine address at this location.');
+      //updateMarkerAddress('Não foi possivel determinar um endereço proximo');
     }
   });
 }
@@ -81,11 +107,17 @@ function AlteraConteudo(latLng)
 	}
 	//window.location.href = "http://localhost/clone/sge3/web/index.php?r=local/create" + "&lat=" + latLng;
 	// Variável com os dados que serão enviados ao PHP
+	var id = document.getElementById('id').value;
 	var lat = latLng.lat();
 	var lng = latLng.lng();
-	var nome = document.getElementById('nome').value;
-	alert(lat+lng+nome);
-	ajax.open("GET", "index.php?r=local/create&lat="+lat+"&lng="+lng+"&nome="+nome);
+	var nome = document.getElementById('nome').value
+	if(id != ""){
+		//alert(lat+lng+nome+id);
+		ajax.open("GET", "index.php?r=local/update&id="+id+"&lat="+lat+"&lng="+lng+"&nome="+nome);
+	}else{
+		//alert(lat+lng+nome);
+		ajax.open("GET", "index.php?r=local/create&lat="+lat+"&lng="+lng+"&nome="+nome);
+	}
 	ajax.setRequestHeader("Content-Type", "text/html");
 	ajax.send();
 }
@@ -102,11 +134,17 @@ function botao(){
 }
 
 function updateMarkerAddress(str) {
-  document.getElementById('address').innerHTML = str;
+  //document.getElementById('address').innerHTML = str;
 }
 
 function initialize() {
-	var latLng = new google.maps.LatLng(-3.0902246179108674, -59.963963071594264);
+	var latLng;
+	latLng = new google.maps.LatLng(-3.088166335627688, -59.96434260416987);
+	var lat = "<?php echo $model->latitude;?>";
+	var lng = "<?php echo $model->longitude;?>";
+	if(lat !== ""){
+		latLng = new google.maps.LatLng(lat, lng);
+	}
 	var map = new google.maps.Map(document.getElementById('mapCanvas'), {
 	  zoom: 15,
 	  center: latLng,
@@ -144,32 +182,3 @@ function initialize() {
 // Onload handler to fire off the app.
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
-</head>
-	<style>
-		#mapCanvas {
-			width: 100%;
-			height: 450px;
-			float: left;
-			margin-bottom: 20px;
-		}
-		
-		#infoPanel {
-			float: left;
-			margin-left: 10px;
-			display: none
-		}
-	</style>
-<div id="conteudo">
-	<div id="mapCanvas"></div>
-		<div id="infoPanel">
-			<div id="address"></div>
-		</div>
-	<div class="local-form" style="margin-top: 10px;">
-		<label class="control-label" for="local-nome">*Nome</label>
-		<input id="nome" placeholder="Nome do local" type="text" size="50" width="50" >
-		<?= Html::button('Criar Local',['onclick'=>"botao()",'class' => 'btn btn-primary'])?>
-		
-	</div>
-</div>
-
-

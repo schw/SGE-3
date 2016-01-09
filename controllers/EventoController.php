@@ -174,7 +174,7 @@ class EventoController extends Controller
 
         $model = new Evento();
         $model->responsavel = Yii::$app->user->identity->idusuario;
-        $model->allow = 0;
+        $model->allow = null;
         
         $arrayPalestrante = ArrayHelper::map(Palestrante::find()->all(), 'idPalestrante', 'nome');
         $arrayLocal = ArrayHelper::map(Local::find()->all(), 'idlocal', 'descricao');

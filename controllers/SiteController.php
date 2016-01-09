@@ -110,8 +110,7 @@ class SiteController extends Controller
     
     
     public function actionRecuperar(){
-    	    if ( Yii::$app->request->post())
-        {
+		if ( Yii::$app->request->post()){
             $model;
             $email = Yii::$app->request->post('email');
             $usuario = User::find()->where(['email'=>$email])->one();
@@ -120,25 +119,33 @@ class SiteController extends Controller
                 echo '<script language="javascript">';
                 echo 'alert("Informe um Email válido")';
                 echo '</script>';
+                return $this->render('recuperar');
             }           
             if($usuario!=null && $usuario->tipoUsuario===3) //se o usuario com email informado existe...
             {
-            	$senha = $this->geraSenha(10);
+            	try{
+	            	$senha = $this->geraSenha(8);
+	            	$usuario->senha = $senha;
+	            	$usuario->save(false);
+	                echo '<script language="javascript">';
+	                echo 'alert("Email enviado")';
+	                echo '</script>';
+	                Yii::$app->mailer->compose()
+	                ->setFrom(Yii::$app->params['adminEmail'])
+	                ->setTo($email)
+	                ->setSubject("[SGE] Recuperação de Senha")
+	                ->setTextBody("Recuperar sua senha"."\n\n"."Olá ".$usuario->nome.", você solicitou a recuperação de senha geramos uma nova senha de acesso para você, por favor Copie e Cole a nova senha e modifique sua senha o mais r�pido poss�vel: ".$senha)
+	                ->send();
+	            	return $this->goHome();
+            	}catch (\Exception $e){
+            		echo '<script language="javascript">';
+            		echo 'alert("Um erro ocorreu por favor tente novamente mais tarde)';
+            		echo '</script>';
+            		return $this->render('recuperar');
+            	}
+	    	}else{
                 echo '<script language="javascript">';
-                echo 'alert("Email enviado")';
-                echo '</script>';
-                Yii::$app->mailer->compose()
-                ->setFrom(Yii::$app->params['adminEmail'])
-                ->setTo($email)
-                ->setSubject("[SGE] Recuperação de Senha")
-                ->setTextBody("Recuperar sua senha"."\n\n"."Olá ".$usuario->nome.", você solicitou a recuperação de senha, geramos uma nova senha de acesso para você: ".$senha)
-                ->send();
-                $usuario->senha = $senha;
-                $usuario->save(false);
-            	return $this->goHome();
-	    }else{
-                echo '<script language="javascript">';
-                echo 'alert(Você deve acessar o SGE pelo portal do professor ou secretaria")';
+                echo 'alert("Somente participantes podem recuperar senha")';
                 echo '</script>';
                 return $this->render('recuperar');
                 }
@@ -152,13 +159,13 @@ class SiteController extends Controller
     	$lmin = 'abcdefghijklmnopqrstuvwxyz';
     	$lmai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     	$num = '1234567890';
-    	$simb = '!@#$%*-';
+    	//$simb = '!@#$%*-';
     	$retorno = '';
     	$caracteres = '';
     	$caracteres .= $lmin;
     	if ($maiusculas) $caracteres .= $lmai;
     	if ($numeros) $caracteres .= $num;
-    	if ($simbolos) $caracteres .= $simb;
+    	//if ($simbolos) $caracteres .= $simb;
     	$len = strlen($caracteres);
     	for ($n = 1; $n <= $tamanho; $n++) {
     		$rand = mt_rand(1, $len);

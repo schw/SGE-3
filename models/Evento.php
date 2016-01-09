@@ -48,7 +48,7 @@ class Evento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'cargaHoraria', 'allow', 
+            [['sigla', 'descricao', 'dataIni', 'dataFim', 'horaIni', 'horaFim', 'cargaHoraria',
             'responsavel', 'tipo_idtipo', 'local_idlocal'], 'required', 'message' => 'Este campo é Obrigatório'],
             [['vagas', 'allow', 'responsavel','palestrante_idPalestrante', 'tipo_idtipo', 'local_idlocal'], 'integer'],
             [['vagas', 'cargaHoraria'], 'integer', 'min' => 0],
