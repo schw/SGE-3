@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Pacote */
@@ -21,27 +22,51 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-        <h1><?= Html::encode($this->title) ?></h1>
-        <h3><?= $model->evento->descricao?> </h3>
+        
         <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3){ ?>
-            <p>
-                <?= Html::a('Atualizar', ['update', 'id' => $model->idpacote], ['class' => 'btn btn-primary',]) ?>
-                <?= Html::a('Excluir', ['delete', 'id' => $model->idpacote], [
-                    'class' => 'btn btn-danger',
-                    'data' => [
-                        'confirm' => 'Deseja remover o pacote "'.$model->descricao.'" ?',
-                        'method' => 'post',
-                    ],
-                ]) ?>
+             <div id="geral" class="diviconegeral">
+                <div id="titulo" style= "float: left;">
+                    <h1>Pacote Detalhes</h1>
+                </div>
+                
+                <a href=<?= Url::to(['pacote/update', 'id' => $model->idpacote])?>>
+                    <div class="divicone divicone-l1">
+                        <?= Html::img('@web/img/editar.png', ['class' => 'imgicone'])?>
+                        <p>Atualizar Pacote</p>
+                    </div>
+                </a>
+
+                <div class="divicone divicone-l1">
+                    <?= Html::a(Html::img('@web/img/delete.png', ['class' => 'imgicone']), ['delete', 'id' => $model->idpacote], [
+                        'data' => [
+                            'confirm' => 'Deseja remover o Pacote "'.$model->descricao.'" ? TODAS as informações relacionada a este Pacote serão APAGADAS.',
+                            'method' => 'post',
+                        ],
+                    ]) ?>
+                    <?= Html::a('Remover Pacote', ['delete', 'id' => $model->idpacote], [
+                        'data' => [
+                            'confirm' => 'Deseja remover o Pacote "'.$model->descricao.'" ? TODAS as informações relacionada a este Pacote serão APAGADAS.',
+                            'method' => 'post',
+                        ],
+                    ]) ?>
+                </div>
+
+                <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){ ?>
+                    <div class="divicone divicone-l1">
+                        <?= Html::a('Escolher Pacote', ['inscreve/addpacote'], ['class' => 'btn btn-primary', 'data'=>[
+                            'method' => 'POST',
+                            'params'=>['id_pacote' => $model->idpacote, 'id_evento' => $model->evento_idevento],]
+                        ]);
+                        ?>
+                    </div>
+                <?php } ?>
+
+                <div class="clear"></div>
         <?php } ?>
-        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){ ?>
-        <?= Html::a('Escolher Pacote', ['inscreve/addpacote'], ['class' => 'btn btn-primary', 'data'=>[
-                'method' => 'POST',
-                'params'=>['id_pacote' => $model->idpacote, 'id_evento' => $model->evento_idevento],]
-        ]);
-        ?>
-        <?php } ?>
-        </p>
+            </div>
+
+            <h3><?= $model->evento->descricao.": ".$this->title?> </h3>
+            <p></p>
 
         <?= DetailView::widget([
             'model' => $model,

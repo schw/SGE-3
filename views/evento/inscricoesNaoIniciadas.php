@@ -4,12 +4,13 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use kartik\widgets\SideNav;
 use kartik\widgets\Growl;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EventoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Meus Eventos Ativos - Inscrições Não Iniciadas';
+$this->title = 'Eventos - Inscrições Não Iniciadas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="evento-index">
@@ -22,12 +23,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-        <h1><?= Html::encode($this->title)." ".Html::img('@web/img/lock.png')?></h1>
-        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-        <p>
-            <?php if(Yii::$app->user->identity->tipoUsuario != 2) echo Html::a('Novo Evento', ['create'], ['class' => 'btn btn-success'])?>
-        </p>
+        <div id="geral" style="width: 100%; text-align: center; border: solid; background-color: gray;">
+            <div id="titulo" style= "float: left;">
+                <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
+            </div>
+            <a href=<?= Url::to(['evento/create'])?>>
+                <div class="divicone divicone-l1" style="padding: 10px;">
+                    <?= Html::img('@web/img/novoevento.png', ['class' => 'imgicone']) ?>
+                    <p>Novo Evento</p>
+                </div>
+            </a>
+            <div class="clear"></div>
+        </div>
+        <p></p>
 
         <?= GridView::widget([
             'showOnEmpty' => 'true',

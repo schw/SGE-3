@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= GridView::widget([
             'showOnEmpty' => 'true',
             'dataProvider' => $dataProvider,
-            //'summary' => false,
+            'summary' => false,
             'columns' => [
                 'sigla',
                 'descricao',

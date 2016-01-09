@@ -102,22 +102,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php if(!Yii::$app->user->isGuest && $model->canAccess()){ ?>
                 <div class="divicone divicone-l1"> 
-                     <?= Html::a(Html::img('@web/img/delete.png', ['class' => 'imgicone']), ['delete', 'id' => $model->idevento], [
+                     <?= Html::a(Html::img('@web/img/removeevento.png', ['class' => 'imgicone']), ['delete', 'id' => $model->idevento], [
                         'data' => [
-                            'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
+                            'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ? TODAS as informações relacionada a este Evento serão APAGADAS.',
                             'method' => 'post',
                         ],
                     ]) ?>
                     
                     <?= Html::a('Remover Evento', ['delete', 'id' => $model->idevento], [
                         'data' => [
-                            'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ?',
+                            'confirm' => 'Deseja remover o evento "'.$model->descricao.'" ? TODAS as informações relacionada a este Evento serão APAGADAS.',
                             'method' => 'post',
                         ],
                     ]) ?>
             </div>
 
-        <?php if($allow == 0) { ?>
+        <?php if($allow == 0 || $allow == null) { ?>
         <a href=<?= Url::to(['evento/update', 'id' => $model->idevento])?>>
             <div class="divicone divicone-l1">
                 <?= Html::img('@web/img/editar.png', ['class' => 'imgicone']) ?>
@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <a href=<?= Url::to(['evento/abrir', 'id' => $model->idevento])?>>
             <div class="divicone divicone-l1">
                 <?= Html::img('@web/img/open.png', ['class' => 'imgicone']) ?>
-                <?php echo Html::a('Abrir Inscrições', 'index.php?r=evento/abrir&id='.$model->idevento); ?>
+                <p>Abrir Inscrições</p>
             </div>
         </a>
 
