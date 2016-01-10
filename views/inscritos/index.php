@@ -36,7 +36,6 @@ use yii\grid\GridView;
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
-        'summary' => '',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['attribute' => 'Participante', 'value' => 'usuario.nome'],

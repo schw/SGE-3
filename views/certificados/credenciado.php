@@ -71,7 +71,7 @@ function myFunctionCredenciado(tipousuario) {
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\CheckboxColumn','headerOptions' => ['width' => '35'] ],
-            ['attribute' => 'Participante', 'value' => 'usuario.nome'],
+            ['attribute' => 'usuario.nome', 'value' => 'usuario.nome'],
             //'itemProgramacao.palestrante',
 /*            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
             'template' => '{imprimir} {link}','buttons' => [

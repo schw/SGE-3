@@ -136,7 +136,8 @@ public function searchInscritos($params)
         
         if (!Yii::$app->user->isGuest) {
             $query = Inscreve::find()->where(['inscreve.evento_idevento' => $params['evento_idevento']])
-            ->leftJoin('pacote','pacote.idpacote = inscreve.pacote_idpacote');
+            ->leftJoin('pacote','pacote.idpacote = inscreve.pacote_idpacote')
+            ->innerJoin('user','user.idusuario = inscreve.usuario_idusuario ');
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
@@ -145,6 +146,12 @@ public function searchInscritos($params)
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+
+        $dataProvider->sort->attributes['Participante'] = [
+        'asc' => ['user.nome' => SORT_ASC],
+        'desc' => ['user.nome' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -164,7 +171,9 @@ public function searchInscritos($params)
         $id_evento = Yii::$app->request->post('evento_idevento');
         
         if (!Yii::$app->user->isGuest) {
-            $query = Inscreve::find()->where(['evento_idevento' => $id_evento])->andWhere(['credenciado' => 1]);
+            $query = Inscreve::find()->where(['evento_idevento' => $id_evento])->andWhere(['credenciado' => 1])
+            ->innerJoin('user','user.idusuario = inscreve.usuario_idusuario')
+            ->orderBy('user.nome');
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
@@ -197,6 +206,7 @@ public function searchInscritos($params)
             $query2 = Palestrante::find()->where(['idevento' => $id_evento])
             ->joinWith('evento');
             $query->union($query2);
+            $query->orderBy('palestrante.nome');
 
         }
         else {
@@ -224,7 +234,9 @@ public function searchInscritos($params)
         
         if (!Yii::$app->user->isGuest) {
             //$query = ItemProgramacao::find()->where(['evento_idevento' => $id_evento]);
-            $query = EventoHasVoluntario::find()->where(['evento_idevento' => $id_evento]);
+            $query = EventoHasVoluntario::find()->where(['evento_idevento' => $id_evento])
+            ->innerJoin('voluntario','voluntario.idvoluntario = evento_has_voluntario.voluntario_idvoluntario')
+            ->orderBy('voluntario.nome');
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
