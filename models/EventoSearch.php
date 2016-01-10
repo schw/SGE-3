@@ -117,7 +117,7 @@ class EventoSearch extends Evento
                 ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         }else if($inscricoes == 'naoiniciada'){
             $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
-            where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow = null")->joinWith("inscreve")->
+            where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow is null")->joinWith("inscreve")->
                 andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla')
                 ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         }else{

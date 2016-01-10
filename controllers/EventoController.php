@@ -292,7 +292,7 @@ class EventoController extends Controller
 
             return $this->redirect([$redicionamento,
                 'imagem' => $model->imagem,
-                'inscricoes' => 'fechada',
+                'inscricoes' => 'naoiniciada',
             ]);
         }
 
