@@ -23,12 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
 
-    <div id="geral" style="width: 100%; text-align: center;">
+    <div id="geral" class="diviconegeral" style="width: 100%; text-align: center;">
         <div id="titulo" style= "float: left">
             <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
         </div>
 
-        <div style="width: 80px; float: right; padding: 10px;">
+        <div class="divicone divicone-l1"> 
             <?php echo Html::a(Html::img('@web/img/minhasincricoes.png'), ['/evento'], ['width' => '10']) ?>
             <?php echo Html::a('Listar Eventos', 'index.php?r=evento'); ?>
         </div>
@@ -37,13 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
-        'summary' => '',
+        //'summary' => '',
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'evento.descricao',
             'evento.sigla',
-            'evento.tipo.titulo',
+            ['attribute' => 'tipo.titulo', 'value' => 'evento.tipo.titulo',],
             ['attribute' => 'pacote.titulo', 'value' => 'pacotetitulo',],
             ['attribute' => 'credenciado', 'value' => 'descricaocredenciado',],
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 

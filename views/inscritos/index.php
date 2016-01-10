@@ -16,17 +16,17 @@ use yii\grid\GridView;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
       <div id="page-wrapper">
-    <div id="geral" style="width: 100%; text-align: center;">
+    <div id="geral" class = "diviconegeral" style="width: 100%; text-align: center;">
         <div id="titulo" style= "float: left">
             <label><strong><h1> Lista de Inscritos </h1></strong></label>
         </div>
 
-    <div style="width: 110px; float: right; margin-bottom: 10px ">
+        <div class="divicone" >
             <?php 
                 $id_evento = Yii::$app->request->get('evento_idevento');       
-                echo Html::a(Html::img('@web/img/reportcoord.png'), ['inscritos/listainscritospdf','evento_idevento' => $id_evento], ['target' =>'_blank','width' => '10']) 
+                echo Html::a(Html::img('@web/img/listainscritos.png'), ['inscritos/listainscritospdf','evento_idevento' => $id_evento], ['target' =>'_blank','width' => '10']) 
             ?>
-            <div style="width: 110px; text-align:center;">
+            <div style="width: 90px; text-align:center;">
                 <?php echo Html::a('Gerar Lista (PDF)', ['inscritos/listainscritospdf', 'evento_idevento' => $id_evento],['target' =>'_blank']); ?>
             </div>
         </div>
@@ -36,7 +36,6 @@ use yii\grid\GridView;
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
-        'summary' => '',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             ['attribute' => 'Participante', 'value' => 'usuario.nome'],

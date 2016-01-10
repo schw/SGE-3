@@ -60,14 +60,6 @@ class RelatoriosController extends \yii\web\Controller
 
         //$tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
-            //inicio da tabela
-            $inicio = '<table border="1" align = "center">
-                    <tr>
-                    <th width = "550px">Coordenador de Evento</th>
-                    <th width = "100px">Quantidade de Eventos</th>
-                    </tr>
-            ';
-
         $relatorio = new User();
         $model = $relatorio->getCoordenadoresEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos
         $qtd_rows = count($model); //quantidade de rows
@@ -95,14 +87,6 @@ class RelatoriosController extends \yii\web\Controller
         $datafinal = $_GET['datafinal'];
 
         //$tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
-
-            //inicio da tabela
-            $inicio = '<table border="1" align = "center">
-                    <tr>
-                    <th width = "550px">Participante</th>
-                    <th width = "100px">Quantidade de Inscrições</th>
-                    </tr>
-            ';
 
         $relatorio = new User();
         $model = $relatorio->getParticipantesEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos
@@ -132,14 +116,6 @@ class RelatoriosController extends \yii\web\Controller
         $datafinal = $_GET['datafinal'];
 
         //$tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
-
-            //inicio da tabela
-            $inicio = '<table border="1" align = "center">
-                    <tr>
-                    <th width = "550px">Sigla do Evento</th>
-                    <th width = "100px">Quantidade de Inscricoes</th>
-                    </tr>
-            ';
 
         $relatorio = new Evento();
         $model = $relatorio->getInscritosEventos($datainicial,$datafinal);//obtendo model dos coordenadores de eventos

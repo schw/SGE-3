@@ -147,3 +147,63 @@ input{
 #eventosativoscollapse{
   width: 100%;
 }
+
+/*Icones da Barra de Ferramenta*/
+
+.divicone{
+  padding: 5px;
+  height: 84px;
+  float: right;
+  margin: 5px;
+  border: solid 2px;
+  background-color: rgba(255, 255, 255, 0.38);
+  border-radius: 10px;
+}
+
+.diviconegeral{
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  border: 3px solid #924E4A;
+  background-color: rgba(65, 160, 19, 0.21);
+  /* definimos o quão arredondado irá ficar nosso box */
+  border-radius: 10px;
+
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b3dced+0,29b8e5+50,bce0ee+100;Blue+Pipe */
+background: #b3dced; /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2IzZGNlZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzI5YjhlNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiY2UwZWUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+background: -moz-linear-gradient(left,  #b3dced 0%, #29b8e5 50%, #bce0ee 100%); /* FF3.6-15 */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,#b3dced), color-stop(50%,#29b8e5), color-stop(100%,#bce0ee)); /* Chrome4-9,Safari4-5 */
+background: -webkit-linear-gradient(left,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /* Chrome10-25,Safari5.1-6 */
+background: -o-linear-gradient(left,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /* Opera 11.10-11.50 */
+background: -ms-linear-gradient(left,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /* IE10 preview */
+background: linear-gradient(to right,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#bce0ee',GradientType=1 ); /* IE6-8 */
+
+
+
+
+}
+
+/*Icones com palavras maiores*/
+.divicone-l1{
+  width: 78px;
+}
+
+.divicone-l2{
+  width: 95px;
+}
+
+.imgicone{
+  width: 32px;
+  height: 32px;
+}
+
+.label{
+
+}
+
+.clear{
+  clear: both;
+}

@@ -10,6 +10,34 @@ use yii\widgets\Pjax;
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"></script>
+</head>
+	<style>
+		#mapCanvas {
+			width: 100%;
+			height: 450px;
+			float: left;
+			margin-bottom: 20px;
+		}
+		
+		#infoPanel {
+			float: left;
+			margin-left: 10px;
+		}
+	</style>
+<div id="conteudo">
+	<div id="mapCanvas"></div>
+		<div id="infoPanel">
+			<div id="address"></div>
+		</div>
+	<div class="local-form" style="margin-top: 10px;">
+		<?= Html::activeTextInput($model, 'idlocal',['style'=>"display:none;", 'id'=>'id'])?>
+		<?= Html::activeLabel($model, 'Nome')?>
+		<?= Html::activeTextInput($model, 'descricao',['maxlength'=>'49','id'=>'nome','placeholder'=>'Nome do local',
+				'style'=>"width:400px;"]);?>
+		<br>
+		<?= Html::button('Salvar',['onclick'=>"botao()",'class' => 'btn btn-primary']);?>
+	</div>
+</div>
 <script type="text/javascript">
 var geocoder = new google.maps.Geocoder();
 var marker;
@@ -91,7 +119,7 @@ function AlteraConteudo(latLng)
 	var lat = latLng.lat();
 	var lng = latLng.lng();
 	var nome = document.getElementById('nome').value;
-	alert(lat+lng+nome);
+	//alert(lat+lng+nome);
 	ajax.open("GET", "index.php?r=local/update&lat="+lat+"&lng="+lng+"&nome="+nome+"&id="+id);
 	ajax.setRequestHeader("Content-Type", "text/html");
 	ajax.send();
@@ -134,16 +162,16 @@ function initialize() {
   
   // Add dragging event listeners.
   google.maps.event.addListener(marker, 'dragstart', function() {
-    updateMarkerAddress('arrastando...');
+    //updateMarkerAddress('arrastando...');
   });
 
   google.maps.event.addListener(marker, 'drag', function() {
-    updateMarkerStatus('arrastando...');
+    //updateMarkerStatus('arrastando...');
     updateMarkerPosition(marker.getPosition());
   });
 
   google.maps.event.addListener(marker, 'dragend', function() {
-    updateMarkerStatus('posicionado');
+    //updateMarkerStatus('posicionado');
     geocodePosition(marker.getPosition());
     //AlteraConteudo(marker.getPosition());
   });
@@ -152,30 +180,4 @@ function initialize() {
 // Onload handler to fire off the app.
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
-</head>
-	<style>
-		#mapCanvas {
-			width: 100%;
-			height: 450px;
-			float: left;
-			margin-bottom: 20px;
-		}
-		
-		#infoPanel {
-			float: left;
-			margin-left: 10px;
-		}
-	</style>
-<div id="conteudo">
-	<div id="mapCanvas"></div>
-		<div id="infoPanel">
-			<div id="address"></div>
-		</div>
-	<div class="local-form" style="margin-top: 10px;">
-		<input id="nome" placeholder="Nome do local" type="text" size="50" width="50" value="<?=$model->descricao;?>">
-		<?= Html::button('Salvar',['onclick'=>"botao()",'class' => 'btn btn-primary'])?>
-		
-	</div>
-</div>
-
 

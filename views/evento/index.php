@@ -28,23 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= GridView::widget([
             'showOnEmpty' => 'true',
             'dataProvider' => $dataProvider,
-            //'filterModel' => $searchModel,
             'columns' => [
-                //['class' => 'yii\grid\SerialColumn'],
                 'sigla',
                 'descricao',
-                //'dataIni',
-                //'dataFim',
-                //'horaIni',
-                // 'horaFim',
-                // 'vagas',
-                // 'cagaHoraria',
-                // 'imagem',
-                // 'detalhe',
-                // 'allow',
-                ['attribute' => 'tipo', 'value' => 'tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
-                //'responsavel0.nome',
-                //['attribute' => 'Número de Inscritos', 'value' => 'qtd_evento'],
+
+                ['attribute' => 'tipo', 'value' => 'tipo.titulo'],
                 ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view}'],
             ],
         ]); ?>
@@ -55,23 +43,12 @@ $this->params['breadcrumbs'][] = $this->title;
          <?= GridView::widget([
             'showOnEmpty' => 'true',
             'dataProvider' => $dataProvider2,
-            //'filterModel' => $searchModel,
             'columns' => [
-                //['class' => 'yii\grid\SerialColumn'],
                 'evento.sigla',
                 'evento.descricao',
                 'evento.responsavel0.nome',
-                //'dataIni',
-                //'dataFim',
-                //'horaIni',
-                // 'horaFim',
-                // 'vagas',
-                // 'cagaHoraria',
-                // 'imagem',
-                // 'detalhe',
-                // 'allow',
-                //'responsavel',
-                ['attribute' => 'tipo', 'value' => 'evento.tipo.titulo'],//Substitução do idtipo pelo titulo do tipo
+
+                ['attribute' => 'tipo', 'value' => 'evento.tipo.titulo'],
                 ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view}{link}','buttons' => [
                 'view' => function ($url,$model,$key) {
                                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id' => $model->evento_idevento]);

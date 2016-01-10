@@ -35,6 +35,7 @@ class UserController extends Controller
      */
     public function actionView()
     {
+    	
         $model = new User();
     	$id = Yii::$app->request->post('id');
         if(!$id){
@@ -81,11 +82,13 @@ class UserController extends Controller
 	 * @return mixed
 	 */
 	public function actionUpdate($id) {
+		
 		$this->autorizaUsuario ( $id );
 		$model = $this->findModel ( $id );
 		if(Yii::$app->user->identity->idusuario === $model->idusuario){
+			echo $model->senha."senha";
 		if ($model->load ( Yii::$app->request->post () ) ) {
-			$model->senha = md5($model->senha);
+			//$model->senha = md5($model->senha);
 			if($model->save(false)){
 				return $this->redirect ( ['view', 'id' => $model->idusuario]);
 				}
