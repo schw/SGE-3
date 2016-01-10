@@ -42,11 +42,12 @@ class PacoteController extends Controller
 
         $searchModel = new PacoteSearch();
         $dataProvider = $searchModel->searchEvento(Yii::$app->request->queryParams);
+        $evento = Evento::findOne($idevento);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'idevento' => $idevento,
+            'evento' => $evento,
         ]);
     }
 

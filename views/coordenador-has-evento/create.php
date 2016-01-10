@@ -20,18 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-    <div id="geral" class="diviconegeral">
-        <div id="titulo" style= "float: left;">
-            <h1>Pacotes</h1>
-        </div>
-        <a href=<?= Url::to(['pacote/create', 'idevento' => $idevento])?>>
-            <div class="divicone divicone-l1">
-                <?= Html::img('@web/img/novopacote.png', ['class' => 'imgicone'])?>
-                <p class="labelicone">Novo Pacote</p>
-            </div>
-        </a>
-        <div class="clear"></div>
-    </div>
 
     <?= $this->render('_form', [
         'model' => $model,
