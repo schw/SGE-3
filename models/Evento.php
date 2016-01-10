@@ -91,7 +91,8 @@ class Evento extends \yii\db\ActiveRecord
             'palestrante_idPalestrante' => 'Palestrante',
             'dataini' => '*Data Inicial',
             'datafim' => '*Data Final',
-            'CargaHoraria' => '*Carga Horária'
+            'CargaHoraria' => '*Carga Horária',
+            'qtd_evento' => 'Total de inscritos',
         ];
     }
 

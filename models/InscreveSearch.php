@@ -76,7 +76,8 @@ public function searchInscricoes($params)
         if (!Yii::$app->user->isGuest) {
             $query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
             ->andWhere("dataFim > '". date('Y-m-d')."'")
-            ->innerJoin('evento','evento.idevento = inscreve.evento_idevento');
+            ->innerJoin('evento','evento.idevento = inscreve.evento_idevento')
+            ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
@@ -84,6 +85,7 @@ public function searchInscricoes($params)
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['evento.sigla','evento.descricao','credenciado','evento.pacote.descricao','tipo.titulo']]
         ]);
 
         $this->load($params);
@@ -104,7 +106,8 @@ public function searchInscricoespassadas($params)
         if (!Yii::$app->user->isGuest) {
             $query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
             ->andWhere("dataFim < '". date('Y-m-d')."'")
-            ->innerJoin('evento','evento.idevento = inscreve.evento_idevento');
+            ->innerJoin('evento','evento.idevento = inscreve.evento_idevento')
+            ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         }
         else {
             return Yii::$app->getResponse()->redirect(array('/evento/', NULL )); // é redirecionado a tela de eventos, se não estiver logado
@@ -112,6 +115,7 @@ public function searchInscricoespassadas($params)
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['evento.sigla','evento.descricao','credenciado','tipo.titulo']]
         ]);
 
         $this->load($params);

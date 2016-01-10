@@ -42,10 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
                 'sigla',
                 'descricao',
-
-                ['attribute' => 'Tipo', 'value' => 'tipo.titulo'],
+                'tipo.titulo',
                 ['attribute' => 'Vagas', 'value' => 'vagas','headerOptions' => ['width' => '100']],
-                ['attribute' => 'Total de Inscritos', 'value' => 'qtd_evento','headerOptions' => ['width' => '170']],
+                ['attribute' => 'qtd_evento', 'value' => 'qtd_evento','headerOptions' => ['width' => '170']],
 
                 ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}'],
             ],

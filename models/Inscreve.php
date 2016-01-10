@@ -53,7 +53,7 @@ class Inscreve extends \yii\db\ActiveRecord
             'usuario.nome' => 'Nome',
             'pacote.titulo' => 'Pacote',
             'itemProgramacao.palestrante' => 'palestrante', 
-            'evento.tipo.titulo' => 'Tipo',
+            'tipo.titulo' => 'Tipo',
         ];
     }
 

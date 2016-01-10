@@ -37,13 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
-        'summary' => '',
+        //'summary' => '',
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'evento.descricao',
             'evento.sigla',
-            'evento.tipo.titulo',
+            ['attribute' => 'tipo.titulo', 'value' => 'evento.tipo.titulo',],
             ['attribute' => 'pacote.titulo', 'value' => 'pacotetitulo',],
             ['attribute' => 'credenciado', 'value' => 'descricaocredenciado',],
             ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '20'], 

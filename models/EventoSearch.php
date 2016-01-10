@@ -44,7 +44,8 @@ class EventoSearch extends Evento
      */
     public function searchEventos($status){
         //$query = Evento::find()->where("dataFim > '". date('Y-m-d')."'");
-        $query = Evento::find()->where("allow = '1' AND dataFim > '". date('Y-m-d')."'");
+        $query = Evento::find()->where("allow = '1' AND dataFim > '". date('Y-m-d')."'")
+        ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         //mostrando apenas eventos permitidos (com inscricoes abertas)
 
         $dataProvider = new ActiveDataProvider([
@@ -106,24 +107,29 @@ class EventoSearch extends Evento
         if ($status == 'passado') {
             $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
             where("dataFim < '". date('Y-m-d')."'")->joinWith("inscreve")->
-                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla');
+                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla')
+                ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
 
         }else if($inscricoes == 'fechada'){
             $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
             where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '0'")->joinWith("inscreve")->
-                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla');
+                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla')
+                ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         }else if($inscricoes == 'naoiniciada'){
             $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
             where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow = null")->joinWith("inscreve")->
-                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla');
+                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla')
+                ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         }else{
             $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
             where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '1'")->joinWith("inscreve")->
-                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla');
+                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla')
+                ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['sigla','descricao','Vagas','Total De Inscritos','tipo.titulo','qtd_evento']]
         ]);
 
         //$this->load($params);
