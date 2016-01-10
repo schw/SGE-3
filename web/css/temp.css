@@ -161,6 +161,7 @@ input{
 }
 
 .diviconegeral{
+  margin-bottom: 10px;
   width: 100%;
   height: 100px;
   text-align: center;
@@ -180,10 +181,6 @@ background: -o-linear-gradient(left,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /* O
 background: -ms-linear-gradient(left,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /* IE10 preview */
 background: linear-gradient(to right,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', endColorstr='#bce0ee',GradientType=1 ); /* IE6-8 */
-
-
-
-
 }
 
 /*Icones com palavras maiores*/
@@ -206,4 +203,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3dced', end
 
 .clear{
   clear: both;
+}
+
+.labelicone{
+  margin-top: 10px;
 }

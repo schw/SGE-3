@@ -23,12 +23,18 @@ $this->params['breadcrumbs'][] = $this->title;
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
         
+        <div id="geral" class="diviconegeral">
+            <div id="titulo" style= "float: left;">
+                <h1>Pacote Detalhes</h1>
+            </div>
+        <a href=<?= Url::to(['pacote/index', 'idevento' => $model->evento_idevento])?>>
+            <div class="divicone divicone-l1">
+                <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+                <p class="labelicone">Voltar</p>
+            </div>
+        </a>
         <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3){ ?>
-             <div id="geral" class="diviconegeral">
-                <div id="titulo" style= "float: left;">
-                    <h1>Pacote Detalhes</h1>
-                </div>
-                
+
                 <a href=<?= Url::to(['pacote/update', 'id' => $model->idpacote])?>>
                     <div class="divicone divicone-l1">
                         <?= Html::img('@web/img/editar.png', ['class' => 'imgicone'])?>
@@ -51,22 +57,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]) ?>
                 </div>
 
-                <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){ ?>
-                    <div class="divicone divicone-l1">
-                        <?= Html::a('Escolher Pacote', ['inscreve/addpacote'], ['class' => 'btn btn-primary', 'data'=>[
-                            'method' => 'POST',
-                            'params'=>['id_pacote' => $model->idpacote, 'id_evento' => $model->evento_idevento],]
-                        ]);
-                        ?>
-                    </div>
                 <?php } ?>
 
-                <div class="clear"></div>
+        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){ ?>
+            <div class="divicone divicone-l1">
+                <?= Html::img('@web/img/ok.png', ['inscreve/addpacote'], ['class' => 'imgicone', 
+                    'data'=>[
+                        'method' => 'POST',
+                        'params'=>['id_pacote' => $model->idpacote, 'id_evento' => $model->evento_idevento],]
+                        ])?>
+                <?= Html::a('Escolher Pacote', ['inscreve/addpacote'], ['data'=>[
+                    'method' => 'POST',
+                    'params'=>['id_pacote' => $model->idpacote, 'id_evento' => $model->evento_idevento],]
+                ]);
+                ?>
+            </div>
         <?php } ?>
+
+                <div class="clear"></div>
             </div>
 
             <h3><?= $model->evento->descricao.": ".$this->title?> </h3>
-            <p></p>
 
         <?= DetailView::widget([
             'model' => $model,

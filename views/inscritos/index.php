@@ -63,8 +63,8 @@ use yii\grid\GridView;
                     return 'Não';
                 }
             },],
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '80'], 
-            'template' => '{view}{credenciar}{descredenciar}{cancelarinscricao}{link}','buttons' => [
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '90'], 
+            'template' => '{view} {credenciar} {descredenciar} {cancelarinscricao}{link}','buttons' => [
                 'credenciar' => function ($url,$model,$key) {
                           return Html::a('<span class="glyphicon glyphicon-ok-circle"></span>', ['inscritos/credenciar'],[
                             'title'=> 'Credenciar',

@@ -290,6 +290,8 @@ class EventoController extends Controller
                 $model->imagem = $imagem;
             $model->save();
 
+            $this->mensagens('success', 'Evento Criado', "Evento '".$model->descricao."' criado com Sucesso");
+
             return $this->redirect([$redicionamento,
                 'imagem' => $model->imagem,
                 'inscricoes' => 'naoiniciada',
