@@ -83,6 +83,7 @@ class PacoteController extends Controller
 
         $model = new Pacote();
         $model->evento_idevento = $idevento;
+        $evento = Evento::findOne($idevento);
         $model->status = '1';
         
         if ($model->load(Yii::$app->request->post())) {
@@ -92,13 +93,15 @@ class PacoteController extends Controller
             }else{
                 return $this->render('create', [
                     'model' => $model, 
-                    'itensProgramacao' => $itensProgramacao,               
+                    'itensProgramacao' => $itensProgramacao,
+                    'evento' => $evento,             
                 ]);
             }
         } else {
             return $this->render('create', [
                 'model' => $model, 
-                'itensProgramacao' => $itensProgramacao,               
+                'itensProgramacao' => $itensProgramacao,
+                'evento' => $evento,               
             ]);
         }
     }
@@ -113,6 +116,7 @@ class PacoteController extends Controller
 
         $model = $this->findModel($id);
         $this->autorizaUsuario($model->evento_idevento);
+        $evento = Evento::findOne($model->evento_idevento);
         
         /*Inicio da obtenção de um array com os ids e descricões de todos os itens de Programação*/
         $itemProgramacaoSearch = new ItemProgramacaoSearch();
@@ -131,6 +135,7 @@ class PacoteController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'itensProgramacao' => $itensProgramacao,
+                'evento' => $evento,
             ]);
         }
     }

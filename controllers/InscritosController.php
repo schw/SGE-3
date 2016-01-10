@@ -59,6 +59,13 @@ class InscritosController extends Controller
 
     public function actionIndex()
     {
+        $idevento = Yii::$app->request->get('evento_idevento');
+
+        if(!$idevento)
+            $this->redirect(['evento/index']);
+
+        $evento = Evento::findOne($idevento);
+
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->searchInscritos(Yii::$app->request->queryParams);
 
@@ -92,6 +99,7 @@ class InscritosController extends Controller
             //'credenciado' => $credenciado,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'evento' => $evento,
             //'pagination' => $pagination,
         ]);
     }

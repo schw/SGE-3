@@ -2,12 +2,13 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CoordenadorHasEventoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Coordenadores de ' .$evento['descricao'];
+$this->title = 'Coordenadores Adicionados';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="coordenador-has-evento-index">
@@ -20,19 +21,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Adicionar Coordenador', ['create', 'idevento' => $idevento], ['class' => 'btn btn-success']) ?>
-    </p>
+        <div id="geral" class="diviconegeral">
+            <div id="titulo" style= "float: left;">
+                <h1><?= $this->title ?></h1>
+            </div>
+            <a href=<?= Url::to(['evento/view', 'id' => $evento['idevento']])?>>
+                <div class="divicone divicone-l1">
+                    <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+                    <p class="labelicone">Voltar</p>
+                </div>
+            </a>
+            <a href=<?= Url::to(['create', 'idevento' => $evento['idevento']])?>>
+                <div class="divicone divicone-l2">
+                    <?= Html::img('@web/img/addcoord.png', ['class' => 'imgicone'])?>
+                    <p>Adicionar Coordenador</p>
+                </div>
+            </a>
+    </div>
+    <h2><?= $evento['descricao']?></h2>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel,
+        'summary' =>false,
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
 
             'usuario.nome',
             ['attribute' => 'Descricao', 'value' => 'usuario.descricaotipousuario'],

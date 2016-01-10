@@ -8,6 +8,8 @@ use kartik\datecontrol\Module;
 use kartik\datecontrol\DateControl;
 use kartik\widgets\Select2;
 
+$this->title = "Imagem Certificado";
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Evento */
 /* @var $form yii\widgets\ActiveForm */
@@ -33,6 +35,12 @@ use kartik\widgets\Select2;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
+        <div id="geral" class="diviconegeral">
+            <div id="titulo" style= "float: left;">
+                <h1><?= $this->title ?></h1>
+            </div>
+            <div class="clear"></div>
+        </div>
 
 	   <h2> Selecione uma imagem para o certificado </h2>
 
@@ -53,42 +61,5 @@ use kartik\widgets\Select2;
 	    </div>
 		
 		<?php ActiveForm::end(); ?>
-
+	</div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="evento-form">
-
-	<!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
-    <?= Yii::$app->view->renderFile('@app/views/layouts/mensagemFlash.php') ?>
-    
-    <!-- Importação do arquivo responsável por exibir o menu lateral-->
-    <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
-
-
-
-
-
-
-
-

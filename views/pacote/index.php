@@ -22,27 +22,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-   <div id="geral" class="diviconegeral">
-        <div id="titulo" style= "float: left;">
-            <h1><?= $evento->descricao ?> : Pacotes</h1>
+       <div id="geral" class="diviconegeral">
+            <div id="titulo" style= "float: left;">
+                <h1><?= $this->title ?></h1>
+            </div>
+            <a href=<?= Url::to(['evento/view', 'id' => $evento->idevento])?>>
+                <div class="divicone divicone-l1">
+                    <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+                    <p class="labelicone">Voltar</p>
+                </div>
+            </a>
+            <?php if(!Yii::$app->user->isGuest && $evento->canAccess()){ ?>
+            <a href=<?= Url::to(['pacote/create', 'idevento' => $evento->idevento])?>>
+                <div class="divicone divicone-l1">
+                    <?= Html::img('@web/img/novopacote.png', ['class' => 'imgicone'])?>
+                    <p>Novo Pacote</p>
+                </div>
+            </a>
+            <?php } ?>
+            <div class="clear"></div>
         </div>
-        <a href=<?= Url::to(['evento/view', 'id' => $evento->idevento])?>>
-            <div class="divicone divicone-l1">
-                <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
-                <p class="labelicone">Voltar</p>
-            </div>
-        </a>
-        <?php if(!Yii::$app->user->isGuest && $evento->canAccess()){ ?>
-        <a href=<?= Url::to(['pacote/create', 'idevento' => $evento->idevento])?>>
-            <div class="divicone divicone-l1">
-                <?= Html::img('@web/img/novopacote.png', ['class' => 'imgicone'])?>
-                <p>Novo Pacote</p>
-            </div>
-        </a>
-        <?php } ?>
-        <div class="clear"></div>
-    </div>
-    <p></p>
+    <h2><?= $evento['descricao']?></h2>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

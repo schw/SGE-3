@@ -53,18 +53,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $eventoView = [];
-        $searchModel = new EventoSearch();
-        $eventos = $searchModel->searchEventos(Yii::$app->request->queryParams)->getModels();
-
-        foreach ($eventos as $evento) {
-            array_push($eventoView, ['label' => $evento->sigla, 'content' => ["<strong>Descrição: </strong>".$evento->descricao."
-                <br><strong>Detalhe:</strong> ".$evento->detalhe, Html::a('Veja Mais', ['evento/view', 'id' => $evento->idevento], ['class' => 'btn'])]]);
-        }
-
-        return $this->render('index', [
-                'eventos' => $eventoView,
-            ]);
+       $this->redirect(['evento/index']);
     }
 
     public function actionLogin()

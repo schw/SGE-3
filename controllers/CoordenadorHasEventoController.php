@@ -47,7 +47,6 @@ class CoordenadorHasEventoController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'idevento' => $idevento,
             'evento' => $evento,
         ]);
     }
@@ -61,7 +60,12 @@ class CoordenadorHasEventoController extends Controller
         
         $idevento = filter_input(INPUT_GET, 'idevento');
 
+        if(!$idevento)
+            $this->redirect('evento/index');
+
         $this->autorizaUsuario($idevento);
+
+        $evento = Evento::findOne($idevento);
 
         $model = new CoordenadorHasEvento();
         $searchModel = new CoordenadorHasEventoSearch();
@@ -85,6 +89,7 @@ class CoordenadorHasEventoController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'arrayUsuarios' => $arrayUsuarios,
+                'evento' => $evento,
             ]);
         }
     }

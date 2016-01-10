@@ -2,6 +2,9 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use yii\grid\GridView;
+use yii\helpers\Url;
+
+$id_evento = $evento['idevento'];
 ?>
 
 <script>
@@ -60,13 +63,19 @@ function myFunctionVoluntarios(tipousuario) {
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
 
-    <h1>Gerar Certificados</h1>
-
-<?php $id_evento = Yii::$app->request->post('evento_idevento'); ?>
-
-    <p>
-        <h4> Lista de Voluntários:</h4>
-    </p>
+    <div id="geral" class="diviconegeral">
+      <div id="titulo" style= "float: left;">
+        <h1>Gerar Certificados</h1>
+      </div>
+      <a href=<?= Url::to(['evento/view', 'id' => $id_evento])?>>
+        <div class="divicone divicone-l1">
+          <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+          <p class="labelicone">Voltar</p>
+        </div>
+      </a>
+        <div class="clear"></div>
+    </div>
+  <h2><?= $evento['descricao'] ?></h2>
 
  <?= GridView::widget([
         'showOnEmpty' => 'true',

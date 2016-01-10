@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use yii\grid\GridView;
+use yii\helpers\Url;
  
  $this->title = "Lista de Inscritos";
 ?>
@@ -16,23 +17,26 @@ use yii\grid\GridView;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
       <div id="page-wrapper">
-    <div id="geral" class = "diviconegeral" style="width: 100%; text-align: center;">
-        <div id="titulo" style= "float: left">
-            <label><strong><h1> Lista de Inscritos </h1></strong></label>
-        </div>
-
-        <div class="divicone" >
-            <?php 
-                $id_evento = Yii::$app->request->get('evento_idevento');       
-                echo Html::a(Html::img('@web/img/listainscritos.png'), ['inscritos/listainscritospdf','evento_idevento' => $id_evento], ['target' =>'_blank','width' => '10']) 
-            ?>
-            <div style="width: 90px; text-align:center;">
-                <?php echo Html::a('Gerar Lista (PDF)', ['inscritos/listainscritospdf', 'evento_idevento' => $id_evento],['target' =>'_blank']); ?>
+        <div id="geral" class="diviconegeral">
+            <div id="titulo" style= "float: left;">
+                    <h1><?= $this->title ?></h1>
             </div>
+            <a href=<?= Url::to(['evento/view', 'id' => $evento['idevento']])?>>
+                <div class="divicone divicone-l1">
+                    <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+                    <p class="labelicone">Voltar</p>
+                </div>
+            </a>
+            <a href=<?= Url::to(['inscritos/listainscritospdf','evento_idevento' => $evento['idevento']])?> target="_blank">
+                <div class="divicone divicone-l2">
+                    <?= Html::img('@web/img/listainscritos.png', ['class' => 'imgicone'])?>
+                    <p>Gerar Lista (PDF)</p>
+                </div>
+            </a>
         </div>
-    </div>
+        <h2><?= $evento['descricao']?></h2>
 
-<?= GridView::widget([
+    <?= GridView::widget([
         'showOnEmpty' => 'true',
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,

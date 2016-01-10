@@ -88,32 +88,44 @@ class CertificadosController extends \yii\web\Controller
     
     public function actionCredenciado()
     {
+        $id_evento = Yii::$app->request->post('evento_idevento');
+        $evento = Evento::findOne($id_evento);
+
         $searchModel = new InscreveSearch();
         $dataProvider = $searchModel->searchCredenciados(Yii::$app->request->queryParams);
         return $this->render('credenciado', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'evento' => $evento,
         ]);
     }
 
     public function actionPalestrante()
     {
+        $id_evento = Yii::$app->request->post('evento_idevento');
+        $evento = Evento::findOne($id_evento);
+        
         $searchModel = new InscreveSearch();
         $dataProvider2 = $searchModel->searchPalestrantes(Yii::$app->request->queryParams);
         return $this->render('palestrante', [
             'searchModel' => $searchModel,
             'dataProvider2' => $dataProvider2,
+            'evento' => $evento, 
 
         ]);
     }
 
     public function actionVoluntario()
     {
+        $id_evento = Yii::$app->request->post('evento_idevento');
+        $evento = Evento::findOne($id_evento);
+        
         $searchModel = new InscreveSearch();
         $dataProvider3 = $searchModel->searchVoluntarios(Yii::$app->request->queryParams);
         return $this->render('voluntario', [
             'searchModel' => $searchModel,
             'dataProvider3' => $dataProvider3,
+            'evento' => $evento,
 
         ]);
     }

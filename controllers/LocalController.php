@@ -86,19 +86,15 @@ class LocalController extends Controller
     	$this->autorizaUsuario();
         $model = new Local();
     	if(isset($_GET['lat']) && isset($_GET['lng']) && $_GET['nome']){
-    		//$model = new Local();
-    		//$model->latitude = $_GET['lat'];
     		$model->latitude = $_GET['lat'];
     		$model->longitude = $_GET['lng'];
     		$model->descricao = $_GET['nome'];
     		$model->save();
-    		//return $this->render('view', ['id' => $model->idlocal]);
-    		//return $this->render('view',[ 'model' => $this->findModel($id)]);
-    		//return $this->renderPartial('view',[ 'id' => $model->idlocal]);
-    		//return $this->redirect(['view2','id' => $model->idlocal]);
-    		return $this->redirect(['index2']);
+    		$this->mensagens('success', 'Local Criado', 'Local foi Criado com Sucesso.');
+    		
+    		$this->redirect(['index2']);
     	}
-        return $this->render('create',['model'=>$model]);
+        return $this->render('create',['model' => $model]);
     }
 
     /**
@@ -112,16 +108,11 @@ class LocalController extends Controller
         $this->autorizaUsuario();
         $model = $this->findModel($id);
         if(isset($_GET['lat']) && isset($_GET['lng']) && $_GET['nome']){
-        	//$model = new Local();
-        	//$model->latitude = $_GET['lat'];
         	$model->latitude = $_GET['lat'];
         	$model->longitude = $_GET['lng'];
         	$model->descricao = $_GET['nome'];
         	$model->save();
-        	//return $this->render('view', ['id' => $model->idlocal]);
-        	//return $this->render('view',[ 'model' => $this->findModel($id)]);
-        	//return $this->renderPartial('view',[ 'id' => $model->idlocal]);
-        	//return $this->redirect(['view2','id' => $model->idlocal]);
+        	$this->mensagens('success', 'Local Atualizado', 'Local foi Atualizado com Sucesso.');
         	return $this->redirect(['index2']);
         }
             return $this->render('update', [
@@ -140,8 +131,11 @@ class LocalController extends Controller
     	$this->autorizaUsuario();
         try{
         	$this->findModel($id)->delete();
+        	$this->mensagens('success', 'Local Removido', 'Local foi removido com Sucesso.');
     	}catch(Exception $e){
+    		$this->mensagens('danger', 'Local não Removido', 'Local selecionado está em uso por um evento ou item de programação.');
     	}
+
         return $this->redirect(['index']);
     }
 
@@ -165,5 +159,19 @@ class LocalController extends Controller
         if(Yii::$app->user->isGuest || Yii::$app->user->identity->tipoUsuario == 3){
             throw new ForbiddenHttpException('Acesso Negado!! Recurso disponível apenas para administradores.');
         }
+    }
+
+    /* Envio de mensagens para views
+    Tipo: success, danger, warning*/
+    protected function mensagens($tipo, $titulo, $mensagem){
+        Yii::$app->session->setFlash($tipo, [
+            'type' => $tipo,
+            'duration' => 1200,
+            'icon' => 'home',
+            'message' => $mensagem,
+            'title' => $titulo,
+            'positonY' => 'bottom',
+            'positonX' => 'right'
+        ]);
     }
 }

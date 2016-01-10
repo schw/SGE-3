@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Voluntario */
 
-$this->title = $model->nome;
+$this->title = "Detalhes Voluntário";
 $this->params['breadcrumbs'][] = ['label' => 'Voluntarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -21,18 +22,38 @@ $this->params['breadcrumbs'][] = $this->title;
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div id="geral" class="diviconegeral">
+            <div id="titulo" style= "float: left;">
+                <h1><?= $this->title ?></h1>
+            </div>
+            <a href=<?= Url::to(['index'])?>>
+                <div class="divicone divicone-l1">
+                    <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+                    <p class="labelicone">Voltar</p>
+                </div>
+            </a>
+            <a href=<?= Url::to(['update', 'id' => $model->idvoluntario])?>>
+                <div class="divicone divicone-l2">
+                    <?= Html::img('@web/img/editar.png', ['class' => 'imgicone'])?>
+                    <p>Atualizar Palestrante</p>
+                </div>
+            </a>
+            <div class="divicone divicone-l2">
+                <?= Html::a(Html::img('@web/img/delete.png'), ['delete', 'id' => $model->idvoluntario], [
+                    'data' => [
+                        'confirm' => 'Deseja Remover \''.$model->nome.'\'?',
+                        'method' => 'post',
+                    ],
+               ]) ?>
+                <?= Html::a('Remover Palestrante', ['delete', 'id' => $model->idvoluntario], [
+                    'data' => [
+                        'confirm' => 'Deseja Remover \''.$model->nome.'\'?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
 
-    <p>
-        <?= Html::a('Atualizar', ['update', 'id' => $model->idvoluntario], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Excluir', ['delete', 'id' => $model->idvoluntario], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => "Deseja remover o voluntario ''".$model->nome."''?",
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+            </div>
+        </div>
 
     <?= DetailView::widget([
         'model' => $model,

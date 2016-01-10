@@ -9,7 +9,7 @@ use kartik\widgets\Growl;
 /* @var $searchModel app\models\EventoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-isset($status) && $status == 'passado' ? $this->title = 'Eventos Passados' : $this->title = 'Eventos Ativos';
+$this->title = 'Eventos Ativos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="evento-index">
@@ -22,8 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-    <h1><?= Html::encode($this->title) ?></h1>
-        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div id="geral" class="diviconegeral">
+            <div id="titulo" style= "float: left;">
+                <h1><?= $this->title ?></h1>
+            </div>
+            <div class="clear"></div>
+        </div>
 
         <?= GridView::widget([
             'showOnEmpty' => 'true',
@@ -36,27 +40,5 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view}'],
             ],
         ]); ?>
-        
-        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 3 && $this->title == 'Eventos Passados'){?>
-        <h2><?= Html::encode("Eventos Compartilhados") ?></h2>
-
-         <?= GridView::widget([
-            'showOnEmpty' => 'true',
-            'dataProvider' => $dataProvider2,
-            'columns' => [
-                'evento.sigla',
-                'evento.descricao',
-                'evento.responsavel0.nome',
-
-                ['attribute' => 'tipo', 'value' => 'evento.tipo.titulo'],
-                ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view}{link}','buttons' => [
-                'view' => function ($url,$model,$key) {
-                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id' => $model->evento_idevento]);
-                            },
-                    ],
-                ],
-            ],
-        ]); ?>
-        <?php } ?>
     </div>
 </div>
