@@ -94,7 +94,7 @@ AppAsset::register($this);
                             <div class="art-bar art-blockheader"></div>
                             <div class="art-box art-blockcontent">
                                 <div class="art-box-body art-blockcontent-body">
-                                    PERFIL: <?= Yii::$app->user->identity->descricaotipoUsuario ?>
+                                    PERFIL: <?= !Yii::$app->user->isGuest ? Yii::$app->user->identity->descricaotipoUsuario : "Visitante" ?>
                                 </div>
                             </div>
                         </div>
