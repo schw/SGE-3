@@ -389,9 +389,7 @@ public function converterMes($current){
 
                 $pdf->WriteHTML('<table width="100%" border = "1"> 
                     <tr>
-                        <td>Sigla: '.$ItemProgramacao[$j]->sigla.'
-                        <br>
-                        Evento: '.$ItemProgramacao[$j]->descricao.'
+                        <td>Sigla do Evento: '.$ItemProgramacao[$j]->sigla.'
                         <br>
                         Programação: '.$ItemProgramacao[$j]->titulo.'
                         </td>
