@@ -258,9 +258,9 @@ class EventoController extends Controller
         $model = $this->findModel($id);
         
         if($model->delete())
-            $this->mensagens('success', 'Pacote Removido', 'Pacote removido com Sucesso');
+            $this->mensagens('success', 'Evento Removido', 'Evento removido com Sucesso');
         else
-            $this->mensagens('danger', 'Pacote Não Removido', 'Pacote pode ser Removido');
+            $this->mensagens('danger', 'Pacote Não Removido', 'Erro ao tentar Remover Evento');
 
         return $this->redirect(['gerenciareventos']);
     }
