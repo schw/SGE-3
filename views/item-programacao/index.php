@@ -28,8 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
-   <div id="page-wrapper">
-    
+   <div id="page-wrapper">    
 
     <?php
       Modal::begin([
@@ -43,15 +42,43 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
     <?php if(!Yii::$app->user->isGuest && $evento->canAccess()){ ?>
-    <h1><?= Html::encode($this->title) ?></h1>
+      <div id="geral" class="diviconegeral">
+          <div id="titulo" style= "float: left;">
+              <h1><?= $this->title ?></h1>
+          </div>
+          <a href=<?= Url::to(['evento/view', 'id' => $evento->idevento])?>>
+              <div class="divicone divicone-l1">
+                  <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+                  <p class="labelicone">Voltar</p>
+              </div>
+          </a>
+      </div>
     
 
-    <div id='external-events'>
+    <div id='external-events' style="width: 300px; float: left;">
+        <h4>Arraste um dos itens para calendário</h4>
         <?php foreach ($arrayTipo as $key => $item) {?>
           <div class='fc-event' id=<?=$key.">".$item?></div>
         <?php } ?>
-        <p>Arraste os eventos</p>
         <p></p>
+    </div>
+    <br>
+    <div class="col-md-8" style="margin-left: 20px;margin-bottom: 20px;border: solid 2px;">
+              
+              Observações para criação de um item de Programação: <br>
+<br>
+          <b>
+          <ul>
+            <li> Ao arrastar um tipo para o calendário será exibido automaticamente um formulário de item de programação.
+            <li> Caso o formulário seja cancelado, poderá ser exibido novamente quando o tipo colocado no calendário é clicado.</li>
+            <li> Quando preenchidas as informações, os item de programação não poderão seja movidos, apenas editados quando clicados.</li>
+          </ul>
+          Para informações mais detalhadas, consulte o manual do usuário. <br>
+          </b>
+        <br>
+
+      </p>
+
     </div>
 
     <?php 
@@ -61,11 +88,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $this->title = 'Programação';
     $this->params['breadcrumbs'][] = $this->title;
     ?>
-    <h1><?= Html::encode($this->title) ?></h1>
+      <div id="geral" class="diviconegeral">
+          <div id="titulo" style= "float: left;">
+              <h1><?= $this->title ?></h1>
+          </div>
+          <a href=<?= Url::to(['evento/view', 'id' => $evento->idevento])?>>
+              <div class="divicone divicone-l1">
+                  <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+                  <p class="labelicone">Voltar</p>
+              </div>
+          </a>
+      </div>
     <?php 
     }?>
  
-
+<div class="clear"></div>
     <?= yii2fullcalendar\yii2fullcalendar::widget([
       'id' => 'calendarItemProgramacao',
       'options' => [
@@ -84,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
             var idevento = getParameterByName('idevento');
 
             if(data < '$evento->dataIni' || data > '$evento->dataFim'){
-              alert('Data inválida. Informe uma data  entre: $evento->dataIni e $evento->dataFim');
+              alert('Data inválida. Informe uma data  entre: |'+ moment().format('ll', $evento->dataIni) +'| e |'+moment().format('ll', $evento->dataFim)+'|');
               $('#calendarItemProgramacao').fullCalendar('removeEvents', calEvent._id);
               return false;
             }

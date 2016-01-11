@@ -7,6 +7,7 @@ use yii\jui\DatePicker;
 use kartik\datecontrol\Module;
 use kartik\datecontrol\DateControl;
 use kartik\widgets\Select2;
+use yii\helpers\Url;
 
 $this->title = "Imagem Certificado";
 
@@ -35,11 +36,17 @@ $this->title = "Imagem Certificado";
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
+       <div id="page-wrapper">
         <div id="geral" class="diviconegeral">
             <div id="titulo" style= "float: left;">
                 <h1><?= $this->title ?></h1>
             </div>
-            <div class="clear"></div>
+            <a href=<?= Url::to(['evento/update', 'id' => $model->idevento])?>>
+                <div class="divicone divicone-l1">
+                    <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+                    <p class="labelicone">Voltar</p>
+                </div>
+            </a>
         </div>
 
 
@@ -100,4 +107,5 @@ $this->title = "Imagem Certificado";
 
 <br><br><br>
 
+</div>
 </div>

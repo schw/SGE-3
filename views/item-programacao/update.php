@@ -1,11 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Itemprogramacao */
 
-$this->title = 'Editar Item de Programação: ' . ' ' . $model->titulo;
+$this->title = 'Editar Item de Programação';
 $this->params['breadcrumbs'][] = ['label' => 'Item de Programação', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->iditemProgramacao, 'url' => ['view', 'id' => $model->titulo]];
 $this->params['breadcrumbs'][] = 'Atualizar';
@@ -20,13 +21,23 @@ $this->params['breadcrumbs'][] = 'Atualizar';
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-    <h1><?= Html::encode($this->title) ?><input type="image" align="right" id ="icone" src="<?php ?>img/icon-voltar.png" onclick="location. href= 'http://localhost/SGE3/web/index.php?r=item-programacao%2Findex&idevento=<?php echo $model->evento_idevento; ?>'" ></h1>  
-    <br></br>
+        <div id="geral" class="diviconegeral">
+            <div id="titulo" style= "float: left;">
+                <h1><?= $this->title ?></h1>
+            </div>
+            <a href=<?= Url::to(['index', 'idevento' => $model->evento_idevento])?>>
+                <div class="divicone divicone-l1">
+                    <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+                    <p class="labelicone">Voltar</p>
+                </div>
+            </a>
+        </div>
 
     <?= $this->render('_form', [
         'model' => $model,        
         'arrayLocal' => $arrayLocal,
         'arrayPalestrante' => $arrayPalestrante,
     ]) ?>
+    </div>
 
 </div>
