@@ -53,12 +53,18 @@ $this->title = "Imagem Certificado";
 	    </div>
 		<p> <br>
 				Recomendações para a imagem: <br>
-					<b> O cabeçaho deve ter aproximadamente 30% da altura da imagem. <br>
-					O cabeçalho juntamente com a Área de Assinatura deve ter aproximadamente 25% da altura da imagem. <br>
-					A Largura e Altura da imagem deve ter aproximadamente 3450 pixels x 2400 pixels. </b><br>
+					<b>
+					<ul> 
+						<li> A imagem deve ser composta de Cabeçalho, Área de Assinatura e Rodapé.</li>  <br>
+						<li> O cabeçalho deve ter aproximadamente 30% da altura da imagem.</li> <br>
+						<li> A Área de Assinatura juntamente com o Cabeçalho deve ter aproximadamente 25% da altura da imagem.</li> <br>
+						<li> A Largura e Altura da imagem deve ter aproximadamente 3450 pixels x 2400 pixels.</li> <br>
+					</ul>
+					Para informações mais detalhadas, consulte o manual do usuário. <br>
+					</b>
 				<br>
 
-				<b> Para informações mais detalhadas, consulte o manual do usuário. </b> <br>
+
 
 	    	Obs.: A não seleção de uma imagem acarretará que 
 	    		os certificados serão gerados em um formato padrão.
@@ -76,4 +82,8 @@ $this->title = "Imagem Certificado";
 		
 		<?php ActiveForm::end(); ?>
 	</div>
+
+
+<br><br><br>
+
 </div>
