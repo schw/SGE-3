@@ -36,7 +36,6 @@ $this->title = "Imagem Certificado";
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-       <div id="page-wrapper">
         <div id="geral" class="diviconegeral">
             <div id="titulo" style= "float: left;">
                 <h1><?= $this->title ?></h1>
