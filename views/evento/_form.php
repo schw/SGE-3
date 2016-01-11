@@ -58,8 +58,8 @@ use kartik\widgets\Select2;
     <?= $form->field($model, 'vagas')->textInput(['type' => 'number']) ?>
 
     <?= $form->field($model, 'cargaHoraria')->textInput(['type' => 'number'])?>
-
-    <?= $form->field($model, 'imagem2')->fileInput() ?>
+    
+    <?= $form->field($model, 'imagem2')->fileInput(['accept' => '.jpg, .png, .jpeg']) ?>
 
     <?= $form->field($model, 'detalhe')->textArea(['maxlength' => true, 'cols' => 25]) ?>
 

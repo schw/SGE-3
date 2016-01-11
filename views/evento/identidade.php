@@ -49,31 +49,16 @@ $this->title = "Imagem Certificado";
 
 	   	<h3> Selecione uma imagem para o certificado </h3>	    
 	    <div style="position: relative; border: 3px solid #000000; padding: 10px;"> 
-	    	<?= $form->field($model, 'imagem')->fileInput() ?>
+	    	<?= $form->field($model, 'imagem')->fileInput(['accept' => '.jpg, .png, .jpeg']) ?>
+
 	    </div>
-		<p> <br>
-				Recomendações e exemplo para a imagem: <br>
-
-<img src="../web/img/imagem_tutorial_certificado.png" width="700" height="450">
-<br><br>
-					<b>
-					<ul> 
-						<li> A imagem deve ser composta de Cabeçalho(x), Área de Assinatura e Rodapé (y).</li>  <br>
-						<li> O cabeçalho (x) deve ter aproximadamente 30% da altura da imagem.</li> <br>
-						<li> A Área de Assinatura juntamente com o Cabeçalho (y) deve ter aproximadamente 25% da altura da imagem.</li> <br>
-						<li> A Largura (w) e Altura (z) da imagem deve ter aproximadamente 3450 pixels x 2400 pixels (ou proporcional a isso), respectivamente.</li> <br>
-					</ul>
-					Para informações mais detalhadas, consulte o manual do usuário. <br>
-					</b>
-				<br>
 
 
 
-
+<br>
 	    	Obs.: A não seleção de uma imagem acarretará que 
 	    		os certificados serão gerados em um formato padrão.
-	    		Clicando em <b> Visualizar Certificado </b> é possível observar a prévia de como ficará o certificado.
-	    </p>
+	    		<br>Clicando em <b> Visualizar Certificado </b> é possível observar a prévia de como ficará o certificado.
 
 	    <div class="form-group">
 	    <div style = "text-align:center; margin-right:90px"> 
@@ -83,7 +68,32 @@ $this->title = "Imagem Certificado";
 		</div>
 
 	    </div>
-		
+
+
+		<p> <br>
+
+
+
+
+				Recomendações e exemplo para a imagem: <br>
+
+<img src="../web/img/imagem_tutorial_certificado.png" width="700" height="450">
+<br><br>
+					<b>
+					<ul>
+						<li> A imagem deve ter extensão: jpg , png , jpge . </li>  <br> 
+						<li> A imagem deve ser composta de Cabeçalho(x), Área de Assinatura e Rodapé (y).</li>  <br>
+						<li> O cabeçalho (x) deve ter aproximadamente 30% da altura da imagem.</li> <br>
+						<li> A Área de Assinatura juntamente com o Cabeçalho (y) deve ter aproximadamente 25% da altura da imagem.</li> <br>
+						<li> A Largura (w) e Altura (z) da imagem deve ter aproximadamente 3450 pixels x 2400 pixels (ou proporcional a isso), respectivamente.</li> <br>
+					</ul>
+					Para informações mais detalhadas, consulte o manual do usuário. <br>
+					</b>
+				<br>
+
+	    </p>
+
+	
 		<?php ActiveForm::end(); ?>
 	</div>
 
