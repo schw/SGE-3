@@ -196,7 +196,7 @@ class Evento extends \yii\db\ActiveRecord
     /*Função para geração de nome e Salvamento da imagem na pasta "Web/uploads/" retorna no o nome  ser inserido no banco */
     public function upload($imageFile,$diretorio)
     {
-        if ($imageFile != null) {
+        if ($imageFile != null && ($imageFile->extension == 'png' || $imageFile->extension == 'jpg' || $imageFile->extension == 'jpeg')) {
             $imageName = date('dmYhms');
             if($imageFile->saveAs($diretorio . $imageName . '.' . $imageFile->extension))
                 return $imageName.".".$imageFile->extension;

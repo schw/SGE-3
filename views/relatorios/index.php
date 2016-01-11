@@ -107,10 +107,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Yii::$app->view->renderFile('@app/views/layouts/menulateral.php') ?>
 
    <div id="page-wrapper">
-    <div id="geral" style="width: 100%; text-align: left;">
-            <div id="titulo" >
-                <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
+      <div id="geral" class="diviconegeral">
+            <div id="titulo" style= "float: left;">
+                <h1><?= $this->title ?></h1>
             </div>
+            <div class="clear"></div>
+        </div>
+    <div id="geral" style="width: 100%; text-align: left;">
 
 <!-- Modal -->
 <div class="modal fade" id="modalCoordPdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

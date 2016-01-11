@@ -10,6 +10,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\bootstrap;
 use kartik\widgets\Growl;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\InscreveSearch */
@@ -29,12 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-
-    <div id="geral" style="width: 100%; text-align: center;">
-        <div id="titulo" style= "text-align: center">
-            <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
+    <div id="geral" class="diviconegeral">
+        <div id="titulo" style= "float: left;">
+            <h1><?= $this->title ?></h1>
         </div>
-
+        <a href=<?= Url::to(['relatorios/index'])?>>
+            <div class="divicone divicone-l1">
+                <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+                <p class="labelicone">Voltar</p>
+            </div>
+        </a>
+        <div class="clear"></div>
     </div>
 
 <br>
