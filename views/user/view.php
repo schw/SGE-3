@@ -20,13 +20,6 @@ $model->notificarViaEmail = $model->notificarViaEmail ? "Sim" : "Não";
         <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario != 1){?>
         <p>
             <?= Html::a('Atualizar Perfil', ['update', 'id' => $model->idusuario], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Excluir Conta', ['delete', 'id' => $model->idusuario], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => 'Deseja realmente excluir sua conta?',
-                    'method' => 'post',
-                ],
-            ]) ?>
         </p>
 
         <?php } ?>

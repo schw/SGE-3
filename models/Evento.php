@@ -219,11 +219,11 @@ class Evento extends \yii\db\ActiveRecord
 
     /*Funções para visualização dos Atributos de maneira correta*/
     public function getDataIni(){
-        return date("d-m-Y", strtotime($this->dataIni));
+        return date("d-M-Y", strtotime($this->dataIni));
     }
 
     public function getDataFim(){
-        return date("d-m-Y", strtotime($this->dataFim));
+        return date("d-M-Y", strtotime($this->dataFim));
     }
 
     public function getCargaHoraria(){

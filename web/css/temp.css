@@ -2,9 +2,10 @@
 	width: 100%;
 	height: 150px;
 }
+
 input{
   display: block;
-  width: 100%;
+  width: 30%;
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
@@ -21,20 +22,31 @@ input{
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-#evento-sigla, #evento-vagas, #evento-cargahoraria, #evento-responsavel, #evento-allow, #user-notificarviaemail{
-  width: 10%;
+#evento-sigla, #evento-responsavel, #evento-allow, #user-notificarviaemail{
+  width: 30%;
 }
 
-#pacote-valor, #user-nome, #user-senha, #user-senha_repeat, #user-email, #user-instituicao, #user-cracha{
+.field-evento-palestrante_idpalestrante, .field-evento-local_idlocal, .field-evento-tipo_idtipo, .field-evento-dataini, {
+  width: 30%;
+}
+
+
+
+#evento-local_idlocal, #evento-tipo_idtipo, #user-nome, #user-senha, #user-senha_repeat, #user-email, #user-instituicao, #user-cracha{
   width: 20%;
 }
 
-#evento-descricao, #pacote-titulo, #pacote-descricao{
-  width: 40%;
+#evento-descricao, #pacote-titulo, #pacote-descricao, .field-pacote-itens, #pacote-valor-disp, #voluntario-nome, #voluntario-email, #voluntario-cracha,
+  #voluntario-instituicao, #palestrante-nome, #palestrante-email{
+  width: 30%;
 }
 
-#evento-dataini-disp-kvdate, #evento-datafim-disp-kvdate, .field-evento-horaini-disp, .field-evento-horafim-disp{
+#evento-dataini-disp-kvdate, #evento-datafim-disp-kvdate{
   width: 300px;
+}
+
+#evento-vagas, #evento-cargahoraria{
+  width: 200px;
 }
 
 #evento-imagem, #evento-imagem2{
@@ -46,7 +58,12 @@ input{
 }
 
 #evento-detalhe{
-  width: 50%;
+  width: 30%;
+  height: 150px;
+}
+
+.field-eventohasvoluntario-voluntario_idvoluntario, .field-itemprogramacao-palestrante_idpalestrante, .field-itemprogramacao-local_idlocal{
+  width: 360px;
 }
 
 #evento-tipo_idtipo, #evento-local_idlocal, #recuperar-email{

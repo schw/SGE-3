@@ -121,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
             var idevento = getParameterByName('idevento');
 
             if(data < '$evento->dataIni' || data > '$evento->dataFim'){
-              alert('Data inválida. Informe uma data  entre: |'+ moment().format('ll', $evento->dataIni) +'| e |'+moment().format('ll', $evento->dataFim)+'|');
+              alert('Data inválida. Informe uma data  entre: | $evento->dataini | e | $evento->datafim |');
               $('#calendarItemProgramacao').fullCalendar('removeEvents', calEvent._id);
               return false;
             }
