@@ -17,7 +17,7 @@
 	                ['label' => 'Passados', 'url' => ['evento/gerenciareventos', 'status' => 'passado']],],], 
 	            ['label' => 'Eventos Ativos', 'icon' => 'tags', 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3), 'url' => ['evento/index']],
 	            ['label' => 'Cadastre-se', 'icon' => 'info-sign', 'url' => ['/user/create'], 'visible' => Yii::$app->user->isGuest],
-	            ['label' => 'Locais', 'url' => ['local/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
+	            ['label' => 'Locais', 'icon' => 'globe', 'url' => ['local/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
 	            ['label' => 'Voluntários', 'icon' => 'user', 'url' => ['voluntario/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
 	            ['label' => 'Palestrantes', 'icon' => 'blackboard', 'url' => ['palestrante/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],
 	            ['label' => 'Relatórios', 'icon' => 'stats', 'url' => ['relatorios/index'], 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3)],

@@ -22,26 +22,15 @@ use kartik\widgets\Select2;
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true, "size" => 40]) ?>
 
     <?= $form->field($model, 'dataIni')->widget(DateControl::classname(), [
-    //'language' => $config->language,
     'type' => DateControl::FORMAT_DATE,
     'language' => 'pt-BR',
-    //'autoWidget' => $config->autoWidget,
-    //'widgetClass' => $config->widgetClass,
     'displayFormat' => 'php:d-F-Y' 
-    // display as 'php:d-F-Y' or 'php:d-F-Y H:i:s'
-    //'saveOptions' => $saveOptions,
-    //'options' => $options
     ]) ?>
 
     <?= $form->field($model, 'dataFim')->widget(DateControl::classname(), [
     'language' => 'pt-BR',
     'type' => DateControl::FORMAT_DATE,
-    //'autoWidget' => $config->autoWidget,
-    //'widgetClass' => $config->widgetClass,
     'displayFormat' => 'php:d-F-Y' 
-    // display as 'php:d-F-Y' or 'php:d-F-Y H:i:s'
-    //'saveOptions' => $saveOptions,
-    //'options' => $options
     ]) ?>
 
     <?= $form->field($model, 'horaIni')->widget(DateControl::classname(), [

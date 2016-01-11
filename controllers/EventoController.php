@@ -191,8 +191,8 @@ class EventoController extends Controller
                     'arrayLocal' => $arrayLocal,
                     'arrayPalestrante' => $arrayPalestrante,
                 ]);
-            else
-                return $this->redirect(['evento/identidade', 'idevento' => $model->idevento]);
+            $this->mensagens('success', 'Evento Criado', 'Evento criado com Sucesso');
+            return $this->redirect(['evento/identidade', 'idevento' => $model->idevento]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -233,8 +233,9 @@ class EventoController extends Controller
                     'arrayLocal' => $arrayLocal,
                     'arrayPalestrante' => $arrayPalestrante,
                 ]);
-            else
-                return $this->redirect(['evento/identidade', 'idevento' => $model->idevento]);
+
+            $this->mensagens('success', 'Evento Atualizado', 'Evento atualizado com Sucesso');
+            return $this->redirect(['evento/identidade', 'idevento' => $model->idevento]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -260,7 +261,7 @@ class EventoController extends Controller
         if($model->delete())
             $this->mensagens('success', 'Evento Removido', 'Evento removido com Sucesso');
         else
-            $this->mensagens('danger', 'Pacote Não Removido', 'Erro ao tentar Remover Evento');
+            $this->mensagens('danger', 'Evento Não Removido', 'Evento pode ser Removido');
 
         return $this->redirect(['gerenciareventos']);
     }
@@ -277,7 +278,6 @@ class EventoController extends Controller
         else if (isset($_POST['frag2'])){
             $model = $this->findModel($idevento);
             $model->imagem = $model->upload(UploadedFile::getInstance($model, 'imagem'),'uploads/');
-            //$model->save();
             return $this->redirect([$redicionamento,
                 'imagem' => $model->imagem,
             ]);
@@ -290,7 +290,8 @@ class EventoController extends Controller
                 $model->imagem = $imagem;
             $model->save();
 
-            $this->mensagens('success', 'Evento Criado', "Evento '".$model->descricao."' criado com Sucesso");
+            if($model->imagem != null)
+                $this->mensagens('success', 'Imagem Atualizada', "A identidade visual foi atualizada com sucesso.");
 
             return $this->redirect([$redicionamento,
                 'imagem' => $model->imagem,
