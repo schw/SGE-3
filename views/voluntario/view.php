@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <a href=<?= Url::to(['update', 'id' => $model->idvoluntario])?>>
                 <div class="divicone divicone-l2">
                     <?= Html::img('@web/img/editar.png', ['class' => 'imgicone'])?>
-                    <p>Atualizar Palestrante</p>
+                    <p>Atualizar Voluntário</p>
                 </div>
             </a>
             <div class="divicone divicone-l2">
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'method' => 'post',
                     ],
                ]) ?>
-                <?= Html::a('Remover Palestrante', ['delete', 'id' => $model->idvoluntario], [
+                <?= Html::a('Remover Voluntário', ['delete', 'id' => $model->idvoluntario], [
                     'data' => [
                         'confirm' => 'Deseja Remover \''.$model->nome.'\'?',
                         'method' => 'post',
