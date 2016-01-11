@@ -26,13 +26,13 @@ input{
   width: 30%;
 }
 
-.field-evento-palestrante_idpalestrante, .field-evento-local_idlocal, .field-evento-tipo_idtipo, .field-evento-dataini, {
+.field-evento-palestrante_idpalestrante, .field-evento-local_idlocal, .field-evento-tipo_idtipo{
   width: 30%;
 }
 
 
 
-#evento-local_idlocal, #evento-tipo_idtipo, #user-nome, #user-senha, #user-senha_repeat, #user-email, #user-instituicao, #user-cracha{
+#evento-local_idlocal, #evento-tipo_idtipo, #user-nome, #user-senha, #user-senha_repeat, #user-email, #user-instituicao, #user-cracha, .field-user-notificarviaemail{
   width: 20%;
 }
 

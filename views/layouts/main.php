@@ -76,17 +76,37 @@ AppAsset::register($this);
 
     <div class="container" style="width: 100%;">
         <div id="boasvindas">
-         <?php if(!Yii::$app->user->isGuest){ ?>
-            <p>
-                Olá <?= Yii::$app->user->identity->nome ?>, <br>
-                Perfil: <?= Yii::$app->user->identity->getDescricaoTipoUsuario() ?><br>
-            </p>
-            <?php } ?>
+             <div class="summary">
+              <ul>
+                <li>
+                    <span class="summary-number"> 
+                    <?php
+                        if (!Yii::$app->user->isGuest) {
+                            echo "Bem-vindo(a), ";
+                            echo Yii::$app->user->identity->nome;
+                            echo "!";
+                        }
+                        else echo "Bem-vindo(a)! ";
+                        
+                    ?></span> 
+                    <span class="summary-title">
+                        <div class="art-box-body art-block-body" align = "left";>
+                            <div class="art-bar art-blockheader"></div>
+                            <div class="art-box art-blockcontent">
+                                <div class="art-box-body art-blockcontent-body">
+                                    PERFIL: <?= Yii::$app->user->identity->descricaotipoUsuario ?>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </li>        
+              </ul>
+            </div>
         </div>
         <?= $content ?>
-    </div>
 </div>
-
+</div>
+<div class="clear"></div>
 <footer class="footer">
     <div class="container">
 
