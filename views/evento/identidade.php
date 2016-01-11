@@ -81,7 +81,7 @@ $this->title = "Imagem Certificado";
 <br><br>
 					<b>
 					<ul>
-						<li> A imagem deve ter extensão: jpg , png , jpge . </li>  <br> 
+						<li> A imagem deve ter extensão: jpg , png , jpeg . </li>  <br> 
 						<li> A imagem deve ser composta de Cabeçalho(x), Área de Assinatura e Rodapé (y).</li>  <br>
 						<li> O cabeçalho (x) deve ter aproximadamente 30% da altura da imagem.</li> <br>
 						<li> A Área de Assinatura juntamente com o Cabeçalho (y) deve ter aproximadamente 25% da altura da imagem.</li> <br>
