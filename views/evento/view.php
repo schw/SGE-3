@@ -17,11 +17,12 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <head>
 	<meta charset="UTF-8"/>
-	<meta property="og:url"           content=<?php echo Yii::$app->request->absoluteUrl;?> />
-	<meta property="og:type"          content="website" />
-	<meta property="og:title"         content="<?php echo $model->descricao;?>" />
-	<meta property="og:description"   content="Evento do Instituto de Computação da UFAM"/>
-	<meta property="og:image"		  content="<?php echo "https://".Yii::$app->request->serverName.Yii::$app->request->baseUrl."/img/home_icomp.png"; ?>">
+    <meta property="og:url"           content=<?php echo Yii::$app->request->absoluteUrl;?> />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="<?php echo $model->descricao;?>" />
+    <meta property="og:description"   content="<?php if($model->detalhe === "") {echo "Evento do Instituto de Computação";}else{echo $model->detalhe;}?>"/>
+    <meta property="og:image"         content="<?php echo "https://".Yii::$app->request->serverName.Yii::$app->request->baseUrl."/uploads/identidade/".$model->imagem2; ?>">
+    <meta property="og:image"         content="<?php echo "https://".Yii::$app->request->serverName.Yii::$app->request->baseUrl."/uploads/identidade/icomp.png"; ?>" >
 </head>
 <body>
 <div class="evento-view">
