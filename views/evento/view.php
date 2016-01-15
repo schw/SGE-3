@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Evento */
@@ -187,6 +188,16 @@ $this->params['breadcrumbs'][] = $this->title;
         if(!$encerrado){     
             if(!$inscrito){ 
                 if($existeVagas != 0){ ?>
+                        <?php if($dataProvider != null){ ?>
+                        <div class="divicone divicone-l1"> 
+                        <a data-toggle="modal" data-target="#pacote">
+                            <div>
+                                <img src = '../web/img/ok.png'><br>
+                                    Realizar Inscrição
+                            </div>    
+                        </a>
+                        </div>
+                        <?php } else{ ?>
 
                         <div class="divicone divicone-l1"> 
                             <?php echo Html::a(Html::img('@web/img/ok.png'), ['inscreve/inscrever'],  [
@@ -202,6 +213,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                         ]);?>
                         </div>
+
+                        <?php } ?>
 
                     <?php 
                 }
@@ -286,6 +299,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'local.descricao',
         ],
     ]) ?>
+
 	<div style="height: 30px; width: 100%; display: inline-block;">
 	   <div style="float: left">
 	   <?php echo FacebookPlugin::widget(
@@ -305,6 +319,66 @@ $this->params['breadcrumbs'][] = $this->title;
 		]);
 		?></div>
 	</div>
+    
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="pacote" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"> Escolha um Pacote</h4>
+      </div>
+      <div class="modal-body">
+        
+            <?php
+                if($dataProvider != null){
+                    echo "<h1> Pacotes </h1>";
+                    echo GridView::widget([
+                        'showOnEmpty' => 'true',
+                        'dataProvider' => $dataProvider,
+                        'summary' => '',
+                        //'filterModel' => $searchModel,
+                        'columns' => [
+                            //['class' => 'yii\grid\SerialColumn'],
+                            'titulo',
+                            //'evento.descricao',
+                            'descricao',
+                            'valor',
+                            ['class' => 'yii\grid\ActionColumn','visible' => Yii::$app->user->identity->tipoUsuario == 3, 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
+                            'template' => '{view} {plus} {link}','buttons' => [
+                                'plus' => function ($url,$model,$key) {
+                                                return  Html::a('<span class="glyphicon glyphicon-check"></span>', ['inscreve/addpacote'], [
+                                                                'data'=>[
+                                                                'method' => 'POST',
+                                                                'params'=>['id_pacote' => $model->idpacote, 'id_evento' => $model->evento_idevento],]
+                                                        ]);
+                                },
+                                'view' => function ($url,$model,$key) {
+                                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['pacote/view', 'id' => $model->idpacote]);
+                                },
+                        ],
+                ],
+                     ],
+                 ]);
+                } 
+            ?>
+            
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- -->
+
+
+
     <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
     <h2>QRCode <?= $model->descricao ?></h2>
     <?= Html::img('plugins/getQRCode.php?conteudo_QRCODE='.$model->idevento, ['alt' => 'QRCode', 'id' => 'imgqrcode']) ?>

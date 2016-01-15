@@ -107,6 +107,8 @@ class EventoController extends Controller
      * @return mixed
      */
     public function actionView($id){
+
+        $dataProvider = null;
         
         Yii::$app->user->isGuest ? $verificaInscrito = 0 : 
         
@@ -132,6 +134,7 @@ class EventoController extends Controller
             $verificaVagas = $searchModel->searchEventoPacoteDisponivel($id);
             $verificaVagas = $verificaVagas->getCount();
 
+            $dataProvider = $searchModel->searchEventoPacoteDisponivel($id);
         }
 
         $model = $this->findModel($id);
@@ -144,6 +147,7 @@ class EventoController extends Controller
                 'encerrado' => $verificaEncerramento,
                 'credenciamento' => $verificaCredenciamento,
                 'existeVagas' => $verificaVagas,
+                'dataProvider' => $dataProvider,
             ]);    
         }else{
         $responsavel = (CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
@@ -156,6 +160,7 @@ class EventoController extends Controller
             'credenciamento' => $verificaCredenciamento,
             'existeVagas' => $verificaVagas,
             'responsavel' => $responsavel,
+            'dataProvider' => $dataProvider,
         ]);
         }
     }
