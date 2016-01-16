@@ -386,8 +386,14 @@ class InscreveController extends Controller
         
         if($mes_inicio == $mes_fim && $ano_inicio == $ano_fim){
 
-            $tag = '<b> '. $dia_inicio .' a '.$dia_fim .' de '.$mes_fim.'
-                de '.$ano_fim.'</b>';
+            if ($dia_inicio == $dia_fim){
+                $tag = '<b> '. $dia_inicio .' de '.$mes_fim.'
+                    de '.$ano_fim.'</b>';
+            }
+            else{
+                $tag = '<b> '. $dia_inicio .' a '.$dia_fim .' de '.$mes_fim.'
+                    de '.$ano_fim.'</b>';
+            }
         }
         else if($mes_inicio != $mes_fim && $ano_inicio == $ano_fim){
             $tag = '<b> '. $dia_inicio .' de '.$mes_inicio.'
