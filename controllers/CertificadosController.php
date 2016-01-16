@@ -498,7 +498,7 @@ public function actionPrevisualizacao() {
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b> [Nome do Participante] </b> participou do evento <b> [Nome do Evento] 
             ([Sigla do Evento])</b>, com carga horária de <b> [Carga Horária]
-                 hora(s)</b>, realizado no período de '.$tag.', na cidade 
+                 hora(s)</b>, realizado no período de <b>[Data Inicial] a [Data Final]</b>, na cidade 
                 de Manaus - AM.</p>');
     
         $pdf->Ln(15);
