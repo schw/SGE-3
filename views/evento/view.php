@@ -83,8 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'method' => 'POST',
                         'params'=>['evento_idevento' => $model->idevento],
                     ]
-                    ]); ?>  
-            
+                    ]); ?> 
       </div>
 
     </div>
@@ -376,8 +375,6 @@ $this->params['breadcrumbs'][] = $this->title;
   </div>
 </div>
 <!-- -->
-
-
 
     <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
     <h2>QRCode <?= $model->descricao ?></h2>

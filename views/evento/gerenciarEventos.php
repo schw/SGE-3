@@ -5,11 +5,45 @@ use yii\grid\GridView;
 use kartik\widgets\SideNav;
 use kartik\widgets\Growl;
 use yii\helpers\Url;
+use yii\bootstrap\Modal;
 
 
 $this->title = 'Eventos - Inscrições Abertas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<div class="modal fade" id="modalnovoevento1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Novo Evento</h4>
+      </div>
+      <div class="modal-body">
+            Para eventos com Itens de Programação, apenas informações mais gerais serão consideradas.<br>
+            <?= Html::a('OK', ['evento/create'], ['class' => 'btn btn-primary']) ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalnovoevento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Novo Evento</h4>
+      </div>
+      <div class="modal-body">
+        <a data-toggle="modal" data-target="#modalnovoevento1" data-dismiss="modal" class="btn btn-primary">
+            Evento com Itens de Programação
+        </a>
+            <?= Html::a('Evento sem Itens de Programação', ['evento/create'], ['class' => 'btn btn-primary']) ?>
+        </div>
+    </div>
+  </div>
+</div>
+
 <div class="evento-index">
 
     <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
@@ -25,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div id="titulo" style= "float: left;">
             <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
         </div>
-        <a href=<?= Url::to(['evento/create'])?>>
+         <a data-toggle="modal" data-target="#modalnovoevento">
             <div class="divicone divicone-l1" style="padding: 10px;">
                 <?= Html::img('@web/img/novoevento.png', ['class' => 'imgicone']) ?>
                 <p>Novo Evento</p>

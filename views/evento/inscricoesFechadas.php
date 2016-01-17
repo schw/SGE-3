@@ -13,6 +13,39 @@ use yii\helpers\Url;
 $this->title = 'Eventos - Inscrições Fechadas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<div class="modal fade" id="modalnovoevento1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Novo Evento</h4>
+      </div>
+      <div class="modal-body">
+            Para eventos com Itens de Programação, apenas informações mais gerais serão consideradas.<br>
+            <?= Html::a('OK', ['evento/create'], ['class' => 'btn btn-primary']) ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalnovoevento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Novo Evento</h4>
+      </div>
+      <div class="modal-body">
+        <a data-toggle="modal" data-target="#modalnovoevento1" data-dismiss="modal" class="btn btn-primary">
+            Evento com Itens de Programação
+        </a>
+            <?= Html::a('Evento sem Itens de Programação', ['evento/create'], ['class' => 'btn btn-primary']) ?>
+        </div>
+    </div>
+  </div>
+</div
+
 <div class="evento-index">
 
     <!-- Importação do arquivo responsável por receber e exibir mensagens flash -->
@@ -23,19 +56,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-        <div id="geral" class="diviconegeral" style="width: 100%; text-align: center;">
-            <div id="titulo" style= "float: left;">
-                <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
-            </div>
-            <a href=<?= Url::to(['evento/create'])?>>
-                <div class="divicone divicone-l1" style="padding: 10px;">
-                    <?= Html::img('@web/img/novoevento.png', ['class' => 'imgicone']) ?>
-                    <p>Novo Evento</p>
-                </div>
-            </a>
-            <div class="clear"></div>
+         <div id="geral" class="diviconegeral" style="width: 100%; text-align: center;">
+        <div id="titulo" style= "float: left;">
+            <label><strong><h1><?= Html::encode($this->title) ?></h1></strong></label>
         </div>
-        <p></p>
+         <a data-toggle="modal" data-target="#modalnovoevento">
+            <div class="divicone divicone-l1" style="padding: 10px;">
+                <?= Html::img('@web/img/novoevento.png', ['class' => 'imgicone']) ?>
+                <p>Novo Evento</p>
+            </div>
+        </a>
+        <div class="clear"></div>
+    </div>
+    <p></p>
 
         <?= GridView::widget([
             'showOnEmpty' => 'true',

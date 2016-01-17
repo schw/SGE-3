@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <head>
-<script src="../web/js/jquery.min.js"></script>
+<script src="../web/js/lib/jquery.min.js"></script>
 <script>
 
     function datas(datainicial,datafinal){
