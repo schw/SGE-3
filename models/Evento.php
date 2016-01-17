@@ -262,6 +262,7 @@ class Evento extends \yii\db\ActiveRecord
         ->leftJoin('inscreve', 'inscreve.evento_idevento = evento.idevento')
         ->groupBy('sigla')
         ->where($where)
+        ->andWhere('evento.responsavel = '.Yii::$app->user->identity->idusuario)
         ->orderBy('qtd_evento DESC')
         ->all();
 

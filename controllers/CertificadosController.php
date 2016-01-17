@@ -134,6 +134,11 @@ public function actionIdsusuarios()
     {
 
         $ids = Yii::$app->request->get('ids');        
+        $ids = explode(',', $ids);
+        for($i=0 ; $i< sizeof($ids) ; $i++){
+            $ids[$i] = $ids[$i] * 997;
+        }
+        $ids = implode(",", $ids);
         echo $ids; 
     }
 
@@ -143,6 +148,9 @@ public function actionPdfcredenciados()
         $tipo_usuario = Yii::$app->request->get('tipousuario');
         $ids = Yii::$app->request->get('ids');        
         $ids_usuario_vetor  = explode(',', $ids);
+        for($i=0 ; $i< sizeof($ids_usuario_vetor) ; $i++){
+            $ids_usuario_vetor[$i] = $ids_usuario_vetor[$i] / 997;
+        }
         $count = sizeof($ids_usuario_vetor);
         $i = 0;
 
@@ -171,8 +179,11 @@ public function actionPdfcredenciados()
     {   
         $id_evento = Yii::$app->request->get('evento_idevento');        
         $tipo_usuario = Yii::$app->request->get('tipousuario');
-        $ids = Yii::$app->request->get('ids');        
+        $ids = Yii::$app->request->get('ids');
         $ids_itemProgramacao  = explode(',', $ids);
+        for($i=0 ; $i< sizeof($ids_itemProgramacao) ; $i++){
+            $ids_itemProgramacao[$i] = $ids_itemProgramacao[$i] / 997;
+        }
         $count = sizeof($ids_itemProgramacao);
         $i = 0;
 
@@ -206,6 +217,9 @@ public function actionPdfcredenciados()
         $ids = Yii::$app->request->get('ids');
         $ch = Yii::$app->request->get('ch');                
         $ids_usuario_vetor  = explode(',', $ids);
+        for($i=0 ; $i< sizeof($ids_usuario_vetor) ; $i++){
+            $ids_usuario_vetor[$i] = $ids_usuario_vetor[$i] / 997;
+        }
         $count = sizeof($ids_usuario_vetor);
         $i = 0;
 

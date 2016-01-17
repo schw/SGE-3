@@ -277,6 +277,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         ->leftJoin('inscreve', 'inscreve.usuario_idusuario = user.idusuario')
         ->rightJoin('evento','inscreve.evento_idevento = evento.idevento')
         ->where($where)
+        ->andWhere('evento.responsavel = '.Yii::$app->user->identity->idusuario)
         ->groupBy('user.nome')
         ->orderBy('qtd_evento DESC')
         ->all();
