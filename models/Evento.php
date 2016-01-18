@@ -112,14 +112,14 @@ class Evento extends \yii\db\ActiveRecord
             }
         }
     }
-
+/*
     public function validadeHoraFim($attribute, $params){
         if (!$this->hasErrors()) {
             if ($this->horaFim <= $this->horaIni && $this->dataIni == $this->dataFim) {
                 $this->addError($attribute, 'Informe um horário acima do horário inicial');
             }
         }
-    }
+    }*/
 
     public function beforeDelete(){
     if((new PacoteSearch())->searchEventoPacoteDisponivel($this->idevento)->count > 0)
@@ -207,7 +207,7 @@ class Evento extends \yii\db\ActiveRecord
 
     /*Verifica se o usuário autenticado possui permissão de responsável ou de coordenador ajudante*/
     public function canAccess(){
-        return !Yii::$app->user->isGuest && date("Y-m-d", strtotime($this->dataFim)) > date('Y-m-d') && (Yii::$app->user->identity->idusuario == $this->responsavel || 
+        return !Yii::$app->user->isGuest && date("Y-m-d", strtotime($this->dataFim)) >= date('Y-m-d') && (Yii::$app->user->identity->idusuario == $this->responsavel || 
             CoordenadorHasEvento::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])->andWhere(['evento_idevento' => $this->idevento])->count()) ? true : false;
     }
     
