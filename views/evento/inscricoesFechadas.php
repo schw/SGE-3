@@ -19,11 +19,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Novo Evento</h4>
+        <h4 class="modal-title" id="myModalLabel">Novo Evento - Programação Única</h4>
       </div>
       <div class="modal-body">
-            Para eventos com Itens de Programação, apenas informações mais gerais serão consideradas.<br>
-            <?= Html::a('OK', ['evento/create'], ['class' => 'btn btn-primary']) ?>
+            No caso do <b> evento com programação única</b>, não há necessidade de você inserir um item de programação, basta inserir todas as informações da referida programação na tela de criação do evento. <br>
+            Ao apertar o botão "ok", será redirecionado a uma tela, em que será solicitada diversas informações a respeito do evento, você deve preenchê-las de acordo com as informações do único item de programação. <br><br>
+            Observação: Os campos <b>Vagas</b> e <b>Carga Horária</b> devem ser preenchidos, respectivamente, pela quantidade de Vagas e pela Carga Horária desse Único Item de Programação .<br> O campo <b>Palestrante</b>, embora não obrigatório, é recomendável nesse caso. <br><br>
+            <?= Html::a('Ok. Eu entendi!', ['evento/create'], ['class' => 'btn btn-primary']) ?>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalnovoevento2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Novo Evento - Programação Multipla</h4>
+      </div>
+      <div class="modal-body">
+            No caso do <b> evento com multipla programação</b>, após a criação do evento, você deve inserir pelo menos um item de programação.<br>
+            Ao apertar o botão "ok", será redirecionado a uma tela, em que será solicitada diversas informações gerais do evento (e não de um item em específico), você deve preenchê-las de acordo com as as informações gerais do evento. <br><br>
+            Observação: Os campos <b>Vagas</b> e <b>Carga Horária</b> devem ser preenchidos, respectivamente, pelo total de Vagas do Evento e pela Carga Horária total do evento.<br> O campo <b>Palestrante</b> é dispensável nesse caso. <br><br>
+            <?= Html::a('Ok. Eu entendi!', ['evento/create'], ['class' => 'btn btn-primary']) ?>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
@@ -34,17 +55,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Novo Evento</h4>
+        <h4 class="modal-title" id="myModalLabel">Novo Evento - Escolha uma modalidade de evento:</h4>
       </div>
       <div class="modal-body">
+      <b> OBSERVAÇÃO: </b> <br><br>
+      <b> Eventos com Programação única </b> são aqueles que todo o evento é compreendido de apenas um item de Programação, como por exemplo: Uma Palestra.<br><br>
+      <b> Eventos com multipla Programação </b> são aqueles que todo o evento é compreendido de várias programações, como por exemplo: Duas Palestras. <br><br>
         <a data-toggle="modal" data-target="#modalnovoevento1" data-dismiss="modal" class="btn btn-primary">
-            Evento com Itens de Programação
+            Evento com Programação Única
         </a>
-            <?= Html::a('Evento sem Itens de Programação', ['evento/create'], ['class' => 'btn btn-primary']) ?>
+        <a data-toggle="modal" data-target="#modalnovoevento2" data-dismiss="modal" class="btn btn-primary">
+            Eventos com multipla Programação
+        </a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
         </div>
     </div>
   </div>
-</div
+</div>
 
 <div class="evento-index">
 
