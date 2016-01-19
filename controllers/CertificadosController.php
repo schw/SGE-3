@@ -355,6 +355,7 @@ public function converterMes($current){
 
 
                     ");
+                $pdf->Ln(15);
             }   
             else{   
 
@@ -395,7 +396,7 @@ public function converterMes($current){
 
         $pdf->SetFont('Arial','',18);
 
-        $pdf->Ln(10);
+        $pdf->Ln(25);
 
         $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 if( $tipo_usuario ==0){
@@ -434,9 +435,11 @@ else{
 
         if($model->imagem == NULL){
 
-            $pdf->Line(95,150, 205,150);
+            $pdf->Ln(15);
 
-            $pdf->Ln(30);
+            $pdf->Line(95,160, 205,160);
+
+            $pdf->Ln(10);
 
             $pdf->WriteHTML("<div align=center> $nomeCoordenador->nome </div>");
 
@@ -464,6 +467,7 @@ else{
 public function actionPrevisualizacao() {
  
         $nomeImagem = Yii::$app->request->get('imagem'); 
+        $nomeImagem =  "11012016010142.jpg";
 
         
             $pdf = new mPDF('utf-8', 'A4-L');
@@ -494,6 +498,8 @@ public function actionPrevisualizacao() {
                 $pdf->Image('../web/img/logo-brasil.jpg', 10, 7, 32.32);
                 $pdf->Image('../web/img/ufam.jpg', 260, 7, 25.25);
 
+            }else{
+                $pdf->Ln(15);
             }
             
             $pdf->Ln(25);
@@ -516,7 +522,7 @@ public function actionPrevisualizacao() {
 
         $pdf->SetFont('Arial','',18);
 
-        $pdf->Ln(10);
+        $pdf->Ln(25);
 
         $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
@@ -538,14 +544,15 @@ public function actionPrevisualizacao() {
         $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $mes. ' de '. 
             date('Y', $currentTime).'.             '),0,1, 'C');
 
-
         if($nomeImagem == NULL){
 
-            $pdf->Line(95,150, 205,150);
+            $pdf->Ln(15);
 
-            $pdf->Ln(30);
+            $pdf->Line(95,160, 205,160);
 
-            $pdf->WriteHTML("<div align=center> <b> [Nome do Coordenador do Evento] </b> </div>");
+            $pdf->Ln(10);
+
+            $pdf->WriteHTML("<div align=center>  <b> [Nome do Coordenador do Evento] </b> </div>");
 
             $pdf->SetFont('Helvetica','I',8);
             $pdf->Line(5,185,290,185);

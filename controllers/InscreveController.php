@@ -458,6 +458,7 @@ class InscreveController extends Controller
 
 
                     ");
+                $pdf->Ln(15);
             }   
             else{   
 
@@ -498,7 +499,7 @@ class InscreveController extends Controller
 
         $pdf->SetFont('Arial','',18);
 
-        $pdf->Ln(12);
+        $pdf->Ln(25);
 
         $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
@@ -508,7 +509,7 @@ class InscreveController extends Controller
                 ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
                 de Manaus - AM.</p>');
     
-        $pdf->Ln(10);
+        $pdf->Ln(12);
         
         $current = date('Y/m/d');
 
@@ -519,12 +520,14 @@ class InscreveController extends Controller
         
         $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $mes. ' de '. 
             date('Y', $currentTime).'.             '),0,1, 'C');
-
+     
         if($model->imagem == NULL){
 
-            $pdf->Line(95,150, 205,150);
+            $pdf->Ln(15);
 
-            $pdf->Ln(30);
+            $pdf->Line(95,160, 205,160);
+
+            $pdf->Ln(10);
 
             $pdf->WriteHTML("<div align=center> $nomeCoordenador->nome </div>");
 
