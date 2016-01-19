@@ -14,6 +14,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\funcoes;
+use yii\db\IntegrityException;
+use yii\base\Exception;
+
 
 /**
  * ItemProgramacaoController implements the CRUD actions for ItemProgramacao model.
@@ -121,7 +124,7 @@ class ItemProgramacaoController extends Controller
                 $this->mensagens('success', "Item '".$model->titulo."' foi Adicionado", 'O Item de Programação foi Adicionado com Sucesso');
                 return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
             }else{
-                $this->mensagens('danger', $model->titulo.' Não Adicionado', 'Houve um erro ao adicionar Item de Programacão');
+                $this->mensagens('danger',"Item '".$model->titulo."' Não Adicionado", 'Houve um erro ao adicionar Item de Programacão. Verique os dados iformados e tente novamente');
                 return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
             }
         } else {
@@ -168,10 +171,17 @@ class ItemProgramacaoController extends Controller
      */
     public function actionDelete($id){
         
-        $this->autorizaUsuario();
         $model = $this->findModel($id);
-        $idevento = $model->evento_idevento;
-        $model->delete();
+        $this->autorizaUsuario($model->evento_idevento);
+        $itemProgramacao = $model->titulo;
+
+        try{
+            $idevento = $model->evento_idevento;
+            $model->delete();
+            $this->mensagens('success', 'Item de Programação removido', 'Item de Programacão '.$itemProgramacao.' removido com sucesso');
+        }catch(IntegrityException $e){
+            $this->mensagens('danger', 'Item de Programação não removido', 'Houve um erro ao remover \''.$itemProgramacao.'\'');
+        }
 
         return $this->redirect(['index', 'idevento' => $idevento]);
     }
@@ -220,7 +230,7 @@ class ItemProgramacaoController extends Controller
     protected function mensagens($tipo, $titulo, $mensagem){
         Yii::$app->session->setFlash($tipo, [
             'type' => $tipo,
-            'duration' => 1200,
+            'duration' => 5000,
             'icon' => 'home',
             'message' => $mensagem,
             'title' => $titulo,

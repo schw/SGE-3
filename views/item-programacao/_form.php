@@ -17,7 +17,7 @@ use kartik\widgets\Select2;
 
 DATA Início: <?= $model->data ?><br>
 HORA: <?= $model->hora ?><br>
-HORA Fim: <?= date('H:i', strtotime('+2 hour', strtotime($model->hora))) ?><br>
+HORA Fim: <?= $model->horaFim ?><br>
 
 
 

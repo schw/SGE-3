@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div id='external-events' style="background-color: #DAA520; padding: 10px 10px 10px 10px; width: 300px; float: left; border: solid 2px;">
         <h4> Arraste um destes tipos de evento até calendário: </h4>
         <?php foreach ($arrayTipo as $key => $item) {?>
-          <div style="margin: 5px 5px 5px 5px;" class='fc-event' id=<?=$key.">".$item?></div>
+          <div style="margin: 5px 5px 5px 5px;cursor: pointer;" class='fc-event' id=<?=$key.">".$item?></div>
         <?php } ?>
         <p></p>
     </div>
@@ -108,6 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'lang' => 'pt-br',
       ],
       'clientOptions' => [
+      'defaultDate' => $evento->dataIni,
         'weekends' => true,
         'editable' => true,
         'droppable' => true,
@@ -121,6 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             if(data < '$evento->dataIni' || data > '$evento->dataFim'){
               alert('Data inválida. Informe uma data  entre: | $evento->dataini | e | $evento->datafim |');
+              location.reload(); 
               $('#calendarItemProgramacao').fullCalendar('removeEvents', calEvent._id);
               return false;
             }
