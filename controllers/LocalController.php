@@ -166,7 +166,7 @@ class LocalController extends Controller
     protected function mensagens($tipo, $titulo, $mensagem){
         Yii::$app->session->setFlash($tipo, [
             'type' => $tipo,
-            'duration' => 1200,
+            'duration' => 5000,
             'icon' => 'home',
             'message' => $mensagem,
             'title' => $titulo,

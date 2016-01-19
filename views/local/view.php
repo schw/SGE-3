@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Local */
 
-$this->title = $model->descricao;
+$this->title = "Detalhes Local";
 $this->params['breadcrumbs'][] = ['label' => 'Locals', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,23 +21,41 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <!-- "page-wrapper" necessário para alinha com o menu lateral. Cobre todo conteudo da view. -->
    <div id="page-wrapper">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Atualizar', ['update', 'id' => $model->idlocal], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Excluir', ['delete', 'id' => $model->idlocal], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+        <div id="geral" class="diviconegeral">
+            <div id="titulo" style= "float: left;">
+                <h1><?= $this->title ?></h1>
+            </div>
+            <a href="javascript:window.history.go(-1)">
+                <div class="divicone divicone-l1">
+                    <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
+                    <p class="labelicone">Voltar</p>
+                </div>
+            </a>
+            <a href=<?= Url::to(['update', 'id' => $model->idlocal])?>>
+                <div class="divicone divicone-l2">
+                    <?= Html::img('@web/img/editar.png', ['class' => 'imgicone'])?>
+                    <p>Atualizar Local</p>
+                </div>
+            </a>
+            <div class="divicone divicone-l2">
+                <?= Html::a(Html::img('@web/img/delete.png'), ['delete', 'id' => $model->idlocal], [
+                    'data' => [
+                        'confirm' => 'Deseja Remover \''.$model->descricao.'\'?',
+                        'method' => 'post',
+                    ],
+               ]) ?>
+                <?= Html::a('Remover Local', ['delete', 'id' => $model->idlocal], [
+                    'data' => [
+                        'confirm' => 'Deseja Remover \''.$model->descricao.'\'?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </div>
+        </div>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            //'idlocal',
             'descricao',
             'latitude',
             'longitude',

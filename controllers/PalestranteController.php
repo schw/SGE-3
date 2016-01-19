@@ -121,7 +121,7 @@ class PalestranteController extends Controller
             $model->delete();
             $this->mensagens('success', 'Palestrante Removido', 'Palestrante \''.$palestrante.'\' foi removido com sucesso');
         }catch(IntegrityException $e){
-            $this->mensagens('danger', 'Palestrante Não Removido', 'O palestrante \''.$palestrante.'\' está sendo utilizado em algum evento. Remova o evento para poder remove-lo');
+            $this->mensagens('danger', 'Palestrante Não Removido', 'O palestrante \''.$palestrante.'\' está sendo utilizado em algum evento. Por favor, Remova o evento antes');
         }
 
         return $this->redirect(['index']);
@@ -153,7 +153,7 @@ class PalestranteController extends Controller
     protected function mensagens($tipo, $titulo, $mensagem){
         Yii::$app->session->setFlash($tipo, [
             'type' => $tipo,
-            'duration' => 1600,
+            'duration' => 5000,
             'icon' => 'home',
             'message' => $mensagem,
             'title' => $titulo,

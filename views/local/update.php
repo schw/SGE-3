@@ -31,12 +31,6 @@ $this->params['breadcrumbs'][] = 'Update';
                     <p class="labelicone">Voltar</p>
                 </div>
             </a>
-            <a href=<?= Url::to(['create'])?>>
-                <div class="divicone divicone-l1">
-                    <?= Html::img('@web/img/addlocal.png', ['class' => 'imgicone'])?>
-                    <p>Novo Local</p>
-                </div>
-            </a>
         </div>
 
     <?= $this->render('_form2', [
