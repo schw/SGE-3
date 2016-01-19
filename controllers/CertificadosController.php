@@ -264,16 +264,19 @@ public function converterMes($current){
             if ($dia_inicio == $dia_fim){
                 $tag = '<b> '. $dia_inicio .' de '.$mes_fim.'
                     de '.$ano_fim.'</b>';
+                $tag = 'no dia'.$tag;
             }
             else{
                 $tag = '<b> '. $dia_inicio .' a '.$dia_fim .' de '.$mes_fim.'
                     de '.$ano_fim.'</b>';
+                $tag = 'no período de'.$tag;
             }
         }
         else if($mes_inicio != $mes_fim && $ano_inicio == $ano_fim){
             $tag = '<b> '. $dia_inicio .' de '.$mes_inicio.'
                 a '.$dia_fim .' de '.$mes_fim.'
                 de '.$ano_fim.'</b>';
+            $tag = 'no período de'.$tag;
         }
 
         else{
@@ -281,6 +284,7 @@ public function converterMes($current){
             $tag = '<b> '. $dia_inicio .' de '.$mes_inicio.'
                 de '.$ano_inicio.' a '.$dia_fim .' de '.$mes_fim.'
                 de '.$ano_fim.'</b>';
+            $tag = 'no período de'.$tag;
 
         }
 
@@ -404,20 +408,20 @@ if( $tipo_usuario ==0){
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
             ('.$model->sigla.')</b>, com carga horária de <b>'.$cargaHoraria.
-                ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
+                ' hora(s)</b>, realizado '.$tag.', na cidade 
                 de Manaus - AM.</p>');
 }
 else if ( $tipo_usuario == 1){
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
-            ('.$model->sigla.')</b>, na qualidade de palestrante, realizado no período de '.$tag.', na cidade 
+            ('.$model->sigla.')</b>, na qualidade de palestrante, realizado '.$tag.', na cidade 
                 de Manaus - AM.</p>');
 }
 else{
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
             ('.$model->sigla.')</b>, na qualidade de voluntário, com carga horária de <b>'.$ch_voluntario.
-                ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
+                ' hora(s)</b>, realizado '.$tag.', na cidade 
                 de Manaus - AM.</p>');
 }
     
@@ -437,11 +441,11 @@ else{
 
             $pdf->Ln(15);
 
-            $pdf->Line(95,160, 205,160);
-
             $pdf->Ln(10);
 
-            $pdf->WriteHTML("<div align=center> $nomeCoordenador->nome </div>");
+            $pdf->WriteHTML(' <div style = "border: 0;
+    border-bottom: 1px solid #000; margin-left: 25% ; margin-right:25%"> </div>
+                <div align=center> '.$nomeCoordenador->nome.' </div>');
 
             $pdf->SetFont('Helvetica','I',8);
             $pdf->Line(5,185,290,185);
@@ -467,8 +471,6 @@ else{
 public function actionPrevisualizacao() {
  
         $nomeImagem = Yii::$app->request->get('imagem'); 
-        $nomeImagem =  "11012016010142.jpg";
-
         
             $pdf = new mPDF('utf-8', 'A4-L');
 
@@ -548,13 +550,14 @@ public function actionPrevisualizacao() {
 
             $pdf->Ln(15);
 
-            $pdf->Line(95,160, 205,160);
-
             $pdf->Ln(10);
 
-            $pdf->WriteHTML("<div align=center>  <b> [Nome do Coordenador do Evento] </b> </div>");
+            $pdf->WriteHTML(' <div style = "border: 0;
+                border-bottom: 1px solid #000; margin-left: 25% ; margin-right:25%"> </div>
+                <div align=center> [Nome do Coordenador do Evento] </div>');
 
             $pdf->SetFont('Helvetica','I',8);
+
             $pdf->Line(5,185,290,185);
             $pdf->SetXY(10, 180);
             $pdf->MultiCell(0,5,"",0, 'C');

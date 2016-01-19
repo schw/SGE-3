@@ -390,16 +390,19 @@ class InscreveController extends Controller
             if ($dia_inicio == $dia_fim){
                 $tag = '<b> '. $dia_inicio .' de '.$mes_fim.'
                     de '.$ano_fim.'</b>';
+                $tag = 'no dia'.$tag;
             }
             else{
                 $tag = '<b> '. $dia_inicio .' a '.$dia_fim .' de '.$mes_fim.'
                     de '.$ano_fim.'</b>';
+                    $tag = 'no período de'.$tag;
             }
         }
         else if($mes_inicio != $mes_fim && $ano_inicio == $ano_fim){
             $tag = '<b> '. $dia_inicio .' de '.$mes_inicio.'
                 a '.$dia_fim .' de '.$mes_fim.'
                 de '.$ano_fim.'</b>';
+            $tag = 'no período de'.$tag;
         }
 
         else{
@@ -407,6 +410,8 @@ class InscreveController extends Controller
             $tag = '<b> '. $dia_inicio .' de '.$mes_inicio.'
                 de '.$ano_inicio.' a '.$dia_fim .' de '.$mes_fim.'
                 de '.$ano_fim.'</b>';
+
+            $tag = 'no período de'.$tag;
 
         }
 
@@ -506,7 +511,7 @@ class InscreveController extends Controller
         $pdf->WriteHTML('<p style="font-size: 20px; text-align: justify;  text-indent: 80px;">
             Certificamos que <b>'. $nome.'</b> participou do evento <b>"'. $model->descricao.'" 
             ('.$model->sigla.')</b>, com carga horária de <b>'.$cargaHoraria.
-                ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
+                ' hora(s)</b>, realizado '.$tag.', na cidade 
                 de Manaus - AM.</p>');
     
         $pdf->Ln(12);
@@ -520,16 +525,17 @@ class InscreveController extends Controller
         
         $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $mes. ' de '. 
             date('Y', $currentTime).'.             '),0,1, 'C');
+
      
         if($model->imagem == NULL){
 
             $pdf->Ln(15);
 
-            $pdf->Line(95,160, 205,160);
-
             $pdf->Ln(10);
 
-            $pdf->WriteHTML("<div align=center> $nomeCoordenador->nome </div>");
+            $pdf->WriteHTML(' <div style = "border: 0;
+                border-bottom: 1px solid #000; margin-left: 25% ; margin-right:25%"> </div>
+                <div align=center> '.$nomeCoordenador->nome.' </div>');
 
             $pdf->SetFont('Helvetica','I',8);
             $pdf->Line(5,185,290,185);

@@ -112,14 +112,14 @@ class Evento extends \yii\db\ActiveRecord
             }
         }
     }
-/*
+
     public function validadeHoraFim($attribute, $params){
         if (!$this->hasErrors()) {
             if ($this->horaFim <= $this->horaIni && $this->dataIni == $this->dataFim) {
                 $this->addError($attribute, 'Informe um horário acima do horário inicial');
             }
         }
-    }*/
+    }
 
     public function beforeDelete(){
     if((new PacoteSearch())->searchEventoPacoteDisponivel($this->idevento)->count > 0)
