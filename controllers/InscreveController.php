@@ -7,6 +7,7 @@ use app\models\Inscreve;
 use app\models\InscreveSearch;
 use app\models\EventoSearch;
 use app\models\Evento;
+use app\models\User;
 use app\models\ItemProgramacao;
 use app\models\ItemProgramacaoSearch;
 use app\models\Pacote;
@@ -374,8 +375,8 @@ class InscreveController extends Controller
     public function converterMes($current){
         $mes_numero = (date('m',strtotime($current)));
 
-        $mes = array ("Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho",
-        "Agosto","Setembro","Outubro","Novembro","Dezembro");
+        $mes = array ("janeiro","fevereiro","março","abril","maio","junho","julho",
+        "agosto","setembro","outubro","novembro","dezembro");
 
 
         return $mes[$mes_numero-1];
@@ -425,6 +426,9 @@ class InscreveController extends Controller
 
         $model = $this->findModel($id_evento);
 
+        $modelUsuario = new User();
+        $nomeCoordenador = $modelUsuario->findUser($model->responsavel);
+
                 $cargaHoraria = new Inscreve();
                 $cargaHoraria = $cargaHoraria->getSomaCargaHorariaPacote($id_evento,$nome= Yii::$app->user->identity->idusuario);
 
@@ -468,7 +472,7 @@ class InscreveController extends Controller
                 $pdf->Image('../web/img/ufam.jpg', 260, 7, 25.25);
             }
  
-            $pdf->Ln(45);
+            $pdf->Ln(25);
             $pdf->SetFont('Arial','B',22);
 
             if($model->imagem == NULL){
@@ -494,7 +498,7 @@ class InscreveController extends Controller
 
         $pdf->SetFont('Arial','',18);
 
-        $pdf->Ln(20);
+        $pdf->Ln(12);
 
         $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
@@ -504,7 +508,7 @@ class InscreveController extends Controller
                 ' hora(s)</b>, realizado no período de '.$tag.', na cidade 
                 de Manaus - AM.</p>');
     
-        $pdf->Ln(15);
+        $pdf->Ln(10);
         
         $current = date('Y/m/d');
 
@@ -515,7 +519,15 @@ class InscreveController extends Controller
         
         $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $mes. ' de '. 
             date('Y', $currentTime).'.             '),0,1, 'C');
+
         if($model->imagem == NULL){
+
+            $pdf->Line(95,150, 205,150);
+
+            $pdf->Ln(30);
+
+            $pdf->WriteHTML("<div align=center> $nomeCoordenador->nome </div>");
+
             $pdf->SetFont('Helvetica','I',8);
             $pdf->Line(5,185,290,185);
             $pdf->SetXY(10, 180);

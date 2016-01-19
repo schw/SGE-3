@@ -249,8 +249,8 @@ public function actionPdfcredenciados()
 public function converterMes($current){
         $mes_numero = (date('m',strtotime($current)));
 
-        $mes = array ("Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho",
-        "Agosto","Setembro","Outubro","Novembro","Dezembro");
+        $mes = array ("janeiro","fevereiro","março","abril","maio","junho","julho",
+        "agosto","setembro","outubro","novembro","dezembro");
 
 
         return $mes[$mes_numero-1];
@@ -298,6 +298,9 @@ public function converterMes($current){
         $ch_voluntario = $session->get('cargaHoraria');
 
         $model = $this->findModel($id_evento);
+        $modelUsuario = new User();
+
+        $nomeCoordenador = $modelUsuario->findUser($model->responsavel);
 
         $session->close();
         $session->destroy();
@@ -366,7 +369,7 @@ public function converterMes($current){
                 $pdf->Image('../web/img/ufam.jpg', 260, 7, 25.25);
             }
  
-            $pdf->Ln(45);
+            $pdf->Ln(25);
             $pdf->SetFont('Arial','B',22);
 
             if($model->imagem == NULL){
@@ -392,7 +395,7 @@ public function converterMes($current){
 
         $pdf->SetFont('Arial','',18);
 
-        $pdf->Ln(20);
+        $pdf->Ln(10);
 
         $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 if( $tipo_usuario ==0){
@@ -417,7 +420,7 @@ else{
                 de Manaus - AM.</p>');
 }
     
-        $pdf->Ln(15);
+        $pdf->Ln(5);
         
         $current = date('Y/m/d');
 
@@ -428,7 +431,15 @@ else{
         
         $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $mes. ' de '. 
             date('Y', $currentTime).'.             '),0,1, 'C');
+
         if($model->imagem == NULL){
+
+            $pdf->Line(95,150, 205,150);
+
+            $pdf->Ln(30);
+
+            $pdf->WriteHTML("<div align=center> $nomeCoordenador->nome </div>");
+
             $pdf->SetFont('Helvetica','I',8);
             $pdf->Line(5,185,290,185);
             $pdf->SetXY(10, 180);
@@ -485,7 +496,7 @@ public function actionPrevisualizacao() {
 
             }
             
-            $pdf->Ln(45);
+            $pdf->Ln(25);
             $pdf->SetFont('Arial','B',22);
 
             if($nomeImagem == NULL){
@@ -505,7 +516,7 @@ public function actionPrevisualizacao() {
 
         $pdf->SetFont('Arial','',18);
 
-        $pdf->Ln(20);
+        $pdf->Ln(10);
 
         $tag = $this->tag($dia_inicio,$mes_inicio,$ano_inicio,$dia_fim,$mes_fim,$ano_fim);
 
@@ -515,7 +526,7 @@ public function actionPrevisualizacao() {
                  hora(s)</b>, realizado no período de <b>[Data Inicial] a [Data Final]</b>, na cidade 
                 de Manaus - AM.</p>');
     
-        $pdf->Ln(15);
+        $pdf->Ln(5);
         
         $current = date('Y/m/d');
 
@@ -527,7 +538,15 @@ public function actionPrevisualizacao() {
         $pdf->Cell(0,5,('Manaus, '. date('d', $currentTime).' de '. $mes. ' de '. 
             date('Y', $currentTime).'.             '),0,1, 'C');
 
+
         if($nomeImagem == NULL){
+
+            $pdf->Line(95,150, 205,150);
+
+            $pdf->Ln(30);
+
+            $pdf->WriteHTML("<div align=center> <b> [Nome do Coordenador do Evento] </b> </div>");
+
             $pdf->SetFont('Helvetica','I',8);
             $pdf->Line(5,185,290,185);
             $pdf->SetXY(10, 180);
