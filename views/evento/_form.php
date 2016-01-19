@@ -60,7 +60,7 @@ use kartik\widgets\Select2;
         ],
     ]);
     ?>
-    <p><?= Html::a('Mais Palestrantes', ['palestrante/index'], ['class' => 'btn btn-primary']); ?><p>
+    <p><?= Html::a('Novo Palestrante', ['palestrante/index'], ['class' => 'btn btn-primary']); ?><p>
 
     <?= $form->field($model, 'local_idlocal')->widget(Select2::classname(), [
         'data' => $arrayLocal,
@@ -70,7 +70,7 @@ use kartik\widgets\Select2;
         ],
     ]);
     ?>
-    <p><?= Html::a('Mais Locais', ['local/index'], ['class' => 'btn btn-primary']); ?><p>
+    <p><?= Html::a('Novo Local', ['local/index'], ['class' => 'btn btn-primary']); ?><p>
 
     <?= $form->field($model, 'tipo_idtipo')->widget(Select2::classname(), [
         'data' => $arrayTipo,
@@ -80,7 +80,7 @@ use kartik\widgets\Select2;
         ],
     ]);
     ?>
-    <p><?= Html::a('Mais Tipos', ['tipo/index'], ['class' => 'btn btn-primary']); ?><p>
+    <p><?= Html::a('Novo Tipo', ['tipo/index'], ['class' => 'btn btn-primary']); ?><p>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar Evento' : 'Salvar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

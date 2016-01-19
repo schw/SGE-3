@@ -76,6 +76,8 @@ class Evento extends \yii\db\ActiveRecord
             'dataFim' => '*Data Final',
             'horaIni' => '*Hora Inicial',
             'horaFim' => '*Hora Final',
+            'horaini' => '*Hora Inicial',
+            'horafim' => '*Hora Final',
             'vagas' => 'Vagas',
             'cargaHoraria' => '*Carga Horária',
             'imagem' => '',
@@ -115,7 +117,7 @@ class Evento extends \yii\db\ActiveRecord
 
     public function validadeHoraFim($attribute, $params){
         if (!$this->hasErrors()) {
-            if ($this->horaFim <= $this->horaIni && $this->dataIni == $this->dataFim) {
+            if ($this->dataIni == $this->dataFim && $this->horaFim <= $this->horaIni) {
                 $this->addError($attribute, 'Informe um horário acima do horário inicial');
             }
         }
@@ -193,7 +195,7 @@ class Evento extends \yii\db\ActiveRecord
     }
 
 
-    /*Função para geração de nome e Salvamento da imagem na pasta "Web/uploads/" retorna no o nome  ser inserido no banco */
+    /*Função para geração de nome e Salvamento da imagem na pasta "Web/uploads/" retorna o nome para ser inserido no banco */
     public function upload($imageFile,$diretorio)
     {
         if ($imageFile != null && ($imageFile->extension == 'png' || $imageFile->extension == 'jpg' || $imageFile->extension == 'jpeg')) {
@@ -217,22 +219,30 @@ class Evento extends \yii\db\ActiveRecord
     }
 
 
-    /*Funções para visualização dos Atributos de maneira correta*/
+    /*Funções para formatação dos Atributos de maneira correta*/
     public function getDataIni(){
         return date("d-M-Y", strtotime($this->dataIni));
     }
 
+    public function getHoraIni(){
+        return date("H:i", strtotime($this->horaIni));    
+    }
+
+    public function getHoraFim(){
+        return date("H:i", strtotime($this->horaFim));    
+    }
+    
     public function getDataFim(){
         return date("d-M-Y", strtotime($this->dataFim));
     }
 
     public function getCargaHoraria(){
-        return $this->cargaHoraria." hs";
+        return $this->cargaHoraria." h";
     }
+    /*****************************************************/
 
 //usado para relatórios, não apagar !!!
-        public function getInscritosEventos($datainicial, $datafinal)
-    {
+    public function getInscritosEventos($datainicial, $datafinal){
 
         if ($datainicial != NULL && $datafinal != NULL){
             
@@ -281,8 +291,5 @@ class Evento extends \yii\db\ActiveRecord
         ->all();
 
         return $model;
-    }
-
-
-    
+    }    
 }

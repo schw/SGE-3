@@ -69,8 +69,8 @@ class ItemProgramacao extends \yii\db\ActiveRecord
             'titulo' => '*Título',
             'descricao' => '*Descrição',
             'data' => '*Data',
-            'hora' => '*Hora',
-            'horaFim' => 'Hora Término',
+            'hora' => '*Hora Inicial',
+            'horaFim' => 'Hora Final',
             'vagas' => '*Vagas',
             'cargaHoraria' => '*Carga Horária',
             'detalhe' => 'Detalhe',
@@ -96,6 +96,24 @@ class ItemProgramacao extends \yii\db\ActiveRecord
             }
         }
     }
+
+    /*Funções para formatação dos campos*/
+    public function getDataFormat(){
+        return date("d-M-Y", strtotime($this->data));
+    }
+
+    public function getHoraIni(){
+        return date("H:i", strtotime($this->hora));    
+    }
+
+    public function getHoraFim(){
+        return date("H:i", strtotime($this->horaFim));    
+    }
+
+    public function getCargaHoraria(){
+        return $this->cargaHoraria." h";
+    }
+    /****************************************/
 
     public function getPalestrante()
     {

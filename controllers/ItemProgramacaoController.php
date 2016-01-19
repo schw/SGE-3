@@ -121,10 +121,10 @@ class ItemProgramacaoController extends Controller
         
         if ($model->load(Yii::$app->request->post())) {
             if($model->save()){                
-                $this->mensagens('success', "Item '".$model->titulo."' foi Adicionado", 'O Item de Programação foi Adicionado com Sucesso');
+                $this->mensagens('success', "Item '".$model->titulo."' foi Adicionado", 'O Item de Programação foi adicionado com sucesso');
                 return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
             }else{
-                $this->mensagens('danger',"Item '".$model->titulo."' Não Adicionado", 'Houve um erro ao adicionar Item de Programacão. Verique os dados iformados e tente novamente');
+                $this->mensagens('danger',"Item '".$model->titulo."' Não Adicionado", 'Houve um erro ao adicionar Item de Programacão. Verifique os dados informados e tente novamente');
                 return $this->redirect(['index', 'idevento' => $model->evento_idevento]);
             }
         } else {
@@ -198,7 +198,7 @@ class ItemProgramacaoController extends Controller
         if (($model = ItemProgramacao::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página solicitada não existe.');
         }
     }
 

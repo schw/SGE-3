@@ -118,13 +118,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]) ?>
             </div>
 
-        <?php if($allow == 0 || $allow == null || $allow == 1) { ?>
         <a href=<?= Url::to(['evento/update', 'id' => $model->idevento])?>>
             <div class="divicone divicone-l1">
                 <?= Html::img('@web/img/editar.png', ['class' => 'imgicone']) ?>
                 <p>Alterar Evento</p>
             </div>
         </a>
+        <?php if($allow == 0 || $allow == null) { ?>
             
 <!-- abrir inscrições -->
         <a href=<?= Url::to(['evento/abrir', 'id' => $model->idevento])?>>
@@ -289,8 +289,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'descricao',
             'dataini',
             'datafim',
-            'horaIni',
-            'horaFim',
+            'horaini',
+            'horafim',
             'vagas',
             'CargaHoraria',
             'detalhe',
