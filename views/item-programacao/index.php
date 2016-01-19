@@ -55,23 +55,22 @@ $this->params['breadcrumbs'][] = $this->title;
       </div>
     
 
-    <div id='external-events' style="width: 300px; float: left;">
-        <h4>Arraste um dos itens para calendário</h4>
+    <div id='external-events' style="background-color: #DAA520; padding: 10px 10px 10px 10px; width: 300px; float: left; border: solid 2px;">
+        <h4> Arraste um destes tipos de evento até calendário: </h4>
         <?php foreach ($arrayTipo as $key => $item) {?>
-          <div class='fc-event' id=<?=$key.">".$item?></div>
+          <div style="margin: 5px 5px 5px 5px;" class='fc-event' id=<?=$key.">".$item?></div>
         <?php } ?>
         <p></p>
     </div>
     <br>
-    <div class="col-md-8" style="margin-left: 20px;margin-bottom: 20px;border: solid 2px;">
+    <div class="col-md-8" style="background-color: #B94C4C ; margin-left: 20px;margin-bottom: 20px;border: solid 2px;">
               
-              Observações para criação de um item de Programação: <br>
-<br>
+              <h3> Leia atentamente as observações: </h3> 
           <b>
           <ul>
-            <li> Ao arrastar um tipo para o calendário será exibido automaticamente um formulário de item de programação.
-            <li> Caso o formulário seja cancelado, poderá ser exibido novamente quando o tipo colocado no calendário é clicado.</li>
-            <li> Quando preenchidas as informações, os item de programação não poderão seja movidos, apenas editados quando clicados.</li>
+            <li> Você deve arrastar um dos tipos de evento constantes no quadrado AMARELO até o calendário, selecionado a data e hora desejável. </li>
+            <li> Após, será exibido automaticamente um formulário para preenchimento dos dados referente ao item de programação a ser criado.</li>
+            <li> Depois de inserir as informações do item de programação no formulário e salvar, ele ficará impossibilitado de ser arrastado para outra data ou hora.</li>
           </ul>
           Para informações mais detalhadas, consulte o manual do usuário. <br>
           </b>
@@ -181,7 +180,7 @@ $this->params['breadcrumbs'][] = $this->title;
       ]);
     ?>
     <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->identity->tipoUsuario == 1 || Yii::$app->user->identity->tipoUsuario == 2)){ ?>
-    <?= Html::button('Itens a serem editados', ['id' => 'bota']) ?>
+    <?php //echo Html::button('Itens a serem editados', ['id' => 'bota']) ?>
     <?php 
     }?>
     </div>
