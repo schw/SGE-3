@@ -22,8 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <meta property="og:type"          content="website" />
     <meta property="og:title"         content="<?php echo $model->descricao;?>" />
     <meta property="og:description"   content="<?php if($model->detalhe === "") {echo "Evento do Instituto de Computação";}else{echo $model->detalhe;}?>"/>
-    <meta property="og:image"         content="<?php if($model->imagem2!="" && $model->imagem2!="NULL" && $model->imagem2!="null"){ echo "https://".Yii::$app->request->serverName.Yii::$app->request->baseUrl."/uploads/identidade/".$model->imagem2;
-	}else{echo "https://".Yii::$app->request->serverName.Yii::$app->request->baseUrl."/uploads/identidade/icomp.png";}?>">
+    <meta property="og:image"         content="<?php if($model->imagem2!="" && $model->imagem2!="NULL" && $model->imagem2!="null"){ echo "http://".Yii::$app->request->serverName.Yii::$app->request->baseUrl."/uploads/identidade/".$model->imagem2;
+	}else{echo "http://".Yii::$app->request->serverName.Yii::$app->request->baseUrl."/uploads/identidade/icomp.png";}?>">
 
 </head>
 <body>

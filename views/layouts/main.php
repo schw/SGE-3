@@ -44,10 +44,10 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['site/index']],
             ['label' => 'Recuperar Senha', 'url' => ['site/recuperar'], 'visible' => Yii::$app->user->isGuest],
             ['label' => 'Eventos', 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3),'items' => [
+		['label' => 'Inscrições Não Iniciadas', 'url' => ['evento/gerenciareventos', 'inscricoes' => 'naoiniciada']],
+                '<li class="divider"></li>',
                 ['label' => 'Inscrições Abertas', 'url' => ['evento/gerenciareventos', 'inscricoes' => 'aberta']],
-                '<li class="divider"></li>',
-                ['label' => 'Inscrições Não Iniciadas', 'url' => ['evento/gerenciareventos', 'inscricoes' => 'naoiniciada']],
-                '<li class="divider"></li>',
+                '<li class="divider"></li>',                
                 ['label' => 'Inscrições Fechadas', 'url' => ['evento/gerenciareventos', 'inscricoes' => 'fechada']],
                 '<li class="divider"></li>',
                 ['label' => 'Eventos Passados', 'url' => ['evento/gerenciareventos', 'status' => 'passado']],],], 

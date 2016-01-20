@@ -11,8 +11,8 @@
                 ['label' => 'Home', 'icon' => 'home', 'url' => ['site/index']],
 	            ['label' => 'Recuperar Senha',  'icon' => 'info-sign', 'url' => ['site/recuperar'], 'visible' => Yii::$app->user->isGuest],
 	            ['label' => 'Eventos', 'icon' => 'tags', 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario != 3),'items' => [
-	                ['label' => 'Inscrições Abertas', 'url' => ['evento/gerenciareventos', 'inscricoes' => 'aberta']],
-	                ['label' => 'Inscrições Não Iniciadas', 'url' => ['evento/gerenciareventos', 'inscricoes' => 'naoiniciada']],
+			['label' => 'Inscrições Não Iniciadas', 'url' => ['evento/gerenciareventos', 'inscricoes' => 'naoiniciada']],	                
+			['label' => 'Inscrições Abertas', 'url' => ['evento/gerenciareventos', 'inscricoes' => 'aberta']],	                
 	                ['label' => 'Inscrições Fechadas', 'url' => ['evento/gerenciareventos', 'inscricoes' => 'fechada']],
 	                ['label' => 'Passados', 'url' => ['evento/gerenciareventos', 'status' => 'passado']],],], 
 	            ['label' => 'Eventos Ativos', 'icon' => 'tags', 'visible' => (!Yii::$app->user->isGuest &&  Yii::$app->user->identity->tipoUsuario == 3), 'url' => ['evento/index']],
