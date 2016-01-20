@@ -44,7 +44,7 @@ class Palestrante extends \yii\db\ActiveRecord
     {
         return [
             'idPalestrante' => 'Id Palestrante',
-            'nome' => '*Nome',
+            'nome' => '*Palestrante',
             'email' => 'Email',
         ];
     }
