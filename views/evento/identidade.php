@@ -53,21 +53,18 @@ $this->title = "Imagem Certificado";
 	    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data','id' => 'certificadosform','target' => '_blank']]); ?>
 
 
-	   	<h3> Selecione uma imagem para o certificado </h3>	    
-	    <div style="position: relative; border: 3px solid #000000; padding: 10px;"> 
-	    	<?= $form->field($model, 'imagem')->fileInput(['accept' => '.jpg, .png, .jpeg']) ?>
+	    <div style="position: relative; border: 3px solid #000000; padding: 5px;"> 
 
-	    		    	<b> <div style="color: red;"> Obs.: O não selecionamento de uma imagem acarretará que 
+	   	<h3> Selecione uma imagem para o certificado </h3> 
+	    	<?= $form->field($model, 'imagem')->fileInput(['accept' => '.jpg, .png, .jpeg']) ?>
+	    		    	<b> <div style="color: red;"> Obs.: É facultativa a escolha de um imagem para o certificado, porém o não selecionamento de uma imagem acarretará que 
 	    		os certificados serão gerados em um formato padrão.
 	    					</div>
 	    				 </b>
-
 	    </div>
 
-
-
-<br>	    
-	    		<br>Clicando em <b> Visualizar Certificado </b> é possível observar a prévia de como ficará o certificado.
+	    <br>
+	    <div align="center"> Clicando no botão <b> Visualizar Prévia do Certificado </b> é possível observar a prévia de como ficará o certificado. </div> 
 
 	    <div class="form-group">
 	    <div style = "text-align:center; margin-right:90px"> 
