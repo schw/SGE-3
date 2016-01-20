@@ -57,31 +57,31 @@ $this->title = "Imagem Certificado";
 	    <div style="position: relative; border: 3px solid #000000; padding: 10px;"> 
 	    	<?= $form->field($model, 'imagem')->fileInput(['accept' => '.jpg, .png, .jpeg']) ?>
 
+	    		    	<b> <div style="color: red;"> Obs.: O não selecionamento de uma imagem acarretará que 
+	    		os certificados serão gerados em um formato padrão.
+	    					</div>
+	    				 </b>
+
 	    </div>
 
 
 
-<br>
-	    	Obs.: A não seleção de uma imagem acarretará que 
-	    		os certificados serão gerados em um formato padrão.
+<br>	    
 	    		<br>Clicando em <b> Visualizar Certificado </b> é possível observar a prévia de como ficará o certificado.
 
 	    <div class="form-group">
 	    <div style = "text-align:center; margin-right:90px"> 
 	    	<?= "<br>" ?>
-			<?= Html::submitButton('Visualizar Certificado', ['class' => 'btn btn-warning', 'name' => 'frag2']); ?>
-			<?= Html::submitButton('Salvar Imagem', ['onclick' => 'retirarBlank()' ,'name' => 'frag','class' => 'btn btn-success']); ?>
+			<?= Html::submitButton('Visualizar Prévia do Certificado', ['class' => 'btn btn-warning', 'name' => 'frag2']); ?>
+			<?= Html::submitButton('Finalizar Cadastro do Evento', ['onclick' => 'retirarBlank()' ,'name' => 'frag','class' => 'btn btn-success']); ?>
 		</div>
 
 	    </div>
 
 
 		<p> <br>
-
-
-
-
-				Recomendações e exemplo para a imagem: <br>
+<div style="    display: block; margin-top: 0.5em; margin-bottom: 0.5em; margin-left: auto; margin-right: auto; border-style: inset; border-width: 1px;"> </div>
+				<b> Recomendações e exemplo para a imagem: </b> <br>
 
 <img src="../web/img/imagem_tutorial_certificado.png" width="700" height="450">
 <br><br>
