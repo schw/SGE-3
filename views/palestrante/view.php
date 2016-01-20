@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div id="titulo" style= "float: left;">
                 <h1><?= $this->title ?></h1>
             </div>
-            <a href=<?= Url::to(['index'])?>>
+            <a href="javascript:window.history.go(-1)">
                 <div class="divicone divicone-l1">
                     <?= Html::img('@web/img/voltar.png', ['class' => 'imgicone'])?>
                     <p class="labelicone">Voltar</p>

@@ -216,7 +216,7 @@ class Evento extends \yii\db\ActiveRecord
     
     /*Verifica se o usuário autenticado possui permissão de responsável*/
     public function canAccessResponsible(){
-        return !Yii::$app->user->isGuest && date("Y-m-d", strtotime($this->dataFim)) > date('Y-m-d') && Yii::$app->user->identity->idusuario == $this->responsavel ? true : false;
+        return !Yii::$app->user->isGuest && date("Y-m-d", strtotime($this->dataFim)) >= date('Y-m-d') && Yii::$app->user->identity->idusuario == $this->responsavel ? true : false;
     }
 
 
