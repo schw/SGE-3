@@ -44,7 +44,7 @@ class EventoSearch extends Evento
      */
     public function searchEventos($status){
         //$query = Evento::find()->where("dataFim > '". date('Y-m-d')."'");
-        $query = Evento::find()->where("allow = '1' AND dataFim > '". date('Y-m-d')."'")
+        $query = Evento::find()->where("allow = '1' AND dataFim >= '". date('Y-m-d')."'")
         ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         //mostrando apenas eventos permitidos (com inscricoes abertas)
 
