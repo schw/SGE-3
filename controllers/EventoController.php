@@ -75,7 +75,7 @@ class EventoController extends Controller
             ]);
 
         }else if($params['inscricoes'] == 'fechada'){
-
+            
             return $this->render('inscricoesFechadas', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
@@ -109,6 +109,7 @@ class EventoController extends Controller
     public function actionView($id){
 
         $dataProvider = null;
+        $this->findModel($id);
         
         Yii::$app->user->isGuest ? $verificaInscrito = 0 : 
         
@@ -373,7 +374,7 @@ class EventoController extends Controller
             //inserir messsagem de erro, $model->getErrors();
             $this->mensagens('danger', 'Abertura das Inscrições', 'Não foi possível abrir as inscrições deste evento.');
 
-            return $this->redirect(['gerenciareventos', 'inscricoes' => 'aberta']);            
+            return $this->redirect(['gerenciareventos', 'inscricoes' => 'fechada']);            
 
         }
 

@@ -431,7 +431,7 @@ public function VerificaEncerramento($params)
 
         $data_fim = strtotime(Evento::findOne(['idevento' => $params['id']])->dataFim);
 
-        if($data_atual >= $data_fim){
+        if($data_atual > $data_fim){
 
             return 1;
         }

@@ -95,6 +95,7 @@ class Evento extends \yii\db\ActiveRecord
             'datafim' => '*Data Final',
             'CargaHoraria' => '*Carga Horária',
             'qtd_evento' => 'Total de inscritos',
+            'inscritoseventogeral' => 'Total de inscritos',
         ];
     }
 
@@ -291,5 +292,10 @@ class Evento extends \yii\db\ActiveRecord
         ->all();
 
         return $model;
-    }    
+    }
+
+    public function getInscritosEventoGeral(){
+        $qte = Inscreve::find()->where(['evento_idevento' => $this->idevento])->count();
+        return $qte;
+    }
 }

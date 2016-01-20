@@ -105,25 +105,25 @@ class EventoSearch extends Evento
         $inscricoes = $params['inscricoes'];
 
         if ($status == 'passado') {
-            $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
+            $query = Evento::find()->select(['*'])->
             where("dataFim < '". date('Y-m-d')."'")->joinWith("inscreve")->
-                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla')
+                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])
                 ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
 
         }else if($inscricoes == 'fechada'){
-            $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
+            $query = Evento::find()->select(['*'])->
             where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '0'")->joinWith("inscreve")->
-                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla')
+                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])
                 ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         }else if($inscricoes == 'naoiniciada'){
-            $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
+            $query = Evento::find()->select(['*'])->
             where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow is null")->joinWith("inscreve")->
-                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla')
+                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])
                 ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         }else{
-            $query = Evento::find()->select(['*','COUNT(inscreve.evento_idevento) AS qtd_evento'])->
+            $query = Evento::find()->select(['*'])->
             where("dataFim >= '". date('Y-m-d')."'")->andWhere("allow = '1'")->joinWith("inscreve")->
-                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])->groupBy('sigla')
+                andWhere(['responsavel' => Yii::$app->user->identity->idusuario])
                 ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         }
 

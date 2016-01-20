@@ -75,7 +75,7 @@ public function searchInscricoes($params)
         
         if (!Yii::$app->user->isGuest) {
             $query = Inscreve::find()->where(['usuario_idusuario' => Yii::$app->user->identity->idusuario])
-            ->andWhere("dataFim > '". date('Y-m-d')."'")
+            ->andWhere("dataFim >= '". date('Y-m-d')."'")
             ->innerJoin('evento','evento.idevento = inscreve.evento_idevento')
             ->innerJoin('tipo','evento.tipo_idtipo = tipo.idtipo');
         }

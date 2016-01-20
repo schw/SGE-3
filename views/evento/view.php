@@ -185,7 +185,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->tipoUsuario == 3){
  
-        if(!$encerrado){     
+        if(!$encerrado){ 
             if(!$inscrito){ 
                 if($existeVagas != 0){ ?>
                         <?php if($dataProvider != null){ ?>

@@ -115,10 +115,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 // 'detalhe',
                 // 'allow',
                 //'responsavel',
+
                 ['attribute' => 'tipo.titulo', 'value' => 'tipo.titulo'],
                 ['attribute' => 'Vagas', 'value' => 'vagas','headerOptions' => ['width' => '100']],
-                ['attribute' => 'qtd_evento', 'value' => 'qtd_evento','headerOptions' => ['width' => '170']],
-                //['attribute' => 'Total de Vagas', 'value' => 'vagas', 'visible' => $status == 'passado'],
+                //['attribute' => 'qtd_evento', 'value' => 'qtd_evento','headerOptions' => ['width' => '170']],
+                ['attribute' => 'inscritoseventogeral', 'value' => 'inscritoseventogeral','headerOptions' => ['width' => '170']],
                 ['class' => 'yii\grid\ActionColumn', 'header'=>'Action', 'headerOptions' => ['width' => '80'], 'template' => '{view} {update} {delete}{link}'],
             ],
         ]); ?>
