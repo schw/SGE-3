@@ -269,9 +269,9 @@ class Evento extends \yii\db\ActiveRecord
         }
 
 
-         $model = Evento:: find()->select(['sigla','COUNT(inscreve.evento_idevento) AS qtd_evento'])
+         $model = Evento:: find()->select(['idevento','sigla','COUNT(inscreve.evento_idevento) AS qtd_evento'])
         ->leftJoin('inscreve', 'inscreve.evento_idevento = evento.idevento')
-        ->groupBy('sigla')
+        ->groupBy('idevento')
         ->where($where)
         ->andWhere('evento.responsavel = '.Yii::$app->user->identity->idusuario)
         ->orderBy('qtd_evento DESC')
