@@ -40,7 +40,7 @@ class UserController extends Controller
     	$id = Yii::$app->request->post('id');
         if(!$id){
             $this->autorizaUsuario($id);
-            $id = Yii::$app->user->identity->idusuario;    
+            $id = Yii::$app->user->identity->idusuario;  
             //$model = User::findByEmail(Yii::$app->user->identity->email); 
         }
         	return $this->render('view', [

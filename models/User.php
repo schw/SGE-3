@@ -212,6 +212,21 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         }
     }
 
+    public function getDescricaoTipoOutro()
+    {
+        switch($this->tipoUsuario){
+            case '1':
+                return 'Coordenador';
+                break;
+            case '2':
+                return 'Secretário';
+                break;
+            case '3':
+                return 'Participante';
+                break;
+        }
+    }
+
     //função necessária para emissão de RELATÓRIOS, NÃO APAGAR!
     public function getCoordenadoresEventos($datainicial,$datafinal)
     {   

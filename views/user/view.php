@@ -33,7 +33,7 @@ $model->notificarViaEmail = $model->notificarViaEmail ? "Sim" : "Não";
                 'cracha',
                 'email:email',
                 'instituicao',
-                'descricaotipousuario',
+                'descricaotipooutro',
                 'notificarViaEmail',
             ],
         ]) ?>

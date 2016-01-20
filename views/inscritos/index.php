@@ -67,9 +67,10 @@ use yii\helpers\Url;
                     return 'Não';
                 }
             },],
-            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '90'], 
-            'template' => '{view} {credenciar} {descredenciar} {cancelarinscricao}{link}','buttons' => [
+            ['class' => 'yii\grid\ActionColumn', 'header'=>'Ação', 'headerOptions' => ['width' => '100'], 
+            'template' => '{view}  {credenciar}  {descredenciar}  {cancelarinscricao}{link}','buttons' => [
                 'credenciar' => function ($url,$model,$key) {
+                          if(!$model->credenciado)
                           return Html::a('<span class="glyphicon glyphicon-ok-circle"></span>', ['inscritos/credenciar'],[
                             'title'=> 'Credenciar',
                             'data'=>[
@@ -78,6 +79,7 @@ use yii\helpers\Url;
                             ]]);
                 },
                 'descredenciar' => function ($url,$model,$key) {
+                        if($model->credenciado)
                           return Html::a('<span class="glyphicon glyphicon-remove"></span>', ['inscritos/descredenciar'],[
                             'title'=> 'Descredenciar',
                             'data'=>[
